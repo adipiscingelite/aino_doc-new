@@ -9,12 +9,12 @@
   </nav>
 </div> -->
 
-<button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+<!-- <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
   <span class="sr-only">Open sidebar</span>
   <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
   <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
   </svg>
-</button>
+</button> -->
 
 <!-- <div class="border border-red-500" > -->
 <aside class="flex flex-col lg:w-60 md:40 h-screen px-5 py-8 overflow-y-auto border-r rtl:border-r-0 rtl:border-l bg-white">
@@ -27,7 +27,7 @@
           <div class="space-y-3 ">
               <label class="px-3 text-xs text-gray-500 uppercase  ">main</label>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a routerLink="dashboard" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
                   </svg>
@@ -47,7 +47,7 @@
           <div class="space-y-3 ">
               <label class="px-3 text-xs text-gray-500 uppercase  ">Form</label>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a routerLink="/form/itcm" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                   </svg>
@@ -55,7 +55,7 @@
                   <span class="mx-2 text-sm font-medium">Form ITCM</span>
               </a>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a routerLink="/form/da" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
               </svg>
@@ -63,7 +63,7 @@
                   <span class="mx-2 text-sm font-medium">Form DA</span>
               </a>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a routerLink="/form/ba" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
               </svg>
@@ -71,7 +71,7 @@
                   <span class="mx-2 text-sm font-medium">Form BA</span>
               </a>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a routerLink="/form/hak-akses" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
                   <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
@@ -84,7 +84,7 @@
           <div class="space-y-3 ">
               <label class="px-3 text-xs text-gray-500 uppercase  ">Control</label>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a routerLink="/ppp" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18.844 7.875c-.138 1.906-1.552 3.375-3.094 3.375-1.542 0-2.959-1.468-3.094-3.375-.14-1.983 1.236-3.375 3.094-3.375 1.858 0 3.235 1.428 3.094 3.375Z"></path>
                   <path d="M15.75 14.25c-3.055 0-5.993 1.517-6.729 4.472-.097.391.148.778.55.778h12.358c.402 0 .646-.387.55-.778-.736-3.002-3.674-4.472-6.73-4.472Z"></path>
@@ -95,7 +95,7 @@
                   <span class="mx-2 text-sm font-medium">User Control</span>
               </a>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.5 14.25v-.844c0-.78-.668-1.406-1.5-1.406s-1.5.627-1.5 1.406v.844"></path>
                   <path fill="currentColor" stroke="none" d="M14.25 19.5h-4.5a1.5 1.5 0 0 1-1.5-1.5v-2.25a1.5 1.5 0 0 1 1.5-1.5h4.5a1.5 1.5 0 0 1 1.5 1.5V18a1.5 1.5 0 0 1-1.5 1.5Z"></path>
@@ -106,7 +106,7 @@
                   <span class="mx-2 text-sm font-medium">Document Control</span>
               </a>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="m20.381 6.452-7-3.192c-.76-.347-2.002-.347-2.76 0L3.623 6.452c-.825.375-.825.989 0 1.364l6.937 3.164c.792.36 2.095.36 2.887 0l6.937-3.164c.821-.375.821-.99-.004-1.364Z"></path>
                   <path d="m7.5 14.462-3.876 1.74c-.825.375-.825.989 0 1.364l6.937 3.164c.792.36 2.095.36 2.887 0l6.937-3.164c.825-.375.825-.99 0-1.364l-3.747-1.804"></path>
@@ -116,7 +116,7 @@
                   <span class="mx-2 text-sm font-medium">Products</span>
               </a>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M20.47 8.63a1.274 1.274 0 0 1-1.796 0l-1.053-1.055a1.272 1.272 0 0 1 0-1.795l2.385-2.385a.04.04 0 0 0 .003-.053.04.04 0 0 0-.015-.012c-1.54-.659-3.536-.324-4.803.935-1.213 1.204-1.282 3.013-.838 4.594a1.266 1.266 0 0 1-.36 1.272l-8.109 7.535a1.911 1.911 0 1 0 2.699 2.698l7.6-8.124a1.266 1.266 0 0 1 1.255-.36c1.569.418 3.351.34 4.55-.842 1.29-1.269 1.567-3.512.943-4.796a.04.04 0 0 0-.03-.022.04.04 0 0 0-.034.011L20.47 8.63Z"></path>
                   <path d="M10.5 13.311c-.819-.797-1.194-1.168-1.453-1.42a.855.855 0 0 1-.156-1c.045-.08.1-.153.164-.217l.735-.717a.849.849 0 0 1 1.201-.012l1.567 1.525"></path>
@@ -127,7 +127,7 @@
                   <span class="mx-2 text-sm font-medium">Projects</span>
               </a>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16.366 6.414c-1.89 0-2.688.902-4.005.902-1.35 0-2.379-.895-4.016-.895-1.603 0-3.313.978-4.399 2.646-1.524 2.351-1.265 6.78 1.204 10.552.883 1.35 2.062 2.865 3.609 2.881h.028c1.345 0 1.744-.88 3.594-.89h.028c1.823 0 2.188.885 3.527.885h.028c1.547-.016 2.79-1.695 3.673-3.04.636-.967.872-1.453 1.36-2.547-3.572-1.356-4.146-6.42-.614-8.36-1.078-1.35-2.593-2.132-4.021-2.132l.004-.002Z"></path>
                   <path d="M15.949 1.5c-1.125.076-2.438.793-3.207 1.728-.697.847-1.27 2.104-1.046 3.324h.09c1.198 0 2.425-.722 3.14-1.646.69-.88 1.214-2.127 1.023-3.406Z"></path>
@@ -136,7 +136,7 @@
                   <span class="mx-2 text-sm font-medium">Applications</span>
               </a>
 
-              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700" href="#">
+              <a class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.25 19.5v3"></path>
                   <path d="M3.75 1.5h9a1.5 1.5 0 0 1 1.5 1.5v19.313a.188.188 0 0 1-.188.187H2.25V3a1.5 1.5 0 0 1 1.5-1.5v0Z"></path>

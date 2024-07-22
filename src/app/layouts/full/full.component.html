@@ -1,10 +1,10 @@
 <!-- full.component.html -->
 <div>
   <app-sidebar class="absolute top-0 left-0 z-0 text-3xl"></app-sidebar>
-  <div class="h-screen overflow-y-scroll">
+  <div class="h-screen overflow-y-auto">
 
-    <app-header class="sticky top-0 left-0"></app-header>
-    <div class="pl-60">
+    <app-header class="sticky top-0 left-0 z-20"></app-header>
+    <div class="pl-64 pr-4 py-3">
       <router-outlet></router-outlet>
     </div>
   </div>

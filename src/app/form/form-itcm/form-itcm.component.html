@@ -1,0 +1,302 @@
+<h1 class="py-3 text-center text-3xl font-semibold text-gray-800">Form ITCM</h1>
+<div class="flex w-full pb-4 px-2 bg-white">
+  <label for="table-search" class="sr-only">Search</label>
+  <div class="relative">
+      <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+          <svg class="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+      </div>
+      <input type="text" id="table-search" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for items">
+  </div>
+  <button type="button" class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+    Add Form
+    </button>
+</div>
+<div class="relative py-2 overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+      <tr>
+        <!-- <th scope="col" class="p-4">
+          <div class="flex items-center">
+            <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+          </div>
+        </th> -->
+        <th scope="col" class="px-6 py-3">No.</th>
+        <th scope="col" class="px-6 py-3">No. Formulir</th>
+        <th scope="col" class="px-6 py-3">No. Ticket</th>
+        <th scope="col" class="px-6 py-3">Dokumen</th>
+        <th scope="col" class="px-6 py-3">Projek</th>
+        <th scope="col" class="px-6 py-3">Manajer</th>
+        <th scope="col" class="px-6 py-3">Status</th>
+        <th scope="col" class="px-6 py-3">Approval Status</th>
+        <th scope="col" class="px-6 py-3">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</th>
+        <td class="px-6 py-4">0001/F/VII/2024</td>
+        <td class="px-6 py-4">1</td>
+        <td class="px-6 py-4">IT Change Manajement</td>
+        <td class="px-6 py-4">web aino</td>
+        <td class="px-6 py-4">ZAni</td>
+        <td class="px-6 py-4">Draft</td>
+        <td class="px-6 py-4">Menunggu Disetujui</td>
+        <td class="px-6 py-4 ">
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                <path d="m16 5 3 3"></path>
+               </svg>
+            </button>
+          </a>
+          <br>
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                <path d="m9 15 2 2 4-4"></path>
+               </svg>
+            </button>
+          </a>
+          <br>  
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                <path d="M3.75 5.25h16.5"></path>
+                <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                <path d="M12 8.25v10.5"></path>
+                <path d="M8.625 8.25 9 18.75"></path>
+                <path d="M15.375 8.25 15 18.75"></path>
+               </svg>
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</th>
+        <td class="px-6 py-4">0001/F/VII/2024</td>
+        <td class="px-6 py-4">1</td>
+        <td class="px-6 py-4">IT Change Manajement</td>
+        <td class="px-6 py-4">web aino</td>
+        <td class="px-6 py-4">ZAni</td>
+        <td class="px-6 py-4">Draft</td>
+        <td class="px-6 py-4">Menunggu Disetujui</td>
+        <td class="px-6 py-4 ">
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                <path d="m16 5 3 3"></path>
+               </svg>
+            </button>
+          </a>
+          <br>
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                <path d="m9 15 2 2 4-4"></path>
+               </svg>
+            </button>
+          </a>
+          <br>  
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                <path d="M3.75 5.25h16.5"></path>
+                <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                <path d="M12 8.25v10.5"></path>
+                <path d="M8.625 8.25 9 18.75"></path>
+                <path d="M15.375 8.25 15 18.75"></path>
+               </svg>
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</th>
+        <td class="px-6 py-4">0001/F/VII/2024</td>
+        <td class="px-6 py-4">1</td>
+        <td class="px-6 py-4">IT Change Manajement</td>
+        <td class="px-6 py-4">web aino</td>
+        <td class="px-6 py-4">ZAni</td>
+        <td class="px-6 py-4">Draft</td>
+        <td class="px-6 py-4">Menunggu Disetujui</td>
+        <td class="px-6 py-4 ">
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                <path d="m16 5 3 3"></path>
+               </svg>
+            </button>
+          </a>
+          <br>
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                <path d="m9 15 2 2 4-4"></path>
+               </svg>
+            </button>
+          </a>
+          <br>  
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                <path d="M3.75 5.25h16.5"></path>
+                <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                <path d="M12 8.25v10.5"></path>
+                <path d="M8.625 8.25 9 18.75"></path>
+                <path d="M15.375 8.25 15 18.75"></path>
+               </svg>
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</th>
+        <td class="px-6 py-4">0001/F/VII/2024</td>
+        <td class="px-6 py-4">1</td>
+        <td class="px-6 py-4">IT Change Manajement</td>
+        <td class="px-6 py-4">web aino</td>
+        <td class="px-6 py-4">ZAni</td>
+        <td class="px-6 py-4">Draft</td>
+        <td class="px-6 py-4">Menunggu Disetujui</td>
+        <td class="px-6 py-4 ">
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                <path d="m16 5 3 3"></path>
+               </svg>
+            </button>
+          </a>
+          <br>
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                <path d="m9 15 2 2 4-4"></path>
+               </svg>
+            </button>
+          </a>
+          <br>  
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                <path d="M3.75 5.25h16.5"></path>
+                <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                <path d="M12 8.25v10.5"></path>
+                <path d="M8.625 8.25 9 18.75"></path>
+                <path d="M15.375 8.25 15 18.75"></path>
+               </svg>
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</th>
+        <td class="px-6 py-4">0001/F/VII/2024</td>
+        <td class="px-6 py-4">1</td>
+        <td class="px-6 py-4">IT Change Manajement</td>
+        <td class="px-6 py-4">web aino</td>
+        <td class="px-6 py-4">ZAni</td>
+        <td class="px-6 py-4">Draft</td>
+        <td class="px-6 py-4">Menunggu Disetujui</td>
+        <td class="px-6 py-4 ">
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                <path d="m16 5 3 3"></path>
+               </svg>
+            </button>
+          </a>
+          <br>
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                <path d="m9 15 2 2 4-4"></path>
+               </svg>
+            </button>
+          </a>
+          <br>  
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                <path d="M3.75 5.25h16.5"></path>
+                <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                <path d="M12 8.25v10.5"></path>
+                <path d="M8.625 8.25 9 18.75"></path>
+                <path d="M15.375 8.25 15 18.75"></path>
+               </svg>
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</th>
+        <td class="px-6 py-4">0001/F/VII/2024</td>
+        <td class="px-6 py-4">1</td>
+        <td class="px-6 py-4">IT Change Manajement</td>
+        <td class="px-6 py-4">web aino</td>
+        <td class="px-6 py-4">ZAni</td>
+        <td class="px-6 py-4">Draft</td>
+        <td class="px-6 py-4">Menunggu Disetujui</td>
+        <td class="px-6 py-4 ">
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                <path d="m16 5 3 3"></path>
+               </svg>
+            </button>
+          </a>
+          <br>
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                <path d="m9 15 2 2 4-4"></path>
+               </svg>
+            </button>
+          </a>
+          <br>  
+          <a href="#" class="w-full">
+            <button type="button" class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                <path d="M3.75 5.25h16.5"></path>
+                <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                <path d="M12 8.25v10.5"></path>
+                <path d="M8.625 8.25 9 18.75"></path>
+                <path d="M15.375 8.25 15 18.75"></path>
+               </svg>
+            </button>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
