@@ -12,6 +12,15 @@ import { FormItcmComponent } from './form/form-itcm/form-itcm.component';
 import { FormBaComponent } from './form/form-ba/form-ba.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HakAksesComponent } from './form/hak-akses/hak-akses.component';
+import { QnaComponent } from './qna/qna.component';
+import { UserControlComponent } from './control/user-control/user-control.component';
+import { DocumentControlComponent } from './control/document-control/document-control.component';
+import { ProductComponent } from './control/product/product.component';
+import { ProjectComponent } from './control/project/project.component';
+import { ApplicationComponent } from './control/application/application.component';
+import { DivisionComponent } from './control/division/division.component';
+import { AccessGroupComponent } from './control/access-group/access-group.component';
+import { AuthorityComponent } from './control/authority/authority.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +45,10 @@ export const routes: Routes = [
         component: SecondComponent
       },
       {
+        path: 'qna',
+        component: QnaComponent
+      },
+      {
         path: 'dashboard',
         component: DashboardComponent,
       },
@@ -47,6 +60,20 @@ export const routes: Routes = [
           { path: 'ba', component: FormBaComponent },
           { path: 'hak-akses', component: HakAksesComponent },
 
+        ]
+      },
+      {
+        path: 'control',
+        children: [
+          { path: 'user-control', component: UserControlComponent },
+          { path: 'document-control', component: DocumentControlComponent },
+          { path: 'product', component: ProductComponent },
+          { path: 'project', component: ProjectComponent },
+          { path: 'application', component: ApplicationComponent },
+          { path: 'division', component: DivisionComponent },
+          { path: 'access-group', component: AccessGroupComponent },
+          { path: 'authority', component: AuthorityComponent },
+          // { path: '', component: },
         ]
       },
       {
