@@ -9,6 +9,7 @@
       <path d="M22 19H2v3h20v-3Z"></path>
       <path d="m2 14 2.727 2 3.637-2L12 16l3.636-2 3.637 2L22 14"></path>
     </svg>
+    <!-- burger -->
     <div class="hidden w-full group-hover:block bg-red-400">
       <aside
         class=" absolute top-0 left-0 flex flex-col w-60 40 h-screen px-5 py-8 overflow-y-auto border-r rtl:border-r-0 rtl:border-l bg-white">
@@ -325,48 +326,48 @@
     </span>
     <span class="hidden md:block">
       <a routerLink="/qna">
-        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"
+          stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
           <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
           <path fill="currentColor" stroke="none" d="M12 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
           <path d="M12 12.75a2.625 2.625 0 1 0-2.625-2.625"></path>
-         </svg>
+        </svg>
       </a>
     </span>
-    
+
     <span class="md:border-l-[.5px] md:border-black md:pl-3 flex items-center space-x-3">
       <!-- <p>|</p> -->
       <p class="hidden md:block font-medium">Zani</p>
-      <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
-        class="text-white font-medium rounded-lg text-sm text-center inline-flex items-center"
-        type="button">
+      <button (click)="toggleProfileDropdown()" class="text-white font-medium rounded-lg text-sm text-center inline-flex items-center" type="button">
         <img alt="tania andrew" src="https://picsum.photos/200"
-          class="relative inline-block h-10 w-10 cursor-pointer rounded-full object-cover object-center"
-          data-popover-target="profile-menu" />
+          class="relative inline-block h-10 w-10 cursor-pointer rounded-full object-cover object-center"/>
       </button>
 
       <!-- dropdown -->
-      <div id="dropdownHover"
-        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 border">
+      <div *ngIf="isProfileDropdownOpen"
+        class=" absolute top-16 md:top-20 right-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 border group-hover:block">
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
           <li>
             <a routerLink="user/profile"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+              class="block px-4 py-2 hover:bg-gray-100 ">Profile</a>
           </li>
           <li class="block md:hidden">
             <a routerLink="first-component"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mail</a>
+              class="block px-4 py-2 hover:bg-gray-100 ">Mail</a>
           </li>
           <li class="block md:hidden">
             <a href="#"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notification</a>
+              class="block px-4 py-2 hover:bg-gray-100 ">Notification</a>
           </li>
           <li>
-            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100 ">Change
               Password</a>
           </li>
-          <li>
-            <a routerLink="login" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-              out</a>
+          <li class="w-full">
+            <button type="button" (click)="onLogout()"
+              class="w-full block px-4 py-2 hover:bg-gray-100 text-left">Sign
+              out</button>
           </li>
         </ul>
       </div>

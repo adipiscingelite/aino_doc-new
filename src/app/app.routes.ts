@@ -21,6 +21,7 @@ import { ApplicationComponent } from './control/application/application.componen
 import { DivisionComponent } from './control/division/division.component';
 import { AccessGroupComponent } from './control/access-group/access-group.component';
 import { AuthorityComponent } from './control/authority/authority.component';
+import { AuthGuard } from './auth/auth-guard.guard';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,7 @@ export const routes: Routes = [
   {
     path: '',
     component: FullComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'first-component',
