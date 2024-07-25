@@ -14,7 +14,7 @@
       class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
       placeholder="Search for items">
   </div>
-  <button type="button"
+  <button type="button" type="button" data-modal-target="addModalFormITCM" data-modal-toggle="addModalFormITCM"
     class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center">
     Add Form
   </button>
@@ -562,5 +562,149 @@
           </td>
         </tr>
     </table>
+  </div>
+</div>
+
+
+
+<!-- ADD MODAL -->
+<div id="addModalFormITCM" tabindex="-1" aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="relative p-4 w-full max-w-2xl max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Tambah
+        </h3>
+        <button type="button"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          data-modal-hide="addModalFormITCM">
+          <svg class="w-6 h-6 md:w-3 md:h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <form action="" class="form bg-white p-6 relative">
+        <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM!</h3>
+        <p class="text-gray-600">Masukkan informasi form ITCM yg ingin anda tambahkan</p>
+        <!-- <div class="flex space-x-5 mt-3">
+          <input type="text" name="" id="" placeholder="Your Name" class="border rounded-xl p-2  w-1/2">
+          <input type="tel" name="" id="" placeholder="Your Number" class="border rounded-xl p-2 w-1/2">
+        </div> -->
+        <div>
+          <label for="pppp" class="text-sm md:text-base">No. Tiket</label>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Pilih Projek</label>
+          <select id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Choose a country</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+          </select>
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">No. DA</label>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Nama Pemohon</label>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Instansi</label>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Tanggal</label>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Perubahan Aset</label>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Deskripsi</label>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+
+        <h3 class="text-2xl text-gray-900 font-semibold">Penerima!</h3>
+        <p class="text-gray-600">Masukkan informasi Penerima yg ingin anda tuju</p>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Woilah</label>
+          <select id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Choose a country</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+          </select>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Woilah</label>
+          <select id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Choose a country</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+          </select>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Woilah</label>
+          <select id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Choose a country</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+          </select>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Woilah</label>
+          <select id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Choose a country</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+          </select>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+        <div>
+          <label for="pppp" class="text-sm md:text-base">Woilah</label>
+          <select id="countries"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Choose a country</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+          </select>
+          <input type="text" name="" id="pppp" placeholder="" class="border rounded-xl p-2 w-full mt-3">
+        </div>
+      </form>
+      <!-- Modal footer -->
+      <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+        <button data-modal-hide="addModalFormITCM" type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        <button data-modal-hide="addModalFormITCM" type="button"
+          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancel</button>
+      </div>
+    </div>
   </div>
 </div>

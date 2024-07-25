@@ -1,54 +1,110 @@
 <!-- component -->
-<div class="w-full">
-  <div class="h-2 bg-red-light"></div>
-	<div class="flex items-center justify-center h-screen bg-red-lightest">
-		<div class="bg-white shadow-lg rounded-lg" style="width: 45rem !important;">
-			<div class="flex">
-				<div>
-					<img class="w-full rounded hidden md:block" src="https://tailwindcss.com/img/card-top.jpg" alt="Album Pic">
-				</div>
-				<div class="w-full p-8">
-					<div class="flex justify-between">
-						<div>
-							<h3 class="text-2xl text-grey-darkest font-medium">A Sky Full of Stars</h3>
-							<p class="text-sm text-grey mt-1">Ghost Stories</p>
-						</div>
-						<div class="text-red-lighter">
-							<svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 3.22l-.61-.6a5.5 5.5 0 0 0-7.78 7.77L10 18.78l8.39-8.4a5.5 5.5 0 0 0-7.78-7.77l-.61.61z"/></svg>
-						</div>
-					</div>
-					<div class="flex justify-between items-center mt-8">
-						<div class="text-grey-darker">
-							<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M6.59 12.83L4.4 15c-.58.58-1.59 1-2.4 1H0v-2h2c.29 0 .8-.2 1-.41l2.17-2.18 1.42 1.42zM16 4V1l4 4-4 4V6h-2c-.29 0-.8.2-1 .41l-2.17 2.18L9.4 7.17 11.6 5c.58-.58 1.59-1 2.41-1h2zm0 10v-3l4 4-4 4v-3h-2c-.82 0-1.83-.42-2.41-1l-8.6-8.59C2.8 6.21 2.3 6 2 6H0V4h2c.82 0 1.83.42 2.41 1l8.6 8.59c.2.2.7.41.99.41h2z"/></svg>
-						</div>
-						<div class="text-grey-darker">
-							<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M4 5h3v10H4V5zm12 0v10l-9-5 9-5z"/></svg>
-						</div>
-						<div class="text-white p-8 rounded-full bg-red-light shadow-lg">
-							<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 4h3v12H5V4zm7 0h3v12h-3V4z"/></svg>
-						</div>
-						<div class="text-grey-darker">
-							<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 5h3v10h-3V5zM4 5l9 5-9 5V5z"/></svg>
-						</div>
-						<div class="text-grey-darker">
-							<svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 4a2 2 0 0 0-2 2v6H0l4 4 4-4H5V6h7l2-2H5zm10 4h-3l4-4 4 4h-3v6a2 2 0 0 1-2 2H6l2-2h7V8z"/></svg>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="mx-8 py-4">
-				<div class="flex justify-between text-sm text-grey-darker">
-					<p>0:40</p>
-					<p>4:20</p>
-				</div>
-				<div class="mt-1">
-					<div class="h-1 bg-grey-dark rounded-full">
-						<div class="w-1/5 h-1 bg-red-light rounded-full relative">
-							<span class="w-4 h-4 bg-red absolute pin-r pin-b -mb-1 rounded-full shadow"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<div class="relative flex min-h-screen flex-col bg-black">
+    <div class="min-h-28">
+        <div class="mx-auto py-4">
+            <h2 class="font-black text-9xl text-white uppercase">
+                featured work
+            </h2>
+
+            <div class="gap-6 mt-8 mx-4 md:flex">
+                <div class="md:w-1/2">
+                    <div class="wrap-video">
+                        <video class="object-cover h-96 w-full bg-black" loop="" >
+                            <source 
+                                src="https://assets-global.website-files.com/62d57921074baa1ce7275405/648b6bdb802c1efb403e5be5_ZOOM2-transcode.mp4"
+                                type="video/mp4">
+                        </video>
+                    </div>
+                    <span class="pt-4 grid grid-cols-6 gap-4">
+                        <span class="col-start-1 col-end-3 font-bold text-lg text-white uppercase font-mono">
+                            bodega x new balance
+                        </span>
+                        <span class="col-end-7 col-span-2 text-sm text-slate-500 uppercase font-mono flex justify-end">
+                            <span class="">
+                                fashion/retail
+                            </span>
+                        </span>
+                    </span>
+                    <span class="block text-slate-400 text-xs uppercase font-mono">
+                            the trail less taken
+                    </span>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="wrap-video">
+                        <video class="object-cover h-96 w-full bg-black" loop="" >
+                            <source 
+                                src="https://assets-global.website-files.com/62d57921074baa1ce7275405/640fe762f883d05b8f683c6d_HOKABODEGA-transcode.mp4"
+                                type="video/mp4">
+                        </video>
+                    </div>
+                    <span class="pt-4 grid grid-cols-6 gap-4">
+                        <span class="col-start-1 col-end-3 font-bold text-lg text-white uppercase font-mono">
+                            bodega x hoka
+                        </span>
+                        <span class="col-end-7 col-span-2 text-sm text-slate-500 uppercase font-mono flex justify-end">
+                            <span class="">
+                                music video
+                            </span>
+                        </span>
+                    </span>
+                    <span class="block text-slate-400 text-xs uppercase font-mono">
+                            the world at large
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="gap-6 mt-8 mx-4 md:flex">
+            <div class="md:w-1/2">
+                <div class="wrap-video">
+                    <video class="object-cover h-96 w-full bg-black" loop="" >
+                        <source 
+                            src="https://assets-global.website-files.com/62d57921074baa1ce7275405/6363f65c00474db467bed81b_Screen%20Recording%202022-11-03%20at%2011018%20PM-transcode.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+                <span class="pt-4 grid grid-cols-6 gap-4">
+                    <span class="col-start-1 col-end-3 font-bold text-lg text-white uppercase font-mono">
+                        juno
+                    </span>
+                    <span class="col-end-7 col-span-2 text-sm text-slate-500 uppercase font-mono flex justify-end">
+                        <span class="">
+                            music video 
+                        </span>
+                    </span>
+                </span>
+                <span class="block text-slate-400 text-xs uppercase font-mono">
+                        grandma cabbage 
+                </span>
+            </div>
+            <div class="md:w-1/2">
+                <div class="wrap-video">
+                    <video class="object-cover h-96 w-full bg-black" loop="" >
+                        <source 
+                            src="https://assets-global.website-files.com/62d57921074baa1ce7275405/63c084f55da78823643adbc3_ThePerfectPants-transcode.mp4"
+                            type="video/mp4">
+                    </video>
+                </div>
+                <span class="pt-4 grid grid-cols-6 gap-4">
+                    <span class="col-start-1 col-end-3 font-bold text-lg text-white uppercase font-mono">
+                        cala x public 
+                    </span>
+                    <span class="col-end-7 col-span-2 text-sm text-slate-500 uppercase font-mono flex justify-end">
+                        <span class="">
+                            music video
+                        </span>
+                    </span>
+                </span>
+                <span class="block text-slate-400 text-xs uppercase font-mono">
+                        transportation the perfect pants
+                </span>
+            </div>
+        </div>
+        <h2 class="font-black text-7xl text-white text-center uppercase my-16 hover:bg-white hover:text-black hover:rounded-full hover:px-6">
+            view select work
+        </h2>
+    </div>
 </div>
