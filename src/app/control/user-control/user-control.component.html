@@ -14,7 +14,7 @@
       class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
       placeholder="Search for items">
   </div>
-  <button type="button"
+  <button type="button" (click)="openAddModal()"
     class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center">
     Add User
   </button>
@@ -32,56 +32,388 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white border-b hover:bg-gray-50">
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">1</th>
-          <td class="px-6 py-4">Rasid</td>
-          <td class="px-6 py-4">rasid.com</td>
-          <td class="px-6 py-4">Frontend</td>
-          <td class="px-6 py-4 ">
-            <a href="#" class="w-full">
-              <button type="button"
-                class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                  <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                  <path d="m16 5 3 3"></path>
-                </svg>
-              </button>
-            </a>
-            <br>
-            <a href="#" class="w-full">
-              <button type="button"
-                class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                  <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                  <path d="m9 15 2 2 4-4"></path>
-                </svg>
-              </button>
-            </a>
-            <br>
-            <a href="#" class="w-full">
-              <button type="button"
-                class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
-                  <path d="M3.75 5.25h16.5"></path>
-                  <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
-                  <path d="M12 8.25v10.5"></path>
-                  <path d="M8.625 8.25 9 18.75"></path>
-                  <path d="M15.375 8.25 15 18.75"></path>
-                </svg>
-              </button>
-            </a>
-          </td>
+        <tr *ngFor="let user of (userService.dataListUser$ | async); let i = index"
+          class="bg-white border-b hover:bg-gray-50">
+          <ng-container *ngIf="matchesSearch(user)">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ i + 1 }}</th>
+            <td class="px-6 py-4">{{ user.user_name }}</td>
+            <td class="px-6 py-4">{{ user.user_email }}</td>
+            <td class="px-6 py-4">{{ user.division_title }}</td>
+            <td class="px-6 py-4">
+                <button type="button" (click)="openEditModal(user.user_application_role_uuid)"
+                  class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                    <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                    <path d="m16 5 3 3"></path>
+                  </svg>
+                </button>
+              <br>
+                <button type="button" 
+                  class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.625 3a8.626 8.626 0 1 0 .001 17.251A8.626 8.626 0 0 0 11.625 3Z"></path>
+                    <path d="M10.313 10.313h1.5v5.437"></path>
+                    <path d="M9.75 15.938h4.125"></path>
+                    <path fill="currentColor" stroke="none" d="M11.625 6.094a1.219 1.219 0 1 0 0 2.437 1.219 1.219 0 0 0 0-2.437Z"></path>
+                   </svg>
+                </button>
+              <br>
+                <button type="button" (click)="onDeleteUser(user.user_application_role_uuid)"
+                  class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                    <path d="M3.75 5.25h16.5"></path>
+                    <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                    <path d="M12 8.25v10.5"></path>
+                    <path d="M8.625 8.25 9 18.75"></path>
+                    <path d="M15.375 8.25 15 18.75"></path>
+                  </svg>
+                </button>
+            </td>
+          </ng-container>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div class="relative w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex bg-white items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+      <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
+        Tambah
+      </h3>
+      <button (click)="closeAddModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form action="" class="p-6">
+      <h3 class="text-2xl text-gray-900 font-semibold">User Controll!</h3>
+      <p class="text-gray-600">Masukkan informasi user yangg ingin anda tambahkan</p>
+
+      <div class="mt-4">
+        <label for="userName" class="text-sm md:text-base">User Name</label>
+        <input type="text" name="user_name" id="userName" [(ngModel)]="user_name" required
+        placeholder="Enter your user name" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="nama" class="text-sm md:text-base">Nama</label>
+        <input type="text" name="frist_name" id="fullName" [(ngModel)]="personal_name" required
+        placeholder="Enter your full name" class="border rounded-xl p-2 w-full  ">
+      
+      </div>
+
+      <div class="mt-4">
+        <label for="email" class="text-sm md:text-base">Email</label>
+        <input type="text" name="email" id="email" placeholder="example@ainosi.co.id" [(ngModel)]="user_email" required class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="password" class="text-sm md:text-base">Password</label>
+        <input type="text" name="applicantName" id="password" placeholder="Enter a secure password (8 characters minimum)" [(ngModel)]="user_password" required
+          class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="tglLahir" class="text-sm md:text-base">Tanggal Lahir</label>
+        <input type="date" name="user_birthday_update" [(ngModel)]="personal_birthday" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="gender" class="text-sm md:text-base">Gender</label>
+        <select data-test="select_gender" aria-label="Select Gender"
+        [(ngModel)]="personal_gender" name="personal_gender"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Gender</option>
+          <option value="Laki-laki">Laki-laki</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="noHp" class="text-sm md:text-base">Nomor HP</label>
+        <input type="tel" name="personal_phone_add" id="noHp" placeholder="Enter your phone number" [(ngModel)]="personal_phone" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="alamat" class="text-sm md:text-base">Alamat</label>
+        <input type="text" name="personal_address" [(ngModel)]="personal_address" required
+        placeholder="Enter your address"
+          class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="aplikasi" class="text-sm md:text-base">Aplikasi</label>
+        <select id="aplikasi" data-test="select_application" aria-label="Select Application" name="application_uuid" [(ngModel)]="application_uuid" (change)="onApplicationChange()"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Aplikasi</option>
+          <option *ngFor="let app of dataListApplication" [value]="app.application_uuid">{{ app.application_title }}</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="role" class="text-sm md:text-base">Role</label>
+        <select id="role" aria-label="Select Role" data-test="select_role"
+        [(ngModel)]="form.value.role_uuid" name="roleUuid"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Role</option>
+          <option *ngFor="let role of dataListRole" [value]="role.role_uuid">{{ role.role_title }}</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="divisi" class="text-sm md:text-base">Divisi</label>
+        <select id="divisi" aria-label="Select Division" data-test="select_division"
+        [(ngModel)]="form.value.division_uuid" name="division_uuid"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Divisi</option>
+          <option *ngFor="let division of dataListDivision" [value]="division.division_uuid">{{ division.division_title }}</option>
+        </select>
+      </div>
+    </form>
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button (click)="addUser()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+      <button (click)="closeAddModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit modal -->
+<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div class="relative w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex bg-white items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+      <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
+        Tambah
+      </h3>
+      <button (click)="closeEditModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form action="" class="p-6">
+      <h3 class="text-2xl text-gray-900 font-semibold">User Control!</h3>
+      <p class="text-gray-600">Masukkan informasi user yangg ingin anda tambahkan</p>
+
+      <div class="mt-4">
+        <label for="userName" class="text-sm md:text-base">User Name</label>
+        <input type="text" name="edit_user_name" [(ngModel)]="user_name" required
+        placeholder="Enter your username" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="nama" class="text-sm md:text-base">Nama</label>
+        <input type="text" name="personal_name" [(ngModel)]="personal_name" required required
+        placeholder="Enter your full name" class="border rounded-xl p-2 w-full  ">
+      
+      </div>
+
+      <div class="mt-4">
+        <label for="email" class="text-sm md:text-base">Email</label>
+        <input type="text" name="user_email" [(ngModel)]="user_email" required required
+        placeholder="example@ainosi.co.id" required class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <!-- <div class="mt-4">
+        <label for="password" class="text-sm md:text-base">Password</label>
+        <input type="text" name="applicantName" id="password" placeholder="Enter a secure password (8 characters minimum)" [(ngModel)]="user_password" required
+          class="border rounded-xl p-2 w-full  ">
+      </div> -->
+
+      <div class="mt-4">
+        <label for="tglLahir" class="text-sm md:text-base">Tanggal Lahir</label>
+        <input type="date" name="user_birthday_add" id="tglLahir" placeholder="Pilih tanggal lahir" [(ngModel)]="personal_birthday" [max]="maxBirthdayDate" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="gender" class="text-sm md:text-base">Gender</label>
+        <select id="gender" data-test="select_gender" aria-label="Select Gender"
+        [(ngModel)]="personal_gender" name="personal_gender"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Gender</option>
+          <option value="Laki-laki">Laki-laki</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="noHp" class="text-sm md:text-base">Nomor HP</label>
+        <input type="tel" name="personal_phone_add" id="noHp" placeholder="Enter your phone number" [(ngModel)]="personal_phone" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="alamat" class="text-sm md:text-base">Alamat</label>
+        <input type="text" name="personal_address_add" id="alamat" [(ngModel)]="personal_address"
+          class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="aplikasi" class="text-sm md:text-base">Aplikasi</label>
+        <select id="aplikasi" data-test="select_application" aria-label="Select Application" name="application_uuid" [(ngModel)]="application_uuid" (change)="onApplicationChange()"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Aplikasi</option>
+          <option *ngFor="let app of dataListApplication" [value]="app.application_uuid">{{ app.application_title }}</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="role" class="text-sm md:text-base">Role</label>
+        <select id="role" aria-label="Select Role" data-test="select_role"
+        [(ngModel)]="form.value.role_uuid" name="roleUuid"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Role</option>
+          <option *ngFor="let role of dataListRole" [value]="role.role_uuid">{{ role.role_title }}</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="divisi" class="text-sm md:text-base">Divisi</label>
+        <select id="divisi" aria-label="Select Division" data-test="select_division"
+        [(ngModel)]="form.value.division_uuid" name="division_uuid"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Divisi</option>
+          <option *ngFor="let division of dataListDivision" [value]="division.division_uuid">{{ division.division_title }}</option>
+        </select>
+      </div>
+    </form>
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button (click)="updateUser()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+      <button (click)="closeEditModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Detail MODAL -->
+<div *ngIf="isModalDetailOpen" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div
+      class="sticky top-0 flex items-center justify-between p-2 md:p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Details
+      </h3>
+      <button (click)="closeDetailModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form #detailForm="ngForm">
+      <div class="px-2 md:px-10 py-2 md:py-4  mx-auto">
+        <table class="w-full mb-8">
+          <tbody class="">
+            <tr>
+              <td class="text-left text-gray-700">No. Tiket</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ form_ticket }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Status</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ form_status }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">No. Formulir</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ form_number }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Nama Dokumen</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ document_name }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Nama Project</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ project_name }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Status Approval</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ approval_status }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Alasan Tidak Detail</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ reason }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Nama Analis</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ nama_analis }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Jabatan</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ jabatan }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Departemen</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ departemen}}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Jenis Perubahan</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ jenis_perubahan }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Detail Dampak Perubahan</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ detail_dampak_perubahan }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Rencana pengembangan perubahan</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ rencana_pengembangan_perubahan }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Rencana pengujian perubahan sistem</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ rencana_pengujian_perubahan_sistem }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Rencana rilis perubahan dan implementasi</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ rencana_rilis_perubahan_dan_implementasi}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>sing</p>
+      </div>
+    </form>
   </div>
 </div>

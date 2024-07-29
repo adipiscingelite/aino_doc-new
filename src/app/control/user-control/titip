@@ -1,0 +1,112 @@
+<!-- ADD MODAL -->
+<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div class="relative w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex bg-white items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+      <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
+        Tambah
+      </h3>
+      <button (click)="closeModalAdd()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form action="" class="p-6">
+      <h3 class="text-2xl text-gray-900 font-semibold">User Controll!</h3>
+      <p class="text-gray-600">Masukkan informasi user yangg ingin anda tambahkan</p>
+
+      <div class="mt-4">
+        <label for="userName" class="text-sm md:text-base">User Name</label>
+        <input type="text" name="user_name" id="userName" [(ngModel)]="user_name" required
+        placeholder="Enter your user name" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="nama" class="text-sm md:text-base">Nama</label>
+        <input type="text" name="frist_name" id="fullName" [(ngModel)]="personal_name" required
+        placeholder="Enter your full name" class="border rounded-xl p-2 w-full  ">
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="email" class="text-sm md:text-base">Email</label>
+        <input type="text" name="email" id="email" placeholder="example@ainosi.co.id" [(ngModel)]="user_email" required class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="password" class="text-sm md:text-base">Password</label>
+        <input type="text" name="applicantName" id="password" placeholder="Enter a secure password (8 characters minimum)" [(ngModel)]="user_password" required
+          class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="tglLahir" class="text-sm md:text-base">Tanggal Lahir</label>
+        <input type="date" name="user_birthday_add" id="tglLahir" placeholder="Pilih tanggal lahir" [(ngModel)]="personal_birthday" [max]="maxBirthdayDate" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="gender" class="text-sm md:text-base">Gender</label>
+        <select id="gender" data-test="select_gender" aria-label="Select Gender"
+        [(ngModel)]="personal_gender" name="personal_gender"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Gender</option>
+          <option value="Laki-laki">Laki-laki</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="noHp" class="text-sm md:text-base">Nomor HP</label>
+        <input type="tel" name="personal_phone_add" id="noHp" placeholder="Enter your phone number" [(ngModel)]="personal_phone" class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="alamat" class="text-sm md:text-base">Alamat</label>
+        <input type="text" name="personal_address_add" id="alamat" [(ngModel)]="personal_address"
+          class="border rounded-xl p-2 w-full  ">
+      </div>
+
+      <div class="mt-4">
+        <label for="aplikasi" class="text-sm md:text-base">Aplikasi</label>
+        <select id="aplikasi" data-test="select_application" aria-label="Select Application" name="application_uuid" [(ngModel)]="application_uuid" (change)="onApplicationChange()"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Aplikasi</option>
+          <option *ngFor="let app of dataListApplication" [value]="app.application_uuid">{{ app.application_title }}</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="role" class="text-sm md:text-base">Role</label>
+        <select id="role" aria-label="Select Role" data-test="select_role"
+        [(ngModel)]="form.value.role_uuid" name="roleUuid"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Role</option>
+          <option *ngFor="let role of dataListRole" [value]="role.role_uuid">{{ role.role_title }}</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="divisi" class="text-sm md:text-base">Divisi</label>
+        <select id="divisi" aria-label="Select Division" data-test="select_division"
+        [(ngModel)]="form.value.division_uuid" name="division_uuid"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Pilih Divisi</option>
+          <option *ngFor="let division of dataListDivision" [value]="division.division_uuid">{{ division.division_title }}</option>
+        </select>
+      </div>
+    </form>
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <!-- <button (click)="submitForm()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button> -->
+      <button (click)="closeModalAdd()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -97,7 +97,7 @@
 
 
 <!-- ADD MODAL -->
-<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true"
+<div *ngIf="isModalAddOpen" tabindex="-1"
   class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
   <div
     class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
@@ -207,7 +207,7 @@
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder=""
+        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="Masukkan Jabatan"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
@@ -218,7 +218,7 @@
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder=""
+        <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder="Masukkan Jabatan"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
@@ -229,7 +229,7 @@
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder=""
+        <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder="Masukkan Jabatan"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
@@ -240,7 +240,7 @@
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo5" id="recipientInfo5" placeholder=""
+        <input type="text" name="recipientInfo5" id="recipientInfo5" placeholder="Masukkan Jabatan"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
     </form>
@@ -431,7 +431,8 @@
   <div
     class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
-    <div class="sticky top-0 flex items-center justify-between p-2 md:p-4 border-b rounded-t bg-white dark:border-gray-600">
+    <div
+      class="sticky top-0 flex items-center justify-between p-2 md:p-4 border-b rounded-t bg-white dark:border-gray-600">
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
         Approval
       </h3>
@@ -446,88 +447,88 @@
     </div>
     <!-- Modal body -->
     <form #detailForm="ngForm">
-    <div class="px-2 md:px-10 py-2 md:py-4  mx-auto">
-      <table class="w-full mb-8">
-        <tbody class="">
-          <tr>
-            <td class="text-left text-gray-700">No. Tiket</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ form_ticket }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Status</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ form_status }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">No. Formulir</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ form_number }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Nama Dokumen</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ document_name }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Nama Project</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ project_name }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Status Approval</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ approval_status }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Alasan Tidak Approve</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ reason }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Nama Analis</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ nama_analis }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Jabatan</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ jabatan }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Departemen</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ departemen}}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Jenis Perubahan</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ jenis_perubahan }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Detail Dampak Perubahan</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ detail_dampak_perubahan }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Rencana pengembangan perubahan</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ rencana_pengembangan_perubahan }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Rencana pengujian perubahan sistem</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ rencana_pengujian_perubahan_sistem }}</td>
-          </tr>
-          <tr>
-            <td class="text-left text-gray-700">Rencana rilis perubahan dan implementasi</td>
-            <td class="px-2 text-center">:</td>
-            <td class="text-left text-gray-700">{{ rencana_rilis_perubahan_dan_implementasi}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>sing</p>
-    </div>
-  </form>
+      <div class="px-2 md:px-10 py-2 md:py-4  mx-auto">
+        <table class="w-full mb-8">
+          <tbody class="">
+            <tr>
+              <td class="text-left text-gray-700">No. Tiket</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ form_ticket }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Status</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ form_status }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">No. Formulir</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ form_number }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Nama Dokumen</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ document_name }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Nama Project</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ project_name }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Status Approval</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ approval_status }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Alasan Tidak Approve</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ reason }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Nama Analis</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ nama_analis }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Jabatan</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ jabatan }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Departemen</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ departemen}}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Jenis Perubahan</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ jenis_perubahan }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Detail Dampak Perubahan</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ detail_dampak_perubahan }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Rencana pengembangan perubahan</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ rencana_pengembangan_perubahan }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Rencana pengujian perubahan sistem</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ rencana_pengujian_perubahan_sistem }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-gray-700">Rencana rilis perubahan dan implementasi</td>
+              <td class="px-2 text-center">:</td>
+              <td class="text-left text-gray-700">{{ rencana_rilis_perubahan_dan_implementasi}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>sing</p>
+      </div>
+    </form>
   </div>
 </div>

@@ -4,11 +4,12 @@ import { CookieService } from 'ngx-cookie-service';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, SidebarComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
