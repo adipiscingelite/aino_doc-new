@@ -82,15 +82,6 @@ export class UserControlComponent implements OnInit {
   showPassword: boolean = false;
   maxBirthdayDate: string = '';
 
-  // ini buat detail
-  email: string = ''; 
-  role: string = ''; 
-  created_at: string = '';
-  updated_at: string = '';
-  full_name: string = '';
-  position: string = '';
-  department: string = '';
-
   isModalAddOpen: boolean = false;
   isModalEditOpen: boolean = false;
   isModalDetailOpen: boolean = false;
@@ -332,6 +323,15 @@ export class UserControlComponent implements OnInit {
           });
         } else {
           console.log(error);
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+          });
         }
       });
     this.isModalAddOpen = false;
@@ -488,31 +488,28 @@ export class UserControlComponent implements OnInit {
       this.isModalEditOpen = false;
   }
 
-  openDetailModal(user_uuid: string) {
+  openDetailModal(user_application_role_uuid: string) {
     axios
-      .get(`${environment.apiUrl2}/users/${user_uuid}`)
+      .get(`${environment.apiUrl}/user/${user_application_role_uuid}`)
       .then((response) => {
         console.log(response);
-        const userData = response.data.user;
-        this.user_name = userData.user_name;
-        this.email = userData.email;
-        this.role = userData.role;
-        this.created_at = userData.created_at;
-        this.updated_at = userData.updated_at;
+        const user = response.data;
+
+        this.user_name = user.user_name;
+        this.user_uuid = user.user_uuid;
+        this.user_application_role_uuid = user.user_application_role_uuid;
+        this.user_email = user.user_email;
+        this.personal_name = user.personal_name;
+        this.personal_birthday = user.personal_birthday;
+        this.personal_gender = user.personal_gender;
+        this.personal_phone = user.personal_phone;
+        this.personal_address = user.personal_address;
+        this.division_title = user.division_title;
+        this.role_title = user.role_title;
+        this.application_title = user.application_title;
         this.isModalDetailOpen = true;
-  
-        if (response.data.profile !== null) {
-          const profile = response.data.profile;
-          this.full_name = profile.full_name || '';
-          this.position = profile.position || '';
-          this.department = profile.department || '';
-        } else {
-          this.full_name = 'N/A';
-          this.position = 'N/A';
-          this.department = 'N/A';
-          
-          console.log('Data profile kosong');
-        }
+        // console.log('woi', this.user_email);
+                
       })
       .catch((error) => {
         if (error.response && error.response.status === 500) {
@@ -528,10 +525,18 @@ export class UserControlComponent implements OnInit {
           });
         } else {
           console.error(error);
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+          });
         }
       });
   }
-  
 
   closeDetailModal() {
     this.isModalDetailOpen = false;
