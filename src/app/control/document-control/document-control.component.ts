@@ -1,16 +1,11 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  FormGroupDirective,
 } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-// import { FormDaService } from '../../services/form-da/form-da.service';
 import { environment } from '../../../environments/environment';
-import { UserService } from '../../services/user-control/user-control.service';
 import { DocumentService } from '../../services/document/document.service';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -28,7 +23,7 @@ interface documents {
   templateUrl: './document-control.component.html',
   styleUrl: './document-control.component.css',
 })
-export class DocumentControlComponent {
+export class DocumentControlComponent implements OnInit {
   searchText: string = '';
 
   document_uuid: string = '';
