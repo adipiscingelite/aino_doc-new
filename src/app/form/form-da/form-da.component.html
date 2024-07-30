@@ -10,7 +10,7 @@
           clip-rule="evenodd"></path>
       </svg>
     </div>
-    <input type="text" id="table-search"
+    <input type="text" id="table-search" [(ngModel)]="searchText" name="searchText" 
       class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
       placeholder="Search for items">
   </div>
@@ -44,6 +44,7 @@
 
         <ng-container *ngIf="role_code === 'A'">
           <tr *ngFor="let itemFormDA of dataListAllFormDA let x = index" class="bg-white border-b hover:bg-gray-50">
+            <ng-container *ngIf="matchesSearch(itemFormDA)">
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
             <td class="px-6 py-4">{{ itemFormDA.form_number }}</td>
             <td class="px-6 py-4">{{ itemFormDA.form_ticket }}</td>
@@ -88,6 +89,7 @@
                 </svg>
               </button>
             </td>
+            </ng-container>
           </tr>
         </ng-container>
       </tbody>
