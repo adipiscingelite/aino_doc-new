@@ -288,14 +288,14 @@
 
       <div class="mt-4">
         <label for="projectSelect" class="text-sm md:text-base mb-1">Pilih Project</label>
-        <select id="projectSelect" name="project_uuid" [(ngModel)]="project_uuid"
+        <select id="projectSelect" name="project_uuid" [(ngModel)]="project_uuid" required
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-          <option value="" disabled selected>Pilih Project</option>
+          <option value="" disabled>Pilih Project</option>
           <option *ngFor="let project of dataListAllProject" [value]="project.project_uuid">
             {{ project.project_name }}
           </option>
         </select>
-      </div>
+      </div>    
 
       <div class="mt-4">
         <label for="nama_analis" class="text-sm md:text-base mb-1">Nama Analis</label>

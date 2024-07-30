@@ -133,7 +133,6 @@ export class FormBaComponent implements OnInit {
     this.fetchAllUser();
     this.listAllProject();
     console.log('bjir', this.listAllProject());
-    
 
     this.fetchAllDataBA();
     this.fetchDataAdminBA();
@@ -278,15 +277,15 @@ export class FormBaComponent implements OnInit {
   openAddModal() {
     // this.fetchAllDataBA();
 
-  this.form_ticket = '';
-  this.project_uuid = '';
-  this.judul = '';
-  this.tanggal = '';
-  this.nama_aplikasi = '';
-  this.no_da = '';
-  this.no_itcm = '';
-  this.dilakukan_oleh = '';
-  this.didampingi_oleh = '';
+    this.form_ticket = '';
+    this.project_uuid = '';
+    this.judul = '';
+    this.tanggal = '';
+    this.nama_aplikasi = '';
+    this.no_da = '';
+    this.no_itcm = '';
+    this.dilakukan_oleh = '';
+    this.didampingi_oleh = '';
     this.isModalAddOpen = true;
   }
 
@@ -387,6 +386,7 @@ export class FormBaComponent implements OnInit {
       .then((response) => {
         console.log(response.data);
         // $('#updateModalBA').modal('show');
+        this.isModalEditOpen = true;
         const formData = response.data;
         this.form_uuid = formData.form_uuid;
         this.form_number = formData.form_number;
