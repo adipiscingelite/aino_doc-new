@@ -51,7 +51,7 @@ interface Division {
 @Component({
   selector: 'app-user-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './user-control.component.html',
   styleUrls: ['./user-control.component.css'],
 })
@@ -343,6 +343,7 @@ export class UserControlComponent implements OnInit {
       .then((response) => {
         this.isModalEditOpen = true;
         const userData = response.data;
+        // Component Logic
         console.log(userData);
         this.user_application_role_uuid = userData.user_application_role_uuid;
 
@@ -380,6 +381,12 @@ export class UserControlComponent implements OnInit {
         this.personal_gender = userData.personal_gender;
         this.personal_phone = userData.personal_phone;
         this.personal_address = userData.personal_address;
+        console.log('pp');
+
+        console.log(existingApplication);
+        console.log(existingDivision);
+        console.log(existingRole);
+
         // $('#editUserModal').modal('show');
       })
       .catch((error) => {
@@ -485,7 +492,7 @@ export class UserControlComponent implements OnInit {
           });
         }
       });
-      this.isModalEditOpen = false;
+    this.isModalEditOpen = false;
   }
 
   openDetailModal(user_application_role_uuid: string) {
@@ -509,7 +516,6 @@ export class UserControlComponent implements OnInit {
         this.application_title = user.application_title;
         this.isModalDetailOpen = true;
         // console.log('woi', this.user_email);
-                
       })
       .catch((error) => {
         if (error.response && error.response.status === 500) {

@@ -188,13 +188,12 @@
         <label for="projectManager" class="text-sm md:text-base">Manager Project</label>
         <input type="text" id="projectManager" placeholder="Masukkan nama Manager" [(ngModel)]="project_manager" name="project_manager" required class="border rounded-xl p-2 w-full  ">
       </div>
-
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-base mb-1">Pilih Produk</label>
+        <label for="productSelect" class="text-sm md:text-base mb-1">Pilih Produk</label>
         <select id="productName" [(ngModel)]="product_uuid" name="product_uuid" required
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="" disabled>Pilih Project</option>
-          <option *ngFor="let itemProduct of dataListProduct" [value]="itemProduct.product_uuid">{{itemProduct.product_name}}</option>
+          <option value="" disabled>Pilih Produk</option>
+          <option *ngFor="let product of dataListProduct" [value]="product.product_uuid">{{ product.product_name }}</option>
         </select>
       </div>
     </form>

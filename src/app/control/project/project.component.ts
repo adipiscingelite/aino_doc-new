@@ -233,14 +233,20 @@ export class ProjectComponent implements OnInit {
         this.project_name = response.data.project_name;
         this.project_code = response.data.project_code;
         this.project_manager = response.data.project_manager;
+  
         const existingProduct = this.dataListProduct.find(
           (product) => product.product_name === response.data.product_name
         );
-
-        this.product.patchValue({
-          product_uuid: existingProduct ? existingProduct.product_uuid : '',
-        });
-
+  
+        // Ensure to set the default value before opening the modal
+        if (existingProduct) {
+          this.product_uuid = existingProduct.product_uuid;
+          this.product.patchValue({
+            product_uuid: existingProduct.product_uuid,
+          });
+        }
+  
+        // Open the modal after setting the default value
         this.isModalEditOpen = true;
       })
       .catch((error) => {
@@ -256,8 +262,8 @@ export class ProjectComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = false;
   }
+  
 
   closeEditModal() {
     this.isModalEditOpen = false;
