@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import axios from 'axios';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ export class ProfileComponent {
 
   constructor(
     private cookieService: CookieService,
+    // private router: Router,
     @Inject('apiUrl') private apiUrl: string
   ) {}
 

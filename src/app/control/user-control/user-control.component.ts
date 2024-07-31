@@ -13,6 +13,7 @@ import { environment } from '../../../environments/environment';
 import { UserService } from '../../services/user-control/user-control.service';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { Router, RouterLink } from '@angular/router';
 
 interface Users {
   user_uuid: string;
@@ -41,6 +42,7 @@ interface Application {
 interface Role {
   role_uuid: string;
   role_title: string;
+  role_code: string;
 }
 
 interface Division {
@@ -51,7 +53,7 @@ interface Division {
 @Component({
   selector: 'app-user-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink],
   templateUrl: './user-control.component.html',
   styleUrls: ['./user-control.component.css'],
 })
@@ -77,6 +79,7 @@ export class UserControlComponent implements OnInit {
   division_title: string = '';
   role_uuid: string = '';
   role_title: string = '';
+  role_code: string = '';
   application_uuid: string = '';
   application_title: string = '';
   showPassword: boolean = false;
@@ -89,6 +92,7 @@ export class UserControlComponent implements OnInit {
   constructor(
     private cookieService: CookieService,
     @Inject('apiUrl') private apiUrl: string,
+    private router: Router,
     private fb: FormBuilder,
     private datePipe: DatePipe,
     private formGroupDirective: FormGroupDirective,
@@ -101,6 +105,7 @@ export class UserControlComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDataUser();
+    this.checkRoleCode();
     this.form = this.fb.group({
       user_name: [''],
       user_email: [''],
@@ -163,6 +168,36 @@ export class UserControlComponent implements OnInit {
       .then((response) => {
         this.userList = response.data;
         this.userService.updateDataListUsers(this.userList);
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Kesalahan',
+            text: error.response.data.message,
+          });
+        } else {
+          console.log(error);
+        }
+      });
+  }
+
+  checkRoleCode() {
+    const token = this.cookieService.get('userToken');
+    axios
+      .get(`${this.apiUrl}/auth/my/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.role_code);
+        this.role_code = response.data.role_code
+        
+        if (this.role_code !== 'SA') {
+          this.router.navigate(['/woilah']);
+        }
       })
       .catch((error) => {
         if (error.response.status === 500) {

@@ -22,6 +22,7 @@ import { AccessGroupComponent } from './control/access-group/access-group.compon
 import { AuthorityComponent } from './control/authority/authority.component';
 import { AuthGuard } from './auth/auth-guard.guard';
 import { LoginGuard } from './auth/login-guard.guard';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
 export const routes: Routes = [
   {
@@ -83,6 +84,7 @@ export const routes: Routes = [
         children: [
           { path: 'profile', component: ProfileComponent },
           { path: 'favorite', component: FavoriteComponent },
+          { path: 'change-password', component: ChangePasswordComponent },
         ],
       },
     ],

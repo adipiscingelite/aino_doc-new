@@ -19,12 +19,11 @@
 <div class="h-full">
   <div class="bg-white rounded-lg shadow-xl pb-8">
     <div class="w-full h-[250px]">
-      <img src="https://i.pinimg.com/564x/44/b9/8e/44b98ea0ec307b62e4c6f85385190022.jpg"
+      <img src="https://i.pinimg.com/564x/91/82/5c/91825ceaac89cbe521276a4854f64090.jpg"
         class="w-full h-full rounded-tl-lg rounded-tr-lg">
     </div>
     <div class="flex flex-col items-center -mt-20">
-      <img src="https://picsum.photos/200" alt="Profile picture"
-        class="w-40 border-4 border-white rounded-full">
+      <img src="https://picsum.photos/200" alt="Profile picture" class="w-40 border-4 border-white rounded-full">
       <div class="flex items-center space-x-2 mt-2">
         <p class="text-2xl">{{ user.personal_name }}</p>
         <span class="bg-blue-500 rounded-full p-1" title="Verified">
@@ -39,7 +38,7 @@
     </div>
     <div class="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
       <div class="flex items-center space-x-4 mt-2">
-        <button
+        <!-- <button
           class="flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
             <path
@@ -47,15 +46,19 @@
             </path>
           </svg>
           <span>Edit Profile</span>
-        </button>
+        </button> -->
         <button
-          class="flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-              clip-rule="evenodd"></path>
-          </svg>
-          <span>Message</span>
+          class=" bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm transition duration-100">
+          <a routerLink="" class="flex items-center space-x-2 ">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.75 9.75V5.297a3.75 3.75 0 0 0-7.5 0V9.75"></path>
+              <path
+                d="M17.25 9.75H6.75A2.25 2.25 0 0 0 4.5 12v8.25a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V12a2.25 2.25 0 0 0-2.25-2.25Z">
+              </path>
+            </svg>
+            <span>Change Password</span>
+          </a>
         </button>
       </div>
     </div>

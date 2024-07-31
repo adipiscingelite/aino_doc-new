@@ -403,6 +403,11 @@ export class FormItcmComponent implements OnInit {
         this.tanggal = formData.tanggal;
         this.perubahan_aset = formData.perubahan_aset;
         this.deskripsi = formData.deskripsi;
+
+        const existingProject = this.dataListProject.find(
+          (project) => project.project_name === formData.project_name
+        );
+        this.project_uuid = existingProject ? existingProject.project_uuid : '';
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 500) {
