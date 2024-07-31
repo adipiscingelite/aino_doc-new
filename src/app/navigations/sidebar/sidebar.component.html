@@ -54,7 +54,7 @@
           <div class="space-y-3 ">
               <label class="px-3 text-xs text-gray-500 uppercase  ">Control</label>
 
-              <a routerLink="/control/user-control" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
+              <a routerLink="/control/user-control" *ngIf="role_code === 'SA'" class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18.844 7.875c-.138 1.906-1.552 3.375-3.094 3.375-1.542 0-2.959-1.468-3.094-3.375-.14-1.983 1.236-3.375 3.094-3.375 1.858 0 3.235 1.428 3.094 3.375Z"></path>
                   <path d="M15.75 14.25c-3.055 0-5.993 1.517-6.729 4.472-.097.391.148.778.55.778h12.358c.402 0 .646-.387.55-.778-.736-3.002-3.674-4.472-6.73-4.472Z"></path>

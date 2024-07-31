@@ -4,7 +4,6 @@ import { SecondComponent } from './second/second.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { LoginComponent } from './login/login.component';
-import { SidebarComponent } from './navigations/sidebar/sidebar.component';
 import { FullComponent } from './layouts/full/full.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormDaComponent } from './form/form-da/form-da.component';
@@ -28,7 +27,7 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'login',
@@ -42,15 +41,15 @@ export const routes: Routes = [
     children: [
       {
         path: 'first-component',
-        component: FirstComponent
+        component: FirstComponent,
       },
       {
         path: 'second-component',
-        component: SecondComponent
+        component: SecondComponent,
       },
       {
         path: 'qna',
-        component: QnaComponent
+        component: QnaComponent,
       },
       {
         path: 'dashboard',
@@ -63,8 +62,7 @@ export const routes: Routes = [
           { path: 'itcm', component: FormItcmComponent },
           { path: 'ba', component: FormBaComponent },
           { path: 'hak-akses', component: HakAksesComponent },
-
-        ]
+        ],
       },
       {
         path: 'control',
@@ -78,16 +76,16 @@ export const routes: Routes = [
           { path: 'access-group', component: AccessGroupComponent },
           { path: 'authority', component: AuthorityComponent },
           // { path: '', component: },
-        ]
+        ],
       },
       {
         path: 'user',
         children: [
           { path: 'profile', component: ProfileComponent },
           { path: 'favorite', component: FavoriteComponent },
-        ]
+        ],
       },
-    ]
+    ],
   },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', component: NotFoundComponent },
 ];

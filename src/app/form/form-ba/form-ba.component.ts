@@ -347,7 +347,7 @@ export class FormBaComponent implements OnInit {
       })
       .then((response) => {
         console.log(response.data.message);
-        this.fetchAllDataBA();
+        this.fetchAllDataBA(); 
         this.fetchDataAdminBA();
         this.fetchAllDataBA();
         Swal.fire({
@@ -393,7 +393,7 @@ export class FormBaComponent implements OnInit {
         this.form_ticket = formData.form_ticket;
         this.form_status = formData.form_status;
         this.document_name = formData.document_name;
-        this.document_name = formData.document_name;
+        // this.document_name = formData.document_name;
         this.created_by = formData.created_by;
         this.created_at = formData.created_at;
         this.updated_by = formData.updated_by;

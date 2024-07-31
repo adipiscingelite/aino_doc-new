@@ -14,7 +14,7 @@
       class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
       placeholder="Search for items">
   </div>
-  <button type="button" (click)="openAddModal()"
+  <button type="button" (click)="openAddModal()" *ngIf="role_code === 'SA'"
     class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center">
     Add Project
   </button>
@@ -41,8 +41,8 @@
             <td class="px-6 py-4">{{ itemProject.project_name }}</td>
             <td class="px-6 py-4">{{ itemProject.project_manager }}</td>
             <td class="px-6 py-4">{{ itemProject.product_name }}</td>
-            <td class="px-6 py-4 ">
-              <button type="button" (click)="openEditModal(itemProject.project_uuid)" *ngIf="role_code === 'SA'"
+            <td class="px-6 py-4 " *ngIf="role_code === 'SA'">
+              <button type="button" (click)="openEditModal(itemProject.project_uuid)"
                 class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
                   stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
