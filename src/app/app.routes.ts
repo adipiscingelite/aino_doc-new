@@ -40,14 +40,14 @@ export const routes: Routes = [
     component: FullComponent,
     canActivate: [AuthGuard],
     children: [
-      {
-        path: 'first-component',
-        component: FirstComponent,
-      },
-      {
-        path: 'second-component',
-        component: SecondComponent,
-      },
+      // {
+      //   path: 'first-component',
+      //   component: FirstComponent,
+      // },
+      // {
+      //   path: 'second-component',
+      //   component: SecondComponent,
+      // },
       {
         path: 'qna',
         component: QnaComponent,
@@ -83,7 +83,7 @@ export const routes: Routes = [
         path: 'user',
         children: [
           { path: 'profile', component: ProfileComponent },
-          { path: 'favorite', component: FavoriteComponent },
+          // { path: 'favorite', component: FavoriteComponent },
           { path: 'change-password', component: ChangePasswordComponent },
         ],
       },

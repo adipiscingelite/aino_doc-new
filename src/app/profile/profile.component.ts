@@ -6,7 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
