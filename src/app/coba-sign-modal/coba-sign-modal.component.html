@@ -1,0 +1,42 @@
+<div class="relative flex items-center justify-center z-0">
+  <div class="md:w-1/2 h-fit px-2 py-2 rounded-md shadow-lg border">
+    <div class="flex items-center mb-6 text-gray-600">
+      <h1 class="text-xl">Signature</h1>
+      <svg class="ml-auto w-10 h-10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.25 17.25 6.75 6.75"></path>
+        <path d="m17.25 6.75-10.5 10.5"></path>
+      </svg>
+    </div>
+    <hr class="py-3">
+    <div class="my-2 canvas-container w-full h-full border dashed-custom border-spacing-6">
+      <canvas #sigPad class=""></canvas>
+    </div>
+    <div class="my-2">
+      <p class="text-[0.8rem] font-medium text-gray-500">
+        By signing this document with an electronic signature, I agree that such signature will be as valid as
+        handwritten signatures to the extent allowed by local law
+      </p>
+    </div>
+
+    <div class="flex mt-6 text-sm font-medium">
+      <button class="bg-gray-200 px-4 py-2 rounded-md uppercase" (click)="clear()">Clear</button>
+      <button class="ml-auto bg-green-500 px-4 py-2 text-white rounded-md uppercase" (click)="save()">Accept and Sign</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- coba-sign-modal.component.html -->
+<!-- <br /><br /><br /><br /> -->
+<!-- <canvas #sigPad width="300" height="150"></canvas> -->
+<!-- <br /> -->
+<!-- <button (click)="clear()">Clear</button>
+<button (click)="save()">Save</button>
+<br /> -->
+<img *ngIf="img" [src]="img" alt="Drawing">
+<br />
+<!-- <span *ngIf="img">{{ img }}</span> -->
+
+lorem1000

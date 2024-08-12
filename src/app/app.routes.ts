@@ -23,6 +23,8 @@ import { AuthorityComponent } from './control/authority/authority.component';
 import { AuthGuard } from './auth/auth-guard.guard';
 import { LoginGuard } from './auth/login-guard.guard';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { CobaSignModalComponent } from './coba-sign-modal/coba-sign-modal.component';
+import { CobaPdfTemplate,} from './coba-pdf-template/coba-pdf-template.component';
 
 export const routes: Routes = [
   {
@@ -40,14 +42,14 @@ export const routes: Routes = [
     component: FullComponent,
     canActivate: [AuthGuard],
     children: [
-      // {
-      //   path: 'first-component',
-      //   component: FirstComponent,
-      // },
-      // {
-      //   path: 'second-component',
-      //   component: SecondComponent,
-      // },
+      {
+        path: 'pdf',
+        component: CobaPdfTemplate,
+      },
+      {
+        path: 'coba-gambar',
+        component: CobaSignModalComponent,
+      },
       {
         path: 'qna',
         component: QnaComponent,

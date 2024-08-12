@@ -2,7 +2,7 @@
 
 <div class="max-w-full sm:mx-auto sm:px-6">
   <div class="text-sm md:text-base grid grid-cols-2 lg:flex gap-1 md:gap-3">
-    <div
+    <a routerLink="/form/da"
       class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
       <div class="bg-white p-5">
         <div class="sm:flex sm:items-start">
@@ -12,8 +12,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div
+    </a>
+    <a routerLink="/form/itcm"
       class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
       <div class="bg-white p-5">
         <div class="sm:flex sm:items-start">
@@ -23,8 +23,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div
+    </a>
+    <a routerLink="/form/ba"
       class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
       <div class="bg-white p-5">
         <div class="sm:flex sm:items-start">
@@ -34,8 +34,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div
+    </a>
+    <a routerLink="/form/hak-akses"
       class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
       <div class="bg-white p-5">
         <div class="sm:flex sm:items-start">
@@ -45,13 +45,15 @@
           </div>
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </div>
+<!-- dashboard.component.html -->
+<button (click)="clearToken()" class="btn-clear-token">Clear Token</button>
 
 
 <div class="">
-  <div class="relative space-y-8 md:space-y-0 md:flex md:flex-row-reverse h-screen border">
+  <div class="relative space-y-8 md:space-y-0 md:flex md:flex-row-reverse h-screen">
     <img class="absolute bottom-0 right-0 w-64 hidden md:block z-0"
       src="https://rekrutmenbersama2024.fhcibumn.id/assets/frontend/images/omni-right.svg" alt="">
     <div class="flex justify-center items-center md:w-1/2 ">

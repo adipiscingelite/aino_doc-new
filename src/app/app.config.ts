@@ -11,6 +11,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     { provide: 'apiUrl', useValue: environment.apiUrl },
     DatePipe,
-    FormGroupDirective
+    FormGroupDirective,
   ],
 };

@@ -11,6 +11,8 @@ import { FormDaService } from '../../services/form-da/form-da.service';
 import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { PdfGenerationService } from '../../services/pdf-generation.service';
+// import { PdfGenerationService } from '../services/pdf-generation.service';
 
 interface formsDA {
   form_uuid: string;
@@ -160,6 +162,7 @@ export class FormDaComponent implements OnInit {
     private fb: FormBuilder,
     public formDaService: FormDaService,
     private datePipe: DatePipe,
+    private pdfService: PdfGenerationService,
     @Inject('apiUrl') private apiUrl: string
   ) {
     this.apiUrl = apiUrl;
@@ -373,7 +376,6 @@ export class FormDaComponent implements OnInit {
     this.position5 = '';
     this.roleSign5 = '';
     console.log('woi');
-    
   }
   closeAddModal() {
     this.isModalAddOpen = false;
@@ -498,14 +500,13 @@ export class FormDaComponent implements OnInit {
           formData.rencana_pengujian_perubahan_sistem;
         this.rencana_rilis_perubahan_dan_implementasi =
           formData.rencana_rilis_perubahan_dan_implementasi;
-          
+
         const existingProject = this.dataListAllProject.find(
           (project) => project.project_name === formData.project_name
         );
         this.project_uuid = existingProject ? existingProject.project_uuid : '';
 
         console.log(this.rencana_pengembangan_perubahan);
-        
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -593,7 +594,7 @@ export class FormDaComponent implements OnInit {
           });
         }
       });
-      this.isModalEditOpen = false;
+    this.isModalEditOpen = false;
   }
 
   openApproveModal(form_uuid: string) {
@@ -621,7 +622,7 @@ export class FormDaComponent implements OnInit {
           formData.rencana_pengujian_perubahan_sistem;
         this.rencana_rilis_perubahan_dan_implementasi =
           formData.rencana_rilis_perubahan_dan_implementasi;
-          this.isModalApproveOpen = true;
+        this.isModalApproveOpen = true;
         // this.isModalOpen = true;
 
         if (response.data.signatories !== null) {
@@ -657,7 +658,6 @@ export class FormDaComponent implements OnInit {
       });
   }
 
-  
   // openApproveModal() {
   //   this.isModalApproveOpen = true;
   // }
@@ -747,6 +747,89 @@ export class FormDaComponent implements OnInit {
   //         timer: 3000
   //       });
   // }
+  downloadData(form_uuid: string) {
+    console.log('downloadData called with', form_uuid);
+    axios.get(`${environment.apiUrl2}/da/${form_uuid}`)
+      .then((response) => {
+        const formData = response.data.form;
+  
+        // Periksa apakah formData ada dan memiliki properti yang diperlukan
+        if (formData) {
+          this.form_ticket = formData.form_ticket;
+          this.form_status = formData.form_status;
+          this.form_number = formData.form_number;
+          this.document_name = formData.document_name;
+          this.project_name = formData.project_name;
+          this.approval_status = formData.approval_status;
+          this.reason = formData.reason?.String || '';
+          this.nama_analis = formData.nama_analis;
+          this.jabatan = formData.jabatan;
+          this.departemen = formData.departemen;
+          this.jenis_perubahan = formData.jenis_perubahan;
+          this.detail_dampak_perubahan = formData.detail_dampak_perubahan;
+          this.rencana_pengembangan_perubahan = formData.rencana_pengembangan_perubahan;
+          this.rencana_pengujian_perubahan_sistem = formData.rencana_pengujian_perubahan_sistem;
+          this.rencana_rilis_perubahan_dan_implementasi = formData.rencana_rilis_perubahan_dan_implementasi;
+  
+          // Panggil fungsi untuk menghasilkan PDF
+          this.downloadPdfAction();
+        } else {
+          console.error('Form data is not present in the response');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching document data:', error);
+      });
+  }
+  
+  downloadPdfAction() {
+    // Pastikan data sudah diambil dan siap untuk digunakan
+    if (this.form_ticket) {
+      this.pdfService.generatePdf({
+        form_ticket: this.form_ticket,
+        form_status: this.form_status,
+        form_number: this.form_number,
+        document_name: this.document_name,
+        project_name: this.project_name,
+        approval_status: this.approval_status,
+        reason: this.reason,
+        nama_analis: this.nama_analis,
+        jabatan: this.jabatan,
+        departemen: this.departemen,
+        jenis_perubahan: this.jenis_perubahan,
+        detail_dampak_perubahan: this.detail_dampak_perubahan,
+        rencana_pengembangan_perubahan: this.rencana_pengembangan_perubahan,
+        rencana_pengujian_perubahan_sistem: this.rencana_pengujian_perubahan_sistem,
+        rencana_rilis_perubahan_dan_implementasi: this.rencana_rilis_perubahan_dan_implementasi
+      }).then(() => {
+        console.log('PDF generation completed');
+      }).catch((error) => {
+        console.error('Error generating PDF:', error);
+      });
+    } else {
+      console.error('Data is not ready for PDF generation');
+    }
+  }
+
+
+  tabIndent(event: KeyboardEvent): void {
+    if (event.key === 'Tab') {
+      event.preventDefault(); // Mencegah tab berpindah fokus
+      const textarea = event.target as HTMLTextAreaElement;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+
+      // Menambahkan tab pada posisi kursor
+      textarea.value = textarea.value.substring(0, start) + '\t' + textarea.value.substring(end);
+
+      // Mengatur posisi kursor setelah tab
+      textarea.selectionStart = textarea.selectionEnd = start + 1;
+
+      // Update ngModel value
+      this.detail_dampak_perubahan = textarea.value;
+    }
+  }
+  
 }
 
 export { formsDA };

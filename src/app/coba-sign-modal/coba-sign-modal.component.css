@@ -1,0 +1,8 @@
+/* coba-sign-modal.component.css */
+/* styles.css atau file CSS global Anda */
+.dashed-custom {
+  border-style: dashed;
+  border-width: 1.5px;
+  /* border-color: #3742fa; Atur warna border sesuai kebutuhan */
+  border-spacing: 8px; /* Atur jarak antar dash */
+}

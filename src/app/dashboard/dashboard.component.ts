@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
+  constructor(private router: Router, private cookieService: CookieService) {}
+
   dataDALength: any;
   dataITCMLength: any;
   dataBALength: any;
@@ -17,7 +21,7 @@ export class DashboardComponent implements OnInit {
   dataListAllFormDA: any[] = [];
   dataListFormITCM: any[] = [];
   dataListAllBA: any[] = [];
-
+p: any;
   // constructor() {
     
   // }
@@ -100,5 +104,17 @@ export class DashboardComponent implements OnInit {
           console.error(error);
         }
       });
+  }
+
+  clearToken() {
+    // Hapus token dari localStorage atau cookies
+    // this.cookieService.delete('accessToken'); // Jika menggunakan cookies
+    // localStorage.removeItem('accessToken'); // Jika menggunakan localStorage
+    const token = this.cookieService.get('userToken');
+    console.log(token);
+    this.cookieService.delete('userToken')
+    
+    // Arahkan pengguna ke halaman login setelah menghapus token
+    // this.router.navigate(['/login']);
   }
 }

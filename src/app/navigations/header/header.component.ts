@@ -14,10 +14,13 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-
   user_uuid = '';
   user_name = '';
   role_code = '';
+
+  today: Date = new Date();
+  day: string;
+  date: string;
 
   isProfileDropdownOpen: boolean = false;
   public showSearch = false;
@@ -35,6 +38,13 @@ export class HeaderComponent {
         this.isProfileDropdownOpen = false;
       }
     });
+    const today = new Date();
+
+    // Format untuk hari dalam minggu
+    this.day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(today);
+
+    // Format untuk tanggal
+    this.date = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
   }
 
   ngOnInit() {

@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
       })
       .then((response) => {
         this.role_code = response.data.role_code;
-        console.log(this.role_code);
+        // console.log(this.role_code);
         
       })
       .catch((error) => {

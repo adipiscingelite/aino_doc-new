@@ -41,6 +41,7 @@ export class ProfileComponent {
       .catch((error) => {
         if (error.response && error.response.status === 500) {
           console.log(error.response.data.message);
+          
         }
       });
   }

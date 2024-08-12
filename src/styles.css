@@ -18,6 +18,11 @@
   border: none;
 }
 
+/* styles.scss atau styles.css */
+.active-link {
+  @apply bg-gradient-to-r from-gray-50 to-gray-100;
+}
+
 /* 
 *{
   background-color: rgb(46, 140, 216);
