@@ -10,7 +10,7 @@
           clip-rule="evenodd"></path>
       </svg>
     </div>
-    <input type="text" id="table-search" [(ngModel)]="searchText" name="searchText" 
+    <input type="text" id="table-search" [(ngModel)]="searchText" name="searchText"
       class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
       placeholder="Search for items">
   </div>
@@ -45,15 +45,15 @@
         <ng-container *ngIf="role_code === 'SA'">
           <tr *ngFor="let itemFormDA of dataListAllFormDA let x = index" class="bg-white border-b hover:bg-gray-50">
             <ng-container *ngIf="matchesSearch(itemFormDA)">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-            <td class="px-6 py-4">{{ itemFormDA.form_number }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.form_ticket }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.document_name }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.project_name }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.departemen }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.jenis_perubahan }}</td>
-            <td class="px-6 py-4 ">
-              <!-- <button type="button" (click)="openEditModal(itemFormDA.form_uuid)"
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+              <td class="px-6 py-4">{{ itemFormDA.form_number }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.form_ticket }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.document_name }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.project_name }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.departemen }}</td>
+              <!-- <td class="px-6 py-4">{{ itemFormDA.jenis_perubahan }}</td> -->
+              <td class="px-6 py-4 ">
+                <!-- <button type="button" (click)="openEditModal(itemFormDA.form_uuid)"
                 class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
                   stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -64,17 +64,17 @@
                 </svg>
               </button>
               <br> -->
-              <button type="button" (click)="openApproveModal(itemFormDA.form_uuid)"
-                class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                  <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                  <path d="m9 15 2 2 4-4"></path>
-                </svg>
-              </button>
-              <!-- <br>
+                <button type="button" (click)="openApproveModal(itemFormDA.form_uuid)"
+                  class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                    <path d="m9 15 2 2 4-4"></path>
+                  </svg>
+                </button>
+                <!-- <br>
               <button type="button" (click)="onDeleteFormDA(itemFormDA.form_uuid)"
                 class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                 <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
@@ -88,7 +88,7 @@
                   <path d="M15.375 8.25 15 18.75"></path>
                 </svg>
               </button> -->
-            </td>
+              </td>
             </ng-container>
           </tr>
         </ng-container>
@@ -96,59 +96,62 @@
         <ng-container *ngIf="role_code === 'A'">
           <tr *ngFor="let itemFormDA of dataListAdminFormDA let x = index" class="bg-white border-b hover:bg-gray-50">
             <ng-container *ngIf="matchesSearch(itemFormDA)">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-            <td class="px-6 py-4">{{ itemFormDA.form_number }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.form_ticket }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.document_name }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.project_name }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.departemen }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.jenis_perubahan }}</td>
-            <td class="px-6 py-4 ">
-              <button type="button" (click)="openEditModal(itemFormDA.form_uuid)"
-                class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                  <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                  <path d="m16 5 3 3"></path>
-                </svg>
-              </button>
-              <br>
-              <button type="button" (click)="openApproveModal(itemFormDA.form_uuid)"
-                class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                  <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                  <path d="m9 15 2 2 4-4"></path>
-                </svg>
-              </button>
-              <br>
-              <button type="button" (click)="downloadData(itemFormDA.form_uuid)"
-                class="w-full focus:outline-none text-white bg-yellow-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg width="41" height="41" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15 15.75h3.563c2.578 0 4.687-.994 4.687-3.544s-2.484-3.444-4.5-3.543C18.333 4.675 15.422 2.25 12 2.25c-3.234 0-5.317 2.146-6 4.275C3.187 6.792.75 8.207.75 11.137c0 2.931 2.531 4.613 5.625 4.613H9"></path>
-                  <path d="m9 18.758 3 2.995 3-2.995"></path>
-                  <path d="M12 10.5v10.501"></path>
-                 </svg>
-              </button>
-              <br>
-              <button type="button" (click)="onDeleteFormDA(itemFormDA.form_uuid)"
-                class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
-                  <path d="M3.75 5.25h16.5"></path>
-                  <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
-                  <path d="M12 8.25v10.5"></path>
-                  <path d="M8.625 8.25 9 18.75"></path>
-                  <path d="M15.375 8.25 15 18.75"></path>
-                </svg>
-              </button>
-            </td>
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+              <td class="px-6 py-4">{{ itemFormDA.form_number }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.form_ticket }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.document_name }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.project_name }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.departemen }}</td>
+              <!-- <td class="px-6 py-4">{{ itemFormDA.jenis_perubahan }}</td> -->
+              <td class="px-6 py-4 ">
+                <button type="button" (click)="openEditModal(itemFormDA.form_uuid)"
+                  class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                    <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                    <path d="m16 5 3 3"></path>
+                  </svg>
+                </button>
+                <br>
+                <button type="button" (click)="openApproveModal(itemFormDA.form_uuid)"
+                  class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                    <path d="m9 15 2 2 4-4"></path>
+                  </svg>
+                </button>
+                <!-- <br>
+                <button type="button" (click)="downloadData(itemFormDA.form_uuid)"
+                  class="w-full focus:outline-none text-white bg-yellow-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg width="41" height="41" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M15 15.75h3.563c2.578 0 4.687-.994 4.687-3.544s-2.484-3.444-4.5-3.543C18.333 4.675 15.422 2.25 12 2.25c-3.234 0-5.317 2.146-6 4.275C3.187 6.792.75 8.207.75 11.137c0 2.931 2.531 4.613 5.625 4.613H9">
+                    </path>
+                    <path d="m9 18.758 3 2.995 3-2.995"></path>
+                    <path d="M12 10.5v10.501"></path>
+                  </svg>
+                </button> -->
+                <br>
+                <button type="button" (click)="onDeleteFormDA(itemFormDA.form_uuid)"
+                  class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                    <path d="M3.75 5.25h16.5"></path>
+                    <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                    <path d="M12 8.25v10.5"></path>
+                    <path d="M8.625 8.25 9 18.75"></path>
+                    <path d="M15.375 8.25 15 18.75"></path>
+                  </svg>
+                </button>
+              </td>
             </ng-container>
           </tr>
         </ng-container>
@@ -156,50 +159,50 @@
         <ng-container *ngIf="role_code === 'M'">
           <tr *ngFor="let itemFormDA of dataListUserFormDA let x = index" class="bg-white border-b hover:bg-gray-50">
             <ng-container *ngIf="matchesSearch(itemFormDA)">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-            <td class="px-6 py-4">{{ itemFormDA.form_number }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.form_ticket }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.document_name }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.project_name }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.departemen }}</td>
-            <td class="px-6 py-4">{{ itemFormDA.jenis_perubahan }}</td>
-            <td class="px-6 py-4 ">
-              <button type="button" (click)="openEditModal(itemFormDA.form_uuid)"
-                class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                  <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                  <path d="m16 5 3 3"></path>
-                </svg>
-              </button>
-              <br>
-              <button type="button" (click)="openApproveModal(itemFormDA.form_uuid)"
-                class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                  <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                  <path d="m9 15 2 2 4-4"></path>
-                </svg>
-              </button>
-              <br>
-              <button type="button" (click)="onDeleteFormDA(itemFormDA.form_uuid)"
-                class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
-                  <path d="M3.75 5.25h16.5"></path>
-                  <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
-                  <path d="M12 8.25v10.5"></path>
-                  <path d="M8.625 8.25 9 18.75"></path>
-                  <path d="M15.375 8.25 15 18.75"></path>
-                </svg>
-              </button>
-            </td>
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+              <td class="px-6 py-4">{{ itemFormDA.form_number }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.form_ticket }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.document_name }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.project_name }}</td>
+              <td class="px-6 py-4">{{ itemFormDA.departemen }}</td>
+              <!-- <td class="px-6 py-4">{{ itemFormDA.jenis_perubahan }}</td> -->
+              <td class="px-6 py-4 ">
+                <button type="button" (click)="openEditModal(itemFormDA.form_uuid)"
+                  class="w-full focus:outline-none text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                    <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                    <path d="m16 5 3 3"></path>
+                  </svg>
+                </button>
+                <br>
+                <button type="button" (click)="openApproveModal(itemFormDA.form_uuid)"
+                  class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                    <path d="m9 15 2 2 4-4"></path>
+                  </svg>
+                </button>
+                <br>
+                <button type="button" (click)="onDeleteFormDA(itemFormDA.form_uuid)"
+                  class="w-full focus:outline-none text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15"></path>
+                    <path d="M3.75 5.25h16.5"></path>
+                    <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25"></path>
+                    <path d="M12 8.25v10.5"></path>
+                    <path d="M8.625 8.25 9 18.75"></path>
+                    <path d="M15.375 8.25 15 18.75"></path>
+                  </svg>
+                </button>
+              </td>
             </ng-container>
           </tr>
         </ng-container>
@@ -269,43 +272,35 @@
 
       <div class="mt-4">
         <label for="jenis_perubahan" class="text-sm md:text-base mb-1">Jenis Perubahan</label>
-        <textarea 
-          id="jenis_perubahan"
-          name="jenis_perubahan"
-          placeholder="Masukkan Jenis Perubahan"
-          [(ngModel)]="jenis_perubahan"
-          class="border text-sm rounded-xl p-2 px-3 w-full resize-none overflow-hidden"
+        <textarea id="jenis_perubahan" name="jenis_perubahan" placeholder="Masukkan Jenis Perubahan"
+          [(ngModel)]="jenis_perubahan" class="border text-sm rounded-xl p-2 px-3 w-full h-40 overflow-auto"
           (keydown)="tabIndent($event)">
         </textarea>
-      </div>      
+      </div>
 
       <div class="mt-4">
         <label for="detail_dampak_perubahan" class="text-sm md:text-base mb-1">Detail Dampak Perubahan</label>
-        <textarea 
-          id="detail_dampak_perubahan" 
-          name="detail_dampak_perubahan"
-          placeholder="Masukkan Detail Dampak Perubahan"
-          [(ngModel)]="detail_dampak_perubahan"
-          (keydown)="tabIndent($event)"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <textarea id="detail_dampak_perubahan" name="detail_dampak_perubahan"
+          placeholder="Masukkan Detail Dampak Perubahan" [(ngModel)]="detail_dampak_perubahan"
+          (keydown)="tabIndent($event)" class="border text-sm rounded-xl p-2 px-3 w-full h-40 overflow-auto">
         </textarea>
       </div>
-      
+
       <div class="mt-4">
         <label for="description" class="text-sm md:text-base mb-1">Rencana Pengembangan Perubahan</label>
-        <input type="date" class="border text-sm rounded-xl p-2 px-3 w-full" name="rencana_pengembangan_perubahan"
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" name="rencana_pengembangan_perubahan"
           placeholder="Masukkan Rencana Pengembangan Perubahan" [(ngModel)]="rencana_pengembangan_perubahan">
       </div>
 
       <div class="mt-4">
         <label for="description" class="text-sm md:text-base mb-1">Rencana Pengujian Perubahan Sistem</label>
-        <input type="date" class="border text-sm rounded-xl p-2 px-3 w-full" name="rencana_pengujian_perubahan_sistem"
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" name="rencana_pengujian_perubahan_sistem"
           placeholder="Masukkan Pengujian Perubahan Sistem" [(ngModel)]="rencana_pengujian_perubahan_sistem">
       </div>
 
       <div class="mt-4">
         <label for="description" class="text-sm md:text-base mb-1">Rencana Rilis Perubahan dan Implementasi</label>
-        <input type="date" class="border text-sm rounded-xl p-2 px-3 w-full"
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full"
           name="rencana_rilis_perubahan_dan_implementasi"
           placeholder="Masukkan Rencana Rilis Perubahan dan Implementasi"
           [(ngModel)]="rencana_rilis_perubahan_dan_implementasi">
@@ -316,58 +311,62 @@
 
       <div class="mt-4">
         <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pemohon</label>
-        <select id="recipientSelect1" [(ngModel)]="name1"
+        <select id="recipientSelect1" [(ngModel)]="name1" name="name1"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
-          <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position1" name="name1-position"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" placeholder="Masukkan Jabatan" 
+          [(ngModel)]="position1"
+          name="position1" class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
         <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pemohon</label>
-        <select id="recipientSelect2"
+        <select id="recipientSelect2" [(ngModel)]="name2" name="name2"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
-          <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="Masukkan Jabatan"
+        [(ngModel)]="position2"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
         <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
-        <select id="recipientSelect3"
+        <select id="recipientSelect3" [(ngModel)]="name3" name="name3"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
-          <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder="Masukkan Jabatan"
+        [(ngModel)]="position3"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
         <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
-        <select id="recipientSelect4"
+        <select id="recipientSelect4" [(ngModel)]="name4" name="name4"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
-          <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder="Masukkan Jabatan"
+        [(ngModel)]="position4"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
-      <div class="mt-4">
+      <!-- <div class="mt-4">
         <label for="recipientSelect5" class="text-sm md:text-base mb-1">Person 5</label>
-        <select id="recipientSelect5"
+        <select id="recipientSelect5" [(ngModel)]="name5" name="name5"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
-          <option *ngFor="let user of dataListAllUser" [value]="user.user_id">{{ user.personal_name }}</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" name="recipientInfo5" id="recipientInfo5" placeholder="Masukkan Jabatan"
           class="border text-sm rounded-xl p-2 px-3 w-full">
-      </div>
+      </div> -->
     </form>
 
     <!-- Modal footer -->
@@ -420,7 +419,7 @@
             {{ project.project_name }}
           </option>
         </select>
-      </div>    
+      </div>
 
       <div class="mt-4">
         <label for="nama_analis" class="text-sm md:text-base mb-1">Nama Analis</label>
@@ -442,32 +441,24 @@
 
       <div class="mt-4">
         <label for="jenis_perubahan" class="text-sm md:text-base mb-1">Jenis Perubahan</label>
-        <textarea 
-          id="jenis_perubahan"
-          name="jenis_perubahan"
-          placeholder="Masukkan Jenis Perubahan"
-          [(ngModel)]="jenis_perubahan"
-          class="border text-sm rounded-xl p-2 px-3 w-full h-24 resize-none overflow-hidden"
+        <textarea id="jenis_perubahan" name="jenis_perubahan" placeholder="Masukkan Jenis Perubahan"
+          [(ngModel)]="jenis_perubahan" class="border text-sm rounded-xl p-2 px-3 w-full h-40 overflow-auto"
           (keydown)="tabIndent($event)">
         </textarea>
-      </div>      
+      </div>
 
       <div class="mt-4">
         <label for="detail_dampak_perubahan" class="text-sm md:text-base mb-1">Detail Dampak Perubahan</label>
-        <textarea 
-          id="detail_dampak_perubahan" 
-          name="detail_dampak_perubahan"
-          placeholder="Masukkan Detail Dampak Perubahan"
-          [(ngModel)]="detail_dampak_perubahan"
-          (keydown)="tabIndent($event)"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <textarea id="detail_dampak_perubahan" name="detail_dampak_perubahan"
+          placeholder="Masukkan Detail Dampak Perubahan" [(ngModel)]="detail_dampak_perubahan"
+          (keydown)="tabIndent($event)" class="border text-sm rounded-xl p-2 px-3 w-full h-40 overflow-auto">
         </textarea>
       </div>
 
       <div class="mt-4">
         <label for="rencana_pengembangan_perubahan" class="text-sm md:text-base mb-1">Rencana Pengembangan
           Perubahan</label>
-        <input type="date" name="rencana_pengembangan_perubahan" id="rencana_pengembangan_perubahan"
+        <input type="text" name="rencana_pengembangan_perubahan" id="rencana_pengembangan_perubahan"
           placeholder="Masukkan Rencana Pengembangan Perubahan" [(ngModel)]="rencana_pengembangan_perubahan"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
@@ -475,7 +466,7 @@
       <div class="mt-4">
         <label for="rencana_pengujian_perubahan_sistem" class="text-sm md:text-base mb-1">Rencana Pengujian Perubahan
           Sistem</label>
-        <input type="date" name="rencana_pengujian_perubahan_sistem" id="rencana_pengujian_perubahan_sistem"
+        <input type="text" name="rencana_pengujian_perubahan_sistem" id="rencana_pengujian_perubahan_sistem"
           placeholder="Masukkan Pengujian Perubahan Sistem" [(ngModel)]="rencana_pengujian_perubahan_sistem"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
@@ -483,7 +474,7 @@
       <div class="mt-4">
         <label for="rencana_rilis_perubahan_dan_implementasi" class="text-sm md:text-base mb-1">Rencana Rilis Perubahan
           dan Implementasi</label>
-        <input type="date" name="rencana_rilis_perubahan_dan_implementasi" id="rencana_rilis_perubahan_dan_implementasi"
+        <input type="text" name="rencana_rilis_perubahan_dan_implementasi" id="rencana_rilis_perubahan_dan_implementasi"
           [(ngModel)]="rencana_rilis_perubahan_dan_implementasi" class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
@@ -567,10 +558,9 @@
   <div
     class="relative w-full max-w-4xl bg-white rounded-lg shadow-lg dark:bg-gray-800 max-h-[90vh] overflow-auto mx-4 md:mx-6">
     <!-- Modal header -->
-    <div
-      class="flex items-center justify-between p-4 border-b rounded-t bg-gray-100 dark:bg-gray-700">
-      <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
-        Approval Data
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Preview and Approval
       </h3>
       <button (click)="closeApproveModal()"
         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -580,11 +570,10 @@
         </svg>
         <span class="sr-only">Close modal</span>
       </button>
-    </div> 
+    </div>
     <!-- Modal body -->
     <div class="p-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Kiri -->
+      <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="flex flex-col space-y-4">
           <div class="flex flex-col">
             <div class="font-semibold text-gray-700 dark:text-gray-300">No. Formulir</div>
@@ -608,7 +597,6 @@
           </div>
         </div>
     
-        <!-- Kanan -->
         <div class="flex flex-col space-y-4">
           <div class="flex flex-col">
             <div class="font-semibold text-gray-700 dark:text-gray-300">Jenis Perubahan</div>
@@ -631,8 +619,224 @@
             <div class="text-gray-900 dark:text-gray-100">{{ rencana_rilis_perubahan_dan_implementasi }}</div>
           </div>
         </div>
+      </div> -->
+      <div class="px-9">
+        <table class="border-2 border-black border-collapse w-full">
+          <tr>
+            <td class="border-2 border-black p-2 w-1/4">
+              <img class="w-40 mx-auto my-auto"
+                src="https://fintech.id/storage/files/shares/logo/logofi2/LOGO%20AINO%20INDONESIA%202021%20-%20Syafri%20Yuzal.png"
+                alt="">
+            </td>
+            <td class="border-2 border-black px-1 w-1/4">
+              <p class="text-center uppercase font-bold text-sm px-4">FORMULIR ANALISA DAMPAK PENGELOLAAN PERUBAHAN TI
+              </p>
+            </td>
+            <td class="border-2 border-black w-1/2 h-fit p-0">
+              <table class="border-collapse w-full h-full text-sm font-semibold">
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">{{ form_number }}</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">Tanggal Terbit</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">{{ created_at }}</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Revisi</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">woi</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <div class="mt-10 w-full">
+
+          <div class="w-full text-center text-sm font-bold">
+            <h1>FORMULIR ANALISIS DAMPAK PENGELOLAAN PERUBAHAN TI</h1>
+            <p>
+              <span>Nomor : </span>
+              <span>{{ form_number }}</span>
+            </p>
+          </div>
+          <hr class="bg-black h-[1.5px] w-[90%] my-5 mx-auto">
+
+
+          <table class="text-sm font-bold">
+            <tr>
+              <td class="pr-12">Nama Proyek</td>
+              <td class="px-5">:</td>
+              <td>{{ project_name }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Nama Analis</td>
+              <td class="px-5">:</td>
+              <td>{{ nama_analis }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Jabatan</td>
+              <td class="px-5">:</td>
+              <td>{{ jabatan }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Departemen</td>
+              <td class="px-5">:</td>
+              <td>{{ departemen }}</td>
+            </tr>
+          </table>
+        </div>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Jenis Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ jenis_perubahan }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Detail Dampak Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ detail_dampak_perubahan }}</td>
+          </tr>
+        </table>
+
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Pengembangan Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_pengembangan_perubahan }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Pengujian Perubahan Sistem</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_pengujian_perubahan_sistem }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Rilis Perubahan dan Implementasi
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_rilis_perubahan_dan_implementasi }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 w-full border-collapse">
+          <tr class="">
+            <td class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              Status pengajuan : <br> ( Berikan alasan apabila not approve )
+            </td>
+            <td class="w-1/2 h-36 text-center outline outline-black outline-1 p-0">
+              <table class="w-full h-full border-collapse">
+                <tr>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Approve</td>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Not Approve</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2 w-1/2"></td>
+                  <td class="outline outline-black outline-1 p-2 w-1/2"></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <table class="mt-8 w-full border-collapse">
+          <thead>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Pemohon</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Pemohon</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Penerima</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Penerima</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 h-64 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Pemohon']">
+                  <ng-container *ngIf="signatoryPositions['Pemohon'].is_sign; else noImage">
+                    <img class="mx-auto w-40 aspect-square" src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImage>
+                   <img class="mx-auto w-40 aspect-square" src="https://i.pinimg.com/474x/44/7b/b2/447bb204992c8c3e52d1df7952e3ad95.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline">{{ signatoryPositions['Pemohon'].name }}</p>
+                    <p>({{ signatoryPositions['Pemohon'].position }})</p>
+                    <p>Tanggal : 15 Agustus 2024</p>
+                  </div>
+                </ng-container>
+              </td>
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Pemohon']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Pemohon'].is_sign; else noImage">
+                    <img class="mx-auto w-40 aspect-square" src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImage>
+                   <img class="mx-auto w-40 aspect-square" src="https://i.pinimg.com/474x/44/7b/b2/447bb204992c8c3e52d1df7952e3ad95.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline">{{ signatoryPositions['Atasan Pemohon'].name }}</p>
+                    <p>({{ signatoryPositions['Atasan Pemohon'].position }})</p>
+                    <p>Tanggal : 15 Agustus 2024</p>
+                  </div>
+                </ng-container>
+              </td>
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Penerima'].is_sign; else noImage">
+                    <img class="mx-auto w-40 aspect-square" src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImage>
+                   <img class="mx-auto w-40 aspect-square" src="https://i.pinimg.com/474x/44/7b/b2/447bb204992c8c3e52d1df7952e3ad95.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline">{{ signatoryPositions['Penerima'].name }}</p>
+                    <p>({{ signatoryPositions['Penerima'].position }})</p>
+                    <p>Tanggal : 15 Agustus 2024</p>
+                  </div>
+                </ng-container>
+              </td>
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Penerima'].is_sign; else noImage">
+                    <img class="mx-auto w-40 aspect-square" src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImage>
+                    <img class="mx-auto w-40 aspect-square" src="https://i.pinimg.com/474x/44/7b/b2/447bb204992c8c3e52d1df7952e3ad95.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline">{{ signatoryPositions['Atasan Penerima'].name }}</p>
+                    <p>({{ signatoryPositions['Atasan Penerima'].position }})</p>
+                    <p>Tanggal : 15 Agustus 2024</p>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+
+        <!-- <div> -->
+        <!-- </div> -->
       </div>
     </div>
-    
+
   </div>
-</div> 
+</div>

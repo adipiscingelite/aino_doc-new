@@ -14,6 +14,15 @@ import axios from 'axios';
 import { PdfGenerationService } from '../../services/pdf-generation.service';
 // import { PdfGenerationService } from '../services/pdf-generation.service';
 
+interface Signatory {
+  sign_uuid: string;
+  signatory_name: string;
+  signatory_position: string;
+  role_sign: string;
+  is_sign: boolean;
+}
+
+
 interface formsDA {
   form_uuid: string;
   form_name: string;
@@ -137,25 +146,37 @@ export class FormDaComponent implements OnInit {
   name2: string = '';
   name3: string = '';
   name4: string = '';
-  name5: string = '';
+  // name5: string = '';
 
   position1: string = '';
   position2: string = '';
   position3: string = '';
   position4: string = '';
-  position5: string = '';
+  // position5: string = '';
 
   roleSign1: string = 'Pemohon';
   roleSign2: string = 'Atasan Pemohon';
   roleSign3: string = 'Penerima';
   roleSign4: string = 'Atasan Penerima';
-  roleSign5: string = 'Atasan Pemohon';
+
+  is_sign1: boolean = false;
+  is_sign2: boolean = false;
+  is_sign3: boolean = false;
+  is_sign4: boolean = false;
+  // roleSign5: string = 'Atasan Pemohon';
 
   dataListFormDADetail: Detail[] = [];
 
   isModalAddOpen: boolean = false;
   isModalEditOpen: boolean = false;
   isModalApproveOpen: boolean = false;
+
+  signatoryPositions: { [key: string]: { name: string; position: string; is_sign: boolean } } = {
+    'Pemohon': { name: '', position: '', is_sign: false },
+    'Atasan Pemohon': { name: '', position: '', is_sign: false },
+    'Penerima': { name: '', position: '', is_sign: false },
+    'Atasan Penerima': { name: '', position: '', is_sign: false }
+  };
 
   constructor(
     private cookieService: CookieService,
@@ -327,6 +348,8 @@ export class FormDaComponent implements OnInit {
       .get(`${this.apiUrl}/personal/name/all`)
       .then((response) => {
         this.dataListAllUser = response.data;
+        console.log('user',this.dataListAllUser);
+        
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -351,31 +374,32 @@ export class FormDaComponent implements OnInit {
 
   openAddModal() {
     this.isModalAddOpen = true;
-    this.form_ticket = '';
+    this.form_ticket = '1';
     this.project_uuid = '';
-    this.nama_analis = '';
-    this.jabatan = '';
-    this.departemen = '';
-    this.jenis_perubahan = '';
-    this.detail_dampak_perubahan = '';
-    this.rencana_pengujian_perubahan_sistem = '';
-    this.rencana_rilis_perubahan_dan_implementasi = '';
+    this.nama_analis = 'a';
+    this.jabatan = 'a';
+    this.departemen = 'a';
+    this.jenis_perubahan = 'a';
+    this.detail_dampak_perubahan = 'a';
+    this.rencana_pengembangan_perubahan = 'a';
+    this.rencana_pengujian_perubahan_sistem = 'a';
+    this.rencana_rilis_perubahan_dan_implementasi = 'a';
     this.name1 = '';
     this.position1 = '';
-    this.roleSign1 = '';
+    this.roleSign1 = this.roleSign1;
     this.name2 = '';
     this.position2 = '';
-    this.roleSign2 = '';
+    this.roleSign2 = this.roleSign2;
     this.name3 = '';
     this.position3 = '';
-    this.roleSign3 = '';
-    this.name4 = '';
+    this.roleSign3 = this.roleSign3;
+    this.name4 = 'nata';
     this.position4 = '';
-    this.roleSign4 = '';
-    this.name5 = '';
-    this.position5 = '';
-    this.roleSign5 = '';
-    console.log('woi');
+    this.roleSign4 = this.roleSign4;
+    // this.name5 = '';
+    // this.position5 = '';
+    // this.roleSign5 = '';
+    console.log('add da');
   }
   closeAddModal() {
     this.isModalAddOpen = false;
@@ -425,13 +449,14 @@ export class FormDaComponent implements OnInit {
           position: this.position4,
           role_sign: this.roleSign4,
         },
-        {
-          name: this.name5,
-          postion: this.position5,
-          role_sign: this.roleSign5,
-        },
+        // {
+        //   name: this.name5,
+        //   postion: this.position5,
+        //   role_sign: this.roleSign5,
+        // },
       ],
     };
+    console.log(requestDataFormDA);
 
     console.log(this.document_uuid);
     axios
@@ -453,7 +478,8 @@ export class FormDaComponent implements OnInit {
         this.fetchDataFormDA();
         this.fetchDataAdminFormDA();
         this.fetchDataUserFormDA();
-        console.log('rencana', this.rencana_pengembangan_perubahan);
+        // console.log('rencana', this.rencana_pengembangan_perubahan);
+        
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -473,7 +499,7 @@ export class FormDaComponent implements OnInit {
           });
         }
       });
-    this.isModalAddOpen = false;
+    // this.isModalAddOpen = false;
   }
 
   openEditModal(form_uuid: string) {
@@ -604,6 +630,7 @@ export class FormDaComponent implements OnInit {
         // $('#detailModalDA').modal('show');
         console.log(response);
         const formData = response.data.form;
+        this.created_at = formData.created_at;
         this.form_ticket = formData.form_ticket;
         this.form_status = formData.form_status;
         this.form_number = formData.form_number;
@@ -623,22 +650,28 @@ export class FormDaComponent implements OnInit {
         this.rencana_rilis_perubahan_dan_implementasi =
           formData.rencana_rilis_perubahan_dan_implementasi;
         this.isModalApproveOpen = true;
-        // this.isModalOpen = true;
-
-        if (response.data.signatories !== null) {
-          const signatories = response.data.signatories;
-          this.name1 = signatories.name1 || '';
-          this.position1 = signatories.position1 || '';
-          this.name2 = signatories.name2 || '';
-          this.position2 = signatories.position2 || '';
-        } else {
-          this.name1 = 'lawa';
-          this.position1 = 'intern';
-          this.name2 = 'budi';
-          this.position2 = 'HC';
-
-          console.log('Data signatories kosong');
-        }
+  
+        const signatories: Signatory[] = response.data.signatories || [];
+  
+        // Reset the signatory details
+        Object.keys(this.signatoryPositions).forEach(role => {
+          this.signatoryPositions[role] = { name: '', position: '', is_sign: false };
+        });
+  
+        // Populate the signatory details based on the API response
+        signatories.forEach((signatory: Signatory) => {
+          const role = signatory.role_sign;
+          if (this.signatoryPositions[role]) {
+            this.signatoryPositions[role] = {
+              name: signatory.signatory_name || '',
+              position: signatory.signatory_position || '',
+              is_sign: signatory.is_sign || false
+            };
+          }
+        });
+  
+        // Log to verify
+        console.log(this.signatoryPositions);
       })
       .catch((error) => {
         if (error.response && error.response.status === 500) {
@@ -657,6 +690,7 @@ export class FormDaComponent implements OnInit {
         }
       });
   }
+  
 
   // openApproveModal() {
   //   this.isModalApproveOpen = true;
