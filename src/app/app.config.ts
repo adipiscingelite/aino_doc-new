@@ -3,7 +3,6 @@ import { provideRouter } from '@angular/router';
 import { environment } from '../environments/environment';
 import { DatePipe } from '@angular/common';
 import { routes } from './app.routes';
-import { FormGroupDirective } from '@angular/forms';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,6 +10,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     { provide: 'apiUrl', useValue: environment.apiUrl },
     DatePipe,
-    FormGroupDirective,
+    
   ],
 };

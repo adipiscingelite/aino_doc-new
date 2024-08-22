@@ -12,7 +12,11 @@ import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { PdfGenerationService } from '../../services/pdf-generation.service';
-// import { PdfGenerationService } from '../services/pdf-generation.service';
+// import { PdfGenerationService } from '../services/pdf-generation.service';'
+import { AlertModule } from '@coreui/angular';
+import { initFlowbite,  } from 'flowbite';
+import { initPopovers } from 'flowbite';
+
 
 interface Signatory {
   sign_uuid: string;
@@ -21,7 +25,6 @@ interface Signatory {
   role_sign: string;
   is_sign: boolean;
 }
-
 
 interface formsDA {
   form_uuid: string;
@@ -86,16 +89,22 @@ interface Detail {
   is_sign: boolean;
 }
 
+interface Approval {
+  is_approve: boolean;
+  reason: string | null;
+}
+
 @Component({
   selector: 'app-form-da',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, ],
   templateUrl: './form-da.component.html',
   styleUrl: './form-da.component.css',
 })
 export class FormDaComponent implements OnInit {
   searchText: string = '';
 
+  isPreview: boolean = false; // State untuk menampilkan preview atau tabel
   form!: FormGroup;
   dataListAllDoc: Documents[] = [];
   dataListAllProject: Projects[] = [];
@@ -119,6 +128,7 @@ export class FormDaComponent implements OnInit {
   deleted_at: string = '';
 
   isPublished: boolean = false;
+  // reason: string = ''
 
   nama_analis: string = '';
   jabatan: string = '';
@@ -167,15 +177,20 @@ export class FormDaComponent implements OnInit {
 
   dataListFormDADetail: Detail[] = [];
 
+  is_approve: boolean = false;
   isModalAddOpen: boolean = false;
   isModalEditOpen: boolean = false;
   isModalApproveOpen: boolean = false;
 
-  signatoryPositions: { [key: string]: { name: string; position: string; is_sign: boolean } } = {
-    'Pemohon': { name: '', position: '', is_sign: false },
+  activePopover: number | null = null;
+
+  signatoryPositions: {
+    [key: string]: { name: string; position: string; is_sign: boolean };
+  } = {
+    Pemohon: { name: '', position: '', is_sign: false },
     'Atasan Pemohon': { name: '', position: '', is_sign: false },
-    'Penerima': { name: '', position: '', is_sign: false },
-    'Atasan Penerima': { name: '', position: '', is_sign: false }
+    Penerima: { name: '', position: '', is_sign: false },
+    'Atasan Penerima': { name: '', position: '', is_sign: false },
   };
 
   constructor(
@@ -194,6 +209,8 @@ export class FormDaComponent implements OnInit {
   dataListUserFormDA: formsDA[] = [];
 
   ngOnInit(): void {
+    initFlowbite();
+    initPopovers()
     this.profileData();
 
     this.listAllDoc();
@@ -207,12 +224,17 @@ export class FormDaComponent implements OnInit {
 
     let auxDate = this.substractYearsToDate(new Date(), 0);
     this.maxDate = this.getDateFormateForSearch(auxDate);
-    console.log('rencana', this.rencana_pengembangan_perubahan);
+    // console.log('rencana', this.rencana_pengembangan_perubahan);
   }
 
   substractYearsToDate(date: Date, years: number): Date {
     date.setFullYear(date.getFullYear() - years);
     return date;
+  }
+
+  backToTable() {
+    // Ganti state untuk menampilkan tabel
+    this.isPreview = false;
   }
 
   getDateFormateForSearch(date: Date): string {
@@ -237,19 +259,8 @@ export class FormDaComponent implements OnInit {
     );
   }
 
-  fetchDataFormDA() {
-    axios
-      .get(`${environment.apiUrl2}/dampak/analisa`)
-      .then((response) => {
-        this.dataListAllFormDA = response.data;
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error.response);
-        if (error.response.status === 500) {
-          console.log(error.response.data);
-        }
-      });
+  woilah(){
+    alert('wkkwkwkwkwkw gatau blm bisa')
   }
 
   profileData(): void {
@@ -304,6 +315,21 @@ export class FormDaComponent implements OnInit {
       });
   }
 
+  fetchDataFormDA() {
+    axios
+      .get(`${environment.apiUrl2}/dampak/analisa`)
+      .then((response) => {
+        this.dataListAllFormDA = response.data;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.status === 500) {
+          console.log(error.response.data);
+        }
+      });
+  }
+
   fetchDataAdminFormDA() {
     axios
       .get(`${environment.apiUrl2}/admin/da/all`, {
@@ -313,7 +339,7 @@ export class FormDaComponent implements OnInit {
       })
       .then((response) => {
         this.dataListAdminFormDA = response.data;
-        console.log(response.data);
+        console.log(response.data);        
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -348,8 +374,7 @@ export class FormDaComponent implements OnInit {
       .get(`${this.apiUrl}/personal/name/all`)
       .then((response) => {
         this.dataListAllUser = response.data;
-        console.log('user',this.dataListAllUser);
-        
+        console.log('user', this.dataListAllUser);
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -370,6 +395,14 @@ export class FormDaComponent implements OnInit {
       .catch((error) => {
         console.error('Error fetching document UUID:', error);
       });
+  }
+
+  togglePopover(index: number) {
+    if (this.activePopover === index) {
+      this.activePopover = null;
+    } else {
+      this.activePopover = index;
+    }
   }
 
   openAddModal() {
@@ -393,7 +426,7 @@ export class FormDaComponent implements OnInit {
     this.name3 = '';
     this.position3 = '';
     this.roleSign3 = this.roleSign3;
-    this.name4 = 'nata';
+    this.name4 = '';
     this.position4 = '';
     this.roleSign4 = this.roleSign4;
     // this.name5 = '';
@@ -479,7 +512,6 @@ export class FormDaComponent implements OnInit {
         this.fetchDataAdminFormDA();
         this.fetchDataUserFormDA();
         // console.log('rencana', this.rencana_pengembangan_perubahan);
-        
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -623,7 +655,7 @@ export class FormDaComponent implements OnInit {
     this.isModalEditOpen = false;
   }
 
-  openApproveModal(form_uuid: string) {
+  openPreviewPage(form_uuid: string) {
     axios
       .get(`${environment.apiUrl2}/da/${form_uuid}`)
       .then((response) => {
@@ -649,15 +681,19 @@ export class FormDaComponent implements OnInit {
           formData.rencana_pengujian_perubahan_sistem;
         this.rencana_rilis_perubahan_dan_implementasi =
           formData.rencana_rilis_perubahan_dan_implementasi;
-        this.isModalApproveOpen = true;
-  
+        this.isPreview = true;
+
         const signatories: Signatory[] = response.data.signatories || [];
-  
+
         // Reset the signatory details
-        Object.keys(this.signatoryPositions).forEach(role => {
-          this.signatoryPositions[role] = { name: '', position: '', is_sign: false };
+        Object.keys(this.signatoryPositions).forEach((role) => {
+          this.signatoryPositions[role] = {
+            name: '',
+            position: '',
+            is_sign: false,
+          };
         });
-  
+
         // Populate the signatory details based on the API response
         signatories.forEach((signatory: Signatory) => {
           const role = signatory.role_sign;
@@ -665,13 +701,25 @@ export class FormDaComponent implements OnInit {
             this.signatoryPositions[role] = {
               name: signatory.signatory_name || '',
               position: signatory.signatory_position || '',
-              is_sign: signatory.is_sign || false
+              is_sign: signatory.is_sign || false,
             };
           }
         });
-  
+
         // Log to verify
         console.log(this.signatoryPositions);
+
+        if (
+          this.approval_status === 'Menunggu Disetujui' &&
+          this.role_sign === 'Atasan Penerima'
+        ) {
+          console.log('iy');
+        } else {
+          console.log(this.approval_status);
+          console.log(this.role_sign);
+
+          console.log('no');
+        }
       })
       .catch((error) => {
         if (error.response && error.response.status === 500) {
@@ -690,14 +738,98 @@ export class FormDaComponent implements OnInit {
         }
       });
   }
-  
 
   // openApproveModal() {
   //   this.isModalApproveOpen = true;
   // }
-  closeApproveModal() {
-    this.isModalApproveOpen = false;
+  closePreviewPage() {
+    this.isPreview = false;
   }
+  // openApproveModal(form_uuid: string) {
+  //   axios
+  //     .get(`${environment.apiUrl2}/da/${form_uuid}`)
+  //     .then((response) => {
+  //       // $('#detailModalDA').modal('show');
+  //       console.log(response);
+  //       const formData = response.data.form;
+  //       this.created_at = formData.created_at;
+  //       this.form_ticket = formData.form_ticket;
+  //       this.form_status = formData.form_status;
+  //       this.form_number = formData.form_number;
+  //       this.document_name = formData.document_name;
+  //       this.project_name = formData.project_name;
+  //       this.approval_status = formData.approval_status;
+  //       this.reason = formData.reason?.String || '';
+  //       this.nama_analis = formData.nama_analis;
+  //       this.jabatan = formData.jabatan;
+  //       this.departemen = formData.departemen;
+  //       this.jenis_perubahan = formData.jenis_perubahan;
+  //       this.detail_dampak_perubahan = formData.detail_dampak_perubahan;
+  //       this.rencana_pengembangan_perubahan =
+  //         formData.rencana_pengembangan_perubahan;
+  //       this.rencana_pengujian_perubahan_sistem =
+  //         formData.rencana_pengujian_perubahan_sistem;
+  //       this.rencana_rilis_perubahan_dan_implementasi =
+  //         formData.rencana_rilis_perubahan_dan_implementasi;
+  //         this.isPreview = true;
+
+  //       const signatories: Signatory[] = response.data.signatories || [];
+
+  //       // Reset the signatory details
+  //       Object.keys(this.signatoryPositions).forEach(role => {
+  //         this.signatoryPositions[role] = { name: '', position: '', is_sign: false };
+  //       });
+
+  //       // Populate the signatory details based on the API response
+  //       signatories.forEach((signatory: Signatory) => {
+  //         const role = signatory.role_sign;
+  //         if (this.signatoryPositions[role]) {
+  //           this.signatoryPositions[role] = {
+  //             name: signatory.signatory_name || '',
+  //             position: signatory.signatory_position || '',
+  //             is_sign: signatory.is_sign || false
+  //           };
+  //         }
+  //       });
+
+  //       // Log to verify
+  //       console.log(this.signatoryPositions);
+
+  //       if (this.approval_status === 'Menunggu Disetujui' && this.role_sign === 'Atasan Penerima') {
+  //         console.log('iy');
+
+  //       } else {
+  //         console.log(this.approval_status);
+  //         console.log(this.role_sign);
+
+  //         console.log('no');
+
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error.response && error.response.status === 500) {
+  //         Swal.fire({
+  //           title: 'Error',
+  //           text: error.response.data.message,
+  //           icon: 'error',
+  //           timer: 2000,
+  //           timerProgressBar: true,
+  //           showCancelButton: false,
+  //           showConfirmButton: false,
+  //           confirmButtonText: 'OK',
+  //         });
+  //       } else {
+  //         console.error(error);
+  //       }
+  //     });
+  // }
+
+  // // openApproveModal() {
+  // //   this.isModalApproveOpen = true;
+  // // }
+  // closeApproveModal() {
+  //   this.isModalApproveOpen = false;
+  // }
 
   onDeleteFormDA(form_uuid: string) {
     Swal.fire({
@@ -781,12 +913,57 @@ export class FormDaComponent implements OnInit {
   //         timer: 3000
   //       });
   // }
+  approveForm(form_uuid: string) {
+    axios
+      .put(
+        `${environment.apiUrl2}/api/form/approval/${form_uuid}`,
+        {
+          is_approve: true, // Properly reference the class properties
+          reason: '', // Reason should be null if approved
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data.message);
+        Swal.fire({
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+        this.fetchDataFormDA();
+        this.fetchDataAdminFormDA();
+        this.fetchDataUserFormDA();
+      })
+      .catch((error) => {
+        if (error.response.status === 404 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+          });
+        }
+      });
+  }
+
   downloadData(form_uuid: string) {
     console.log('downloadData called with', form_uuid);
-    axios.get(`${environment.apiUrl2}/da/${form_uuid}`)
+    axios
+      .get(`${environment.apiUrl2}/da/${form_uuid}`)
       .then((response) => {
         const formData = response.data.form;
-  
+
         // Periksa apakah formData ada dan memiliki properti yang diperlukan
         if (formData) {
           this.form_ticket = formData.form_ticket;
@@ -801,10 +978,13 @@ export class FormDaComponent implements OnInit {
           this.departemen = formData.departemen;
           this.jenis_perubahan = formData.jenis_perubahan;
           this.detail_dampak_perubahan = formData.detail_dampak_perubahan;
-          this.rencana_pengembangan_perubahan = formData.rencana_pengembangan_perubahan;
-          this.rencana_pengujian_perubahan_sistem = formData.rencana_pengujian_perubahan_sistem;
-          this.rencana_rilis_perubahan_dan_implementasi = formData.rencana_rilis_perubahan_dan_implementasi;
-  
+          this.rencana_pengembangan_perubahan =
+            formData.rencana_pengembangan_perubahan;
+          this.rencana_pengujian_perubahan_sistem =
+            formData.rencana_pengujian_perubahan_sistem;
+          this.rencana_rilis_perubahan_dan_implementasi =
+            formData.rencana_rilis_perubahan_dan_implementasi;
+
           // Panggil fungsi untuk menghasilkan PDF
           this.downloadPdfAction();
         } else {
@@ -815,36 +995,40 @@ export class FormDaComponent implements OnInit {
         console.error('Error fetching document data:', error);
       });
   }
-  
+
   downloadPdfAction() {
     // Pastikan data sudah diambil dan siap untuk digunakan
     if (this.form_ticket) {
-      this.pdfService.generatePdf({
-        form_ticket: this.form_ticket,
-        form_status: this.form_status,
-        form_number: this.form_number,
-        document_name: this.document_name,
-        project_name: this.project_name,
-        approval_status: this.approval_status,
-        reason: this.reason,
-        nama_analis: this.nama_analis,
-        jabatan: this.jabatan,
-        departemen: this.departemen,
-        jenis_perubahan: this.jenis_perubahan,
-        detail_dampak_perubahan: this.detail_dampak_perubahan,
-        rencana_pengembangan_perubahan: this.rencana_pengembangan_perubahan,
-        rencana_pengujian_perubahan_sistem: this.rencana_pengujian_perubahan_sistem,
-        rencana_rilis_perubahan_dan_implementasi: this.rencana_rilis_perubahan_dan_implementasi
-      }).then(() => {
-        console.log('PDF generation completed');
-      }).catch((error) => {
-        console.error('Error generating PDF:', error);
-      });
+      this.pdfService
+        .generatePdf({
+          form_ticket: this.form_ticket,
+          form_status: this.form_status,
+          form_number: this.form_number,
+          document_name: this.document_name,
+          project_name: this.project_name,
+          approval_status: this.approval_status,
+          reason: this.reason,
+          nama_analis: this.nama_analis,
+          jabatan: this.jabatan,
+          departemen: this.departemen,
+          jenis_perubahan: this.jenis_perubahan,
+          detail_dampak_perubahan: this.detail_dampak_perubahan,
+          rencana_pengembangan_perubahan: this.rencana_pengembangan_perubahan,
+          rencana_pengujian_perubahan_sistem:
+            this.rencana_pengujian_perubahan_sistem,
+          rencana_rilis_perubahan_dan_implementasi:
+            this.rencana_rilis_perubahan_dan_implementasi,
+        })
+        .then(() => {
+          console.log('PDF generation completed');
+        })
+        .catch((error) => {
+          console.error('Error generating PDF:', error);
+        });
     } else {
       console.error('Data is not ready for PDF generation');
     }
   }
-
 
   tabIndent(event: KeyboardEvent): void {
     if (event.key === 'Tab') {
@@ -854,7 +1038,10 @@ export class FormDaComponent implements OnInit {
       const end = textarea.selectionEnd;
 
       // Menambahkan tab pada posisi kursor
-      textarea.value = textarea.value.substring(0, start) + '\t' + textarea.value.substring(end);
+      textarea.value =
+        textarea.value.substring(0, start) +
+        '\t' +
+        textarea.value.substring(end);
 
       // Mengatur posisi kursor setelah tab
       textarea.selectionStart = textarea.selectionEnd = start + 1;
@@ -863,7 +1050,6 @@ export class FormDaComponent implements OnInit {
       this.detail_dampak_perubahan = textarea.value;
     }
   }
-  
 }
 
 export { formsDA };

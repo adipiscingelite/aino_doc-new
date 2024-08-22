@@ -362,7 +362,7 @@ export class FormItcmComponent implements OnInit {
         });
       })
       .catch((error) => {
-        if ( 
+        if (
           error.response.status === 500 ||
           error.response.status === 400 ||
           error.response.status === 422 ||
@@ -429,26 +429,30 @@ export class FormItcmComponent implements OnInit {
   }
 
   updateFormITCM() {
-    axios.put(`${environment.apiUrl2}/api/form/itcm/update/${this.form_uuid}`, {
-      formData: {
-        document_uuid: this.document_uuid,
-        form_ticket: this.form_ticket,
-        project_uuid: this.project_uuid,
-      },
-      data_itcm: {
-        no_da: this.no_da,
-        nama_pemohon: this.nama_pemohon,
-        instansi: this.instansi,
-        tanggal: this.tanggal,
-        perubahan_aset: this.perubahan_aset,
-        deskripsi: this.deskripsi
-      },
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${this.cookieService.get('userToken')}`
-      }
-    })
+    axios
+      .put(
+        `${environment.apiUrl2}/api/form/itcm/update/${this.form_uuid}`,
+        {
+          formData: {
+            document_uuid: this.document_uuid,
+            form_ticket: this.form_ticket,
+            project_uuid: this.project_uuid,
+          },
+          data_itcm: {
+            no_da: this.no_da,
+            nama_pemohon: this.nama_pemohon,
+            instansi: this.instansi,
+            tanggal: this.tanggal,
+            perubahan_aset: this.perubahan_aset,
+            deskripsi: this.deskripsi,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data.message);
         Swal.fire({
@@ -475,10 +479,10 @@ export class FormItcmComponent implements OnInit {
             timerProgressBar: true,
             showCancelButton: false,
             showConfirmButton: false,
-          })
+          });
         }
       });
-      this.isModalEditOpen = false;
+    this.isModalEditOpen = false;
   }
 
   openApproveModal(form_uuid: string) {
@@ -506,7 +510,6 @@ export class FormItcmComponent implements OnInit {
     });
   }
 
-  
   closeApproveModal() {
     this.isModalApproveOpen = false;
   }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Router, RouterLink } from '@angular/router';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -104,6 +104,14 @@ p: any;
           console.error(error);
         }
       });
+  }
+
+  swal() {
+    
+    Swal.fire({
+      title: 'Error',
+      text: 'wir',
+      icon: 'error',})
   }
 
   clearToken() {

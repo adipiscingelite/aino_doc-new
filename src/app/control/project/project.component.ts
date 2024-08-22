@@ -4,13 +4,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { ProjectService } from '../../services/project/poject.service';
-import {
-  FormBuilder,
-  FormGroup,
-  FormGroupDirective,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+
+import { FormsModule, ReactiveFormsModule, FormGroupDirective, FormBuilder,FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 interface Project {
@@ -35,7 +30,7 @@ interface Product {
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css',
 })
@@ -71,7 +66,7 @@ export class ProjectComponent implements OnInit {
     private cookieService: CookieService,
     public projectService: ProjectService,
     private fb: FormBuilder,
-    private formGroupDirective: FormGroupDirective,
+    // private formGroupDirective: FormGroupDirective,
     @Inject('apiUrl') private apiUrl: string
   ) {
     this.apiUrl = apiUrl;

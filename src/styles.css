@@ -20,7 +20,11 @@
 
 /* styles.scss atau styles.css */
 .active-link {
-  @apply bg-gradient-to-r from-gray-50 to-gray-100;
+  @apply text-neutral-800 bg-gradient-to-r from-white to-gray-200;
+}
+
+.svg-active-link {
+  @apply text-blue-600;
 }
 
 /* 

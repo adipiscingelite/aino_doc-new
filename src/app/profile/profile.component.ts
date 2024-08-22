@@ -2,11 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import axios from 'axios';
 import { Router, RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

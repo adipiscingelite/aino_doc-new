@@ -13,7 +13,9 @@ import { environment } from '../../../environments/environment';
 import { UserService } from '../../services/user-control/user-control.service';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { FormModule } from '@coreui/angular';
+import { routes } from '../../app.routes';
 
 interface Users {
   user_uuid: string;
@@ -53,7 +55,7 @@ interface Division {
 @Component({
   selector: 'app-user-control',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, ],
   templateUrl: './user-control.component.html',
   styleUrls: ['./user-control.component.css'],
 })
@@ -95,7 +97,6 @@ export class UserControlComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private formGroupDirective: FormGroupDirective,
     public userService: UserService
   ) {
     this.apiUrl = apiUrl;
