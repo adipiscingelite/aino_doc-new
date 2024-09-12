@@ -1,40 +1,127 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
+import { initFlowbite } from 'flowbite';
+import { CommonModule } from '@angular/common';
+import { ShepherdService } from '../services/shepherd/shepherd.service';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterLink, ],
+  imports: [RouterLink, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
-  constructor(private router: Router, private cookieService: CookieService) {}
+  constructor(
+    private router: Router,
+    private cookieService: CookieService,
+    private shepherdService: ShepherdService,
+    @Inject('apiUrl') private apiUrl: string
+  ) {}
 
+  user: any = {};
+
+  // user
   dataDALength: any;
   dataITCMLength: any;
   dataBALength: any;
-  // topcards: topcard[];
+  dataHALength: any;
+
+  dataSignatureITCMLength: any;
+  dataSignatureDALength: any;
+  dataSignatureBALength: any;
+  dataSignatureHALength: any;
+
   dataListAllFormDA: any[] = [];
   dataListFormITCM: any[] = [];
   dataListAllBA: any[] = [];
-p: any;
-  // constructor() {
-    
-  // }
+  dataListAllHA: any[] = [];
+
+  dataListSignatureITCM: any[] = [];
+  dataListSignatureDA: any[] = [];
+  dataListSignatureBA: any[] = [];
+  dataListSignatureHA: any[] = [];
+  p: any;
 
   ngOnInit(): void {
+    // this.initDashboardTour();
+    // this.shepherdService.startTour('dashboard');
+
+
     this.fetchDataFormDA();
     this.fetchDataFormITCM();
     this.fetchAllDataBA();
+    this.fetchAllDataHA();
+
+    this.fetchITCMSignature();
+    this.fetchDASignature();
+    this.fetchBASignature();
+    this.fetchHASignature();
+  }
+  
+
+  initDashboardTour() {
+    this.shepherdService.createTour('dashboardTour');
+
+    this.shepherdService.addStep('dashboardTour', {
+      id: 'dashboardIntro',
+      text: 'Welcome to the dashboard!',
+      attachTo: { element: '#dashboard', on: 'bottom' },
+      buttons: [
+        {
+          text: 'Next',
+          action: this.shepherdService['tours']['dashboardTour'].next
+        }
+      ]
+    });
+
+    this.shepherdService.addStep('dashboardTour', {
+      id: 'formITCM',
+      text: 'This is the statistics widget.',
+      attachTo: { element: '#formITCM', on: 'bottom' },
+      buttons: [
+        {
+          text: 'Next',
+          action: this.shepherdService['tours']['dashboardTour'].next
+        }
+      ]
+    });
+
+    this.shepherdService.startTour('dashboardTour');
+  }
+
+
+  fetchProfileData() {
+    const token = this.cookieService.get('userToken');
+    console.log('Token:', token);
+
+    axios
+      .get(`${this.apiUrl}/auth/my/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log('tour, ', response.data.tour);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 500) {
+          console.log(error.response.data.message);
+        }
+      });
   }
 
   fetchDataFormDA(): void {
     axios
-      .get(`${environment.apiUrl2}/dampak/analisa`)
+      .get(`${environment.apiUrl2}/api/my/form/da`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
       .then((response) => {
         if (response.data) {
           this.dataListAllFormDA = response.data;
@@ -58,7 +145,11 @@ p: any;
 
   fetchDataFormITCM(): void {
     axios
-      .get(`${environment.apiUrl2}/form/itcm`)
+      .get(`${environment.apiUrl2}/api/my/form/itcm`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
       .then((response) => {
         if (response.data) {
           this.dataListFormITCM = response.data;
@@ -84,7 +175,11 @@ p: any;
 
   fetchAllDataBA(): void {
     axios
-      .get(`${environment.apiUrl2}/form/ba`)
+      .get(`${environment.apiUrl2}/api/my/form/ba`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
       .then((response) => {
         if (response.data) {
           this.dataListAllBA = response.data;
@@ -106,23 +201,129 @@ p: any;
       });
   }
 
-  swal() {
-    
-    Swal.fire({
-      title: 'Error',
-      text: 'wir',
-      icon: 'error',})
+  fetchAllDataHA(): void {
+    axios
+      .get(`${environment.apiUrl2}/api/my/form/ha`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          this.dataListAllHA = response.data;
+          console.log('respoon ha', response);
+
+          console.log(response.data);
+          this.dataHALength = this.dataListAllHA.length;
+        } else {
+          console.log('Data is null');
+          this.dataHALength = 0;
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 500) {
+            console.log(error.response.data.message);
+          }
+        } else {
+          console.error(error);
+        }
+      });
   }
 
-  clearToken() {
-    // Hapus token dari localStorage atau cookies
-    // this.cookieService.delete('accessToken'); // Jika menggunakan cookies
-    // localStorage.removeItem('accessToken'); // Jika menggunakan localStorage
-    const token = this.cookieService.get('userToken');
-    console.log(token);
-    this.cookieService.delete('userToken')
-    
-    // Arahkan pengguna ke halaman login setelah menghapus token
-    // this.router.navigate(['/login']);
+  fetchITCMSignature() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/signature/itcm`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          this.dataListSignatureITCM = response.data.filter(
+            (item: any) => item.form_status === 'Published'
+          );
+          this.dataSignatureITCMLength = this.dataListSignatureITCM.length;
+        } else {
+          console.log('Data ITCM is null');
+          this.dataSignatureITCMLength = 0;
+        }
+      })
+      .catch((error) => {
+        console.log('Error fetching ITCM signatures:', error);
+        this.dataSignatureITCMLength = 0;
+      });
+  }
+
+  fetchDASignature() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/signature/da`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          this.dataListSignatureDA = response.data.filter(
+            (item: any) => item.form_status === 'Published'
+          );
+          this.dataSignatureDALength = this.dataListSignatureDA.length;
+        } else {
+          console.log('Data DA is null');
+          this.dataSignatureDALength = 0;
+        }
+      })
+      .catch((error) => {
+        console.log('Error fetching DA signatures:', error);
+        this.dataSignatureDALength = 0;
+      });
+  }
+
+  fetchBASignature() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/signature/ba`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          this.dataListSignatureBA = response.data.filter(
+            (item: any) => item.form_status === 'Published'
+          );
+          this.dataSignatureBALength = this.dataListSignatureBA.length;
+        } else {
+          console.log('Data BA is null');
+          this.dataSignatureBALength = 0;
+        }
+      })
+      .catch((error) => {
+        console.log('Error fetching BA signatures:', error);
+        this.dataSignatureBALength = 0;
+      });
+  }
+
+  fetchHASignature() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/signature/ha`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          this.dataListSignatureHA = response.data.filter(
+            (item: any) => item.form_status === 'Published'
+          );
+          this.dataSignatureHALength = this.dataListSignatureHA.length;
+        } else {
+          console.log('Data HA is null');
+          this.dataSignatureHALength = 0;
+        }
+      })
+      .catch((error) => {
+        console.log('Error fetching HA signatures:', error);
+        this.dataSignatureHALength = 0;
+      });
   }
 }

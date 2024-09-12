@@ -1,9 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, Inject, OnInit, HostListener } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
 import { DocumentService } from '../../services/document/document.service';
@@ -24,6 +21,9 @@ interface documents {
   styleUrl: './document-control.component.css',
 })
 export class DocumentControlComponent implements OnInit {
+
+  popoverIndex: number | null = null;
+  
   searchText: string = '';
 
   document_uuid: string = '';
@@ -94,6 +94,35 @@ export class DocumentControlComponent implements OnInit {
           console.log(error.response.data.message);
         }
       });
+  }
+
+  togglePopover(event: Event, index: number): void {
+    event.stopPropagation(); // Menghentikan event bubbling
+    if (this.popoverIndex === index) {
+      this.popoverIndex = null; // Tutup popover jika diklik lagi
+    } else {
+      this.popoverIndex = index; // Buka popover untuk baris ini
+    }
+  }
+
+  closePopover() {
+    this.popoverIndex = null;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (this.popoverIndex !== null) {
+      const clickedElement = event.target as HTMLElement;
+      const popoverElement = document.querySelector('.popover-content');
+      if (popoverElement && !popoverElement.contains(clickedElement)) {
+        this.closePopover();
+      }
+    }
+  }
+
+  handleAction(action: string, item: any): void {
+    // console.log(Handling ${action} for:, item);
+    this.closePopover();
   }
 
   openAddModal() {
@@ -209,7 +238,9 @@ export class DocumentControlComponent implements OnInit {
     const token = this.cookieService.get('userToken');
     const documentUuid = this.document_uuid;
 
-    axios.put(`${environment.apiUrl2}/superadmin/document/update/${documentUuid}`,
+    axios
+      .put(
+        `${environment.apiUrl2}/superadmin/document/update/${documentUuid}`,
         {
           document_code: this.document_code,
           document_name: this.document_name,
@@ -262,6 +293,64 @@ export class DocumentControlComponent implements OnInit {
         }
       });
     this.isModalEditOpen = false;
+  }
+
+  onDeleteDocument(document_uuid: string): void {
+    Swal.fire({
+      title: 'Konfirmasi',
+      text: 'Anda yakin ingin menghapus Docuemnt ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.performDeleteDocument(document_uuid);
+      }
+    });
+  }
+
+  performDeleteDocument(document_uuid: string): void {
+    const token = this.cookieService.get('userToken');
+
+    axios
+      .put(
+        `${environment.apiUrl2}/superadmin/document/delete/${document_uuid}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data.message);
+        this.fetchDataDoc();
+        Swal.fire({
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+          });
+        }
+      });
   }
 }
 

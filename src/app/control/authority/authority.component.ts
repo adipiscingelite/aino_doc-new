@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
@@ -40,6 +40,9 @@ interface Role {
   styleUrl: './authority.component.css',
 })
 export class AuthorityComponent implements OnInit {
+
+  popoverIndex: number | null = null;
+
   searchText: string = '';
 
   form!: FormGroup;
@@ -157,6 +160,35 @@ export class AuthorityComponent implements OnInit {
           console.log(error.response.data.message);
         }
       });
+  }
+  
+  togglePopover(event: Event, index: number): void {
+    event.stopPropagation(); // Menghentikan event bubbling
+    if (this.popoverIndex === index) {
+      this.popoverIndex = null; // Tutup popover jika diklik lagi
+    } else {
+      this.popoverIndex = index; // Buka popover untuk baris ini
+    }
+  }
+
+  closePopover() {
+    this.popoverIndex = null;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (this.popoverIndex !== null) {
+      const clickedElement = event.target as HTMLElement;
+      const popoverElement = document.querySelector('.popover-content');
+      if (popoverElement && !popoverElement.contains(clickedElement)) {
+        this.closePopover();
+      }
+    }
+  }
+
+  handleAction(action: string, item: any): void {
+    // console.log(Handling ${action} for:, item);
+    this.closePopover();
   }
 
   openAddModal() {

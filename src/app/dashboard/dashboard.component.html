@@ -1,77 +1,335 @@
 <!-- component -->
 
-<div class="max-w-full sm:mx-auto sm:px-6">
-  <div class="text-sm md:text-base grid grid-cols-2 lg:flex gap-1 md:gap-3">
-    <a routerLink="/form/da"
-      class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
-      <div class="bg-white p-5">
-        <div class="sm:flex sm:items-start">
-          <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
-            <h3 class="text-sm leading-6 font-medium text-gray-400">Form DA</h3>
-            <p class="text-2xl md:text-3xl font-bold text-black">{{dataDALength}}</p>
+<div id="formList" class="max-w-full sm:mx-auto sm:px-6">
+
+  <div class="px-2 rounded-lg shadow-lg border">
+    <h1 class="my-1 text-lg font-bold uppercase">Daftar Formulir</h1>
+    <p class="text-sm text-neutral-700">Berikut adalah jumlah formulir yang telah Anda buat😹</p>
+    <hr>
+    <div class="text-sm md:text-base grid grid-cols-2 lg:flex gap-1 md:gap-3">
+      <a id="formListITCM" routerLink="/form/itcm"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
+        <div class="bg-white p-5">
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
+              <h3 class="text-sm leading-6 font-medium text-gray-400">Total Form ITCM</h3>
+              <p class="text-2xl md:text-3xl font-bold text-black">{{dataITCMLength}}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-    <a routerLink="/form/itcm"
-      class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
-      <div class="bg-white p-5">
-        <div class="sm:flex sm:items-start">
-          <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
-            <h3 class="text-sm leading-6 font-medium text-gray-400">Form ITCM</h3>
-            <p class="text-2xl md:text-3xl font-bold text-black">{{dataITCMLength}}</p>
+      </a>
+      <a routerLink="/form/da"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
+        <div class="bg-white p-5">
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
+              <h3 class="text-sm leading-6 font-medium text-gray-400">Total Form DA</h3>
+              <p class="text-2xl md:text-3xl font-bold text-black">{{dataDALength}}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-    <a routerLink="/form/ba"
-      class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
-      <div class="bg-white p-5">
-        <div class="sm:flex sm:items-start">
-          <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
-            <h3 class="text-sm leading-6 font-medium text-gray-400">BA ITCM</h3>
-            <p class="text-2xl md:text-3xl font-bold text-black">{{dataBALength}}</p>
+      </a>
+      <a routerLink="/form/ba"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
+        <div class="bg-white p-5">
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
+              <h3 class="text-sm leading-6 font-medium text-gray-400">Total Form BA</h3>
+              <p class="text-2xl md:text-3xl font-bold text-black">{{dataBALength}}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-    <a routerLink="/form/hak-akses"
-      class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
-      <div class="bg-white p-5">
-        <div class="sm:flex sm:items-start">
-          <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
-            <h3 class="text-sm leading-6 font-medium text-gray-400">Hak Akses</h3>
-            <p class="text-2xl md:text-3xl font-bold text-black">Kosong</p>
+      </a>
+      <a routerLink="/form/hak-akses"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
+        <div class="bg-white p-5">
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
+              <h3 class="text-sm leading-6 font-medium text-gray-400">Total Form HA</h3>
+              <p class="text-2xl md:text-3xl font-bold text-black">{{dataHALength}}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
   </div>
 </div>
 
-<button (click)="swal()">KLIK</button>
-<!-- dashboard.component.html -->
-<div class="">
-  <div class="relative space-y-8 md:space-y-0 md:flex md:flex-row-reverse h-screen">
-    <img class="absolute bottom-0 right-0 w-64 hidden md:block z-0"
-      src="https://rekrutmenbersama2024.fhcibumn.id/assets/frontend/images/omni-right.svg" alt="">
-    <div class="flex justify-center items-center md:w-1/2 ">
-      <div class="h-auto w-full px-4">
-        <h1 class="py-6 text-3xl font-bold">“AINO Bikin Jadi Mudah”</h1>
-        <hr>
-        <p class="mt-4 py-4 leading-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime dolore rem non unde, veniam, veritatis minus modi assumenda blanditiis consectetur facilis aut ea architecto perferendis harum explicabo rerum alias eligendi?</p>
+<br><br>
 
-        <h5 class="font-medium">Raih karir impianmu dengan belajar, bertumbuh dan
-          berkontribusi untuk Indonesia!
-        </h5>
-        <p class="mt-5 mb-3">
-          <i class="text-sky-700">#bikinjadimudah</i>
-        </p>
+<div class="max-w-full sm:mx-auto sm:px-6">
 
-        <button class="text-sm md:text-lg px-5 md:px-9 py-1 bg-gradient-to-r from-sky-200 to-sky-500 hover:bg-gradient-to-r hover:from-sky-300 hover:to-sky-600 p-4 rounded-full text-gray-50 hover:shadow-sm">Flow Hak Akses</button>
+  <div class="px-2 rounded-lg shadow-lg border">
+    <h1 class="my-1 text-lg font-bold uppercase">Daftar Signature</h1>
+    <p class="text-sm text-neutral-700">Berikut adalah jumlah formulir yang harus Anda tandatangani😹</p>
+    <hr>
+    <div class="text-sm md:text-base grid grid-cols-2 lg:flex gap-1 md:gap-3">
+      <a routerLink="/form/itcm"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
+        <div class="bg-white p-5">
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
+              <h3 class="text-sm leading-6 font-medium text-gray-400">Total Form ITCM</h3>
+              <p class="text-2xl md:text-3xl font-bold text-black">{{dataSignatureITCMLength}}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a routerLink="/form/da"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
+        <div class="bg-white p-5">
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
+              <h3 class="text-sm leading-6 font-medium text-gray-400">Total Form DA</h3>
+              <p class="text-2xl md:text-3xl font-bold text-black">{{dataSignatureDALength}}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a routerLink="/form/ba"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
+        <div class="bg-white p-5">
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
+              <h3 class="text-sm leading-6 font-medium text-gray-400">Total Form BA</h3>
+              <p class="text-2xl md:text-3xl font-bold text-black">{{dataSignatureBALength}}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a routerLink="/form/hak-akses"
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow transform transition-all mb-4 w-full sm:my-8">
+        <div class="bg-white p-5">
+          <div class="sm:flex sm:items-start">
+            <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
+              <h3 class="text-sm leading-6 font-medium text-gray-400">Total Form HA</h3>
+              <p class="text-2xl md:text-3xl font-bold text-black">{{dataSignatureHALength}}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- component -->
+<div class="p-24 flex flex-wrap items-center justify-center">
+
+  <div class="flex-shrink-0 m-6 relative overflow-hidden bg-orange-500 rounded-lg max-w-xs shadow-lg">
+    <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
+      style="transform: scale(1.5); opacity: 0.1;">
+      <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
+      <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
+    </svg>
+    <div class="relative pt-10 px-10 flex items-center justify-center">
+      <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
+        style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
+      </div>
+      <img class="relative w-40"
+        src="https://user-images.githubusercontent.com/2805249/64069899-8bdaa180-cc97-11e9-9b19-1a9e1a254c18.png"
+        alt="">
+    </div>
+    <div class="relative text-white px-6 pb-6 mt-6">
+      <span class="block opacity-75 -mb-1">Indoor</span>
+      <div class="flex justify-between">
+        <span class="block font-semibold text-xl">Peace Lily</span>
+        <span
+          class="block bg-white rounded-full text-orange-500 text-xs font-bold px-3 py-2 leading-none flex items-center">$36.00</span>
       </div>
     </div>
-    <div class="md:w-1/2"><img class="h-full w-full object-cover"
-        src="https://i.pinimg.com/474x/9e/89/d9/9e89d928b8d2d0edef485b245f1c9552.jpg" alt="" srcset=""></div>
+  </div>
+  <div class="flex-shrink-0 m-6 relative overflow-hidden bg-teal-500 rounded-lg max-w-xs shadow-lg">
+    <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
+      style="transform: scale(1.5); opacity: 0.1;">
+      <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
+      <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
+    </svg>
+    <div class="relative pt-10 px-10 flex items-center justify-center">
+      <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
+        style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
+      </div>
+      <img class="relative w-40"
+        src="https://user-images.githubusercontent.com/2805249/64069998-305de300-cc9a-11e9-8ae7-5a0fe00299f2.png"
+        alt="">
+    </div>
+    <div class="relative text-white px-6 pb-6 mt-6">
+      <span class="block opacity-75 -mb-1">Outdoor</span>
+      <div class="flex justify-between">
+        <span class="block font-semibold text-xl">Monstera</span>
+        <span
+          class="block bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center">$45.00</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex-shrink-0 m-6 relative overflow-hidden bg-purple-500 rounded-lg max-w-xs shadow-lg">
+    <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
+      style="transform: scale(1.5); opacity: 0.1;">
+      <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
+      <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
+    </svg>
+    <div class="relative pt-10 px-10 flex items-center justify-center">
+      <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
+        style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
+      </div>
+      <img class="relative w-40"
+        src="https://user-images.githubusercontent.com/2805249/64069899-8bdaa180-cc97-11e9-9b19-1a9e1a254c18.png"
+        alt="">
+    </div>
+    <div class="relative text-white px-6 pb-6 mt-6">
+      <span class="block opacity-75 -mb-1">Outdoor</span>
+      <div class="flex justify-between">
+        <span class="block font-semibold text-xl">Oak Tree</span>
+        <span
+          class="block bg-white rounded-full text-purple-500 text-xs font-bold px-3 py-2 leading-none flex items-center">$68.50</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- component -->
+<div class="flex lg:flex-row flex-col lg:justify-center items-center lg:p-8 p-4 font-sans bg-slate-100 min-h-screen">
+  <div class="lg:w-[23rem] bg-white w-full border-2 lg:border-r-0 border-gray-200 p-5 rounded-2xl lg:rounded-r-none">
+    <div class="pb-3 mb-4 border-b border-gray-200">
+      <div class="text-xs text-slate-800 mb-2">START</div>
+      <h2 class="text-5xl m-0 font-normal">Free</h2>
+    </div>
+    <div class="flex items-center mb-2">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>10k Visitors/mo
+    </div>
+    <div class="flex items-center mb-2">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>
+      10 Funnels, 50 Pages
+    </div>
+    <div class="flex items-center mb-5">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>Unlimited Transactions
+    </div>
+    <div class="mt-auto w-full">
+      <button class="bg-teal-500 rounded-xl cursor-pointer text-white py-2 border-none w-full flex items-center px-3">
+        Get Free
+        <svg class="ml-auto" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M13.75 6.75L19.25 12L13.75 17.25"></path>
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 12H4.75">
+          </path>
+        </svg>
+      </button>
+      <div class="text-xs mt-3 text-slate-600 line-height-2">Literally you probably haven't heard of them jean shorts.
+      </div>
+    </div>
+  </div>
+  <div class="lg:w-[23rem] bg-white w-full lg:my-0 my-4 border-2 border-gray-200 p-5 rounded-2xl lg:shadow-8">
+    <div class="pb-3 mb-4 border-b border-gray-200">
+      <div class="text-xs text-slate-800 mb-2">PRO</div>
+      <div class="flex items-center">
+        <h2 class="text-5xl m-0 font-normal">$38</h2>
+        <span class="text-slate-300 ml-1">/mo</span>
+      </div>
+    </div>
+    <div class="flex items-center mb-2">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>10k Visitors/mo
+    </div>
+    <div class="flex items-center mb-2">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>
+      10 Funnels, 100 Pages
+    </div>
+    <div class="flex items-center mb-2">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>Unlimited Transactions
+
+    </div>
+    <div class="flex items-center mb-2">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>Analytics
+    </div>
+    <div class="flex items-center mb-5">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>lnstegrations
+    </div>
+    <div class="mt-auto w-full">
+      <button class="bg-teal-500 rounded-xl cursor-pointer text-white py-2 border-none w-full flex items-center px-3">
+        Get Pro
+        <svg class="ml-auto" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M13.75 6.75L19.25 12L13.75 17.25"></path>
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 12H4.75">
+          </path>
+        </svg>
+      </button>
+      <div class="text-xs mt-3 text-slate-600 line-height-2">Literally you probably haven't heard of them jean shorts.
+      </div>
+    </div>
+  </div>
+  <div class="lg:w-[23rem] bg-white w-full border-2 lg:border-l-0 border-gray-200 p-5 rounded-2xl lg:rounded-l-none">
+    <div class="pb-3 mb-4 border-b border-gray-200">
+      <div class="text-xs text-slate-800 mb-2">ENTERPRISE</div>
+      <div class="flex items-center">
+        <h2 class="text-5xl m-0 font-normal">$72</h2>
+        <span class="text-slate-300 ml-1">/mo</span>
+      </div>
+    </div>
+    <div class="flex items-center mb-2">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>Audience Date
+    </div>
+    <div class="flex items-center mb-2">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>
+      Premium templates
+    </div>
+    <div class="flex items-center mb-5">
+      <svg width="24" height="24" fill="none" class="text-green-500 mr-1" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+      </svg>White Labelling
+    </div>
+    <div class="mt-auto w-full">
+      <button class="bg-teal-500 rounded-xl cursor-pointer text-white py-2 border-none w-full flex items-center px-3">
+        Get Enterprise
+        <svg class="ml-auto" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M13.75 6.75L19.25 12L13.75 17.25"></path>
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 12H4.75">
+          </path>
+        </svg>
+      </button>
+      <div class="text-xs mt-3 text-slate-600 line-height-2">Literally you probably haven't heard of them jean shorts.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-10">
+  <div>
+      <a title="Buy me a coffee" href="https://hehehehe/" target="_blank" class="block w-16 h-16 rounded-full transition-all shadow hover:shadow-lg transform hover:scale-110 hover:rotate-12">
+          <img class="object-cover object-center w-full h-full rounded-full" src="https://i.pinimg.com/474x/96/44/e2/9644e2545f2519bb0c1e83ff72fdafb7.jpg"/>
+      </a>
   </div>
 </div>

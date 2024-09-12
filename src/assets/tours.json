@@ -1,0 +1,51 @@
+[
+  {
+    "id": "dashboardIntro",
+    "context": "dashboard",
+    "text": "Welcome to the dashboard!",
+    "element": "#dashboard",
+    "position": "bottom"
+  },
+  {
+    "id": "dashboardICMMine",
+    "context": "dashboard",
+    "text": "Welcome to the dashboard!",
+    "element": "#my-itcm",
+    "position": "bottom"
+  },
+  {
+    "id": "dashboardITCMSignature",
+    "context": "dashboard",
+    "text": "Welcome to the dashboard!",
+    "element": "#my-itcm-signature",
+    "position": "bottom"
+  },
+  {
+    "id": "formITCM",
+    "context": "formITCM",
+    "text": "This is the statistics widget.",
+    "element": "#formITCM",
+    "position": "bottom"
+  },
+  {
+    "id": "formDA",
+    "context": "formDA",
+    "text": "Welcome to the form page!",
+    "element": "#form",
+    "position": "top"
+  },
+  {
+    "id": "formBA",
+    "context": "formBA",
+    "text": "Welcome to the form page!",
+    "element": "#form",
+    "position": "top"
+  },
+  {
+    "id": "formHA",
+    "context": "formHA",
+    "text": "Welcome to the form page!",
+    "element": "#form",
+    "position": "top"
+  }
+]

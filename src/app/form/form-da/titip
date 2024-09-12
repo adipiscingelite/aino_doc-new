@@ -1,0 +1,52 @@
+      //  this.form_ticket = formData.form_ticket;
+      //   this.form_status = formData.form_status;
+      //   this.form_number = formData.form_number;
+      //   this.document_name = formData.document_name;
+      //   this.project_name = formData.project_name;
+      //   this.approval_status = formData.approval_status;
+      //   this.reason = formData.reason?.String || '';
+      //   this.nama_analis = formData.nama_analis;
+      //   this.jabatan = formData.jabatan;
+      //   this.departemen = formData.departemen;
+      //   this.jenis_perubahan = formData.jenis_perubahan;
+      //   this.detail_dampak_perubahan = formData.detail_dampak_perubahan;
+      //   this.rencana_pengembangan_perubahan =
+      //     formData.rencana_pengembangan_perubahan;
+      //   this.rencana_pengujian_perubahan_sistem =
+      //     formData.rencana_pengujian_perubahan_sistem;
+      //   this.rencana_rilis_perubahan_dan_implementasi =
+      //     formData.rencana_rilis_perubahan_dan_implementasi;
+      //     this.isPreview = true;
+
+      //   const signatories: Signatory[] = response.data.signatories || [];
+
+      //   // Reset the signatory details
+      //   Object.keys(this.signatoryPositions).forEach(role => {
+      //     this.signatoryPositions[role] = { name: '', position: '', is_sign: false };
+      //   });
+
+      //   // Populate the signatory details based on the API response
+      //   signatories.forEach((signatory: Signatory) => {
+      //     const role = signatory.role_sign;
+      //     if (this.signatoryPositions[role]) {
+      //       this.signatoryPositions[role] = {
+      //         name: signatory.signatory_name || '',
+      //         position: signatory.signatory_position || '',
+      //         is_sign: signatory.is_sign || false
+      //       };
+      //     }
+      //   });
+
+      //   // Log to verify
+      //   console.log(this.signatoryPositions);
+
+      //   if (this.approval_status === 'Menunggu Disetujui' && this.role_sign === 'Atasan Penerima') {
+      //     console.log('iy');
+
+      //   } else {
+      //     console.log(this.approval_status);
+      //     console.log(this.role_sign);
+
+      //     console.log('no');
+
+      //   }

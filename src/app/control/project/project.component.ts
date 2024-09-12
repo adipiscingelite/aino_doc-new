@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
@@ -35,6 +35,8 @@ interface Product {
   styleUrl: './project.component.css',
 })
 export class ProjectComponent implements OnInit {
+
+  popoverIndex: number | null = null;
   searchText: string = '';
 
   product!: FormGroup;
@@ -152,6 +154,35 @@ export class ProjectComponent implements OnInit {
           console.log(error);
         }
       });
+  }
+
+  togglePopover(event: Event, index: number): void {
+    event.stopPropagation(); // Menghentikan event bubbling
+    if (this.popoverIndex === index) {
+      this.popoverIndex = null; // Tutup popover jika diklik lagi
+    } else {
+      this.popoverIndex = index; // Buka popover untuk baris ini
+    }
+  }
+
+  closePopover() {
+    this.popoverIndex = null;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (this.popoverIndex !== null) {
+      const clickedElement = event.target as HTMLElement;
+      const popoverElement = document.querySelector('.popover-content');
+      if (popoverElement && !popoverElement.contains(clickedElement)) {
+        this.closePopover();
+      }
+    }
+  }
+
+  handleAction(action: string, item: any): void {
+    // console.log(Handling ${action} for:, item);
+    this.closePopover();
   }
 
   openAddModal() {
@@ -316,6 +347,64 @@ export class ProjectComponent implements OnInit {
       });
     this.isModalEditOpen = false;
   }
+
+  onDeleteProject(project_uuid: string): void {
+    Swal.fire({
+      title: 'Konfirmasi',
+      text: 'Anda yakin ingin menghapus Project ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.performDeleteProject(project_uuid);
+      }
+    });
+  }
+
+  performDeleteProject(project_uuid: string): void {
+    const token = this.cookieService.get('userToken');
+
+    axios
+      .put(
+        `${environment.apiUrl2}/superadmin/project/delete/${project_uuid}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data.message);
+        this.fetchDataProject();
+        Swal.fire({
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+          });
+        }
+      });
+  }  
 }
 
 export { Project };

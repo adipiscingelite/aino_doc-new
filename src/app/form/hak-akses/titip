@@ -1,0 +1,953 @@
+
+<ng-container *ngIf="isPreview; else tableView">
+  <div class="p-4">
+    <button (click)="closePreviewPage()"
+      class="flex items-center mb-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
+      <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 11.996h12"></path>
+        <path d="m12 18-6-6 6-6"></path>
+      </svg>
+      <p>Back</p>
+    </button>
+
+    <h1 class="text-2xl font-semibold">Preview dan Approval Formulir Dampak Analisa (DA)</h1>
+    <p class="text-sm text-gray-500 font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      Necessitatibus, accusantium. Animi, facere. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum, ut.
+    </p>
+    <br>
+    <div class="px-5">
+      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow ">
+        <table class="border-2 border-black border-collapse w-full">
+          <tr>
+            <td class="border-2 border-black p-2 w-1/4">
+              <img class="w-40 mx-auto my-auto"
+                src="https://fintech.id/storage/files/shares/logo/logofi2/LOGO%20AINO%20INDONESIA%202021%20-%20Syafri%20Yuzal.png"
+                alt="">
+            </td>
+            <td class="border-2 border-black px-1 w-1/4">
+              <p class="text-center uppercase font-bold text-sm px-4">FORMULIR ANALISA DAMPAK PENGELOLAAN PERUBAHAN TI
+              </p>
+            </td>
+            <td class="border-2 border-black w-1/2 h-fit p-0">
+              <table class="border-collapse w-full h-full text-sm font-semibold">
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">{{ form_number }}</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">Tanggal Terbit</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">{{ created_at }}</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Revisi</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">woi</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <div class="mt-10 w-full">
+
+          <div class="w-full text-center text-sm font-bold">
+            <h1>FORMULIR ANALISIS DAMPAK PENGELOLAAN PERUBAHAN TI</h1>
+            <p>
+              <span>Nomor : </span>
+              <span>{{ form_number }}</span>
+            </p>
+          </div>
+          <hr class="bg-black h-[1.5px] w-[90%] my-5 mx-auto">
+
+
+          <table class="text-sm font-bold">
+            <tr>
+              <td class="pr-12">Nama Proyek</td>
+              <td class="px-5">:</td>
+              <td>{{ project_name }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Nama Analis</td>
+              <td class="px-5">:</td>
+              <td>{{ nama_analis }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Jabatan</td>
+              <td class="px-5">:</td>
+              <td>{{ jabatan }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Departemen</td>
+              <td class="px-5">:</td>
+              <td>{{ departemen }}</td>
+            </tr>
+          </table>
+        </div>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Jenis Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ jenis_perubahan }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Detail Dampak Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ detail_dampak_perubahan }}</td>
+          </tr>
+        </table>
+
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Pengembangan Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_pengembangan_perubahan }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Pengujian Perubahan Sistem</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_pengujian_perubahan_sistem }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Rilis Perubahan dan Implementasi
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_rilis_perubahan_dan_implementasi }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 w-full border-collapse">
+          <tr class="">
+            <td class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              Status pengajuan : <br> ( Berikan alasan apabila not approve )
+            </td>
+            <td class="w-1/2 h-36 text-center outline outline-black outline-1 p-0">
+              <table class="w-full h-full border-collapse">
+                <tr>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Approve</td>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Not Approve</td>
+                </tr>
+                <tr>
+                  <td class=" outline outline-black outline-1 p-2 w-1/2">
+                    <ng-container class="" *ngIf="approval_status === 'Disetujui'">
+                      <svg class="mx-auto my-auto h-9 w-9" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z">
+                        </path>
+                        <path d="m8 12 3 3 6-6"></path>
+                      </svg>
+                    </ng-container>
+                  </td>
+                  <td class=" outline outline-black outline-1 p-2 w-1/2">
+                    <ng-container class="" *ngIf="approval_status === 'Tidak Disetujui'">
+                      <svg class="mx-auto my-auto h-9 w-9" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z">
+                        </path>
+                        <path d="m8 12 3 3 6-6"></path>
+                      </svg>
+                    </ng-container>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <p *ngIf="approval_status === 'Menunggu Disetujui'" class="text-red-500 text-xs">*Hanya bisa diisi oleh Atasan
+          Penerima!&nbsp;&nbsp;<span class="text-black">Anda adalah Atasan Penerima?</span>&nbsp;&nbsp;<button
+            (click)="approveForm(form_uuid)" class="text-blue-500 underline">Approve Formulir ini</button></p>
+        <!-- Pastikan Anda menggunakan kondisi ini di dalam template komponen Angular Anda -->
+
+        <!-- <button *ngIf="approval_status === 'Menunggu Disetujui'"
+          (click)="approveForm('aac3a3c5-6938-4474-87b5-f36b76e54dd5')"
+          class="px-4 py-2 border rounded-full shadow hover:shadow-md">Approve</button> -->
+
+        <ng-container *ngIf="approval_status === 'Tidak Disetujui'">
+          <table class="mt-8 border-collapse w-full h-full">
+            <tr>
+              <td class="border border-black px-2 py-0 text-center font-bold">Alasan Tidak Approve</td>
+            </tr>
+            <tr>
+              <td class="border border-black p-2 text-sm">{{ reason }}</td>
+            </tr>
+          </table>
+        </ng-container>
+
+        <table class="mt-8 w-full border-collapse">
+          <thead>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Pemohon</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Pemohon</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Penerima</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Penerima</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 h-64 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Pemohon']">
+                  <ng-container *ngIf="signatoryPositions['Pemohon'].is_sign; else noImagePemohon">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImagePemohon>
+                    <!-- Placeholder atau konten alternatif jika gambar tidak ada -->
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Pemohon'].name">{{ signatoryPositions['Pemohon'].name }}</p>
+                    <p *ngIf="signatoryPositions['Pemohon'].position">({{ signatoryPositions['Pemohon'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Pemohon']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Pemohon'].is_sign; else noImageAtasanPemohon">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImageAtasanPemohon>
+                    <!-- Placeholder atau konten alternatif jika gambar tidak ada -->
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Atasan Pemohon'].name">{{ signatoryPositions['Atasan Pemohon'].name }}</p>
+                    <p *ngIf="signatoryPositions['Atasan Pemohon'].position">({{ signatoryPositions['Atasan Pemohon'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Penerima'].is_sign; else noImagePenerima">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImagePenerima>
+                    lorem500
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Penerima'].name">{{ signatoryPositions['Penerima'].name }}</p>
+                    <p *ngIf="signatoryPositions['Penerima'].position">({{ signatoryPositions['Penerima'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Penerima'].is_sign; else noImageAtasanPenerima">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImageAtasanPenerima>
+                    <!-- Placeholder atau konten alternatif jika gambar tidak ada -->
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Atasan Penerima'].name">{{ signatoryPositions['Atasan Penerima'].name }}</p>
+                    <p *ngIf="signatoryPositions['Atasan Penerima'].position">({{ signatoryPositions['Atasan Penerima'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+
+
+        <!-- <div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+
+    <button (click)="closePreviewPage()"
+      class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
+      <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 11.996h12"></path>
+        <path d="m12 18-6-6 6-6"></path>
+      </svg>
+      <p>Back</p>
+    </button>
+  </div>
+</ng-container>
+
+
+<!-- ADD MODAL -->
+<div *ngIf="isModalAddOpen" tabindex="-1"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Tambah
+      </h3>
+      <button (click)="closeAddModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form class="p-6" #addDAForm="ngForm" (ngSubmit)="addFormDA()">
+      <h3 class="text-2xl text-gray-900 font-semibold">Formulir DA!</h3>
+      <p class="mb-4 text-gray-600">Masukkan informasi form DA yg ingin anda tambahkan</p>
+
+      <div class="mt-4">
+        <label for="ticketNo" class="text-sm md:text-base mb-1 font-medium">No. Tiket</label>
+        <input type="text" name="form_ticket" placeholder="Masukkan Nomer Tiket" [(ngModel)]="form_ticket"
+          placeholder="Masukkan Nomor Tiket" class="border text-sm rounded-xl p-2 px-3 w-full invalid:border-pink-500 invalid:text-pink-600
+          focus:invalid:border-pink-500 focus:invalid:ring-pink-500">
+      </div>
+
+      <div class="mt-4">
+        <label for="projectSelect" class="text-sm md:text-base mb-1 font-medium">Pilih Projek</label>
+        <select id="projectSelect" [(ngModel)]="project_uuid" name="project_uuid"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Pilih Project</option>
+          <option *ngFor="let project of dataListAllProject" [value]="project.project_uuid">{{ project.project_name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Nama Analis</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" name="nama_analis"
+          placeholder="Masukkan Nama Analis" [(ngModel)]="nama_analis">
+          <p class="text-xs text-red-500">*Ini adalah Lorem ipsum dolor sit amet consectetur.</p>
+      </div>
+
+      <div class="mt-4">
+        <label for="applicantName" class="text-sm md:text-base mb-1 font-medium">Jabatan</label>
+        <input type="text" placeholder="Masukkan Nama Pemohon" class="border text-sm rounded-xl p-2 px-3 w-full"
+          name="jabatan" placeholder="Masukkan Jabatan" [(ngModel)]="jabatan">
+      </div>
+
+      <div class="mt-4">
+        <label for="agency" class="text-sm md:text-base mb-1 font-medium">Departemen</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" name="departemen"
+          placeholder="Masukkan Nama Departemen" [(ngModel)]="departemen">
+      </div>
+
+      <div class="mt-4">
+        <label for="jenis_perubahan" class="text-sm md:text-base mb-1 font-medium">Jenis Perubahan</label>
+        <textarea id="jenis_perubahan" name="jenis_perubahan" placeholder="Masukkan Jenis Perubahan"
+          [(ngModel)]="jenis_perubahan" class="border text-sm rounded-xl p-2 px-3 w-full h-40 overflow-auto"
+          (keydown)="tabIndent($event)">
+        </textarea>
+      </div>
+
+      <div class="mt-4">
+        <label for="detail_dampak_perubahan" class="text-sm md:text-base mb-1 font-medium">Detail Dampak Perubahan</label>
+        <textarea id="detail_dampak_perubahan" name="detail_dampak_perubahan"
+          placeholder="Masukkan Detail Dampak Perubahan" [(ngModel)]="detail_dampak_perubahan"
+          (keydown)="tabIndent($event)" class="border text-sm rounded-xl p-2 px-3 w-full h-40 overflow-auto">
+        </textarea>
+      </div>
+
+      <div class="mt-4">
+        <label for="description" class="text-sm md:text-base mb-1 font-medium">Rencana Pengembangan Perubahan</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" name="rencana_pengembangan_perubahan"
+          placeholder="Masukkan Rencana Pengembangan Perubahan" [(ngModel)]="rencana_pengembangan_perubahan">
+      </div>
+
+      <div class="mt-4">
+        <label for="description" class="text-sm md:text-base mb-1 font-medium">Rencana Pengujian Perubahan Sistem</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" name="rencana_pengujian_perubahan_sistem"
+          placeholder="Masukkan Pengujian Perubahan Sistem" [(ngModel)]="rencana_pengujian_perubahan_sistem">
+      </div>
+
+      <div class="mt-4">
+        <label for="description" class="text-sm md:text-base mb-1 font-medium">Rencana Rilis Perubahan dan Implementasi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full"
+          name="rencana_rilis_perubahan_dan_implementasi"
+          placeholder="Masukkan Rencana Rilis Perubahan dan Implementasi"
+          [(ngModel)]="rencana_rilis_perubahan_dan_implementasi">
+      </div>
+
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Signature!</h3>
+      <p class="text-gray-600">Masukkan informasi Signature yg ingin anda tuju</p>
+
+      <div class="mt-4">
+        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pemohon</label>
+        <select id="recipientSelect1" [(ngModel)]="name1" name="name1"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position1" name="position1"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pemohon</label>
+        <select id="recipientSelect2" [(ngModel)]="name2" name="name2"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="Masukkan Jabatan"
+          [(ngModel)]="position2" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
+        <select id="recipientSelect3" [(ngModel)]="name3" name="name3"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder="Masukkan Jabatan"
+          [(ngModel)]="position3" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
+        <select id="recipientSelect4" [(ngModel)]="name4" name="name4"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder="Masukkan Jabatan"
+          [(ngModel)]="position4" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <!-- <div class="mt-4">
+        <label for="recipientSelect5" class="text-sm md:text-base mb-1">Person 5</label>
+        <select id="recipientSelect5" [(ngModel)]="name5" name="name5"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" name="recipientInfo5" id="recipientInfo5" placeholder="Masukkan Jabatan"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div> -->
+
+      <div class="flex items-start gap-1 mt-5 text-orange-400">
+        <svg class="w-12 aspect-square" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="m22.19 17.624-8.24-14.25a2.25 2.25 0 0 0-3.9 0l-8.24 14.25a2.24 2.24 0 0 0 1.94 3.375h16.5a2.24 2.24 0 0 0 1.94-3.375ZM11.25 9.749a.75.75 0 1 1 1.5 0v3.75a.75.75 0 1 1-1.5 0v-3.75Zm.75 8.25a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Z"></path>
+        </svg>
+        <p class="text-xs">Harap pastikan semua informasi yang Anda masukkan sudah benar. Periksa kembali setiap detail dengan seksama sebelum mengirimkan formulir ini. Jika Anda yakin bahwa semua informasi sudah benar dan lengkap, klik tombol submit di bawah ini untuk melanjutkan.</p>
+      </div>
+
+    </form>
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button (click)="addFormDA()" type="button"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Draft</button>
+      <button (click)="closeAddModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit MODAL -->
+<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Edit
+      </h3>
+      <button (click)="closeEditModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form #updateForm="ngForm" class="p-6">
+      <h3 class="text-2xl text-gray-900 font-semibold">Formulir DA!</h3>
+      <p class="mb-4 text-gray-600">Masukkan informasi form DA yg ingin anda edit</p>
+
+      <!-- <div class="mt-4">
+        <label class="text-sm md:text-base mb-1">No. Formulir</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full cursor-not-allowed" [(ngModel)]="form_number">
+      </div> -->
+
+      <div class="mt-4">
+        <label for="form_ticket" class="text-sm md:text-base mb-1">No. Tiket</label>
+        <input type="text" name="form_ticket" id="form_ticket" placeholder="Masukkan Nomer Tiket"
+          [(ngModel)]="form_ticket" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="projectSelect" class="text-sm md:text-base mb-1">Pilih Project</label>
+        <select id="projectSelect" name="project_uuid" [(ngModel)]="project_uuid" required
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <option value="" disabled>Pilih Project</option>
+          <option *ngFor="let project of dataListAllProject" [value]="project.project_uuid">
+            {{ project.project_name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mt-4">
+        <label for="nama_analis" class="text-sm md:text-base mb-1">Nama Analis</label>
+        <input type="text" name="nama_analis" id="nama_analis" placeholder="Masukkan Nama Analis"
+          [(ngModel)]="nama_analis" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="jabatan" class="text-sm md:text-base mb-1">Jabatan</label>
+        <input type="text" name="jabatan" id="jabatan" placeholder="Masukkan Jabatan" [(ngModel)]="jabatan"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="departemen" class="text-sm md:text-base mb-1">Departemen</label>
+        <input type="text" name="departemen" id="departemen" placeholder="Masukkan Nama Departemen"
+          [(ngModel)]="departemen" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="jenis_perubahan" class="text-sm md:text-base mb-1">Jenis Perubahan</label>
+        <textarea id="jenis_perubahan" name="jenis_perubahan" placeholder="Masukkan Jenis Perubahan"
+          [(ngModel)]="jenis_perubahan" class="border text-sm rounded-xl p-2 px-3 w-full h-40 overflow-auto"
+          (keydown)="tabIndent($event)">
+        </textarea>
+      </div>
+
+      <div class="mt-4">
+        <label for="detail_dampak_perubahan" class="text-sm md:text-base mb-1">Detail Dampak Perubahan</label>
+        <textarea id="detail_dampak_perubahan" name="detail_dampak_perubahan"
+          placeholder="Masukkan Detail Dampak Perubahan" [(ngModel)]="detail_dampak_perubahan"
+          (keydown)="tabIndent($event)" class="border text-sm rounded-xl p-2 px-3 w-full h-40 overflow-auto">
+        </textarea>
+      </div>
+
+      <div class="mt-4">
+        <label for="rencana_pengembangan_perubahan" class="text-sm md:text-base mb-1">Rencana Pengembangan
+          Perubahan</label>
+        <input type="text" name="rencana_pengembangan_perubahan" id="rencana_pengembangan_perubahan"
+          placeholder="Masukkan Rencana Pengembangan Perubahan" [(ngModel)]="rencana_pengembangan_perubahan"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="rencana_pengujian_perubahan_sistem" class="text-sm md:text-base mb-1">Rencana Pengujian Perubahan
+          Sistem</label>
+        <input type="text" name="rencana_pengujian_perubahan_sistem" id="rencana_pengujian_perubahan_sistem"
+          placeholder="Masukkan Pengujian Perubahan Sistem" [(ngModel)]="rencana_pengujian_perubahan_sistem"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="rencana_rilis_perubahan_dan_implementasi" class="text-sm md:text-base mb-1">Rencana Rilis Perubahan
+          dan Implementasi</label>
+        <input type="text" name="rencana_rilis_perubahan_dan_implementasi" id="rencana_rilis_perubahan_dan_implementasi"
+          [(ngModel)]="rencana_rilis_perubahan_dan_implementasi" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima!</h3>
+      <p class="text-gray-600">Edit informasi dari formulir ini</p>
+      <p class="text-xs text-red-500">tapi belum bisa</p>
+
+      <div class="mt-4">
+        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pemohon</label>
+        <select id="recipientSelect1" [(ngModel)]="signatoryPositions['Pemohon'].name" name="name1"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Pemohon'].position"
+          name="position1" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pemohon</label>
+        <select id="recipientSelect2" [(ngModel)]="signatoryPositions['Atasan Pemohon'].name" name="name2"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Atasan Pemohon'].position"
+          name="position2" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
+        <select id="recipientSelect3" [(ngModel)]="signatoryPositions['Penerima'].name" name="name3"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Penerima'].position"
+          name="position3" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
+        <select id="recipientSelect4" [(ngModel)]="signatoryPositions['Atasan Penerima'].name" name="name4"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Atasan Penerima'].position"
+          name="position4" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+    </form>
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button (click)="updateFormDA()" type="button"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+      <button (click)="closeEditModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Approve MODAL -->
+<div *ngIf="isModalApproveOpen" tabindex="-1" aria-hidden="true"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative w-full max-w-4xl bg-white rounded-lg shadow-lg dark:bg-gray-800 max-h-[90vh] overflow-auto mx-4 md:mx-6">
+    <!-- Modal header -->
+    <!-- <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Preview and Approval
+      </h3>
+      <button (click)="closeApproveModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div> -->
+    <!-- Modal body -->
+    <div class="p-6">
+      <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex flex-col space-y-4">
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">No. Formulir</div>
+            <div class="text-gray-900 dark:text-gray-100">{{ form_number }}</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">No. Tiket</div>
+            <div class="text-gray-900 dark:text-gray-100">{{ form_ticket }}</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">Dokumen</div>
+            <div class="text-gray-900 dark:text-gray-100">{{ document_name }}</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">Projek</div>
+            <div class="text-gray-900 dark:text-gray-100">{{ project_name }}</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">Departemen</div>
+            <div class="text-gray-900 dark:text-gray-100">{{ departemen }}</div>
+          </div>
+        </div>
+    
+        <div class="flex flex-col space-y-4">
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">Jenis Perubahan</div>
+            <div class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{{ jenis_perubahan }}</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">Detail Dampak Perubahan</div>
+            <div class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{{ detail_dampak_perubahan }}</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">Rencana Pengembangan Perubahan</div>
+            <div class="text-gray-900 dark:text-gray-100">{{ rencana_pengembangan_perubahan }}</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">Rencana Pengujian Perubahan Sistem</div>
+            <div class="text-gray-900 dark:text-gray-100">{{ rencana_pengujian_perubahan_sistem }}</div>
+          </div>
+          <div class="flex flex-col">
+            <div class="font-semibold text-gray-700 dark:text-gray-300">Rencana Rilis Perubahan dan Implementasi</div>
+            <div class="text-gray-900 dark:text-gray-100">{{ rencana_rilis_perubahan_dan_implementasi }}</div>
+          </div>
+        </div>
+      </div> -->
+      <div class="px-9">
+        <table class="border-2 border-black border-collapse w-full">
+          <tr>
+            <td class="border-2 border-black p-2 w-1/4">
+              <img class="w-40 mx-auto my-auto"
+                src="https://fintech.id/storage/files/shares/logo/logofi2/LOGO%20AINO%20INDONESIA%202021%20-%20Syafri%20Yuzal.png"
+                alt="">
+            </td>
+            <td class="border-2 border-black px-1 w-1/4">
+              <p class="text-center uppercase font-bold text-sm px-4">FORMULIR ANALISA DAMPAK PENGELOLAAN PERUBAHAN TI
+              </p>
+            </td>
+            <td class="border-2 border-black w-1/2 h-fit p-0">
+              <table class="border-collapse w-full h-full text-sm font-semibold">
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">{{ form_number }}</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">Tanggal Terbit</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">{{ created_at }}</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Revisi</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">woi</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <div class="mt-10 w-full">
+
+          <div class="w-full text-center text-sm font-bold">
+            <h1>FORMULIR ANALISIS DAMPAK PENGELOLAAN PERUBAHAN TI</h1>
+            <p>
+              <span>Nomor : </span>
+              <span>{{ form_number }}</span>
+            </p>
+          </div>
+          <hr class="bg-black h-[1.5px] w-[90%] my-5 mx-auto">
+
+
+          <table class="text-sm font-bold">
+            <tr>
+              <td class="pr-12">Nama Proyek</td>
+              <td class="px-5">:</td>
+              <td>{{ project_name }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Nama Analis</td>
+              <td class="px-5">:</td>
+              <td>{{ nama_analis }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Jabatan</td>
+              <td class="px-5">:</td>
+              <td>{{ jabatan }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Departemen</td>
+              <td class="px-5">:</td>
+              <td>{{ departemen }}</td>
+            </tr>
+          </table>
+        </div>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Jenis Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ jenis_perubahan }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Detail Dampak Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ detail_dampak_perubahan }}</td>
+          </tr>
+        </table>
+
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Pengembangan Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_pengembangan_perubahan }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Pengujian Perubahan Sistem</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_pengujian_perubahan_sistem }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Rilis Perubahan dan Implementasi
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_rilis_perubahan_dan_implementasi }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 w-full border-collapse">
+          <tr class="">
+            <td class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              Status pengajuan : <br> ( Berikan alasan apabila not approve )
+            </td>
+            <td class="w-1/2 h-36 text-center outline outline-black outline-1 p-0">
+              <table class="w-full h-full border-collapse">
+                <tr>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Approve</td>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Not Approve</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2 w-1/2">
+                    <ng-container *ngIf="approval_status === 'Disetujui'">
+                      ✔
+                    </ng-container>
+                  </td>
+                  <td class="outline outline-black outline-1 p-2 w-1/2">
+                    <ng-container *ngIf="approval_status === 'Tidak Disetujui'">
+                      ✔
+                    </ng-container>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <ng-container *ngIf="approval_status === 'Tidak Disetujui'">
+          <table class="mt-8 border-collapse w-full h-full">
+            <tr>
+              <td class="border border-black px-2 py-0 text-center font-bold">Alasan Tidak Approve</td>
+            </tr>
+            <tr>
+              <td class="border border-black p-2 text-sm">{{ reason }}</td>
+            </tr>
+          </table>
+        </ng-container>
+
+        <table class="mt-8 w-full border-collapse">
+          <thead>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Pemohon</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Pemohon</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Penerima</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Penerima</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 h-64 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Pemohon']">
+                  <ng-container *ngIf="signatoryPositions['Pemohon'].is_sign; else noImage">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImage>
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/d3/3c/c6/d33cc6d3b1ee12c0512a4d5a90fb6382.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline">{{ signatoryPositions['Pemohon'].name }}</p>
+                    <p>({{ signatoryPositions['Pemohon'].position }})</p>
+                    <p>Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Pemohon']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Pemohon'].is_sign; else noImage">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImage>
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/d3/3c/c6/d33cc6d3b1ee12c0512a4d5a90fb6382.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline">{{ signatoryPositions['Atasan Pemohon'].name }}</p>
+                    <p>({{ signatoryPositions['Atasan Pemohon'].position }})</p>
+                    <p>Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Penerima'].is_sign; else noImage">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImage>
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/d3/3c/c6/d33cc6d3b1ee12c0512a4d5a90fb6382.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline">{{ signatoryPositions['Penerima'].name }}</p>
+                    <p>({{ signatoryPositions['Penerima'].position }})</p>
+                    <p>Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Penerima'].is_sign; else noImage">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImage>
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/d3/3c/c6/d33cc6d3b1ee12c0512a4d5a90fb6382.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline">{{ signatoryPositions['Atasan Penerima'].name }}</p>
+                    <p>({{ signatoryPositions['Atasan Penerima'].position }})</p>
+                    <p>Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pastikan Anda menggunakan kondisi ini di dalam template komponen Angular Anda -->
+        <button (click)="approveForm('aac3a3c5-6938-4474-87b5-f36b76e54dd5')">approve sekarang</button>
+
+        <!-- <div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
-import { FirstComponent } from './first/first.component';
-import { SecondComponent } from './second/second.component';
 import { ProfileComponent } from './profile/profile.component';
-import { FavoriteComponent } from './favorite/favorite.component';
 import { LoginComponent } from './login/login.component';
 import { FullComponent } from './layouts/full/full.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -25,6 +22,10 @@ import { LoginGuard } from './auth/login-guard.guard';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { CobaSignModalComponent } from './coba-sign-modal/coba-sign-modal.component';
 import { CobaPdfTemplate,} from './coba-pdf-template/coba-pdf-template.component';
+import { TesComponent } from './form/tes/tes.component';
+import { ThemesComponent } from './themes/themes.component';
+import { SettingsComponent } from './settings/settings.component';
+import { TourComponent } from './tour/tour.component';
 
 export const routes: Routes = [
   {
@@ -40,7 +41,7 @@ export const routes: Routes = [
   {
     path: '',
     component: FullComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'pdf',
@@ -59,12 +60,28 @@ export const routes: Routes = [
         component: DashboardComponent,
       },
       {
+        path: 'settings',
+        component: SettingsComponent,
+      },
+      {
+        path: 'themes',
+        component: ThemesComponent,
+      },
+      {
+        path: 'tour',
+        component: TourComponent,
+      },
+      {
         path: 'form',
         children: [
           { path: 'da', component: FormDaComponent },
+          { path: 'da/:form_uuid', component: FormDaComponent }, 
           { path: 'itcm', component: FormItcmComponent },
+          { path: 'itcm/:form_uuid', component: FormItcmComponent }, 
           { path: 'ba', component: FormBaComponent },
+          { path: 'ba/:form_uuid', component: FormBaComponent }, 
           { path: 'hak-akses', component: HakAksesComponent },
+          { path: 'tes', component: TesComponent},
         ],
       },
       {

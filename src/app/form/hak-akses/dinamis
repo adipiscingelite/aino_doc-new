@@ -1,0 +1,19 @@
+<form [formGroup]="infoHAForm" (ngSubmit)="data()">
+  <div formArrayName="infoHAList">
+    <div *ngFor="let field of infoHAListArray().controls; let i = index">
+      <div [formGroupName]="i">
+        <input type="text" formControlName="name" placeholder="Name">
+        <input type="text" formControlName="instansi" placeholder="Instansi">
+        <input type="text" formControlName="position" placeholder="Position">
+        <input type="text" formControlName="username" placeholder="Username">
+        <input type="password" formControlName="password" placeholder="Password">
+        <input type="text" formControlName="scope" placeholder="Scope">
+
+        <button type="button" *ngIf="infoHAListArray().length > 1" (click)="removeInfoHAField(i)">Remove</button>
+      </div>
+    </div>
+
+    <button type="button" (click)="addInfoHAField()">Add subject</button>
+    <button type="submit">Submit</button>
+  </div>
+</form>

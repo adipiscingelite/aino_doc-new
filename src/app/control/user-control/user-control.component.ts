@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, HostListener } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,7 +14,7 @@ import { UserService } from '../../services/user-control/user-control.service';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { Router, RouterLink, RouterModule } from '@angular/router';
-import { FormModule } from '@coreui/angular';
+// import { FormModule } from '@coreui/angular';
 import { routes } from '../../app.routes';
 
 interface Users {
@@ -60,6 +60,9 @@ interface Division {
   styleUrls: ['./user-control.component.css'],
 })
 export class UserControlComponent implements OnInit {
+
+  popoverIndex: number | null = null;
+
   searchText: string = '';
 
   form!: FormGroup;
@@ -296,6 +299,35 @@ export class UserControlComponent implements OnInit {
           console.log(error.response.data.message);
         }
       });
+  }
+  
+  togglePopover(event: Event, index: number): void {
+    event.stopPropagation(); // Menghentikan event bubbling
+    if (this.popoverIndex === index) {
+      this.popoverIndex = null; // Tutup popover jika diklik lagi
+    } else {
+      this.popoverIndex = index; // Buka popover untuk baris ini
+    }
+  }
+
+  closePopover() {
+    this.popoverIndex = null;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (this.popoverIndex !== null) {
+      const clickedElement = event.target as HTMLElement;
+      const popoverElement = document.querySelector('.popover-content');
+      if (popoverElement && !popoverElement.contains(clickedElement)) {
+        this.closePopover();
+      }
+    }
+  }
+
+  handleAction(action: string, item: any): void {
+    // console.log(Handling ${action} for:, item);
+    this.closePopover();
   }
 
   addUser(): void {

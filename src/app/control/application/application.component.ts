@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 // import { environment } from '../../../environments/environment';
@@ -29,6 +29,9 @@ interface Application {
   styleUrl: './application.component.css',
 })
 export class ApplicationComponent implements OnInit {
+
+  popoverIndex: number | null = null;
+  
   searchText: string = '';
 
   application_uuid: string = '';
@@ -98,13 +101,41 @@ export class ApplicationComponent implements OnInit {
       });
   }
 
+  togglePopover(event: Event, index: number): void {
+    event.stopPropagation(); // Menghentikan event bubbling
+    if (this.popoverIndex === index) {
+      this.popoverIndex = null; // Tutup popover jika diklik lagi
+    } else {
+      this.popoverIndex = index; // Buka popover untuk baris ini
+    }
+  }
+
+  closePopover() {
+    this.popoverIndex = null;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (this.popoverIndex !== null) {
+      const clickedElement = event.target as HTMLElement;
+      const popoverElement = document.querySelector('.popover-content');
+      if (popoverElement && !popoverElement.contains(clickedElement)) {
+        this.closePopover();
+      }
+    }
+  }
+
+  handleAction(action: string, item: any): void {
+    // console.log(Handling ${action} for:, item);
+    this.closePopover();
+  }
+
   openAddModal() {
     this.isModalAddOpen = true;
     this.application_code = '';
     this.application_title = '';
     this.application_description = '';
     // console.log('hai');
-    
   }
 
   closeAddModal() {
@@ -275,6 +306,64 @@ export class ApplicationComponent implements OnInit {
         }
       });
     this.isModalEditOpen = false;
+  }
+
+  onDeleteApplication(application_uuid: string): void {
+    Swal.fire({
+      title: 'Konfirmasi',
+      text: 'Anda yakin ingin menghapus Appication ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.performDeleteApplication(application_uuid);
+      }
+    });
+  }
+
+  performDeleteApplication(application_uuid: string): void {
+    const token = this.cookieService.get('userToken');
+
+    axios
+      .put(
+        `${this.apiUrl}/superadmin/application/delete/${application_uuid}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data.message);
+        this.fetchDataApplication();
+        Swal.fire({
+          title: 'Success',
+          text: response.data.message,
+          icon: 'success',
+          timer: 2000,
+          timerProgressBar: true,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404 || error.response.status === 500) {
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+          });
+        }
+      });
   }
 }
 

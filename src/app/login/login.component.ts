@@ -29,15 +29,23 @@ export class LoginComponent {
   }
 
   onLogin() {
-    console.log(this.loginData);
+    console.log('login data', this.loginData);
     console.log(this.apiUrl);
-
+  
     axios
       .post(`${this.apiUrl}/login`, this.loginData)
       .then((response) => {
         console.log(response.data.message);
         this.cookieService.set('userToken', response.data.token);
-        this.router.navigateByUrl('/dashboard');
+  
+        // Cek apakah ada URL redirect yang tersimpan
+        const redirectUrl = localStorage.getItem('redirectUrl');
+        if (redirectUrl) {
+          this.router.navigateByUrl(redirectUrl); // Arahkan ke halaman sebelum login
+          localStorage.removeItem('redirectUrl'); // Hapus redirect URL setelah digunakan
+        } else {
+          this.router.navigateByUrl('/dashboard'); // Jika tidak ada redirect URL, arahkan ke dashboard
+        }
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -61,4 +69,5 @@ export class LoginComponent {
         }
       });
   }
+  
 }

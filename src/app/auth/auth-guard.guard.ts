@@ -1,45 +1,3 @@
-// // src/app/guards/auth.guard.ts
-// import { Injectable } from '@angular/core';
-// import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-// import { CookieService } from 'ngx-cookie-service';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class AuthGuard implements CanActivate {
-//   token: any;
-  
-// p: any;
-//   constructor(private router: Router, private cookieService: CookieService) {}
-
-//   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-//     if (this.cookieService.get('userToken')) {
-      
-//       this.token = this.cookieService.get('userToken');
-//       console.log('wirrrrrrrrrr',this.token);
-      
-//       return true;
-//     } else {
-//       this.router.navigate(['/login']);
-//       return false;
-//     }
-//   }
-
-//   clearToken() {
-//     // Hapus token dari localStorage atau cookies
-//     // this.cookieService.delete('accessToken'); // Jika menggunakan cookies
-//     // localStorage.removeItem('accessToken'); // Jika menggunakan localStorage
-//     const token = this.cookieService.get('userToken');
-//     console.log(token);
-//     // this.cookieService.delete('userToken')
-//     // this.cookieService.delete('userToken')
-//     // this.cookieService.delete('userToken')
-    
-//     // Arahkan pengguna ke halaman login setelah menghapus token
-//     // this.router.navigate(['/login']);
-//   }
-// }
-
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -54,12 +12,13 @@ export class AuthGuard implements CanActivate {
   private apiUrl: string;
 
   constructor(private router: Router, private cookieService: CookieService) {
-    this.apiUrl = environment.apiUrl 
+    this.apiUrl = environment.apiUrl;
   }
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     const token = this.cookieService.get('userToken');
-    console.log('Token mentah:', token); 
+    console.log('Token mentah:', token);
+
     if (token) {
       try {
         // Verifikasi token dengan melakukan request ke endpoint validasi
@@ -85,6 +44,7 @@ export class AuthGuard implements CanActivate {
             showCancelButton: false,
             showConfirmButton: false,
           }).then(() => {
+            localStorage.setItem('redirectUrl', state.url); // Simpan URL yang diminta sebelum login
             this.router.navigate(['/login']);
           });
         } else {
@@ -103,7 +63,8 @@ export class AuthGuard implements CanActivate {
         return false;
       }
     } else {
-      // Tidak ada token, akan diarahkan ke halaman login
+      // Tidak ada token, simpan URL dan arahkan ke halaman login
+      localStorage.setItem('redirectUrl', state.url); // Simpan URL yang diminta sebelum login
       this.router.navigate(['/login']);
       return false;
     }

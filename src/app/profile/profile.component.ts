@@ -38,6 +38,8 @@ export class ProfileComponent {
         const profileData = response.data;
         const userUuid = profileData.user_uuid;
         this.fetchUserData(userUuid, token);
+        console.log('my profile', response);
+        
       })
       .catch((error) => {
         if (error.response && error.response.status === 500) {
@@ -56,7 +58,7 @@ export class ProfileComponent {
       })
       .then((response) => {
         this.user = response.data;
-        // console.log(this.user);
+        console.log('pppka',this.user);
       })
       .catch((error) => {
         if (error.response && error.response.status === 500) {

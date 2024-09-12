@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, HostListener } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,8 +9,17 @@ import {
 import { CookieService } from 'ngx-cookie-service';
 import { FormBaService } from '../../services/form-ba/form-ba.service';
 import { environment } from '../../../environments/environment';
+import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+
+interface Signatory {
+  sign_uuid: string;
+  signatory_name: string;
+  signatory_position: string;
+  role_sign: string;
+  is_sign: boolean;
+}
 
 interface formsBA {
   form_uuid: string;
@@ -49,6 +58,14 @@ interface Users {
   personal_name: string;
 }
 
+interface formsDANumber {
+  da_form_number: string;
+}
+
+interface formsITCMNumber {
+  itcm_form_number: string;
+}
+
 @Component({
   selector: 'app-form-ba',
   standalone: true,
@@ -57,6 +74,8 @@ interface Users {
   styleUrls: ['./form-ba.component.css'],
 })
 export class FormBaComponent implements OnInit {
+  isPreview: boolean = false; // State untuk menampilkan preview atau tabel
+
   searchText: string = '';
   user_uuid: any;
   user_name: any;
@@ -65,6 +84,9 @@ export class FormBaComponent implements OnInit {
   form_uuid: string = '';
   form_number: string = '';
   form_status: string = '';
+
+  da_form_number: string = '';
+  itcm_form_number: string = '';
 
   updated_at: string = '';
   update_by: string = '';
@@ -110,18 +132,47 @@ export class FormBaComponent implements OnInit {
   dataListAllDoc: Documents[] = [];
   dataListAllProject: Projects[] = [];
 
+  dataListDANumber: formsDANumber[] = [];
+  dataListITCMNumber: formsITCMNumber[] = [];
+
   dataListAllBA: formsBA[] = [];
   dataListUserBA: formsBA[] = [];
   dataListAdminBA: formsBA[] = [];
+
+  // draft
+  dataListAdminFormBADraft: formsBA[] = [];
+  dataListUserFormBADraft: formsBA[] = [];
+
+  // approved
+  dataListAdminFormBAApproved: formsBA[] = [];
+  dataListUserFormBAApproved: formsBA[] = [];
+
+  // Rejected
+  dataListAdminFormBARejected: formsBA[] = [];
+  dataListUserFormBARejected: formsBA[] = [];
+
+  // signature
+  dataListFormBASignature: formsBA[] = [];
 
   isModalAddOpen: boolean = false;
   isModalEditOpen: boolean = false;
   isModalApproveOpen: boolean = false;
 
+  signatoryPositions: {
+    [key: string]: { name: string; position: string; is_sign: boolean };
+  } = {
+    Pemohon: { name: '', position: '', is_sign: false },
+    'Atasan Pemohon': { name: '', position: '', is_sign: false },
+    Penerima: { name: '', position: '', is_sign: false },
+    'Atasan Penerima': { name: '', position: '', is_sign: false },
+  };
+
   constructor(
     private cookieService: CookieService,
     private fb: FormBuilder,
     public formBaService: FormBaService,
+    private route: ActivatedRoute,
+    private router: Router,
     @Inject('apiUrl') private apiUrl: string,
     private datePipe: DatePipe
   ) {
@@ -139,6 +190,30 @@ export class FormBaComponent implements OnInit {
 
     this.FetchDataUserBA();
     this.fetchDocumentUUID();
+
+    this.fetchDAFormNumber();
+    this.fetchITCMFormNumber();
+
+    // draft
+    this.fetchDataAdminFormBADraft();
+    this.fetchDataUserFormBADraft();
+
+    // approved
+    this.fetchDataAdminFormBAApproved();
+    this.fetchDataUserFormBAApproved();
+
+    // rejected
+    this.fetchDataAdminFormBARejected();
+    this.fetchDataUserFormBARejected();
+
+    this.fetchUserSignature();
+
+    this.route.paramMap.subscribe((params) => {
+      const form_uuid = params.get('form_uuid');
+      if (form_uuid) {
+        this.openPreviewPage(form_uuid); // Panggil fungsi dengan UUID dari URL
+      }
+    });
   }
 
   dataListAllUser: Users[] = [];
@@ -228,7 +303,7 @@ export class FormBaComponent implements OnInit {
 
   fetchDataAdminBA() {
     axios
-      .get(`${environment.apiUrl2}/admin/ba/all`, {
+      .get(`${environment.apiUrl2}/admin/my/ba/division`, {
         headers: {
           Authorization: `Bearer ${this.cookieService.get('userToken')}`,
         },
@@ -272,6 +347,321 @@ export class FormBaComponent implements OnInit {
       .catch((error) => {
         console.error('Error fetching document UUID:', error);
       });
+  }
+
+  fetchDAFormNumber() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/form/da`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        console.log('ini wir', response.data);
+
+        if (response.data.length > 0) {
+          this.dataListDANumber = response.data.map((form: any) => ({
+            da_form_number: form.form_number,
+          }));
+
+          console.log('All DA forms:', this.dataListDANumber);
+        } else {
+          console.log('No DA forms found.');
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+
+  fetchITCMFormNumber() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/form/itcm`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        console.log('ini wir', response.data);
+
+        if (response.data.length > 0) {
+          this.dataListITCMNumber = response.data.map((form: any) => ({
+            itcm_form_number: form.form_number,
+          }));
+
+          console.log('All ITCM forms:', this.dataListITCMNumber);
+        } else {
+          console.log('No ITCM forms found.');
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }
+
+  // signature
+  fetchUserSignature() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/signature/ba`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        this.dataListFormBASignature = response.data.filter(
+          (item: any) => item.form_status === 'Published'
+        );
+        // cuma menampilkan yg udh published aja
+        console.log('wirrrrrrrrrr', response);
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data);
+        } else {
+          console.log(error.response.data);
+        }
+      });
+  }
+
+  //! my document yg draft
+  // draft admin
+  fetchDataAdminFormBADraft(): void {
+    axios
+      .get(`${environment.apiUrl2}/admin/my/ba/division`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        this.dataListAdminFormBADraft = response.data.filter(
+          (item: any) => item.form_status === 'Draft'
+        );
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data);
+        } else {
+          console.log(error.response.data);
+        }
+      });
+  }
+
+  // draft user
+  fetchDataUserFormBADraft() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/form/ba`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        this.dataListUserFormBADraft = response.data.filter(
+          (item: any) => item.form_status === 'Draft'
+        );
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data);
+        } else {
+          console.log(error.response.data);
+        }
+      });
+  }
+
+  // Publish admin
+  // fetchDataAdminFormDAPublish(): void {
+  //   axios
+  //     .get(`${environment.apiUrl2}/admin/da/all`, {
+  //       headers: {
+  //         Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       this.dataListAdminFormDAPublish = response.data.filter(
+  //         (item: any) => item.form_status === 'Published'
+  //       );
+
+  //       if (this.dataListAdminFormDAPublish.length === 0) {
+  //         console.log('No published documents found for admin.');
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error.response.status === 500) {
+  //         console.log(error.response.data);
+  //       } else {
+  //         console.log(error.response.data);
+  //       }
+  //     });
+  // }
+
+  // Publish user
+  // fetchDataUserFormBAPublish() {
+  //   axios
+  //     .get(`${environment.apiUrl2}/api/my/form/da`, {
+  //       headers: {
+  //         Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       this.dataListUserFormBAPublish = response.data.filter(
+  //         (item: any) => item.form_status === 'Published'
+  //       );
+
+  //       if (this.dataListUserFormBAPublish.length === 0) {
+  //         console.log('No published documents found for user.');
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error.response.status === 500) {
+  //         console.log(error.response.data);
+  //       } else {
+  //         console.log(error.response.data);
+  //       }
+  //     });
+  // }
+
+  // Approved admin
+  fetchDataAdminFormBAApproved(): void {
+    axios
+      .get(`${environment.apiUrl2}/admin/ba/all`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        this.dataListAdminFormBAApproved = response.data.filter(
+          (item: any) => item.approval_status === 'Disetujui'
+        );
+
+        if (this.dataListAdminFormBAApproved.length === 0) {
+          console.log('No approved documents found for admin.');
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data);
+        } else {
+          console.log(error.response.data);
+        }
+      });
+  }
+
+  // Approved user
+  fetchDataUserFormBAApproved() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/form/ba`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        console.log('approv', response);
+
+        this.dataListUserFormBAApproved = response.data.filter(
+          (item: any) => item.approval_status === 'Disetujui'
+        );
+
+        if (this.dataListUserFormBAApproved.length === 0) {
+          console.log('No approved documents found for user.');
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data);
+        } else {
+          console.log(error.response.data);
+        }
+      });
+  }
+
+  // Rejected admin
+  fetchDataAdminFormBARejected(): void {
+    axios
+      .get(`${environment.apiUrl2}/admin/ba/all`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        this.dataListAdminFormBARejected = response.data.filter(
+          (item: any) => item.approval_status === 'Tidak Disetujui'
+        );
+
+        if (this.dataListAdminFormBARejected.length === 0) {
+          console.log('No Rejected documents found for admin.');
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data);
+        } else {
+          console.log(error.response.data);
+        }
+      });
+  }
+
+  // Rejected user
+  fetchDataUserFormBARejected() {
+    axios
+      .get(`${environment.apiUrl2}/api/my/form/ba`, {
+        headers: {
+          Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+        },
+      })
+      .then((response) => {
+        this.dataListUserFormBARejected = response.data.filter(
+          (item: any) => item.approval_status === 'Tidak Disetujui'
+        );
+        console.log('rejec', this.dataListUserFormBARejected);
+
+        if (this.dataListUserFormBARejected.length === 0) {
+          console.log('No Rejected documents found for user.');
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 500) {
+          console.log(error.response.data);
+        } else {
+          console.log(error.response.data);
+        }
+      });
+  }
+
+  openTab = 1;
+  toggleTabs($tabNumber: number) {
+    this.openTab = $tabNumber;
+  }
+
+  // buat popover option di tabel
+  popoverIndex: number | null = null;
+
+  togglePopover(event: Event, index: number): void {
+    event.stopPropagation(); // Menghentikan event bubbling
+    if (this.popoverIndex === index) {
+      this.popoverIndex = null; // Tutup popover jika diklik lagi
+    } else {
+      this.popoverIndex = index; // Buka popover untuk baris ini
+    }
+  }
+
+  closePopover() {
+    this.popoverIndex = null;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (this.popoverIndex !== null) {
+      const clickedElement = event.target as HTMLElement;
+      const popoverElement = document.querySelector('.popover-content');
+      if (popoverElement && !popoverElement.contains(clickedElement)) {
+        this.closePopover();
+      }
+    }
+  }
+
+  handleAction(action: string, item: any): void {
+    // console.log(Handling ${action} for:, item);
+    this.closePopover();
   }
 
   openAddModal() {
@@ -346,21 +736,41 @@ export class FormBaComponent implements OnInit {
         },
       })
       .then((response) => {
-        console.log(response.data.message);
-        this.fetchAllDataBA(); 
-        this.fetchDataAdminBA();
-        this.fetchAllDataBA();
+        // console.log(response.data.message);
+        console.log('data: ', data);
+
         Swal.fire({
           icon: 'success',
           title: 'SUCCESS',
+          text: response.data.message,
           timer: 2000,
           timerProgressBar: true,
           showCancelButton: false,
           showConfirmButton: false,
         });
+
+        this.fetchAllDataBA();
+        this.fetchDataAdminBA();
+
+        this.FetchDataUserBA();
+        this.fetchDocumentUUID();
+
+        // draft
+        this.fetchDataAdminFormBADraft();
+        this.fetchDataUserFormBADraft();
+
+        // approved
+        this.fetchDataAdminFormBAApproved();
+        this.fetchDataUserFormBAApproved();
+
+        // rejected
+        this.fetchDataAdminFormBARejected();
+        this.fetchDataUserFormBARejected();
+
+        this.fetchUserSignature();
       })
       .catch((error) => {
-        console.log(error.response.data.message);
+        // console.log(error.response.data.message);
         if (
           error.response.status === 401 ||
           error.response.status === 500 ||
@@ -382,12 +792,11 @@ export class FormBaComponent implements OnInit {
 
   openEditModal(form_uuid: string) {
     axios
-      .get(`${environment.apiUrl2}/form/ba/${form_uuid}`)
+      .get(`${environment.apiUrl2}/ba/${form_uuid}`)
       .then((response) => {
         console.log(response.data);
-        // $('#updateModalBA').modal('show');
         this.isModalEditOpen = true;
-        const formData = response.data;
+        const formData = response.data.form;
         this.form_uuid = formData.form_uuid;
         this.form_number = formData.form_number;
         this.form_ticket = formData.form_ticket;
@@ -408,7 +817,19 @@ export class FormBaComponent implements OnInit {
         this.dilakukan_oleh = formData.dilakukan_oleh;
         this.didampingi_oleh = formData.didampingi_oleh;
 
-        
+        // ini untuk edit penerima, tp masih bingung
+        const signData: Signatory[] = response.data.signatories;
+        signData.forEach((sign: Signatory) => {
+          const role = sign.role_sign;
+          if (this.signatoryPositions[role]) {
+            this.signatoryPositions[role].name = sign.signatory_name;
+            this.signatoryPositions[role].position = sign.signatory_position;
+            this.signatoryPositions[role].is_sign = sign.is_sign;
+          }
+        });
+
+        console.log('signdata', signData);
+
         const existingProject = this.dataListAllProject.find(
           (project) => project.project_name === formData.project_name
         );
@@ -436,25 +857,50 @@ export class FormBaComponent implements OnInit {
   }
 
   updateBA() {
+    const data = {
+      formData: {
+        document_uuid: this.document_uuid,
+        form_ticket: this.form_ticket,
+        project_uuid: this.project_uuid,
+      },
+      data_ba: {
+        judul: this.judul,
+        tanggal: this.tanggal,
+        nama_aplikasi: this.nama_aplikasi,
+        no_da: this.no_da,
+        no_itcm: this.no_itcm,
+        dilakukan_oleh: this.dilakukan_oleh,
+        didampingi_oleh: this.didampingi_oleh,
+      },
+      signatories: [
+        {
+          name: this.signatoryPositions['Pemohon'].name,
+          position: this.signatoryPositions['Pemohon'].position,
+          role_sign: 'Pemohon',
+        },
+        {
+          name: this.signatoryPositions['Atasan Pemohon'].name,
+          position: this.signatoryPositions['Atasan Pemohon'].position,
+          role_sign: 'Atasan Pemohon',
+        },
+        {
+          name: this.signatoryPositions['Penerima'].name,
+          position: this.signatoryPositions['Penerima'].position,
+          role_sign: 'Penerima',
+        },
+        {
+          name: this.signatoryPositions['Atasan Penerima'].name,
+          position: this.signatoryPositions['Atasan Penerima'].position,
+          role_sign: 'Atasan Penerima',
+        },
+      ],
+    };
+    console.log('yg ini udh sama sign', data);
+
     axios
       .put(
         `${environment.apiUrl2}/api/form/ba/update/${this.form_uuid}`,
-        {
-          formData: {
-            document_uuid: this.document_uuid,
-            form_ticket: this.form_ticket,
-            project_uuid: this.project_uuid,
-          },
-          data_ba: {
-            judul: this.judul,
-            tanggal: this.tanggal,
-            nama_aplikasi: this.nama_aplikasi,
-            no_da: this.no_da,
-            no_itcm: this.no_itcm,
-            dilakukan_oleh: this.dilakukan_oleh,
-            didampingi_oleh: this.didampingi_oleh,
-          },
-        },
+        data,
         {
           headers: {
             Authorization: `Bearer ${this.cookieService.get('userToken')}`,
@@ -472,9 +918,26 @@ export class FormBaComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
+
         this.fetchAllDataBA();
         this.fetchDataAdminBA();
+
         this.FetchDataUserBA();
+        this.fetchDocumentUUID();
+
+        // draft
+        this.fetchDataAdminFormBADraft();
+        this.fetchDataUserFormBADraft();
+
+        // approved
+        this.fetchDataAdminFormBAApproved();
+        this.fetchDataUserFormBAApproved();
+
+        // rejected
+        this.fetchDataAdminFormBARejected();
+        this.fetchDataUserFormBARejected();
+
+        this.fetchUserSignature();
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 500) {
@@ -490,6 +953,121 @@ export class FormBaComponent implements OnInit {
         }
       });
     this.isModalEditOpen = false;
+  }
+
+  publish(form_uuid: string, form_ticket: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Apakah anda yakin untuk mempublish dokumen ini? Setelah dokumen dipublish, dokumen tidak dapat dikembalikan.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, publish it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Panggil API untuk mempublish dokumen
+        axios
+          .put(
+            `${environment.apiUrl2}/api/form/update/${form_uuid}`,
+            {
+              isPublished: true,
+              formData: {
+                form_ticket: form_ticket,
+                document_uuid: this.document_uuid,
+              },
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+              },
+            }
+          )
+          .then((response) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'SUCCESS',
+              text: 'Berhasil dipublish!',
+              timer: 2000,
+              timerProgressBar: true,
+              showCancelButton: false,
+              showConfirmButton: false,
+            });
+
+            // biar gausah refresh
+
+            this.fetchAllDataBA();
+            this.fetchDataAdminBA();
+
+            this.FetchDataUserBA();
+            this.fetchDocumentUUID();
+
+            // draft
+            this.fetchDataAdminFormBADraft();
+            this.fetchDataUserFormBADraft();
+
+            // approved
+            this.fetchDataAdminFormBAApproved();
+            this.fetchDataUserFormBAApproved();
+
+            // rejected
+            this.fetchDataAdminFormBARejected();
+            this.fetchDataUserFormBARejected();
+
+            this.fetchUserSignature();
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: 'Error',
+              text: error.response.data.message,
+              icon: 'error',
+              timer: 2000,
+              timerProgressBar: true,
+              showCancelButton: false,
+              showConfirmButton: false,
+            });
+          });
+      }
+    });
+  }
+
+  openPreviewPage(form_uuid: string) {
+    axios
+      .get(`${environment.apiUrl2}/ba/${form_uuid}`)
+      .then((response) => {
+        console.log('ba/id', response);
+        this.isPreview = true;
+        this.router.navigate([`/form/ba/${form_uuid}`]);
+      })
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 404) {
+            // Navigasi ke halaman Not Found jika data tidak ditemukan
+            this.router.navigate(['/not-found']);
+          } else if (error.response.status === 500) {
+            Swal.fire({
+              title: 'Error',
+              text: error.response.data.message,
+              icon: 'error',
+              timer: 2000,
+              timerProgressBar: true,
+              showCancelButton: false,
+              showConfirmButton: false,
+              confirmButtonText: 'OK',
+            });
+          } else {
+            console.error('HTTP Error:', error.response);
+          }
+        } else {
+          console.error('Network Error:', error);
+        }
+      });
+  }
+
+  closePreviewPage() {
+    this.isPreview = false;
+
+    this.router.navigate([`/form/ba`]);
   }
 
   onDeleteFormBA(form_uuid: string) {
@@ -531,9 +1109,26 @@ export class FormBaComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
+
         this.fetchAllDataBA();
         this.fetchDataAdminBA();
+
         this.FetchDataUserBA();
+        this.fetchDocumentUUID();
+
+        // draft
+        this.fetchDataAdminFormBADraft();
+        this.fetchDataUserFormBADraft();
+
+        // approved
+        this.fetchDataAdminFormBAApproved();
+        this.fetchDataUserFormBAApproved();
+
+        // rejected
+        this.fetchDataAdminFormBARejected();
+        this.fetchDataUserFormBARejected();
+
+        this.fetchUserSignature();
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 500) {
@@ -548,6 +1143,51 @@ export class FormBaComponent implements OnInit {
           });
         }
       });
+  }
+
+  // copy
+  generateURL(form_uuid: string) {
+    // Generate URL
+    const url = `${window.location.origin}/form/ba/${form_uuid}`;
+
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          alert('URL copied to clipboard: ' + url);
+        })
+        .catch((err) => {
+          console.error('Failed to copy URL: ', err);
+        });
+    } else {
+      this.fallbackCopyTextToClipboard(url);
+    }
+  }
+
+  fallbackCopyTextToClipboard(text: string) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      Swal.fire({
+        icon: 'success',
+        title: 'SUCCESS',
+        text: 'Berhasil Generate link',
+        timer: 2000,
+        timerProgressBar: true,
+        showCancelButton: false,
+        showConfirmButton: false,
+      });
+    } catch (err) {
+      console.error('Fallback: Could not copy text', err);
+    }
+
+    document.body.removeChild(textArea);
   }
 }
 

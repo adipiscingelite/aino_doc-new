@@ -1,0 +1,274 @@
+ini open Preview
+
+    <h1 class="text-2xl font-semibold">Preview dan Approval Formulir Dampak Analisa (DA)</h1>
+    <p class="text-sm text-gray-500 font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      Necessitatibus, accusantium. Animi, facere. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum, ut.
+    </p>
+    <br>
+    <div class="px-5">
+      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow ">
+        <table class="border-2 border-black border-collapse w-full">
+          <tr>
+            <td class="border-2 border-black p-2 w-1/4">
+              <img class="w-40 mx-auto my-auto"
+                src="https://fintech.id/storage/files/shares/logo/logofi2/LOGO%20AINO%20INDONESIA%202021%20-%20Syafri%20Yuzal.png"
+                alt="">
+            </td>
+            <td class="border-2 border-black px-1 w-1/4">
+              <p class="text-center uppercase font-bold text-sm px-4">FORMULIR ANALISA DAMPAK PENGELOLAAN PERUBAHAN TI
+              </p>
+            </td>
+            <td class="border-2 border-black w-1/2 h-fit p-0">
+              <table class="border-collapse w-full h-full text-sm font-semibold">
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">{{ form_number }}</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">Tanggal Terbit</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">{{ created_at }}</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Revisi</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">woi</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <div class="mt-10 w-full">
+
+          <div class="w-full text-center text-sm font-bold">
+            <h1>FORMULIR ANALISIS DAMPAK PENGELOLAAN PERUBAHAN TI</h1>
+            <p>
+              <span>Nomor : </span>
+              <span>{{ form_number }}</span>
+            </p>
+          </div>
+          <hr class="bg-black h-[1.5px] w-[90%] my-5 mx-auto">
+
+
+          <table class="text-sm font-bold">
+            <tr>
+              <td class="pr-12">Nama Proyek</td>
+              <td class="px-5">:</td>
+              <td>{{ project_name }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Nama Analis</td>
+              <td class="px-5">:</td>
+              <td>{{ nama_analis }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Jabatan</td>
+              <td class="px-5">:</td>
+              <td>{{ jabatan }}</td>
+            </tr>
+            <tr>
+              <td class="pr-12">Departemen</td>
+              <td class="px-5">:</td>
+              <td>{{ departemen }}</td>
+            </tr>
+          </table>
+        </div>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Jenis Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ jenis_perubahan }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Detail Dampak Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ detail_dampak_perubahan }}</td>
+          </tr>
+        </table>
+
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Pengembangan Perubahan</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_pengembangan_perubahan }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Pengujian Perubahan Sistem</td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_pengujian_perubahan_sistem }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-full">
+          <tr>
+            <td class="border border-black px-2 py-0 text-center font-bold">Rencana Rilis Perubahan dan Implementasi
+            </td>
+          </tr>
+          <tr>
+            <td class="border border-black p-2 text-sm">{{ rencana_rilis_perubahan_dan_implementasi }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 w-full border-collapse">
+          <tr class="">
+            <td class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              Status pengajuan : <br> ( Berikan alasan apabila not approve )
+            </td>
+            <td class="w-1/2 h-36 text-center outline outline-black outline-1 p-0">
+              <table class="w-full h-full border-collapse">
+                <tr>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Approve</td>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Not Approve</td>
+                </tr>
+                <tr>
+                  <td class=" outline outline-black outline-1 p-2 w-1/2">
+                    <ng-container class="" *ngIf="approval_status === 'Disetujui'">
+                      <svg class="mx-auto my-auto h-9 w-9" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z">
+                        </path>
+                        <path d="m8 12 3 3 6-6"></path>
+                      </svg>
+                    </ng-container>
+                  </td>
+                  <td class=" outline outline-black outline-1 p-2 w-1/2">
+                    <ng-container class="" *ngIf="approval_status === 'Tidak Disetujui'">
+                      <svg class="mx-auto my-auto h-9 w-9" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z">
+                        </path>
+                        <path d="m8 12 3 3 6-6"></path>
+                      </svg>
+                    </ng-container>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <p *ngIf="approval_status === 'Menunggu Disetujui'" class="text-red-500 text-xs">*Hanya bisa diisi oleh Atasan
+          Penerima!&nbsp;&nbsp;<span class="text-black">Anda adalah Atasan Penerima?</span>&nbsp;&nbsp;<button
+            (click)="approveForm(form_uuid)" class="text-blue-500 underline">Approve Formulir ini</button></p>
+        <!-- Pastikan Anda menggunakan kondisi ini di dalam template komponen Angular Anda -->
+
+        <!-- <button *ngIf="approval_status === 'Menunggu Disetujui'"
+          (click)="approveForm('aac3a3c5-6938-4474-87b5-f36b76e54dd5')"
+          class="px-4 py-2 border rounded-full shadow hover:shadow-md">Approve</button> -->
+
+        <ng-container *ngIf="approval_status === 'Tidak Disetujui'">
+          <table class="mt-8 border-collapse w-full h-full">
+            <tr>
+              <td class="border border-black px-2 py-0 text-center font-bold">Alasan Tidak Approve</td>
+            </tr>
+            <tr>
+              <td class="border border-black p-2 text-sm">{{ reason }}</td>
+            </tr>
+          </table>
+        </ng-container>
+
+        <table class="mt-8 w-full border-collapse">
+          <thead>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Pemohon</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Pemohon</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Penerima</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Penerima</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 h-64 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Pemohon']">
+                  <ng-container *ngIf="signatoryPositions['Pemohon'].is_sign; else noImagePemohon">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImagePemohon>
+                    <!-- Placeholder atau konten alternatif jika gambar tidak ada -->
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Pemohon'].name">{{ signatoryPositions['Pemohon'].name }}</p>
+                    <p *ngIf="signatoryPositions['Pemohon'].position">({{ signatoryPositions['Pemohon'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Pemohon']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Pemohon'].is_sign; else noImageAtasanPemohon">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImageAtasanPemohon>
+                    <!-- Placeholder atau konten alternatif jika gambar tidak ada -->
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Atasan Pemohon'].name">{{ signatoryPositions['Atasan Pemohon'].name }}</p>
+                    <p *ngIf="signatoryPositions['Atasan Pemohon'].position">({{ signatoryPositions['Atasan Pemohon'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Penerima'].is_sign; else noImagePenerima">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImagePenerima>
+                    lorem500
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Penerima'].name">{{ signatoryPositions['Penerima'].name }}</p>
+                    <p *ngIf="signatoryPositions['Penerima'].position">({{ signatoryPositions['Penerima'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Penerima'].is_sign; else noImageAtasanPenerima">
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                  </ng-container>
+                  <ng-template #noImageAtasanPenerima>
+                    <!-- Placeholder atau konten alternatif jika gambar tidak ada -->
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Atasan Penerima'].name">{{ signatoryPositions['Atasan Penerima'].name }}</p>
+                    <p *ngIf="signatoryPositions['Atasan Penerima'].position">({{ signatoryPositions['Atasan Penerima'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+
+
+        <!-- <div> -->
+        <!-- </div> -->
+      </div>
+    </div>
