@@ -162,7 +162,7 @@
                       <th scope="col" class="px-6 py-3">Projek</th>
                       <th scope="col" class="px-6 py-3">Manajer</th>
                       <th scope="col" class="px-6 py-3">Approval Status</th>
-                      <th scope="col" class="px-6 py-3">Status</th>
+                      <th scope="col" class="px-6 py-3 text-center">Status</th>
                       <th scope="col" class="px-6 py-3">Action</th>
                     </tr>
                   </thead>
@@ -179,7 +179,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -211,7 +211,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -248,7 +248,7 @@
                               <div *ngIf="popoverIndex === x"
                                 class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2]">
                                 <div class="py-2">
-                                  <button *ngIf="itemFormITCM.form_status === 'Draft'"
+                                  <button *ngIf="itemFormITCM.approval_status != 'Disetujui'"
                                     (click)="openEditModal(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -333,7 +333,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -370,7 +370,7 @@
                               <div *ngIf="popoverIndex === x"
                                 class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
                                 <div class="py-2">
-                                  <button *ngIf="itemFormITCM.form_status === 'Draft'"
+                                  <button  *ngIf="itemFormITCM.approval_status != 'Disetujui'"
                                     (click)="openEditModal(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -471,7 +471,7 @@
                       <th scope="col" class="px-6 py-3">Projek</th>
                       <th scope="col" class="px-6 py-3">Manajer</th>
                       <th scope="col" class="px-6 py-3">Approval Status</th>
-                      <th scope="col" class="px-6 py-3">Status</th>
+                      <th scope="col" class="px-6 py-3 text-center">Status</th>
                       <th scope="col" class="px-6 py-3">Action</th>
                     </tr>
                   </thead>
@@ -488,7 +488,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -520,7 +520,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -634,7 +634,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -763,7 +763,7 @@
                       <th scope="col" class="px-6 py-3">Projek</th>
                       <th scope="col" class="px-6 py-3">Manajer</th>
                       <th scope="col" class="px-6 py-3">Approval Status</th>
-                      <th scope="col" class="px-6 py-3">Status</th>
+                      <th scope="col" class="px-6 py-3 text-center">Status</th>
                       <th scope="col" class="px-6 py-3">Action</th>
                     </tr>
                   </thead>
@@ -780,7 +780,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -812,7 +812,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -861,13 +861,13 @@
                                     </svg>
                                     Preview
                                   </button>
-                                  <button (click)="signature(itemFormITCM.form_uuid)"
+                                  <!-- <button (click)="signature(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                       <path d="M3 17c3.333-3.333 5-6 5-8 0-3-1-3-2-3S3.968 7.085 4 9c.034 2.048 1.658 4.877 2.5 6C8 17 9 17.5 10 16l2-3c.333 2.667 1.333 4 3 4 .53 0 2.639-2 3-2 .517 0 1.517.667 3 2"></path>
                                     </svg>
                                     Sign
-                                  </button>
+                                  </button> -->
                                 </div>
                                 <div
                                   class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
@@ -890,7 +890,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -939,13 +939,13 @@
                                     </svg>
                                     Preview
                                   </button>
-                                  <button (click)="signature(itemFormITCM.form_uuid)"
+                                  <!-- <button (click)="signature(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                       <path d="M3 17c3.333-3.333 5-6 5-8 0-3-1-3-2-3S3.968 7.085 4 9c.034 2.048 1.658 4.877 2.5 6C8 17 9 17.5 10 16l2-3c.333 2.667 1.333 4 3 4 .53 0 2.639-2 3-2 .517 0 1.517.667 3 2"></path>
                                     </svg>
                                     Sign
-                                  </button>
+                                  </button> -->
                                 </div>
                                 <div
                                   class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
@@ -992,7 +992,7 @@
                           <td class="px-6 py-4">{{ itemFormITCM.form_number }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -1023,7 +1023,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -1042,25 +1042,6 @@
                               <div *ngIf="popoverIndex === x"
                                 class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
                                 <div class="py-2">
-                                  <button  *ngIf="itemFormITCM.form_status === 'Draft'" (click)="openEditModal(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button  *ngIf="itemFormITCM.form_status === 'Draft'" (click)="publish(itemFormITCM.form_uuid, itemFormITCM.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z"></path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
                                   <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -1084,7 +1065,7 @@
                                     </svg>
                                     Approve
                                   </button> -->
-                                  <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
+                                  <!-- <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                       class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
@@ -1101,7 +1082,7 @@
                                       <path d="M15.375 8.25 15 18.75"></path>
                                     </svg>
                                     Delete
-                                  </button>
+                                  </button> -->
                                 </div>
                                 <div
                                   class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
@@ -1124,7 +1105,7 @@
                           </td>
                           <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'belum ada' }}</td>
+                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                           <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
@@ -1155,7 +1136,7 @@
                                     </svg>
                                     Preview
                                   </button>
-                                  <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
+                                  <!-- <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                       class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
@@ -1172,7 +1153,7 @@
                                       <path d="M15.375 8.25 15 18.75"></path>
                                     </svg>
                                     Delete
-                                  </button>
+                                  </button> -->
                                 </div>
                                 <div
                                   class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
@@ -1266,7 +1247,7 @@
                               <div *ngIf="popoverIndex === x"
                                 class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
                                 <div class="py-2">
-                                  <button  *ngIf="itemFormITCM.form_status === 'Draft'" (click)="openEditModal(itemFormITCM.form_uuid)"
+                                  <!-- <button  *ngIf="itemFormITCM.form_status" (click)="openEditModal(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                       class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
@@ -1284,7 +1265,7 @@
                                       <path d="M21.563 2.438 10.64 13.358"></path>
                                     </svg>
                                     Publish
-                                  </button>
+                                  </button> -->
                                   <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -1308,7 +1289,7 @@
                                     </svg>
                                     Approve
                                   </button> -->
-                                  <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
+                                  <!-- <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                       class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
@@ -1325,7 +1306,7 @@
                                       <path d="M15.375 8.25 15 18.75"></path>
                                     </svg>
                                     Delete
-                                  </button>
+                                  </button> -->
                                 </div>
                                 <div
                                   class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
@@ -1378,7 +1359,7 @@
                                     </svg>
                                     Preview
                                   </button>
-                                  <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
+                                  <!-- <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
                                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                       class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
@@ -1395,7 +1376,7 @@
                                       <path d="M15.375 8.25 15 18.75"></path>
                                     </svg>
                                     Delete
-                                  </button>
+                                  </button> -->
                                 </div>
                                 <div
                                   class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
@@ -1420,7 +1401,7 @@
 
 <ng-container *ngIf="isPreview; else tableView">
   <div class="p-4">
-    <button (click)="closePreviewPage()"
+    <button onclick="window.history.back();"
       class="flex items-center mb-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
       <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
         stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1436,7 +1417,7 @@
     </p>
     <br>
     <div class="px-5 ">
-      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow ">
+      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm]">
         <table class="border-2 border-black border-collapse w-full">
           <tr>
             <td class="border-2 border-black p-2 w-1/4">
@@ -1453,17 +1434,17 @@
                 <tr>
                   <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
                   <td class="outline outline-black outline-1 p-2 text-center">:</td>
-                  <td class="outline outline-black outline-1 p-2">{{ formatted_form_number }}</td>
+                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
                 </tr>
                 <tr>
                   <td class="outline outline-black outline-1 p-2">Tanggal Terbit</td>
                   <td class="outline outline-black outline-1 p-2 text-center">:</td>
-                  <td class="outline outline-black outline-1 p-2">{{ created_at }}</td>
+                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
                 </tr>
                 <tr>
                   <td class="outline outline-black outline-1 p-2">No. Revisi</td>
                   <td class="outline outline-black outline-1 p-2 text-center">:</td>
-                  <td class="outline outline-black outline-1 p-2">woi</td>
+                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
                 </tr>
               </table>
             </td>
@@ -1505,14 +1486,14 @@
               <td>{{ nama_pemohon }}</td>
             </tr>
             <tr>
-              <td class="pr-12">Instansi</td>
+              <td class="pr-12">Divisi</td>
               <td class="px-3">:</td>
               <td>{{instansi}}</td>
             </tr>
             <tr>
               <td class="pr-12">Tanggal</td>
               <td class="px-3">:</td>
-              <td>belum bisa</td>
+              <td>{{ created_at | date:'dd MMMM yyyy' }}</td>
             </tr>
           </table>
         </div>
@@ -1611,7 +1592,7 @@
                 <ng-container *ngIf="signatoryPositions['Pemohon']">
                   <ng-container *ngIf="signatoryPositions['Pemohon'].is_sign; else noImagePemohon">
                     <img class="mx-auto w-40 aspect-square"
-                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                       src="{{signatoryPositions['Pemohon'].sign_img}}" alt="{{signatoryPositions['Pemohon'].sign_img}}">
                   </ng-container>
                   <ng-template #noImagePemohon>
                     <img class="mx-auto w-40 aspect-square"
@@ -1628,7 +1609,7 @@
                 <ng-container *ngIf="signatoryPositions['Atasan Pemohon']">
                   <ng-container *ngIf="signatoryPositions['Atasan Pemohon'].is_sign; else noImageAtasanPemohon">
                     <img class="mx-auto w-40 aspect-square"
-                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                       src="{{signatoryPositions['Atasan Pemohon'].sign_img}}" alt="{{signatoryPositions['Atasan Pemohon'].sign_img}}">
                   </ng-container>
                   <ng-template #noImageAtasanPemohon>
                     <img class="mx-auto w-40 aspect-square"
@@ -1646,7 +1627,7 @@
                 <ng-container *ngIf="signatoryPositions['Penerima']">
                   <ng-container *ngIf="signatoryPositions['Penerima'].is_sign; else noImagePenerima">
                     <img class="mx-auto w-40 aspect-square"
-                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                       src="{{signatoryPositions['Penerima'].sign_img}}" alt="{{signatoryPositions['Penerima'].sign_img}}">
                   </ng-container>
                   <ng-template #noImagePenerima>
                     <img class="mx-auto w-40 aspect-square"
@@ -1664,7 +1645,7 @@
                 <ng-container *ngIf="signatoryPositions['Atasan Penerima']">
                   <ng-container *ngIf="signatoryPositions['Atasan Penerima'].is_sign; else noImageAtasanPenerima">
                     <img class="mx-auto w-40 aspect-square"
-                      src="https://i.pinimg.com/474x/1e/8c/c9/1e8cc9a97fc7b51b40d032db0322c2f1.jpg" alt="">
+                       src="{{signatoryPositions['Atasan Penerima'].sign_img}}" alt="{{signatoryPositions['Atasan Penerima'].sign_img}}">
                   </ng-container>
                   <ng-template #noImageAtasanPenerima>
                     <img class="mx-auto w-40 aspect-square"
@@ -1681,23 +1662,14 @@
           </tbody>
         </table>
 
-        <button (click)="signature(form_uuid)"
-          class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-            stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M3 17c3.333-3.333 5-6 5-8 0-3-1-3-2-3S3.968 7.085 4 9c.034 2.048 1.658 4.877 2.5 6C8 17 9 17.5 10 16l2-3c.333 2.667 1.333 4 3 4 .53 0 2.639-2 3-2 .517 0 1.517.667 3 2">
-            </path>
-          </svg>
-          Sign
-        </button>
+        <button *ngIf="!isSigned" (click)="openModal(form_uuid)" class="text-blue-500 text-sm underline">Sign Formulir ini</button>
 
         <!-- <div> -->
         <!-- </div> -->
       </div>
     </div>
 
-    <button (click)="closePreviewPage()"
+    <button onclick="window.history.back();"
       class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
       <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
         stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1764,8 +1736,8 @@
       </div>
 
       <div class="mt-4">
-        <label for="agency" class="text-sm md:text-base mb-1">Instansi</label>
-        <input type="text" name="instansi" placeholder="Masukkan Nama instansi" [(ngModel)]="instansi"
+        <label for="agency" class="text-sm md:text-base mb-1">Divisi</label>
+        <input type="text" name="instansi" placeholder="Masukkan Nama Divisi" [(ngModel)]="instansi"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
@@ -1908,8 +1880,8 @@
       </div>
 
       <div class="mt-4">
-        <label for="agency" class="text-sm md:text-base mb-1">Instansi</label>
-        <input type="text" name="instansi" placeholder="Masukkan Instansi" [(ngModel)]="instansi"
+        <label for="agency" class="text-sm md:text-base mb-1">Divisi</label>
+        <input type="text" name="instansi" placeholder="Masukkan Divisi" [(ngModel)]="instansi"
           class="border text-sm rounded-xl p-2 px-3 w-full">
       </div>
 
@@ -1986,6 +1958,43 @@
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Draft</button>
       <button (click)="closeEditModal()" type="button"
         class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Sign MODAL -->
+<div #modal tabindex="-1" aria-hidden="true" (keypress)="handleKeyDown($event)"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 scale-0 ">
+  <div class="relative flex items-center justify-center mx-4 md:mx-6 z-0">
+    <div class="md:w-1/2 h-fit px-2 py-2 rounded-md shadow-lg border bg-white">
+      <div class="flex items-center mb-6 text-gray-600">
+        <h1 class="text-xl">Signature</h1>
+        <button class="ml-auto" (click)="closeModal()">
+          <svg class=" w-10 h-10" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.25 17.25 6.75 6.75"></path>
+            <path d="m17.25 6.75-10.5 10.5"></path>
+          </svg>
+        </button>
+      </div>
+      <hr class="py-3">
+      <div class="my-2 canvas-container w-full h-full border dashed-custom border-spacing-6">
+        <canvas #sigPad class=""></canvas>
+      </div>
+      <div class="my-2">
+        <p class="text-[0.8rem] font-medium text-gray-500">
+          By signing this document with an electronic signature, I agree that such signature will be as valid as
+          handwritten signatures to the extent allowed by local law
+          <!-- {{form_uuid}} -->
+        </p>
+      </div>
+
+      <div class="flex mt-6 text-sm font-medium">
+        <button (click)="clear()" class="bg-gray-200 px-4 py-2 rounded-md uppercase">Clear</button>
+        <!-- <button (click)="save()">save</button> -->
+        <button (click)="signature(form_uuid)" class="ml-auto bg-green-500 px-4 py-2 text-white rounded-md uppercase">Accept and Sign</button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,5 +1,14 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,6 +25,7 @@ import { PdfGenerationService } from '../../services/pdf-generation.service';
 // import { AlertModule } from '@coreui/angular';
 import { initFlowbite } from 'flowbite';
 import { Router, ActivatedRoute } from '@angular/router';
+import SignaturePad from 'signature_pad';
 // import { initPopovers } from 'flowbite';
 
 interface Signatory {
@@ -24,6 +34,8 @@ interface Signatory {
   signatory_position: string;
   role_sign: string;
   is_sign: boolean;
+  // sign_img: string 
+  sign_img: string | { String: string };
 }
 
 interface formsDA {
@@ -44,6 +56,7 @@ interface formsDA {
   rencana_rilis_perubahan_dan_implementasi: string;
 
   is_sign: boolean;
+  approval_status: any;
 
   created_by: string;
   updated_by: string;
@@ -106,7 +119,71 @@ interface ITCMId {
   templateUrl: './form-da.component.html',
   styleUrl: './form-da.component.css',
 })
-export class FormDaComponent implements OnInit {
+export class FormDaComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('sigPad', { static: false })
+  sigPad!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('modal', { static: false }) modal!: ElementRef<HTMLDivElement>;
+  @ViewChild('closeButton', { static: false })
+  closeButton!: ElementRef<HTMLButtonElement>;
+
+  private signaturePad!: SignaturePad;
+  img: string | null = null;
+  penColor: string = '#262626'; // Default pen color
+
+  ngAfterViewInit() {
+    const canvas = this.sigPad.nativeElement;
+
+    // Initialize SignaturePad
+    this.signaturePad = new SignaturePad(canvas);
+    this.signaturePad.penColor = this.penColor;
+
+    // Resize canvas to fit the container
+    this.resizeCanvas();
+    window.addEventListener('resize', this.resizeCanvas.bind(this));
+
+    if (this.closeButton) {
+      this.closeButton.nativeElement.addEventListener('click', () =>
+        this.closeModal()
+      );
+    }
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeCanvas.bind(this));
+    if (this.closeButton) {
+      this.closeButton.nativeElement.removeEventListener('click', () =>
+        this.closeModal()
+      );
+    }
+  }
+
+  clear() {
+    this.signaturePad.clear();
+    this.img = null; // Clear the img property when the canvas is cleared
+  }
+
+  save() {
+    const dataURL = this.sigPad.nativeElement.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'signature.png';
+    link.click();
+  }
+  
+  onColorChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.penColor = input.value;
+    this.signaturePad.penColor = this.penColor;
+  }
+
+  private resizeCanvas() {
+    const canvas = this.sigPad.nativeElement;
+    const container = canvas.parentElement as HTMLElement;
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    this.signaturePad.clear(); // Clear the canvas to fit new size
+  }
+
   searchText: string = '';
 
   isPreview: boolean = false; // State untuk menampilkan preview atau tabel
@@ -195,14 +272,19 @@ export class FormDaComponent implements OnInit {
   isModalApproveOpen: boolean = false;
 
   // activePopover: number | null = null;
-
+  isSigned: boolean = false;
   signatoryPositions: {
-    [key: string]: { name: string; position: string; is_sign: boolean };
+    [key: string]: {
+      name: string;
+      position: string;
+      is_sign: boolean;
+      sign_img: string;
+    };
   } = {
-    Pemohon: { name: '', position: '', is_sign: false },
-    'Atasan Pemohon': { name: '', position: '', is_sign: false },
-    Penerima: { name: '', position: '', is_sign: false },
-    'Atasan Penerima': { name: '', position: '', is_sign: false },
+    Pemohon: { name: '', position: '', is_sign: false, sign_img: '' },
+    'Atasan Pemohon': { name: '', position: '', is_sign: false, sign_img: '' },
+    Penerima: { name: '', position: '', is_sign: false, sign_img: '' },
+    'Atasan Penerima': { name: '', position: '', is_sign: false, sign_img: '' },
   };
 
   constructor(
@@ -243,7 +325,7 @@ export class FormDaComponent implements OnInit {
   dataListFormDASignature: formsDA[] = [];
 
   ngOnInit(): void {
-    initFlowbite();
+    // initFlowbite();
     this.profileData();
 
     this.listAllDoc();
@@ -320,28 +402,28 @@ export class FormDaComponent implements OnInit {
     alert('wkkwkwkwkwkw gatau blm bisa');
   }
 
-  profileData(): void {
+  async profileData(): Promise<void> {
     const token = this.cookieService.get('userToken');
 
-    axios
-      .get(`${this.apiUrl}/auth/my/profile`, {
+    try {
+      const response = await axios.get(`${this.apiUrl}/auth/my/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-      .then((response) => {
-        console.log(response);
-        this.user_uuid = response.data.user_uuid;
-        this.user_name = response.data.user_name;
-        this.role_code = response.data.role_code;
-        this.personal_name = response.data.personal_name;
-        console.log('personal name: ', this.personal_name);
-      })
-      .catch((error) => {
-        if (error.response.status === 500 || error.response.status === 404) {
+      });
+      this.user_uuid = response.data.user_uuid;
+      this.user_name = response.data.user_name;
+      this.role_code = response.data.role_code;
+      this.personal_name = response.data.personal_name;
+      console.log('personal name: ', this.personal_name);
+    } catch (error) {
+      if (error instanceof axios.AxiosError) {
+        if (error.response?.status === 500 || error.response?.status === 404) {
           console.log(error.response.data);
         }
-      });
+      } else {
+        console.error('Unexpected error:', error);
+      }}
   }
 
   listAllDoc(): void {
@@ -417,7 +499,7 @@ export class FormDaComponent implements OnInit {
         },
       })
       .then((response) => {
-        // console.log('user',response);
+        console.log('user',response);
 
         this.dataListUserFormDA = response.data;
       })
@@ -496,6 +578,8 @@ export class FormDaComponent implements OnInit {
         this.dataListFormDASignature = response.data.filter(
           (item: any) => item.form_status === 'Published'
         );
+
+        console.log('user signature', this.dataListFormDASignature);
 
         if (this.dataListFormDASignature.length === 0) {
           console.log('No published signatures found.');
@@ -770,35 +854,34 @@ export class FormDaComponent implements OnInit {
     }
   }
 
-
   openAddModal() {
     this.isModalAddOpen = true;
-    this.form_ticket = '1';
+    this.form_ticket = '';
     this.project_uuid = '';
-    this.nama_analis = 'a';
-    this.jabatan = 'a';
-    this.departemen = 'a';
-    this.jenis_perubahan = 'a';
-    this.detail_dampak_perubahan = 'a';
-    this.rencana_pengembangan_perubahan = 'a';
-    this.rencana_pengujian_perubahan_sistem = 'a';
-    this.rencana_rilis_perubahan_dan_implementasi = 'a';
+    this.nama_analis = '';
+    this.jabatan = '';
+    this.departemen = '';
+    this.jenis_perubahan = '';
+    this.detail_dampak_perubahan = '';
+    this.rencana_pengembangan_perubahan = '';
+    this.rencana_pengujian_perubahan_sistem = '';
+    this.rencana_rilis_perubahan_dan_implementasi = '';
     this.name1 = '';
-    this.position1 = 'a';
+    this.position1 = '';
     this.roleSign1 = this.roleSign1;
     this.name2 = '';
-    this.position2 = 'a';
+    this.position2 = '';
     this.roleSign2 = this.roleSign2;
     this.name3 = '';
-    this.position3 = 'a';
+    this.position3 = '';
     this.roleSign3 = this.roleSign3;
     this.name4 = '';
-    this.position4 = 'a';
+    this.position4 = '';
     this.roleSign4 = this.roleSign4;
     // this.name5 = '';
     // this.position5 = '';
     // this.roleSign5 = '';
-    console.log('add da');
+    // console.log('add da');
   }
   closeAddModal() {
     this.isModalAddOpen = false;
@@ -911,10 +994,33 @@ export class FormDaComponent implements OnInit {
     axios
       .get(`${environment.apiUrl2}/da/${form_uuid}`)
       .then((response) => {
+        const formData = response.data.form;
+        if (formData.form_status === 'Published') {
+          Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Anda yakin ingin mengedit Formulir ini? Setelah diedit, formulir akan kembali menjadi Draft dan semua signatories akan dihapus',
+            // imageUrl: 'https://i.pinimg.com/474x/26/6e/9b/266e9b164cd6dc2aeeabfb7ce9e15fe9.jpg', // URL gambar yang ingin kamu tampilkan
+            // imageWidth: 100, // Ubah ukuran lebar gambar
+            // imageHeight: 100, // Ubah ukuran tinggi gambar
+            // imageAlt: 'Custom image', // Teks alternatif untuk gambar
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.isModalEditOpen = true;
+            }
+          });
+        } else if (formData.form_status === 'Draft') {
+          this.isModalEditOpen = true;
+        }
+
         console.log('edit', response.data);
 
-        this.isModalEditOpen = true;
-        const formData = response.data.form;
+        // const formData = response.data.form;
         this.form_uuid = formData.form_uuid;
         this.form_number = formData.form_number;
         this.form_ticket = formData.form_ticket;
@@ -922,6 +1028,7 @@ export class FormDaComponent implements OnInit {
         this.document_name = formData.document_name;
         this.project_uuid = formData.project_uuid;
         this.project_name = formData.project_name;
+        this.itcm_form_uuid = formData.itcm_form_uuid;
         this.nama_analis = formData.nama_analis;
         this.jabatan = formData.jabatan;
         this.departemen = formData.departemen;
@@ -953,6 +1060,11 @@ export class FormDaComponent implements OnInit {
           (project) => project.project_name === formData.project_name
         );
         this.project_uuid = existingProject ? existingProject.project_uuid : '';
+
+        // const existingITCMNumber = this.dataListAllProject.find(
+        //   (project) => project.project_name === formData.project_name
+        // );
+        // this.itcm_form_uuid = existingITCMNumber ? existingITCMNumber.project_uuid : '';
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -977,12 +1089,14 @@ export class FormDaComponent implements OnInit {
 
   updateFormDA() {
     const data = {
+      // isPublished: false,
       formData: {
         document_uuid: this.document_uuid,
         form_ticket: this.form_ticket,
         project_uuid: this.project_uuid,
       },
       data_da: {
+        itcm_form_uuid: this.itcm_form_uuid,
         nama_analis: this.nama_analis,
         jabatan: this.jabatan,
         departemen: this.departemen,
@@ -1136,10 +1250,14 @@ export class FormDaComponent implements OnInit {
     });
   }
 
-  openPreviewPage(form_uuid: string) {
+  async openPreviewPage(form_uuid: string) {
+    await this.profileData();
     axios
       .get(`${environment.apiUrl2}/da/${form_uuid}`)
       .then((response) => {
+        const BASE_URL = environment.apiUrl2;
+        console.log('ada sign img', response);
+
         // Proses data dan perbarui UI di sini
         const formData = response.data.form;
         this.form_uuid = formData.form_uuid;
@@ -1163,6 +1281,7 @@ export class FormDaComponent implements OnInit {
         this.rencana_rilis_perubahan_dan_implementasi =
           formData.rencana_rilis_perubahan_dan_implementasi;
         this.isPreview = true;
+        this.router.navigate([`/form/da/${form_uuid}`]);
 
         // Update signatory positions
         const signatories: Signatory[] = response.data.signatories || [];
@@ -1171,6 +1290,7 @@ export class FormDaComponent implements OnInit {
             name: '',
             position: '',
             is_sign: false,
+            sign_img: '',
           };
         });
         signatories.forEach((signatory: Signatory) => {
@@ -1180,22 +1300,34 @@ export class FormDaComponent implements OnInit {
               name: signatory.signatory_name || '',
               position: signatory.signatory_position || '',
               is_sign: signatory.is_sign || false,
+              sign_img:
+                typeof signatory.sign_img === 'object' &&
+                'String' in signatory.sign_img
+                  ? BASE_URL + signatory.sign_img.String
+                  : BASE_URL + signatory.sign_img,
             };
           }
         });
 
-        // Find the current user signatory
-        const mySignatory = signatories.find(
-          (signatory: Signatory) =>
-            signatory.signatory_name === this.personal_name
-        );
-        if (mySignatory) {
-          console.log('Sign UUID:', mySignatory.sign_uuid);
-        } else {
-          console.log(
-            'Signatory not found for personal_name:',
-            this.personal_name
+        // udh bener tp kadang undefined
+        if (signatories && signatories.length > 0) {
+          const mySignatory = signatories.find(
+            (signatory: Signatory) =>
+              signatory?.signatory_name === this.personal_name
           );
+          console.log('plis', mySignatory);
+
+          if (mySignatory) {
+            console.log('Sign UUID:', mySignatory.sign_uuid);
+            this.isSigned = mySignatory.is_sign;
+          } else {
+            console.log(
+              'Signatory not found for personal_name:',
+              this.personal_name
+            );
+          }
+        } else {
+          console.log('Signatories array is empty or undefined');
         }
       })
       .catch((error) => {
@@ -1249,6 +1381,8 @@ export class FormDaComponent implements OnInit {
         this.form_number = formData.form_number;
         this.form_uuid = formData.form_uuid;
 
+        this.is_approve = null;
+        this.reason = ''
         this.isModalApproveOpen = true;
       })
       .catch((error) => {
@@ -1386,18 +1520,35 @@ export class FormDaComponent implements OnInit {
       });
   }
 
+  openModal(form_uuid: string) {
+    this.form_uuid = form_uuid;
+    if (this.modal) {
+      this.modal.nativeElement.classList.add('scale-100');
+    }
+  }
+
+  closeModal() {
+    if (this.modal) {
+      this.modal.nativeElement.classList.remove('scale-100');
+    }
+    this.clear();
+  }
+
   signature(form_uuid: string) {
+    const dataURL = this.sigPad.nativeElement.toDataURL('image/png'); // Get the signature image
+  
     axios.get(`${environment.apiUrl2}/da/${form_uuid}`).then((response) => {
       const signatories: Signatory[] = response.data.signatories || [];
-
+  
       Object.keys(this.signatoryPositions).forEach((role) => {
         this.signatoryPositions[role] = {
           name: '',
           position: '',
           is_sign: false,
+          sign_img: '', // Initially empty
         };
       });
-
+  
       signatories.forEach((signatory: Signatory) => {
         const role = signatory.role_sign;
         if (this.signatoryPositions[role]) {
@@ -1405,17 +1556,31 @@ export class FormDaComponent implements OnInit {
             name: signatory.signatory_name || '',
             position: signatory.signatory_position || '',
             is_sign: signatory.is_sign || false,
+            sign_img: typeof signatory.sign_img === 'string' 
+              ? signatory.sign_img 
+              : (signatory.sign_img as { String: string }).String || '',
           };
         }
       });
+  
       const mySignatory = signatories.find(
-        (signatory: Signatory) =>
-          signatory.signatory_name === this.personal_name
+        (signatory: Signatory) => signatory.signatory_name === this.personal_name
       );
+  
       if (mySignatory) {
         console.log('Signatory details:', mySignatory);
         console.log('Sign UUID:', mySignatory.sign_uuid);
-        this.onSignature(mySignatory.sign_uuid);
+        
+        // Prepare payload to send, including the signature image
+        const payload = {
+          name: mySignatory.signatory_name,
+          position: mySignatory.signatory_position,
+          is_sign: true,
+          sign_img: dataURL, // Include the Base64 signature image
+        };
+  
+        // Send the update to the backend
+        this.onSignature(mySignatory.sign_uuid, payload);
       } else {
         console.log(
           'Signatory not found for personal_name:',
@@ -1424,14 +1589,14 @@ export class FormDaComponent implements OnInit {
       }
     });
   }
-
-  onSignature(sign_uuid: string) {
+  
+  onSignature(sign_uuid: string, payload: any) {
+    console.log('pailod',payload);
+    
     axios
       .put(
         `${environment.apiUrl2}/api/signature/update/${sign_uuid}`,
-        {
-          is_sign: true,
-        },
+        payload, // Send the entire payload with image
         {
           headers: {
             Authorization: `Bearer ${this.cookieService.get('userToken')}`,
@@ -1449,7 +1614,7 @@ export class FormDaComponent implements OnInit {
           showConfirmButton: false,
         });
 
-        this.isModalSignOpen = false;
+        this.closeModal();
         // tambah ini biar setelah add ga perlu refresh agar bisa muncul
         this.fetchDataFormDA();
         this.fetchDataAdminFormDA();
@@ -1459,6 +1624,7 @@ export class FormDaComponent implements OnInit {
         this.fetchDataAdminFormDAPublish();
         this.fetchDataUserFormDAPublish();
         this.fetchUserSignature();
+        this.openPreviewPage(this.form_uuid);
       })
       .catch((error) => {
         if (

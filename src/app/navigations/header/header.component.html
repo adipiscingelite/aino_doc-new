@@ -1,7 +1,7 @@
 <nav
-  class="font-sans flex flex-row md:bg-red-100 text-left justify-between py-2 px-6 bg-gradient-to-r from-white to-indigo-100 shadow items-center md:items-baseline w-full">
-  <div class="md:hidden group">
-    <svg class="md:hidden  w-8 h-8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+  class="font-sans flex flex-row md:bg-red-100 text-left justify-between py-2 px-6 bg-gradient-to-r from-white to-indigo-100 shadow items-center md:items-baseline w-full z-10">
+  <div class="md:hidden group z-10">
+    <svg class="md:hidden  w-8 h-8 duration-300 transform" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
       stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M22 11c0-4.97-4.477-9-10-9S2 6.03 2 11h20Z" clip-rule="evenodd"></path>
       <path d="M22 19H2v3h20v-3Z"></path>
@@ -17,7 +17,7 @@
             <div class="space-y-3 ">
               <label class="px-3 text-xs text-gray-500 uppercase  ">main</label>
 
-              <a routerLink="dashboard"
+              <a routerLinkActive="active-link" routerLink="dashboard"
                 class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 hover:text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="w-5 h-5">
@@ -75,6 +75,100 @@
                 </svg>
 
                 <span class="mx-2 text-sm font-medium">Hak Akses</span>
+              </a>
+              <div class=" px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  ">
+                <details class="group">
+                  <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
+                    <div class="flex">
+                      <svg routerLinkActive="svg-active-link" fill="currentColor" viewBox="0 0 24 24" stroke-width="1"
+                        stroke="none" class="w-5 h-5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="m20.034 7.716-5.25-5.25a.76.76 0 0 0-.534-.216h-9a1.5 1.5 0 0 0-1.5 1.5V12a.75.75 0 1 0 1.5 0V3.75h8.25v4.5a.75.75 0 0 0 .75.75h4.5v11.25h-3a.75.75 0 1 0 0 1.5h3a1.5 1.5 0 0 0 1.5-1.5v-12a.76.76 0 0 0-.216-.534ZM15 4.809 17.69 7.5H15V4.81Zm-3 11.316h-.75v-.375a2.625 2.625 0 0 0-5.25 0v.375h-.75a.75.75 0 0 0-.75.75V21a.75.75 0 0 0 .75.75H12a.75.75 0 0 0 .75-.75v-4.125a.75.75 0 0 0-.75-.75Zm-2.25 0H7.5v-.375a1.125 1.125 0 0 1 2.25 0v.375Z">
+                        </path>
+                      </svg>
+                      <span class="mx-2 text-sm font-medium">Form HA</span>
+                    </div>
+                    <span class="transition group-open:rotate-180">
+                      <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                        <path d="M6 9l6 6 6-6"></path>
+                      </svg>
+                    </span>
+                  </summary>
+                  <a routerLink="/form/ha-permintaan" routerLinkActive="active-link"
+                    class="flex items-center mt-4 px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
+                    <svg routerLinkActive="svg-active-link" class="w-5 h-5" fill="none" stroke="currentColor"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6 4.5 12 2l6 2.5L22 19l-10 3-10-3L6 4.5Z"></path>
+                      <path d="M12 22V7"></path>
+                      <path d="M18 4.5 12 7"></path>
+                      <path d="M6 4.5 12 7"></path>
+                      <path d="m2.5 19 9.5-3"></path>
+                      <path d="m22 19-10-3"></path>
+                    </svg>
+                    <span class="mx-2 text-sm font-medium">Hak HA</span>
+                  </a>
+                  <!-- <a routerLink="/form/ha-penghapusan" routerLinkActive="active-link"
+                    class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
+                    <svg routerLinkActive="svg-active-link" class="w-5 h-5" fill="none" stroke="currentColor"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 21V3h-1.5L15 8H6l-3 3v10h18Z"></path>
+                      <path d="m6 8 5-5h9"></path>
+                      <path
+                        d="M10.322 14.444c.715-.94 1.267-2.239 1.565-2.944.522.705 1.655 2.474 2.013 3.414.447 1.176-.671 2.586-2.013 2.586-1.342 0-2.46-1.88-1.566-3.056Z">
+                      </path>
+                      <path d="M5.5 4 2 7.5"></path>
+                    </svg>
+                    <span class="mx-2 text-sm font-medium">HA Penghapusan</span>
+                  </a> -->
+                  <a routerLink="/form/hak-akses" routerLinkActive="active-link"
+                    class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
+                    <svg routerLinkActive="svg-active-link" class="w-5 h-5" fill="none" stroke="currentColor"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M19.5 3h-15A1.5 1.5 0 0 0 3 4.5v15A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5v-15A1.5 1.5 0 0 0 19.5 3Z">
+                      </path>
+                      <path d="M13 12H7"></path>
+                      <path d="M17 7.5H7"></path>
+                      <path d="M16 16.5H7"></path>
+                    </svg>
+                    <span class="mx-2 text-sm font-medium">HA Review</span>
+                  </a>
+                </details>
+              </div>
+            </div>
+      
+            <div *ngIf="division_code === 'GA' || division_code === 'itsupport'" class="space-y-3 ">
+              <label class="px-3 text-xs text-gray-500 uppercase  " routerLinkActive="active-link">ASSETS</label>
+              
+              <a routerLink="/form/ba-assets" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+                class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
+                <svg routerLinkActive="svg-active-link" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21.75 12c0-5.385-4.366-9.75-9.75-9.75A9.75 9.75 0 0 0 2.25 12c0 5.384 4.365 9.75 9.75 9.75 5.384 0 9.75-4.366 9.75-9.75Z"></path>
+                  <path fill="currentColor" stroke="none" d="M20.885 8.066c-.753.005-.678 1.394-1.616.738-.349-.242-.563-.595-1-.703-.382-.093-.774.004-1.151.07-.429.073-.938.107-1.263.431-.314.313-.48.733-.815 1.047-.648.61-.921 1.275-.502 2.136.403.829 1.246 1.278 2.156 1.219.894-.06 1.823-.578 1.797.72-.01.46.087.779.228 1.206.13.394.122.775.152 1.182.055.76.195 1.61.572 2.281l.703-.992c.086-.122.268-.295.31-.44.077-.256-.073-.696-.09-.984-.018-.287-.01-.578-.053-.866-.062-.402-.3-.78-.333-1.178-.06-.74.075-1.332-.496-1.952-.552-.598-1.36-.741-2.132-.62-.389.061-1.955.312-1.326-.578.124-.174.341-.318.48-.484.122-.145.228-.411.37-.524.143-.113.797-.243.984-.185.188.057.384.328.546.448.3.226.651.377 1.023.438.64.094 1.979-.278 1.968-1.1-.002-.393-.367-.941-.512-1.31Z"></path>
+                  <path fill="currentColor" stroke="none" d="M13.475 14.829c-.25-1.052-1.679-1.404-2.45-1.974-.443-.328-.837-.835-1.418-.876-.269-.02-.493.039-.759-.03-.244-.063-.435-.194-.695-.16-.485.063-.79.582-1.312.512-.495-.067-1.004-.645-1.117-1.117-.144-.605.335-.801.848-.855.215-.023.455-.047.66.031.272.1.4.366.643.5.456.25.548-.15.479-.554-.105-.607-.227-.854.314-1.272.375-.287.696-.496.636-1.013-.036-.303-.202-.44-.047-.743.118-.23.44-.438.651-.575.543-.355 2.327-.328 1.598-1.32-.214-.291-.609-.812-.984-.883-.469-.088-.677.435-1.004.665-.337.239-.994.51-1.332.14-.455-.495.301-.659.469-1.005.167-.346-.388-1.001-.685-1.167L6.572 4.7a1.946 1.946 0 0 0 .391 1.493c.278.358.72.473.74.961.02.469-.053.709-.36 1.039-.132.14-.225.34-.36.472-.166.16-.105.111-.363.155-.485.082-.899.209-1.368.338-.782.216-.854-1.061-1.21-1.562l-1.172.946c-.013.155.192.44.248.61.32.964.966 1.71 1.383 2.632.44.977 1.619.706 2.14 1.562.462.76-.032 1.72.314 2.516.251.577.844.703 1.252 1.125.418.426.41 1.009.473 1.564.072.652.188 1.298.35 1.934.056.22.108.51.258.692.103.125.457.232.314.274.2.032.556.219.722.082.22-.18.161-.734.199-.984.114-.746.487-1.474.99-2.032.498-.55 1.18-.923 1.6-1.547.409-.609.532-1.43.362-2.141Zm-1.565 1.233c-.281.502-.908.838-1.31 1.237-.11.109-.342.484-.479.403-.098-.059-.131-.545-.167-.657a2.867 2.867 0 0 0-1.018-1.404c-.146-.11-.51-.255-.594-.407-.094-.166-.01-.556-.006-.736.005-.263-.115-.7-.05-.938.075-.275-.07-.11.177-.163.13-.03.666.065.828.098.257.054.398.214.6.376.533.426 1.12.757 1.716 1.084.462.256.598.58.303 1.107Z"></path>
+                  <path fill="currentColor" stroke="none" d="M8.646 3.142c.223.217.432.474.763.495.314.021.61-.149.883.065.304.234.523.53.926.604.39.07.803-.157.9-.556.093-.38-.109-.794-.12-1.175 0-.053.028-.288-.009-.328-.027-.03-.254.004-.289.004a9.707 9.707 0 0 0-3.44.74c.114.078.257.11.386.15Z"></path>
+                  <path fill="currentColor" stroke="none" d="M16.706 5.774c.398 0 .802-.178.674-.638-.108-.386-.292-.804-.74-.596-.284.132-.687.468-.72.802-.038.379.52.432.786.432Z"></path>
+                  <path fill="currentColor" stroke="none" d="M16.389 7.795c.406.243 1.01.13 1.316-.218.24-.272.38-.744.811-.744.19 0 .372.074.507.207.178.184.143.357.181.588.085.518.64.03.785-.171.094-.131.221-.325.178-.495-.039-.16-.225-.328-.307-.474-.24-.422-.44-.913-.8-1.254-.348-.328-.774-.29-1.104.051-.27.281-.584.504-.768.846a.743.743 0 0 1-.541.418c-.146.034-.311.047-.433.144-.34.267-.147.91.175 1.102Z"></path>
+                </svg>
+                <span class="mx-2 text-sm font-medium">BA Assets</span>
+              </a>
+              
+              <a routerLink="/form/ba-assets/list" routerLinkActive="active-link"
+                class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg   hover:bg-gray-100     hover:text-gray-700">
+                <svg routerLinkActive="svg-active-link" class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 3.75H6c-1.219 0-2.016.656-2.25 1.875l-1.5 7.125V18a2.257 2.257 0 0 0 2.25 2.25h15A2.256 2.256 0 0 0 21.75 18v-5.25l-1.5-7.125C20.016 4.359 19.172 3.75 18 3.75Z"></path>
+                  <path d="M2.25 12.75H9"></path>
+                  <path d="M15 12.75h6.75"></path>
+                  <path d="M9 12.75a3 3 0 0 0 6 0"></path>
+                  <path d="M6.75 6.75h10.5"></path>
+                  <path d="M6 9.75h12"></path>
+                </svg>
+                <span class="mx-2 text-sm font-medium">Assets List</span>
               </a>
             </div>
 
@@ -292,23 +386,29 @@
   <div class="md:mb-0 mx-auto md:mx-0 md:flex md:flex-row">
     <div>
       <a routerLink="dashboard">
-        <img class="w-auto h-9 md:h-12"
-          src="https://fintech.id/storage/files/shares/logo/logofi2/LOGO%20AINO%20INDONESIA%202021%20-%20Syafri%20Yuzal.png"
-          alt="">
+        <img class="w-auto h-9 md:h-12 select-none"
+          src="assets/images/aino.png"
+          alt="AINO"
+          loading="lazy" >
       </a>
     </div>
   </div>
 
   <div class="md:mb-0 flex items-center md:space-x-4 ">
-    <span class="hidden md:block">
-      <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"
-        stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M20.047 16.473c-1.204-1.473-2.053-2.223-2.053-6.285 0-3.72-1.9-5.044-3.463-5.688a.835.835 0 0 1-.466-.495C13.79 3.072 13.022 2.25 12 2.25s-1.791.823-2.063 1.756a.827.827 0 0 1-.466.494c-1.565.645-3.463 1.965-3.463 5.688-.002 4.062-.852 4.812-2.056 6.285-.499.61-.062 1.527.81 1.527h14.48c.867 0 1.301-.92.805-1.527Z">
-        </path>
-        <path d="M15 18v.75a3 3 0 0 1-6 0V18"></path>
-      </svg>
+    <span class="relative hidden md:block">
+      <a routerLink="/notification">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"
+          stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M20.047 16.473c-1.204-1.473-2.053-2.223-2.053-6.285 0-3.72-1.9-5.044-3.463-5.688a.835.835 0 0 1-.466-.495C13.79 3.072 13.022 2.25 12 2.25s-1.791.823-2.063 1.756a.827.827 0 0 1-.466.494c-1.565.645-3.463 1.965-3.463 5.688-.002 4.062-.852 4.812-2.056 6.285-.499.61-.062 1.527.81 1.527h14.48c.867 0 1.301-.92.805-1.527Z">
+          </path>
+          <path d="M15 18v.75a3 3 0 0 1-6 0V18"></path>
+        </svg>
+        <div *ngIf="!allSigned"
+          class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-blue-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+        </div>
+      </a>
     </span>
     <span class="hidden md:block">
       <a routerLink="/first-component">
@@ -341,10 +441,10 @@
     <span class="md:border-l-[.5px] md:border-black md:pl-3 flex items-center space-x-3">
       <!-- <p>|</p> -->
       <p class="hidden md:block font-medium">{{ user_name }}</p>
-      <button (click)="toggleProfileDropdown()"
+      <button id="bjirrr" (click)="toggleProfileDropdown()"
         class="text-white font-medium rounded-lg text-sm text-center inline-flex items-center" type="button">
         <img alt="Foto Profil" src="https://i.pinimg.com/474x/18/e2/49/18e249f0a674fc4ef63e3b28fd938de2.jpg"
-          class="relative inline-block h-10 w-10 cursor-pointer rounded-full object-cover object-center" />
+          class="relative inline-block h-10 w-10 cursor-pointer rounded-full object-cover object-center select-none" />
         <!-- <img alt="tania andrew" src="https://picsum.photos/200" -->
       </button>
 
@@ -359,14 +459,14 @@
             <a routerLink="first-component" class="block px-4 py-2 hover:bg-gray-100 ">Mail</a>
           </li>
           <li class="block md:hidden">
-            <a href="#" class="block px-4 py-2 hover:bg-gray-100 ">Notification</a>
+            <a routerLink="/notification" class="block px-4 py-2 hover:bg-gray-100 ">Notification</a>
           </li>
           <li>
             <a routerLink="/user/change-password" class="block px-4 py-2 hover:bg-gray-100 ">Change
               Password</a>
           </li>
           <li class="w-full">
-            <button type="button" (click)="onLogout()" class="w-full block px-4 py-2 hover:bg-gray-100 text-left">Sign
+            <button type="button" (click)="onLogout()" class="w-full block px-4 py-2 text-red-500 hover:bg-gray-100 text-left ">Sign
               out</button>
           </li>
         </ul>
@@ -379,3 +479,109 @@
 </nav>
 
 <marquee class="z-1 text-sky-700">#Marquee</marquee>
+
+<!-- bottom -->
+<div class="block md:hidden w-full">
+  <!-- <section id="bottom-navigation" class="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow"> // if shown only tablet/mobile-->
+  <section id="bottom-navigation"
+    class="block fixed inset-x-0 bottom-0 z-[5] bg-[#fcfaff] shadow  border border-gray-400">
+    <div id="tabs" class="flex justify-between">
+      <a routerLinkActive="bottom-nav-active" routerLink="/dashboard"
+        class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+        <svg width="25" height="25" class="inline-block mb-1" fill="none" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M14.25 19.499v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75v4.5a.75.75 0 0 1-.75.75H4.5a.75.75 0 0 1-.75-.75v-8.672a.778.778 0 0 1 .244-.553l7.5-6.816a.75.75 0 0 1 1.012 0l7.5 6.816a.777.777 0 0 1 .244.553V19.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75Z">
+          </path>
+        </svg>
+        <span class="tab tab-home block text-xs">Home</span>
+      </a>
+      <a href="/dashboard#pricing"
+        class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+        <svg width="25" height="25" class="inline-block mb-1"  fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 6h20v4l-.7.42a3.5 3.5 0 0 1-3.6 0L17 10l-.7.42a3.5 3.5 0 0 1-3.6 0L12 10l-.7.42a3.5 3.5 0 0 1-3.6 0L7 10l-.7.42a3.5 3.5 0 0 1-3.6 0L2 10V6Z"></path>
+          <path d="M4 11.244V22h16V11"></path>
+          <path d="M4 5.911V2h16v4"></path>
+          <path d="M14.5 16h-5v6h5v-6Z"></path>
+        </svg>
+        <span class="tab tab-kategori block text-xs">Shop</span>
+      </a>
+      <button
+        class="relative inline-flex flex-col items-center text-xs font-medium text-white py-3 px-6 flex-grow group">
+        <div
+          class="absolute bottom-5 p-3 rounded-full border-4 border-white bg-blue-600 group-hover:rotate-45 transition-transform duration-300">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="m12.03 5-.018 14"></path>
+            <path d="M5 12h14"></path>
+          </svg>
+        </div>
+        <span class="sr-only">Add</span>
+        <div
+          class="absolute top-[-12rem] w-[50vw] text-black opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 ease-in-out">
+          <div class="space-y-2">
+
+            <a routerLink="/form/itcm" class="flex items-center space-x-4 px-4 py-1 text-[1rem] font-medium rounded-full border bg-white border-gray-500 shadow shadow-blue-200">
+              <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.5 10.371V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5v-15a2.25 2.25 0 0 1 2.25-2.25h4.629a1.5 1.5 0 0 1 1.06.44l6.622 6.62a1.5 1.5 0 0 1 .439 1.061Z"></path>
+                <path d="M12 2.625V8.25a1.5 1.5 0 0 0 1.5 1.5h5.625"></path>
+                <path d="M8.25 13.5h7.5"></path>
+                <path d="M8.25 17.25h7.5"></path>
+              </svg>
+              <p>Add ITCM</p>
+            </a>
+
+            <a routerLink="/form/da" class="flex items-center space-x-4 px-4 py-1 text-[1rem] font-medium rounded-full border bg-white border-gray-500 shadow shadow-blue-200">
+              <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.5 10.371V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5v-15a2.25 2.25 0 0 1 2.25-2.25h4.629a1.5 1.5 0 0 1 1.06.44l6.622 6.62a1.5 1.5 0 0 1 .439 1.061Z"></path>
+                <path d="M12 2.625V8.25a1.5 1.5 0 0 0 1.5 1.5h5.625"></path>
+                <path d="M8.25 13.5h7.5"></path>
+                <path d="M8.25 17.25h7.5"></path>
+              </svg>
+              <p>Add DA</p>
+            </a>
+
+            <a routerLink="/form/ba" class="flex items-center space-x-4 px-4 py-1 text-[1rem] font-medium rounded-full border bg-white border-gray-500 shadow shadow-blue-200">
+              <svg width="30" height="30" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.5 10.371V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5v-15a2.25 2.25 0 0 1 2.25-2.25h4.629a1.5 1.5 0 0 1 1.06.44l6.622 6.62a1.5 1.5 0 0 1 .439 1.061Z"></path>
+                <path d="M12 2.625V8.25a1.5 1.5 0 0 0 1.5 1.5h5.625"></path>
+                <path d="M8.25 13.5h7.5"></path>
+                <path d="M8.25 17.25h7.5"></path>
+              </svg>
+              <p>Add BA</p>
+            </a>
+
+          </div>
+        </div>
+      </button>
+      <a routerLinkActive="bottom-nav-active" routerLink="/notification"
+        class=" w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+        <div class="relative w-fit mx-auto">
+          <svg width="25" height="25" class="inline-block mb-1" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20.047 16.473c-1.204-1.473-2.053-2.223-2.053-6.285 0-3.72-1.9-5.044-3.463-5.688a.835.835 0 0 1-.466-.495C13.79 3.072 13.022 2.25 12 2.25s-1.791.823-2.063 1.756a.827.827 0 0 1-.466.494c-1.565.645-3.463 1.965-3.463 5.688-.002 4.062-.852 4.812-2.056 6.285-.499.61-.062 1.527.81 1.527h14.48c.867 0 1.301-.92.805-1.527Z">
+            </path>
+            <path d="M15 18v.75a3 3 0 0 1-6 0V18"></path>
+          </svg>
+          <div *ngIf="!allSigned"
+            class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-blue-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+          </div>
+        </div>
+        <span class="tab tab-whishlist block text-xs">Notification</span>
+      </a>
+      <a routerLinkActive="bottom-nav-active" routerLink="/user/profile"
+        class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center pt-2 pb-1">
+        <svg width="25" height="25" class="inline-block mb-1" fill="none" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 10a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"></path>
+          <path
+            d="M3 20.4v.6h18v-.6c0-2.24 0-3.36-.436-4.216a4 4 0 0 0-1.748-1.748C17.96 14 16.84 14 14.6 14H9.4c-2.24 0-3.36 0-4.216.436a4 4 0 0 0-1.748 1.748C3 17.04 3 18.16 3 20.4Z">
+          </path>
+        </svg>
+        <span class="tab tab-account block text-xs">Account</span>
+      </a>
+    </div>
+  </section>
+</div>

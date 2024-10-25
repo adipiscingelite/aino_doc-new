@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, HostListener, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { FormItcmService } from '../../services/form-itcm/form-itcm.service';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import SignaturePad from 'signature_pad';
 
 interface Signatory {
   sign_uuid: string;
@@ -21,6 +22,7 @@ interface Signatory {
   signatory_position: string;
   role_sign: string;
   is_sign: boolean;
+  sign_img: string | { String: string };
 }
 
 interface formsITCM {
@@ -62,7 +64,71 @@ interface Projects {
   templateUrl: './form-itcm.component.html',
   styleUrls: ['./form-itcm.component.scss'],
 })
-export class FormItcmComponent implements OnInit {
+export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('sigPad', { static: false })
+  sigPad!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('modal', { static: false }) modal!: ElementRef<HTMLDivElement>;
+  @ViewChild('closeButton', { static: false })
+  closeButton!: ElementRef<HTMLButtonElement>;
+
+  private signaturePad!: SignaturePad;
+  img: string | null = null;
+  penColor: string = '#262626'; // Default pen color
+
+  ngAfterViewInit() {
+    const canvas = this.sigPad.nativeElement;
+
+    // Initialize SignaturePad
+    this.signaturePad = new SignaturePad(canvas);
+    this.signaturePad.penColor = this.penColor;
+
+    // Resize canvas to fit the container
+    this.resizeCanvas();
+    window.addEventListener('resize', this.resizeCanvas.bind(this));
+
+    if (this.closeButton) {
+      this.closeButton.nativeElement.addEventListener('click', () =>
+        this.closeModal()
+      );
+    }
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeCanvas.bind(this));
+    if (this.closeButton) {
+      this.closeButton.nativeElement.removeEventListener('click', () =>
+        this.closeModal()
+      );
+    }
+  }
+
+  clear() {
+    this.signaturePad.clear();
+    this.img = null; // Clear the img property when the canvas is cleared
+  }
+
+  save() {
+    const dataURL = this.sigPad.nativeElement.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'signature.png';
+    link.click();
+  }
+  
+  onColorChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.penColor = input.value;
+    this.signaturePad.penColor = this.penColor;
+  }
+
+  private resizeCanvas() {
+    const canvas = this.sigPad.nativeElement;
+    const container = canvas.parentElement as HTMLElement;
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    this.signaturePad.clear(); // Clear the canvas to fit new size
+  }
+
   searchText: string = '';
 
   isPreview: boolean = false; // State untuk menampilkan preview atau tabel
@@ -145,14 +211,15 @@ export class FormItcmComponent implements OnInit {
   isModalApproveOpen: boolean = false;
 
   popoverIndex: number | null = null;
-
+  
+  isSigned: boolean = false;
   signatoryPositions: {
-    [key: string]: { name: string; position: string; is_sign: boolean };
+    [key: string]: { name: string; position: string; is_sign: boolean, sign_img: string; };
   } = {
-    Pemohon: { name: '', position: '', is_sign: false },
-    'Atasan Pemohon': { name: '', position: '', is_sign: false },
-    Penerima: { name: '', position: '', is_sign: false },
-    'Atasan Penerima': { name: '', position: '', is_sign: false },
+    Pemohon: { name: '', position: '', is_sign: false, sign_img: '' },
+    'Atasan Pemohon': { name: '', position: '', is_sign: false, sign_img: '' },
+    Penerima: { name: '', position: '', is_sign: false, sign_img: '' },
+    'Atasan Penerima': { name: '', position: '', is_sign: false, sign_img: '' },
   };
 
   constructor(
@@ -192,9 +259,6 @@ export class FormItcmComponent implements OnInit {
   dataListUserFormITCMRejected: formsITCM[] = [];
 
   ngOnInit(): void {
-    this.fetchDataFormITCM();
-    this.fetchDataAdminFormITCM();
-    this.fetchDataUserFormITCM();
     this.profileData();
 
     this.fetchAllUser();
@@ -203,6 +267,10 @@ export class FormItcmComponent implements OnInit {
     this.fetchDocumentUUID();
 
     this.fetchUserSignature();
+
+    this.fetchDataFormITCM();
+    this.fetchDataAdminFormITCM();
+    this.fetchDataUserFormITCM();
 
     // draft
     this.fetchDataAdminFormITCMDraft();
@@ -241,25 +309,28 @@ export class FormItcmComponent implements OnInit {
     );
   }
 
-  profileData(): void {
+  async profileData(): Promise<void> {
     const token = this.cookieService.get('userToken');
 
-    axios
-      .get(`${this.apiUrl}/auth/my/profile`, {
+    try {
+      const response = await axios.get(`${this.apiUrl}/auth/my/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-      .then((response) => {
-        console.log(response);
-        this.user_uuid = response.data.user_uuid;
-        this.user_name = response.data.user_name;
-        this.role_code = response.data.role_code;
-        this.personal_name = response.data.personal_name;
-      })
-      .catch((error) => {
-        console.log(error);
       });
+      this.user_uuid = response.data.user_uuid;
+      this.user_name = response.data.user_name;
+      this.role_code = response.data.role_code;
+      this.personal_name = response.data.personal_name;
+      console.log('personal name: ', this.personal_name);
+    } catch (error) {
+      if (error instanceof axios.AxiosError) {
+        if (error.response?.status === 500 || error.response?.status === 404) {
+          console.log(error.response.data);
+        }
+      } else {
+        console.error('Unexpected error:', error);
+      }}
   }
 
   fetchDataFormITCM() {
@@ -328,6 +399,7 @@ export class FormItcmComponent implements OnInit {
       .get(`${this.apiUrl}/personal/name/all`)
       .then((response) => {
         this.dataListAllUser = response.data;
+        
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -372,10 +444,16 @@ export class FormItcmComponent implements OnInit {
         // console.log('wirrrrrrrrrr', response);
       })
       .catch((error) => {
-        if (error.response.status === 500) {
-          console.log(error.response.data);
+        if (error.response) {
+          // Jika error response ada, cek statusnya
+          if (error.response.status === 500) {
+            console.log(error.response.data);
+          } else {
+            console.log(error.response.data);
+          }
         } else {
-          console.log(error.response.data);
+          // Jika error response tidak ada, log error keseluruhan
+          console.log('Error: ', error.message || error);
         }
       });
   }
@@ -395,10 +473,16 @@ export class FormItcmComponent implements OnInit {
         );
       })
       .catch((error) => {
-        if (error.response.status === 500) {
-          console.log(error.response.data);
+        if (error.response) {
+          // Jika error response ada, cek statusnya
+          if (error.response.status === 500) {
+            console.log(error.response.data);
+          } else {
+            console.log(error.response.data);
+          }
         } else {
-          console.log(error.response.data);
+          // Jika error response tidak ada, log error keseluruhan
+          console.log('Error: ', error.message || error);
         }
       });
   }
@@ -417,12 +501,19 @@ export class FormItcmComponent implements OnInit {
         );
       })
       .catch((error) => {
-        if (error.response.status === 500) {
-          console.log(error.response.data);
+        if (error.response) {
+          // Jika error response ada, cek statusnya
+          if (error.response.status === 500) {
+            console.log(error.response.data);
+          } else {
+            console.log(error.response.data);
+          }
         } else {
-          console.log(error.response.data);
+          // Jika error response tidak ada, log error keseluruhan
+          console.log('Error: ', error.message || error);
         }
       });
+      
   }
 
   // Approved admin
@@ -443,10 +534,16 @@ export class FormItcmComponent implements OnInit {
         }
       })
       .catch((error) => {
-        if (error.response.status === 500) {
-          console.log(error.response.data);
+        if (error.response) {
+          // Jika error response ada, cek statusnya
+          if (error.response.status === 500) {
+            console.log(error.response.data);
+          } else {
+            console.log(error.response.data);
+          }
         } else {
-          console.log(error.response.data);
+          // Jika error response tidak ada, log error keseluruhan
+          console.log('Error: ', error.message || error);
         }
       });
   }
@@ -469,10 +566,16 @@ export class FormItcmComponent implements OnInit {
         }
       })
       .catch((error) => {
-        if (error.response.status === 500) {
-          console.log(error.response.data);
+        if (error.response) {
+          // Jika error response ada, cek statusnya
+          if (error.response.status === 500) {
+            console.log(error.response.data);
+          } else {
+            console.log(error.response.data);
+          }
         } else {
-          console.log(error.response.data);
+          // Jika error response tidak ada, log error keseluruhan
+          console.log('Error: ', error.message || error);
         }
       });
   }
@@ -495,10 +598,16 @@ export class FormItcmComponent implements OnInit {
         }
       })
       .catch((error) => {
-        if (error.response.status === 500) {
-          console.log(error.response.data);
+        if (error.response) {
+          // Jika error response ada, cek statusnya
+          if (error.response.status === 500) {
+            console.log(error.response.data);
+          } else {
+            console.log(error.response.data);
+          }
         } else {
-          console.log(error.response.data);
+          // Jika error response tidak ada, log error keseluruhan
+          console.log('Error: ', error.message || error);
         }
       });
   }
@@ -521,10 +630,16 @@ export class FormItcmComponent implements OnInit {
         }
       })
       .catch((error) => {
-        if (error.response.status === 500) {
-          console.log(error.response.data);
+        if (error.response) {
+          // Jika error response ada, cek statusnya
+          if (error.response.status === 500) {
+            console.log(error.response.data);
+          } else {
+            console.log(error.response.data);
+          }
         } else {
-          console.log(error.response.data);
+          // Jika error response tidak ada, log error keseluruhan
+          console.log('Error: ', error.message || error);
         }
       });
   }
@@ -561,6 +676,18 @@ export class FormItcmComponent implements OnInit {
   handleAction(action: string, item: any): void {
     // console.log(Handling ${action} for:, item);
     this.closePopover();
+  }
+
+  
+  handleKeyDown(event: KeyboardEvent) {
+    console.log(`Key pressed: ${event.key}`); // Debug output
+    if (event.key === 'Escape') {
+      this.closeAddModal();
+      this.closeEditModal();
+      this.closeApproveModal();
+      // this.closeSignModal();
+      console.log('Modals closed');
+    }
   }
 
   openAddModal() {
@@ -661,14 +788,18 @@ export class FormItcmComponent implements OnInit {
   }
 
   openEditModal(form_uuid: string) {
+    // this.fetchDocumentUUID()
+    // console.log('Document UUID 2:', this.document_uuid);
     axios
       .get(`${environment.apiUrl2}/itcm/${form_uuid}`)
       .then((response) => {
         console.log(response.data);
+        // console.log('plis laah', response.data.form.document_uuid);
+        
         this.isModalEditOpen = true;
         const formData = response.data.form;
         this.form_uuid = formData.form_uuid;
-        this.document_uuid = formData.document_uuid;
+        this.document_uuid = this.document_uuid;
         this.form_ticket = formData.form_ticket;
         this.no_da = formData.no_da;
         this.project_name = formData.project_name;
@@ -754,7 +885,6 @@ export class FormItcmComponent implements OnInit {
       ],
     };
     console.log('ini sama sign', data);
-
     axios
       .put(
         `${environment.apiUrl2}/api/form/itcm/update/${this.form_uuid}`,
@@ -786,7 +916,12 @@ export class FormItcmComponent implements OnInit {
         this.fetchUserSignature();
       })
       .catch((error) => {
-        if (error.response.status === 404 || error.response.status === 500) {
+        if (
+          error.response.status === 404 ||
+          error.response.status === 500 ||
+          error.response.status === 422 ||
+          error.response.status === 400
+        ) {
           Swal.fire({
             title: 'Error',
             text: error.response.data.message,
@@ -863,12 +998,14 @@ export class FormItcmComponent implements OnInit {
     });
   }
 
-  openPreviewPage(form_uuid: string) {
+  async openPreviewPage(form_uuid: string) {
+    await this.profileData();
     axios
       .get(`${environment.apiUrl2}/itcm/${form_uuid}`)
       .then((response) => {
+        const BASE_URL = environment.apiUrl2;
         // $('#detailModalDA').modal('show');
-        console.log('nat', response);
+        console.log('ada sign img', response);
         const formData = response.data.form;
         this.form_uuid = formData.form_uuid;
         this.created_at = formData.created_at;
@@ -890,17 +1027,14 @@ export class FormItcmComponent implements OnInit {
         console.log('dokumen uuid dari preview ini', this.form_uuid);
 
         const signatories: Signatory[] = response.data.signatories || [];
-
-        // Reset the signatory details
         Object.keys(this.signatoryPositions).forEach((role) => {
           this.signatoryPositions[role] = {
             name: '',
             position: '',
             is_sign: false,
+            sign_img: '',
           };
         });
-
-        // Populate the signatory details based on the API response
         signatories.forEach((signatory: Signatory) => {
           const role = signatory.role_sign;
           if (this.signatoryPositions[role]) {
@@ -908,27 +1042,34 @@ export class FormItcmComponent implements OnInit {
               name: signatory.signatory_name || '',
               position: signatory.signatory_position || '',
               is_sign: signatory.is_sign || false,
+              sign_img:
+                typeof signatory.sign_img === 'object' &&
+                'String' in signatory.sign_img
+                  ? BASE_URL + signatory.sign_img.String
+                  : BASE_URL + signatory.sign_img,
             };
           }
         });
 
-        // Log to verify
-        console.log('aku apa ', this.signatoryPositions);
-        console.log('namaku ', this.user_name);
 
-        const mySignatory = signatories.find(
-          (signatory: Signatory) =>
-            signatory.signatory_name === this.personal_name
-        );
-        if (mySignatory) {
-          console.log('Signatory details:', mySignatory);
-          // Lakukan sesuatu dengan signatory yang ditemukan
-          console.log('Sign UUID:', mySignatory.sign_uuid); // Menampilkan sign_uuid
-        } else {
-          console.log(
-            'Signatory not found for personal_name:',
-            this.personal_name
+        if (signatories && signatories.length > 0) {
+          const mySignatory = signatories.find(
+            (signatory: Signatory) =>
+              signatory?.signatory_name === this.personal_name
           );
+          console.log('plis', mySignatory);
+
+          if (mySignatory) {
+            console.log('Sign UUID:', mySignatory.sign_uuid);
+            this.isSigned = mySignatory.is_sign;
+          } else {
+            console.log(
+              'Signatory not found for personal_name:',
+              this.personal_name
+            );
+          }
+        } else {
+          console.log('Signatories array is empty or undefined');
         }
       })
       .catch((error) => {
@@ -1108,18 +1249,35 @@ export class FormItcmComponent implements OnInit {
       });
   }
 
+  openModal(form_uuid: string) {
+    this.form_uuid = form_uuid;
+    if (this.modal) {
+      this.modal.nativeElement.classList.add('scale-100');
+    }
+  }
+
+  closeModal() {
+    if (this.modal) {
+      this.modal.nativeElement.classList.remove('scale-100');
+    }
+    this.clear();
+  }
+
   signature(form_uuid: string) {
+    const dataURL = this.sigPad.nativeElement.toDataURL('image/png'); // Get the signature image
+  
     axios.get(`${environment.apiUrl2}/itcm/${form_uuid}`).then((response) => {
       const signatories: Signatory[] = response.data.signatories || [];
-
+  
       Object.keys(this.signatoryPositions).forEach((role) => {
         this.signatoryPositions[role] = {
           name: '',
           position: '',
           is_sign: false,
+          sign_img: '', // Initially empty
         };
       });
-
+  
       signatories.forEach((signatory: Signatory) => {
         const role = signatory.role_sign;
         if (this.signatoryPositions[role]) {
@@ -1127,17 +1285,31 @@ export class FormItcmComponent implements OnInit {
             name: signatory.signatory_name || '',
             position: signatory.signatory_position || '',
             is_sign: signatory.is_sign || false,
+            sign_img: typeof signatory.sign_img === 'string' 
+              ? signatory.sign_img 
+              : (signatory.sign_img as { String: string }).String || '',
           };
         }
       });
+  
       const mySignatory = signatories.find(
-        (signatory: Signatory) =>
-          signatory.signatory_name === this.personal_name
+        (signatory: Signatory) => signatory.signatory_name === this.personal_name
       );
+  
       if (mySignatory) {
         console.log('Signatory details:', mySignatory);
         console.log('Sign UUID:', mySignatory.sign_uuid);
-        this.onSignature(mySignatory.sign_uuid);
+        
+        // Prepare payload to send, including the signature image
+        const payload = {
+          name: mySignatory.signatory_name,
+          position: mySignatory.signatory_position,
+          is_sign: true,
+          sign_img: dataURL, // Include the Base64 signature image
+        };
+  
+        // Send the update to the backend
+        this.onSignature(mySignatory.sign_uuid, payload);
       } else {
         console.log(
           'Signatory not found for personal_name:',
@@ -1146,14 +1318,14 @@ export class FormItcmComponent implements OnInit {
       }
     });
   }
-
-  onSignature(sign_uuid: string) {
+  
+  onSignature(sign_uuid: string, payload: any) {
+    console.log('pailod',payload);
+    
     axios
       .put(
         `${environment.apiUrl2}/api/signature/update/${sign_uuid}`,
-        {
-          is_sign: true,
-        },
+        payload, // Send the entire payload with image
         {
           headers: {
             Authorization: `Bearer ${this.cookieService.get('userToken')}`,
@@ -1171,15 +1343,18 @@ export class FormItcmComponent implements OnInit {
           showConfirmButton: false,
         });
 
+        this.closeModal();
+   
         // tambah ini biar setelah add ga perlu refresh agar bisa muncul
-        // this.fetchDataFormDA();
-        // this.fetchDataAdminFormDA();
-        // this.fetchDataUserFormDA();
-        // this.fetchDataAdminFormDADraft();
-        // this.fetchDataUserFormDADraft();
-        // this.fetchDataAdminFormDAPublish();
-        // this.fetchDataUserFormDAPublish();
+        this.fetchDataFormITCM();
+        this.fetchDataAdminFormITCM();
+        this.fetchDataUserFormITCM();
+        this.fetchDataAdminFormITCMDraft();
+        this.fetchDataUserFormITCMDraft();
+        // this.fetchDataAdminFormPublish();
+        // this.fetchDataUserFormPublish();
         this.fetchUserSignature();
+        this.openPreviewPage(this.form_uuid);
       })
       .catch((error) => {
         if (

@@ -3,10 +3,8 @@ import axios from 'axios';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Router, RouterLink } from '@angular/router';
-import Swal from 'sweetalert2';
-import { initFlowbite } from 'flowbite';
 import { CommonModule } from '@angular/common';
-import { ShepherdService } from '../services/shepherd/shepherd.service';
+// import { TourGuideService } from '../services/shepherd/shepherd.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,14 +14,16 @@ import { ShepherdService } from '../services/shepherd/shepherd.service';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
+  
   constructor(
     private router: Router,
     private cookieService: CookieService,
-    private shepherdService: ShepherdService,
+    // private tourGuideService: TourGuideService, 
     @Inject('apiUrl') private apiUrl: string
   ) {}
 
   user: any = {};
+  // private tour: any;
 
   // user
   dataDALength: any;
@@ -48,10 +48,7 @@ export class DashboardComponent implements OnInit {
   p: any;
 
   ngOnInit(): void {
-    // this.initDashboardTour();
-    // this.shepherdService.startTour('dashboard');
-
-
+    
     this.fetchDataFormDA();
     this.fetchDataFormITCM();
     this.fetchAllDataBA();
@@ -62,38 +59,10 @@ export class DashboardComponent implements OnInit {
     this.fetchBASignature();
     this.fetchHASignature();
   }
-  
 
-  initDashboardTour() {
-    this.shepherdService.createTour('dashboardTour');
-
-    this.shepherdService.addStep('dashboardTour', {
-      id: 'dashboardIntro',
-      text: 'Welcome to the dashboard!',
-      attachTo: { element: '#dashboard', on: 'bottom' },
-      buttons: [
-        {
-          text: 'Next',
-          action: this.shepherdService['tours']['dashboardTour'].next
-        }
-      ]
-    });
-
-    this.shepherdService.addStep('dashboardTour', {
-      id: 'formITCM',
-      text: 'This is the statistics widget.',
-      attachTo: { element: '#formITCM', on: 'bottom' },
-      buttons: [
-        {
-          text: 'Next',
-          action: this.shepherdService['tours']['dashboardTour'].next
-        }
-      ]
-    });
-
-    this.shepherdService.startTour('dashboardTour');
-  }
-
+  // startTour() {
+  //   this.tourGuideService.startTour(); // Mulai tur saat tombol diklik
+  // }
 
   fetchProfileData() {
     const token = this.cookieService.get('userToken');

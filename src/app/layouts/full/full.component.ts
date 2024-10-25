@@ -1,51 +1,22 @@
-import { Component, OnInit,Inject } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { SidebarComponent } from '../../navigations/sidebar/sidebar.component';
 import { HeaderComponent } from '../../navigations/header/header.component';
-import axios from 'axios';
-import { environment } from '../../../environments/environment';
-import { CookieService } from 'ngx-cookie-service';
 import { CommonModule } from '@angular/common';
+// import { TourGuideService } from '../../services/shepherd/shepherd.service';
+// import { ShepherdService } from 'angular-shepherd';
+// import Shepherd from 'shepherd.js';
+// import { filter, Subscription } from 'rxjs';
+// import Shepherd from '../../../../pp/types/shepherd';
+
 
 @Component({
   selector: 'app-full',
   standalone: true,
-  imports: [RouterLink, CommonModule,RouterOutlet, SidebarComponent, HeaderComponent],
+  imports: [ CommonModule,RouterOutlet, SidebarComponent, HeaderComponent,],
   templateUrl: './full.component.html',
   styleUrl: './full.component.css'
 })
-export class FullComponent implements OnInit {
+export class FullComponent {
   
-  constructor(private router: Router, private cookieService: CookieService,
-    @Inject('apiUrl') private apiUrl: string) {}
-    
-
-  tour: boolean = true; 
-
-  ngOnInit(): void {
-    this.fetchProfileData();
-  }
-
-  
-  fetchProfileData() {
-    const token = this.cookieService.get('userToken');
-    console.log('Token:', token);
-
-    axios
-      .get(`${this.apiUrl}/auth/my/profile`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        this.tour = response.data.tour.toLowerCase() === 'true';
-      console.log('tour:', this.tour);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 500) {
-          console.log(error.response.data.message);
-          
-        }
-      });
-  }
 }

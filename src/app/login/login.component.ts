@@ -70,4 +70,7 @@ export class LoginComponent {
       });
   }
   
+  forgor(){
+    alert('😅')
+  }
 }

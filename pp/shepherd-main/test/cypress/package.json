@@ -1,0 +1,42 @@
+{
+  "name": "cypress-tests",
+  "private": "true",
+  "description": "Cypress tests for Shepherd",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shepherd-pro/shepherd.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "cypress:install": "pnpm cypress install",
+    "cy:open": "./node_modules/.bin/cypress open",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "start-test-server": "http-server -p 9002",
+    "test:ci": "start-server-and-test start-test-server http://127.0.0.1:9002 cy:run:chrome",
+    "test:watch": "start-server-and-test start-test-server http://127.0.0.1:9002 cy:open"
+  },
+  "dependencies": {
+    "shepherd.js": "workspace:*"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.6",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-typescript": "^7.24.1",
+    "chai": "^5.1.1",
+    "cypress": "^13.7.2",
+    "cypress-plugin-tab": "^1.0.5",
+    "del": "^7.1.0",
+    "eslint": "^8.56.0",
+    "http-server": "^14.1.1",
+    "postcss": "^8.4.38",
+    "prettier": "^3.3.3",
+    "replace": "^1.2.2",
+    "start-server-and-test": "^2.0.3",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@9.2.0",
+  "engines": {
+    "node": "18.* || >= 20"
+  }
+}

@@ -6,3 +6,8 @@
   content: '';
   @apply absolute top-0 right-0 w-2 h-full bg-transparent cursor-col-resize z-10;
 }
+
+/* input:focus {
+  border: 1px solid #716CE8;
+  box-shadow: 0 0 8px rgba(51, 49, 73, 0.4);
+} */

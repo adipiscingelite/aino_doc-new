@@ -7,7 +7,7 @@ import { FormDaComponent } from './form/form-da/form-da.component';
 import { FormItcmComponent } from './form/form-itcm/form-itcm.component';
 import { FormBaComponent } from './form/form-ba/form-ba.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { HakAksesComponent } from './form/hak-akses/hak-akses.component';
+import { HakAksesComponent } from './form/hak-akses-review/hak-akses.component';
 import { QnaComponent } from './qna/qna.component';
 import { UserControlComponent } from './control/user-control/user-control.component';
 import { DocumentControlComponent } from './control/document-control/document-control.component';
@@ -22,10 +22,15 @@ import { LoginGuard } from './auth/login-guard.guard';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { CobaSignModalComponent } from './coba-sign-modal/coba-sign-modal.component';
 import { CobaPdfTemplate,} from './coba-pdf-template/coba-pdf-template.component';
-import { TesComponent } from './form/tes/tes.component';
+import { AssetsComponent } from './form/list-assets/assets.component';
 import { ThemesComponent } from './themes/themes.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TourComponent } from './tour/tour.component';
+import { NotificationComponent } from './notification/notification.component';
+import { FormBaAssetsComponent } from './form/form-ba-assets/form-ba-assets.component';
+import { HakAksesPermintaanComponent } from './form/hak-akses-permintaan/hak-akses-permintaan.component';
+import { HakAksesPenghapusanComponent } from './form/hak-akses-penghapusan/hak-akses-penghapusan.component';
+import { TesComponent } from './tes/tes.component';
 
 export const routes: Routes = [
   {
@@ -36,13 +41,17 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    // canActivate: [LoginGuard]
+    canActivate: [LoginGuard]
   },
   {
     path: '',
     component: FullComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'notification',
+        component: NotificationComponent,
+      },
       {
         path: 'pdf',
         component: CobaPdfTemplate,
@@ -72,6 +81,10 @@ export const routes: Routes = [
         component: TourComponent,
       },
       {
+        path: 'chat',
+        component: TesComponent,
+      },
+      {
         path: 'form',
         children: [
           { path: 'da', component: FormDaComponent },
@@ -80,8 +93,16 @@ export const routes: Routes = [
           { path: 'itcm/:form_uuid', component: FormItcmComponent }, 
           { path: 'ba', component: FormBaComponent },
           { path: 'ba/:form_uuid', component: FormBaComponent }, 
+          { path: 'ba-assets', component: FormBaAssetsComponent },
+          { path: 'berita-acara/:form_uuid', component: FormBaAssetsComponent },
+          { path: 'ba-assets/list', component: AssetsComponent},
           { path: 'hak-akses', component: HakAksesComponent },
-          { path: 'tes', component: TesComponent},
+          { path: 'ha/:form_uuid', component: HakAksesComponent }, 
+          // { path: 'ha/:formulir_uuid', component: HakAksesPermintaanComponent }, 
+          { path: 'hak-ha/:form_uuid', component: HakAksesPermintaanComponent }, 
+          { path: 'ha-permintaan', component: HakAksesPermintaanComponent },
+          { path: 'ha-penghapusan', component: HakAksesPenghapusanComponent },
+          // { path: 'tes', component: TesComponent},
         ],
       },
       {
@@ -109,4 +130,4 @@ export const routes: Routes = [
     ],
   },
   { path: '**', component: NotFoundComponent },
-];
+];  

@@ -1,0 +1,708 @@
+<ng-template #tableView>
+  <h1 class="py-3 text-center text-3xl font-semibold text-gray-800">List Assets</h1>
+  <div class="flex w-full pb-4 px-2 bg-white">
+    <label for="table-search" class="sr-only">Search</label>
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <input type="text" id="table-search"
+        class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Search for items">
+    </div>
+    <button type="button" (click)="openAddModal()"
+      class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden md:block"
+        stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5.25v13.5"></path>
+        <path d="M18.75 12H5.25"></path>
+      </svg>
+      <span>Add Asset</span>
+    </button>
+  </div>
+
+  <ul id="hehehe" class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5 ">
+    <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
+      <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer hover:text-blue-400"
+        (click)="toggleTabs(1)"
+        [ngClass]="{'text-neutral-600 bg-zinc-50': openTab !== 1, 'text-blue-400 bg-white': openTab === 1}">
+        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="m14.435 11.624-4.31-4.382v4.1a.281.281 0 0 0 .281.282h4.029Z"></path>
+          <path
+            d="M8.625 12.563V6.75H2.812a.563.563 0 0 0-.562.563v15.375a.562.562 0 0 0 .563.562h11.624a.562.562 0 0 0 .563-.563v-9.562H9.187a.563.563 0 0 1-.562-.563Z">
+          </path>
+          <path d="M17.156 5.624h4.029l-4.31-4.382v4.1a.281.281 0 0 0 .281.282Z"></path>
+          <path
+            d="M15.938 7.125a.562.562 0 0 1-.563-.563V.75H8.062a.563.563 0 0 0-.562.563V5.25h1.974a1.913 1.913 0 0 1 1.354.57l5.117 5.202c.357.362.556.851.555 1.36v6.368h4.688a.562.562 0 0 0 .562-.563V7.126h-5.813Z">
+          </path>
+        </svg>
+        <div>
+          <p class="text-sm  font-bold uppercase">Assets</p>
+          <p class=" text-xs lowercase text-neutral-900">80 assets</p>
+        </div>
+      </a>
+    </li>
+    <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
+      <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer hover:text-blue-400"
+        (click)="toggleTabs(2)"
+        [ngClass]="{'text-neutral-600 bg-zinc-50': openTab !== 2, 'text-blue-400 bg-white': openTab === 2}">
+        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="m14.435 11.624-4.31-4.382v4.1a.281.281 0 0 0 .281.282h4.029Z"></path>
+          <path
+            d="M8.625 12.563V6.75H2.812a.563.563 0 0 0-.562.563v15.375a.562.562 0 0 0 .563.562h11.624a.562.562 0 0 0 .563-.563v-9.562H9.187a.563.563 0 0 1-.562-.563Z">
+          </path>
+          <path d="M17.156 5.624h4.029l-4.31-4.382v4.1a.281.281 0 0 0 .281.282Z"></path>
+          <path
+            d="M15.938 7.125a.562.562 0 0 1-.563-.563V.75H8.062a.563.563 0 0 0-.562.563V5.25h1.974a1.913 1.913 0 0 1 1.354.57l5.117 5.202c.357.362.556.851.555 1.36v6.368h4.688a.562.562 0 0 0 .562-.563V7.126h-5.813Z">
+          </path>
+        </svg>
+        <div>
+          <p class="text-sm  font-bold uppercase">Available</p>
+          <p class=" text-xs lowercase text-neutral-900">80 available</p>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <div class="text-sm text-red-500 my-5">
+    <p>Note (nanti dihapus)</p>
+    <p>1. Ini baru untuk asset laptop, belum untuk asset lain</p>
+    <p>2. Generate <b>Kode Asset</b> belum oke karena belum paham dari tiap-tiap part</p>
+    <p>3. Ada 2 button; <b>Pinjam</b> dan <b>Kembali</b> yang akan berubah sesuai status asset</p>
+    <p>4. Akan otomatis membuat Form Berita Acara dengan tombol tersebut</p>
+    <p>5. Bingung apakah asset pribadi dimasukkan di sini?</p>
+  </div>
+
+  <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+    <div class="flex-auto">
+      <div class="tab-content tab-space">
+
+        <!-- my document -->
+        <div [ngClass]="{'hidden': openTab !== 1, 'block': openTab === 1}">
+          <p class="pb-3 text-sm text-gray-600 font-medium">
+            <span>Berisi dokumen yang dibuat oleh Anda. Hanya Anda dan Admin yang dapat
+              mengakses dokumen ini!</span>
+            <span>Berisi dokumen yang dibuat oleh Anda dan orang yang satu divisi dengan
+              Anda. Hanya Anda yang dapat mengakses dokumen ini!</span>
+          </p>
+          <hr>
+          <!-- <p class="text-xs text-red-500">untuk asset baru, pic wajib diisi, kalo nggak nnti eror</p>
+          <p class="text-xs text-red-500">Kalo udh dikembalikan nnti pic nya jadi siapa?</p>
+          <p class="text-xs">saya buat kalo udh dikembalikan, pic terakhir auto jadi itsupport (frontend)</p> -->
+          <br>
+          <div class="flex flex-col overflow-y-scroll h-[70vh]">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+              <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 z-10">
+                <tr>
+                  <th scope="col" class="px-6 py-3">No.</th>
+                  <th scope="col" class="px-6 py-3 whitespace-nowrap">Kode Asset</th>
+                  <th scope="col" class="px-6 py-3">Nama Barang</th>
+                  <th scope="col" class="px-6 py-3 whitespace-nowrap">Serial Number</th>
+                  <th scope="col" class="px-6 py-3">Spesifikasi</th>
+                  <th scope="col" class="px-6 py-3 whitespace-nowrap">Tgl. Pengadaian</th>
+                  <!-- Loop untuk men-generate kolom PIC berdasarkan maxPicCount -->
+                  <!-- <ng-container *ngFor="let i of [].constructor(maxPicCount); let x = index">
+                    <th scope="col" class="px-6 py-3 whitespace-nowrap">PIC {{ x + 1 }}</th>
+                  </ng-container> -->
+                  <th scope="col" class="px-6 py-3 whitespace-nowrap">PIC Terakhir</th>
+                  <th scope="col" class="px-6 py-3 text-center">Status</th>
+                  <th scope="col" class="px-6 py-3">Lokasi</th>
+                  <th scope="col" class="px-6 py-3">Harga</th>
+                  <th scope="col" class="px-6 py-3">Keterangan</th>
+                  <th scope="col" class="px-6 py-3">Klasifikasi Sistem</th>
+                  <th scope="col" class="px-6 py-3 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- <ng-container *ngIf="role_code === 'A'"> -->
+                <tr *ngFor="let asset of assets; let i = index" class="border-b hover:bg-gray-50">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ i + 1 }}</th>
+                  <td class="px-6 py-4">{{ asset.kode_asset }}</td>
+                  <td class="px-6 py-4">{{ asset.nama_asset }}</td>
+                  <td class="px-6 py-4">{{ asset.serial_number }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis max-w-[12rem]">{{
+                    asset.spesifikasi }}</td>
+                  <td class="px-6 py-4">{{ asset.tgl_pengadaan | date: 'dd/MM/yyyy' }}</td>
+                  <!-- Loop untuk menampilkan PIC dengan pengecekan -->
+                  <!-- <ng-container *ngFor="let pic of (asset.pic || []); let x = index">
+                    <td class="px-6 py-4 whitespace-nowrap overflow-hidden text-ellipsis max-w-[10rem]">
+                      {{ pic.nama_pic }}
+                    </td>
+                  </ng-container> -->
+
+                  <!-- Tambahkan td kosong jika jumlah pic kurang dari maxPicCount -->
+                  <!-- <ng-container *ngIf="(asset.pic && asset.pic.length) < maxPicCount">
+                    <ng-container *ngFor="let i of [].constructor(maxPicCount - (asset.pic?.length || 0))">
+                      <td class="px-6 py-4"></td>
+                    </ng-container>
+                  </ng-container> -->
+
+                  <!-- PIC Terakhir untuk Tersedia -->
+                  <td *ngIf="asset.status === 'Tersedia'" class="px-6 py-4">
+                    <!-- Tampilkan PIC terakhir jika ada, jika tidak kosong -->
+                    <span *ngIf="asset.pic.length > 0">IT Support</span>
+                    <span *ngIf="asset.pic.length === 0">Tidak ada PIC</span>
+                  </td>
+
+                  <!-- PIC Terakhir untuk Dipinjam -->
+                  <td *ngIf="asset.status === 'Dipinjam'" class="px-6 py-4">
+                    <!-- Tampilkan PIC terakhir jika ada, jika tidak kosong -->
+                    <span *ngIf="asset.pic.length > 0">{{ asset.pic[asset.pic.length - 1].nama_pic }}</span>
+                    <span *ngIf="asset.pic.length === 0">Tidak ada PIC</span>
+                  </td>
+
+                  <!-- PIC Terakhir untuk Rusak -->
+                  <td *ngIf="asset.status === 'Rusak'" class="px-6 py-4">
+                    <!-- Tampilkan PIC terakhir jika ada, jika tidak kosong -->
+                    <span *ngIf="asset.pic.length > 0">{{ asset.pic[asset.pic.length - 1].nama_pic }}</span>
+                    <span *ngIf="asset.pic.length === 0">Tidak ada PIC</span>
+                  </td>
+
+
+                  <td class="px-6 py-4">
+                    <p *ngIf="asset.status === 'Tersedia'"
+                      class="flex items-center justify-center text-center px-2 py-1 text-green-400">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
+                      </svg>
+                      {{ asset.status }}
+                    </p>
+                    <p *ngIf="asset.status === 'Dipinjam'"
+                      class="flex items-center justify-center text-center px-2 py-1 text-yellow-300">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
+                      </svg>
+                      {{ asset.status }}
+                    </p>
+                    <p *ngIf="asset.status === 'Rusak'"
+                      class="flex items-center justify-center text-center px-2 py-1 text-red-400">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
+                      </svg>
+                      {{ asset.status }}
+                    </p>
+                  </td>
+                  <td class="px-6 py-4">{{ asset.lokasi }}</td>
+                  <td class="px-6 py-4">{{ formatHarga(asset.harga) }}</td>
+                  <td class="px-6 py-4  whitespace-nowrap overflow-hidden text-ellipsis max-w-[10rem]">{{
+                    asset.deskripsi }}</td> <!-- Ganti dengan logika kondisi sesuai kebutuhan -->
+                  <td class="px-6 py-4">{{ asset.klasifikasi }}</td>
+                  <!-- Button Popover -->
+                  <td class="px-6 py-4 ">
+                    <div class="relative">
+                      <button (click)="togglePopover($event, i)"
+                        class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                        <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                          <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                          <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                        </svg>
+                      </button>
+                      <div *ngIf="popoverIndex === i"
+                        class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                        <div class="py-2">
+                          <button (click)="openEditModal(asset.asset_uuid)"
+                            class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                              class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                              <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                              <path d="m16 5 3 3"></path>
+                            </svg>
+                            Edit
+                          </button>
+                          <button (click)="openAddBeritaAcaraModal(asset.asset_uuid, asset.kode_asset, 'Peminjaman')"
+                            *ngIf="asset.status === 'Tersedia'"
+                            class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="m7 13-4.5 4.5L7 22"></path>
+                              <path d="M2.5 17.504h8.75"></path>
+                              <path d="m17 9 4.5 4.5L17 18"></path>
+                              <path d="M21.5 13.504h-8.75"></path>
+                              <path d="M2.25 12V3.75h19.5V7.5"></path>
+                            </svg>
+                            Pinjam
+                          </button>
+                          <button (click)="openAddBeritaAcaraModal(asset.asset_uuid, asset.kode_asset, 'Pengembalian')"
+                            *ngIf="asset.status === 'Dipinjam'"
+                            class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M2 17.5h20"></path>
+                              <path d="M12 16c0-2.21-1.903-4-4.25-4S3.5 13.79 3.5 16"></path>
+                              <path d="M20.5 16c0-5.523-3.806-10-8.5-10s-8.5 4.477-8.5 10"></path>
+                              <path d="M20.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                              <path d="M12 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                              <path d="M3.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                            </svg>
+                            Kembali
+                          </button>
+                          <button *ngIf="asset.status === 'Rusak'" disabled
+                            class="w-full flex items-center text-left px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M20 2H4a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z"></path>
+                              <path d="M17.5 5h-11v4.5h11V5Z"></path>
+                              <path d="m6 14 3.5 3.5"></path>
+                              <path d="M9.5 14 6 17.5"></path>
+                              <path d="M14 17.5h4"></path>
+                              <path d="M14 14.5h4"></path>
+                            </svg>
+                            Tidak Tersedia (Rusak)
+                          </button>
+                          <button
+                            class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                              </path>
+                              <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                            </svg>
+                            Preview
+                          </button>
+                          <button (click)="onDeleteAsset(asset.asset_uuid)"
+                            class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                              class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
+                              </path>
+                              <path d="M3.75 5.25h16.5"></path>
+                              <path
+                                d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
+                              </path>
+                              <path d="M12 8.25v10.5"></path>
+                              <path d="M8.625 8.25 9 18.75"></path>
+                              <path d="M15.375 8.25 15 18.75"></path>
+                            </svg>
+                            Delete
+                          </button>
+                        </div>
+                        <div
+                          class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <!-- </ng-container> -->
+                </tr>
+                <!-- </ng-container> -->
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        
+        <div [ngClass]="{'hidden': openTab !== 2, 'block': openTab === 2}">belum</div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-container *ngIf="isPreview; else tableView">
+  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque quisquam, praesentium corporis officiis obcaecati
+  incidunt accusantium blanditiis odit magni magnam optio iste dicta maxime porro voluptatum recusandae architecto. Ipsa
+  nobis atque velit eum voluptate. Veritatis in, doloribus omnis obcaecati illo est, nulla hic nemo incidunt facilis id
+  eos delectus at maiores illum perspiciatis iure labore eum ex ullam cumque natus quam a neque. Sed quaerat est
+  perferendis magni dolores rerum ducimus quia excepturi voluptatibus a ipsa laboriosam laborum tempore placeat, fuga
+  pariatur cupiditate aut omnis! Eveniet, neque. Molestias ducimus, tempore dolore, fuga minima eius magni debitis harum
+  optio quidem odio.
+</ng-container>
+
+
+<!-- ADD MODAL -->
+<div *ngIf="isModalAddOpen" tabindex="-1"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Tambah
+      </h3>
+      <button (click)="closeAddModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+
+    <!-- Modal body -->
+    <form class="p-6" #addAssets="ngForm" (ngSubmit)="addAsset()">
+      <h3 class="text-2xl text-gray-900 font-semibold">Asset</h3>
+      <p class="mb-4 text-gray-600">Masukkan informasi Asset yg ingin anda tambahkan plis</p>
+      <!-- <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Kode Asset</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="kode_asset" name="kode_asset"
+          placeholder="Masukkan Kode Asset">
+      </div> -->
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Nama Asset</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="nama_asset" name="nama_asset"
+          placeholder="e.g. Laptop Acer">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Serial Number</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="serial_number"
+          name="serial_number" placeholder="e.g. XYZ123ABC">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Spesifikasi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="spesifikasi"
+          name="spesifikasi" placeholder="e.g. Intel i3, 12GB RAM">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Tgl Pengadaan</label>
+        <input type="date" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="tgl_pengadaan"
+          name="tgl_pengadaan" placeholder="Masukkan Tgl Pengadaan">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Harga</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="harga" name="harga"
+          placeholder="e.g. Rp12.500.000">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Deskripsi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="deskripsi" name="deskripsi"
+          placeholder="e.g. Kondisi baik">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Klasifikasi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="klasifikasi"
+          name="klasifikasi" placeholder="e.g. Vital">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Lokasi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="lokasi" name="lokasi"
+          placeholder="e.g. Yogyakarta, Jakarta">
+      </div>
+
+      <div class="mt-4">
+        <label for="status" class="text-sm md:text-base mb-1 font-medium">Status</label>
+        <select [(ngModel)]="status" name="status" class="border text-sm rounded-xl p-2 px-3 w-full">
+          <option value="" disabled selected>Pilih Status</option>
+          <option value="Tersedia">Tersedia</option>
+          <option value="Dipinjam">Dipinjam</option>
+          <option value="Rusak">Rusak</option>
+        </select>
+      </div>
+
+      <form class="mt-5" [formGroup]="infoHAForm">
+        <div formArrayName="data_info_ha">
+          <h1 class="text-xl font-semibold">List PIC</h1>
+          <p class="text-xs text-red-500">PIC harus diisi, kalau belum ada tulis aja IT Support atau yg lain. Kalo
+            kosong nnti eror</p>
+          <div *ngFor="let field of infoHAListArray().controls; let i = index">
+            <div [formGroupName]="i" class="mt-2 p-2 border rounded-lg shadow">
+              <div>
+                <label for="name" class="text-sm md:text-base mb-1 font-medium">Nama PIC <span class="text-red-500">*</span></label>
+                <input formControlName="nama_pic" type="text" placeholder="e.g. IT Support"
+                  class="border text-sm rounded-xl p-2 px-3 w-full" required>
+                  <div *ngIf="field.get('nama_pic')?.invalid && field.get('nama_pic')?.touched" class="text-red-500 text-xs mt-1">
+                    Nama PIC harus diisi
+                  </div>
+              </div>
+
+              <div class="mt-1">
+                <label for="instansi" class="text-sm md:text-base mb-1 font-medium">Keterangan <span class="text-red-500">*</span></label>
+                <input formControlName="keterangan" type="text" placeholder="e.g. PIC 1, PIC 2"
+                  class="border text-sm rounded-xl p-2 px-3 w-full" required>
+                  <div *ngIf="field.get('keterangan')?.invalid && field.get('keterangan')?.touched" class="text-red-500 text-xs mt-1">
+                    Keterangan harus diisi
+                  </div>
+              </div>
+              
+              <!-- <p *ngIf="infoHAListArray().length == 1" class="text-red-500 text-[0.875rem]">(Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, illum.)</p> -->
+
+              <button type="button" *ngIf="infoHAListArray().length > 1" (click)="removeInfoHAField(i)"
+                class="mt-4 px-2 py-1 text-gray-100 bg-red-400 hover:bg-red-500 hover:text-white rounded-lg shadow hover:shadow-md">Delete
+                Subject</button>
+            </div>
+          </div>
+          <!-- Move the Add button outside the loop -->
+          <button type="button" (click)="addInfoHAField()" [disabled]="infoHAForm.invalid"
+            class="mt-4 px-2 py-1 text-gray-100 bg-blue-400 hover:bg-blue-500 hover:text-white rounded-lg shadow hover:shadow-md disabled:bg-gray-300 disabled:cursor-not-allowed">Add
+            subject</button>
+        </div>
+      </form>
+    </form>
+
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button type="button" (click)="addAsset()"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Draft</button>
+      <button (click)="closeAddModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD BA MODAL -->
+<div *ngIf="isModalAddBeritaAcaraOpen" tabindex="-1"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Tambah
+      </h3>
+      <button (click)="closeAddBeritaAcaraModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+
+    <!-- Modal body -->
+    <form class="p-6" #addBeritaAcaras="ngForm" (ngSubmit)="addBeritaAcara()">
+      <h3 class="text-2xl text-gray-900 font-semibold">Tambah BA {{ jenis }}</h3>
+      <p class="mb-4 text-gray-600">Bisa dipake buat bikin peminjaman atau Pengembalian, yg 1 lagi lupa</p>
+      <!-- <p>ini mau bikin dengan tipe {{ jenis }}</p> -->
+      <!-- <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Kode Asset</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="kode_asset" name="kode_asset"
+          placeholder="Masukkan Kode Asset">
+      </div> -->
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Pihak Pertama</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="pihak_pertama"
+          name="pihak_pertama" placeholder="Masukkan Nama Asset">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Jabatan Pihak Pertama</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="jabatan_pihak_pertama"
+          name="jabatan_pihak_pertama" placeholder="Masukkan Jabatan Pihak Pertama">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Nama PIC</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="nama_pic" name="nama_pic"
+          placeholder="Masukkan Nama PIC">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Jabatan PIC</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="jabatan_pic"
+          name="jabatan_pic" placeholder="Masukkan Jabatan PIC">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Photo</label>
+        <input type="file" class="border text-sm rounded-xl p-2 px-3 w-full" placeholder="Masukkan Photo">
+        <p class="text-xs text-gray-400">Ini upload foto barang saat peminjaman atau pengembalian yhh, opsional sih</p>
+      </div>
+
+
+      <!-- <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Nama PIC</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="nama_asset" name="nama_asset"
+          placeholder="Masukkan Nama Asset">
+      </div> -->
+
+      <h3 class="mt-8 text-2xl text-gray-900 font-semibold">Sign</h3>
+      <p class="mb-4 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, magnam.</p>
+
+      <div class="mt-4">
+        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pihak Pertama</label>
+        <select id="recipientSelect1" [(ngModel)]="name1" name="name1"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position1" name="position1"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Pihak Kedua</label>
+        <select id="recipientSelect2" [(ngModel)]="name2" name="name2"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="Masukkan Jabatan"
+          [(ngModel)]="position2" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+    </form>
+
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button type="button" (click)="addBeritaAcara()"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Draft</button>
+      <button (click)="closeAddBeritaAcaraModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit MODAL -->
+<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Edit
+      </h3>
+      <button (click)="closeEditModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form #updateForm="ngForm" class="p-6">
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Kode Asset</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full bg-neutral-100 cursor-not-allowed"
+          [(ngModel)]="kode_asset" name="kode_asset" placeholder="Masukkan Kode Asset" disabled>
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Nama Asset</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="nama_asset" name="nama_asset"
+          placeholder="Masukkan Nama Asset">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Serial Number</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="serial_number"
+          name="serial_number" placeholder="Masukkan Serial Number">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Spesifikasi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="spesifikasi"
+          name="spesifikasi" placeholder="Masukkan Spesifikasi">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Tgl Pengadaan</label>
+        <input type="date" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="tgl_pengadaan"
+          name="tgl_pengadaan" placeholder="Masukkan Tgl Pengadaan">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Harga</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="harga" name="harga"
+          placeholder="Masukkan Harga">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Deskripsi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="deskripsi" name="deskripsi"
+          placeholder="Masukkan Deskripsi">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Klasifikasi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="klasifikasi"
+          name="klasifikasi" placeholder="Masukkan Klasifikasi">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Lokasi</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="lokasi" name="lokasi"
+          placeholder="Masukkan Lokasi">
+      </div>
+
+      <div class="mt-4">
+        <label for="status" class="text-sm md:text-base mb-1 font-medium">Status</label>
+        <select [(ngModel)]="status" name="status" class="border text-sm rounded-xl p-2 px-3 w-full">
+          <option value="" disabled>Pilih Status</option>
+          <option value="Tersedia">Tersedia</option>
+          <option value="Dipinjam">Dipinjam</option>
+          <option value="Rusak">Rusak</option>
+        </select>
+      </div>
+
+
+      <h1>Daftar PIC</h1>
+      <p class="pt-3 text-xs">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur eaque obcaecati
+        nihil ipsa, doloremque facilis consequatur laborum nisi? Tenetur reprehenderit, placeat veritatis atque odio
+        illum animi? Aliquid harum perferendis quod!</p>
+
+      <form [formGroup]="infoHAForm">
+        <div formArrayName="data_info_ha">
+          <div *ngFor="let field of infoHAListArray().controls; let i = index" [formGroupName]="i"
+            class="mt-2 p-2 border rounded-lg shadow">
+            <div class="mb-1">
+              <label [for]="'nama_pic' + i" class="text-sm md:text-base mb-1">Nama PIC</label>
+              <input type="text" [id]="'nama_pic' + i" formControlName="nama_pic" placeholder="Masukkan Nama Info"
+                class="border text-sm rounded-xl p-2 px-3 w-full">
+            </div>
+
+            <div class="mb-1">
+              <label [for]="'keterangan' + i" class="text-sm md:text-base mb-1">Keterangan</label>
+              <input type="text" [id]="'keterangan' + i" formControlName="keterangan" placeholder="Masukkan Instansi"
+                class="border text-sm rounded-xl p-2 px-3 w-full">
+            </div>
+
+            <button type="button" *ngIf="infoHAListArray().length > 1" (click)="removeInfoHAField(i)"
+              class="mt-4 px-2 py-1 text-gray-100 bg-red-400 hover:bg-red-500 hover:text-white rounded-lg shadow hover:shadow-md">Hapus
+              Subject</button>
+          </div>
+        </div>
+
+        <button type="button" (click)="addInfoHAField()" [disabled]="infoHAForm.invalid"
+          class="mt-4 px-2 py-1 text-gray-100 bg-blue-400 hover:bg-blue-500 hover:text-white rounded-lg shadow hover:shadow-md">Tambah
+          Subject</button>
+      </form>
+
+    </form>
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button (click)="updateFormHA()" type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Draft</button>
+      <button (click)="closeEditModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+---
+title: Analytics
+---
+
+With Shepherd, you can track the progress of your users through your app journey. e.g., This can be useful for understanding how users are interacting with your site, and where they might be getting stuck. 
+
+## Tracking
+Events occur at each step of the journey, and can be tracked using the `on` method of a `Tour` instance. The most obvious way to track is with the following events: `active`, `cancel`, `complete`, `show`.
+
+### Active
+This event triggers when the tour itself becomes active. This means that the tour is ready and not necessarily that the first step is shown.
+
+### Cancel
+At any point, if the user cancels the tour, this event will trigger.
+
+### Complete
+When the user completes the tour, this event will trigger. This means that the user has gone through all the steps in the tour.
+
+### Show
+This event triggers when a step is shown to the user.
+
+
+## Exposing the Analytics
+In order to start tracking, just tell Shepherd what you want to do when one of the events is fired.
+
+```javascript
+const shepherd = new Shepherd.Tour();
+const trackedEvents = ['active', 'cancel', 'complete', 'show'];
+
+shepherd.on('start', (eventOptions) => { ... });
+shepherd.start(); //the above will fire and run the function
+```

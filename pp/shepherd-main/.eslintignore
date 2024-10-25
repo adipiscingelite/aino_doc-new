@@ -1,0 +1,7 @@
+/coverage/
+/cypress/dummy/js/prism.js
+/dist/
+/docs/
+/landing/
+/site/
+/test/cypress/dummy/

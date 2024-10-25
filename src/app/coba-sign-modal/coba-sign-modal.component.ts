@@ -17,15 +17,40 @@ export class CobaSignModalComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     const canvas = this.sigPad.nativeElement;
+    
+    // Inisialisasi SignaturePad
     this.signaturePad = new SignaturePad(canvas);
 
-    // Set initial pen color
+    if (this.signaturePad) {
+        console.log("SignaturePad initialized:", this.signaturePad); // Debug: Cek apakah SignaturePad terinisialisasi
+    }
+
+    // Set warna pena awal
     this.signaturePad.penColor = this.penColor;
 
-    // Resize canvas to fit container
+    // Resize canvas agar sesuai dengan container
     this.resizeCanvas();
     window.addEventListener('resize', this.resizeCanvas.bind(this));
-  }
+
+    // Tambahkan event listener untuk menangkap event penulisan di canvas
+    canvas.addEventListener('mousedown', () => {
+        console.log('Mulai menulis di canvas');
+    });
+
+    canvas.addEventListener('mouseup', () => {
+        console.log('Selesai menulis di canvas');
+    });
+
+    // Untuk touch event (di perangkat layar sentuh)
+    canvas.addEventListener('touchstart', () => {
+        console.log('Mulai menulis di canvas (touch event)');
+    });
+
+    canvas.addEventListener('touchend', () => {
+        console.log('Selesai menulis di canvas (touch event)');
+    });
+}
+
 
   ngOnDestroy() {
     window.removeEventListener('resize', this.resizeCanvas.bind(this));

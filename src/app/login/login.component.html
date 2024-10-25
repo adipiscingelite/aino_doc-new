@@ -1,5 +1,5 @@
 <!-- component -->
-<div class="bg-gray-100 flex justify-center items-center h-screen">
+<div class="bg-gray-100 flex justify-center items-start h-auto">
   <!-- Left: Image -->
   <div class="w-1/2 h-screen hidden lg:block">
     <img src="https://i.pinimg.com/564x/6a/86/69/6a86691c29bd549123fa1606cb7ffdfd.jpg" alt="Placeholder Image"
@@ -30,7 +30,9 @@
           class="w-full content-center text-sm px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
           type="password" name="user_password" data-test="user_password" placeholder="Enter your password" value="" [(ngModel)]="loginData.user_password" required>
       </div>
-
+      <div>
+        <p class="w-full text-end text-blue-500 text-sm font-medium cursor-pointer " (click)="forgor()">Forgot Password?</p>
+      </div>
       <div>
         <button type="submit" class="w-full flex justify-center bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500" (click)="onLogin()" [disabled]="loginForm.invalid">
           Sign in
@@ -42,5 +44,236 @@
         </button> -->
       </div>
     </form>
+
+    <p class="py-6 w-full text-center text-xs text-gray-500">Or login with</p>
+    
+    <div class="space-y-3">
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6" viewBox="0 0 48 48"><defs><path id="a" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><path clip-path="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z"/><path clip-path="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z"/><path clip-path="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z"/><path clip-path="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"/></svg>
+        <span class="ml-4">
+        Log in
+        with
+        Google</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+        <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/554/721/png-transparent-microsoft-office-365-microsoft-office-2016-office-angle-rectangle-orange-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Microsoft</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/208/269/png-transparent-youtube-play-button-computer-icons-youtube-youtube-logo-angle-rectangle-logo-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Youtube</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/748/680/png-transparent-twitter-x-logo-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        X</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/969/351/png-transparent-pinterest-logo-area-text-symbol-brand-app-pinterest-text-trademark-pin-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Pinterest</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/115/663/png-transparent-github-computer-icons-directory-github-mammal-cat-like-mammal-carnivoran-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Github</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/282/704/png-transparent-facebook-messenger-logo-icon-facebook-facebook-logo-blue-text-trademark-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Facebook</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/511/605/png-transparent-in-logo-linkedin-diduco-ab-icon-linkedin-blue-angle-text-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Linkedin</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/345/302/png-transparent-chat-slack-slack-logo-social-media-icon-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Slack</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/67/313/png-transparent-spotify-podcast-spotify-logo-text-logo-music-download-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Spotify</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/569/932/png-transparent-salesforce-hd-logo-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Salesforce</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/870/694/png-transparent-dropbox-computer-icons-file-hosting-service-evernote-dropbox-miscellaneous-blue-angle-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Dropbox</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/911/623/png-transparent-amazon-com-amazon-alexa-retail-amazon-prime-order-fulfillment-amazon-miscellaneous-company-text-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Amazon</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/842/992/png-transparent-discord-computer-servers-teamspeak-discord-icon-video-game-smiley-online-chat-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Discord</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/115/721/png-transparent-trello-social-icons-icon-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Trello</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/893/827/png-transparent-okta-hd-logo-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Okta</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/647/198/png-transparent-reddit-hd-logo-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Reddit</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/462/874/png-transparent-instagram-logo-icon-instagram-icon-text-logo-sticker-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Instagram</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/328/136/png-transparent-strava-running-android-android-orange-logo-running-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Strava</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/600/704/png-transparent-yammer-logo-zalo-blue-angle-hand-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Yammer</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/105/624/png-transparent-logo-twitch-font-twitch-gameplay-purple-text-violet-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Twitch</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/629/503/png-transparent-heroku-plain-wordmark-logo-icon-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Heroku</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/16/634/png-transparent-wordpress-com-computer-icons-wordpress-blue-text-trademark-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Wordpress</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/519/393/png-transparent-bible-international-church-of-the-foursquare-gospel-foursquare-church-pastor-christianity-singing-purple-text-rectangle-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Foursquare</span>
+        </div>
+      </button>
+      <button type="button" class="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-full px-4 py-3 border border-gray-300">
+        <div class="flex items-center justify-center">
+          <img class="w-5 h-5" src="https://w7.pngwing.com/pngs/632/1015/png-transparent-paypal-logo-computer-icons-payment-paypal-blue-angle-service-thumbnail.png" alt="">
+        <span class="ml-4">
+        Log in
+        with
+        Paypal</span>
+        </div>
+      </button>
+      
+    </div>
   </div>
 </div>

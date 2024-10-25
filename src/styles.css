@@ -20,7 +20,8 @@
 
 /* styles.scss atau styles.css */
 .active-link {
-  @apply text-blue-700 bg-gradient-to-r from-white to-cyan-50 shadow-sm;
+  @apply text-white bg-gradient-to-r from-[#716CE8] to-[#9692EE] shadow-[0_5px_10px_rgba(66,135,245,0.3)];
+  /* @apply text-blue-700 bg-gradient-to-r from-white to-cyan-50 shadow-sm; */
   /* @apply text-neutral-800 bg-gradient-to-tr from-yellow-50 via-green-100 to-cyan-50 outline; */
 }
 

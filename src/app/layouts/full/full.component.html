@@ -1,20 +1,11 @@
 <!-- full.component.html -->
 <div>
-  <div *ngIf="tour === false" class="fixed w-screen h-screen z-50">
-    <div class="relative w-1/2 h-1/2 bg-red-100 rounded top-0 left-0 translate-x-1/2 translate-y-1/2">
-      <h1>ini adalah popup ketika pertama kali user membuka aplikasi ini</h1>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur facere eveniet reiciendis repellat sunt, amet corrupti iure sapiente cupiditate nam veritatis quod accusantium consequuntur quibusdam! Rem ea possimus commodi veniam.</p>
-      <button class="absolute bottom-0 right-0">
-        close
-      </button>
-    </div>
-  </div>
   <app-sidebar class="absolute top-0 left-0 z-20 text-3xl"></app-sidebar>
-  <div class="h-screen overflow-y-auto">
+  <div class="pb-8 h-screen overflow-y-auto">
     <app-header class="sticky top-0 left-0 z-20"></app-header>
-    <div class="px-5 py-2 md:pl-64 md:pr-4 md:py-3">
+    <div class="px-5 py-2 pb-10 md:pl-64 md:pr-4 md:py-3">
       <router-outlet></router-outlet>
     </div>
-    <div class="h-8 w-full bg-gradient-to-b from-white via-blue-50 to-blue-100"></div>
+    <!-- <div class="h-8 w-full"></div> -->
   </div>
 </div>

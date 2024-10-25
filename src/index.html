@@ -1,30 +1,141 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Woilah</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Ini adalah website admin AINO">
-  <!-- <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
-   <link rel="shortcut icon" href="https://i.pinimg.com/474x/48/33/76/483376371b3e03301a5d9a6c15013342.jpg" type="image/x-icon">
-   <!-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" /> -->
+  <link rel="shortcut icon" href="https://i.pinimg.com/474x/48/33/76/483376371b3e03301a5d9a6c15013342.jpg"
+    type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/tailwind.css">
 
 </head>
+
 <body>
   <app-root></app-root>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script> -->
+  <!-- <script src="flow"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/shepherd.js@5.0.1/dist/js/shepherd.js"></script> -->
   <script>
-    (function() {
+    (function () {
       const refreshInterval = 30 * 60 * 1000; // 2 hours
       setInterval(() => {
         window.location.reload();
       }, refreshInterval);
     })();
+
+//     const tour = new Shepherd.Tour({
+//       defaultStepOptions: {
+//         useModalOverlay: true,
+//         scrollTo: false,
+//         cancelIcon: {
+//           enabled: true
+//         }
+//       },
+//       // Customize overlay appearance
+//       useModalOverlay: true,
+//       modalOverlayOptions: {
+//         opacity: 0.8, // Make the overlay darker
+//       }
+//     });
+
+//     // Add steps to the tour
+//     tour.addStep({
+//       arrow: true,
+//       title: "Step 1",
+//       id: "start-button",
+//       attachTo: {
+//         element: "#woilaaa",
+//         on: "bottom"
+//       },
+//       text: 'Welcome to the demo tour!',
+//       buttons: [
+//         {
+//           action: function () {
+//             return this.next();
+//           },
+//           text: "Next"
+//         }
+//       ]
+//     });
+
+//     tour.addStep({
+//       arrow: true,
+//       title: "Step 2",
+//       id: "speed-and-performance",
+//       attachTo: {
+//         element: "#formITCM",
+//         on: "bottom"
+//       },
+//       text: 'Achieve the maximum speed possible on the Web Platform today, and take it further, via Web Workers and server-side rendering.',
+//       buttons: [
+//   {
+//     action: () => {
+//           // Navigate to a different route
+//           this.router.navigate(['/login']).then(() => {
+//             // Give time for the navigation to complete
+//             setTimeout(() => {
+//               this.tour.next();
+//             }, 1000); // Adjust the delay as needed
+//           });
+//         },
+//         text: "Next"
+
+//   }
+// ]
+
+//     });
+
+//     tour.addStep({
+//       arrow: true,
+//       title: "Step 3",
+//       id: "what-is-angular",
+//       attachTo: {
+//         element: "#bjirrr",
+//         on: "bottom"
+//       },
+//       text: 'Angular is a platform that makes it easy to build applications with the web.',
+//       buttons: [
+//         {
+//           action: function () {
+//             return this.next();
+//           },
+//           text: "Next"
+//         }
+//       ]
+//     });
+
+//     // Add the fourth step
+//     tour.addStep({
+//       arrow: true,
+//       title: "Step 4",
+//       id: "component-metadata",
+//       attachTo: {
+//         element: "#hehehe",
+//         on: "bottom"
+//       },
+//       text: 'The metadata for a component class associates it with a template that defines a view.',
+//       buttons: [
+//         {
+//           action: function () {
+//             return this.next();
+//           },
+//           text: "Next"
+//         }
+//       ]
+//     });
+
+//     // Start the tour after a delay
+//     setTimeout(() => {
+//       tour.start();
+//     }, 1500);
   </script>
 </body>
+
 </html>

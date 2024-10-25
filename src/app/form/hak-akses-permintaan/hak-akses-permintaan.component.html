@@ -1,0 +1,1127 @@
+<ng-template #tableView>
+  <h1 class="py-3 text-center text-3xl font-semibold text-gray-800">Form Hak Akses User</h1>
+  <div class="flex w-full pb-4 px-2 bg-white">
+    <label for="table-search" class="sr-only">Search</label>
+    <div class="relative">
+      <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <input type="text" id="table-search"
+        class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Search for items">
+    </div>
+    <button type="button" (click)="openAddModal()"
+      class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden md:block"
+        stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 5.25v13.5"></path>
+        <path d="M18.75 12H5.25"></path>
+      </svg>
+      <span>Add Form</span>
+    </button>
+  </div>
+
+  <ul id="hehehe" class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5 ">
+    <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
+      <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer hover:text-blue-400"
+        (click)="toggleTabs(1)"
+        [ngClass]="{'text-neutral-600 bg-zinc-50': openTab !== 1, 'text-blue-400 bg-white': openTab === 1}">
+        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="m14.435 11.624-4.31-4.382v4.1a.281.281 0 0 0 .281.282h4.029Z"></path>
+          <path
+            d="M8.625 12.563V6.75H2.812a.563.563 0 0 0-.562.563v15.375a.562.562 0 0 0 .563.562h11.624a.562.562 0 0 0 .563-.563v-9.562H9.187a.563.563 0 0 1-.562-.563Z">
+          </path>
+          <path d="M17.156 5.624h4.029l-4.31-4.382v4.1a.281.281 0 0 0 .281.282Z"></path>
+          <path
+            d="M15.938 7.125a.562.562 0 0 1-.563-.563V.75H8.062a.563.563 0 0 0-.562.563V5.25h1.974a1.913 1.913 0 0 1 1.354.57l5.117 5.202c.357.362.556.851.555 1.36v6.368h4.688a.562.562 0 0 0 .562-.563V7.126h-5.813Z">
+          </path>
+        </svg>
+        <div>
+          <p class="text-sm  font-bold uppercase">My Documents</p>
+          <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+        </div>
+      </a>
+    </li>
+    <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
+      <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer hover:text-blue-400"
+        (click)="toggleTabs(2)"
+        [ngClass]="{'text-neutral-600 bg-zinc-50': openTab !== 2, 'text-blue-400 bg-white': openTab === 2}">
+        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="m14.435 11.624-4.31-4.382v4.1a.281.281 0 0 0 .281.282h4.029Z"></path>
+          <path
+            d="M8.625 12.563V6.75H2.812a.563.563 0 0 0-.562.563v15.375a.562.562 0 0 0 .563.562h11.624a.562.562 0 0 0 .563-.563v-9.562H9.187a.563.563 0 0 1-.562-.563Z">
+          </path>
+          <path d="M17.156 5.624h4.029l-4.31-4.382v4.1a.281.281 0 0 0 .281.282Z"></path>
+          <path
+            d="M15.938 7.125a.562.562 0 0 1-.563-.563V.75H8.062a.563.563 0 0 0-.562.563V5.25h1.974a1.913 1.913 0 0 1 1.354.57l5.117 5.202c.357.362.556.851.555 1.36v6.368h4.688a.562.562 0 0 0 .562-.563V7.126h-5.813Z">
+          </path>
+        </svg>
+        <div>
+          <p class="text-sm  font-bold uppercase">Permintaan</p>
+          <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+        </div>
+      </a>
+    </li>
+    <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
+      <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer hover:text-blue-400"
+        (click)="toggleTabs(3)"
+        [ngClass]="{'text-neutral-600 bg-zinc-50': openTab !== 3, 'text-blue-400 bg-white': openTab === 3}">
+        <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="m14.435 11.624-4.31-4.382v4.1a.281.281 0 0 0 .281.282h4.029Z"></path>
+          <path
+            d="M8.625 12.563V6.75H2.812a.563.563 0 0 0-.562.563v15.375a.562.562 0 0 0 .563.562h11.624a.562.562 0 0 0 .563-.563v-9.562H9.187a.563.563 0 0 1-.562-.563Z">
+          </path>
+          <path d="M17.156 5.624h4.029l-4.31-4.382v4.1a.281.281 0 0 0 .281.282Z"></path>
+          <path
+            d="M15.938 7.125a.562.562 0 0 1-.563-.563V.75H8.062a.563.563 0 0 0-.562.563V5.25h1.974a1.913 1.913 0 0 1 1.354.57l5.117 5.202c.357.362.556.851.555 1.36v6.368h4.688a.562.562 0 0 0 .562-.563V7.126h-5.813Z">
+          </path>
+        </svg>
+        <div>
+          <p class="text-sm  font-bold uppercase">Penghapusan</p>
+          <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+    <div class="flex-auto">
+      <div class="tab-content tab-space">
+
+        <!-- my document -->
+        <div [ngClass]="{'hidden': openTab !== 1, 'block': openTab === 1}">
+          <p class="pb-3 text-sm text-gray-600 font-medium">
+            <span *ngIf="role_code === 'M'">Berisi dokumen yang dibuat oleh Anda. Hanya Anda dan Admin yang dapat
+              mengakses dokumen ini!</span>
+            <span *ngIf="role_code === 'A'">Berisi dokumen yang dibuat oleh Anda dan orang yang satu divisi dengan
+              Anda. Hanya Anda yang dapat mengakses dokumen ini!</span>
+          </p>
+          <hr>
+          <div class="flex flex-col overflow-y-scroll h-[70vh]">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+              <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 z-10">
+                <tr>
+                  <th scope="col" class="px-6 py-3">No.</th>
+                  <th scope="col" class="px-6 py-3">No. Formulir</th>
+                  <th scope="col" class="px-6 py-3">Nama Tim</th>
+                  <th scope="col" class="px-6 py-3">Product Manager</th>
+                  <th scope="col" class="px-6 py-3">Nama Pengusul</th>
+                  <th scope="col" class="px-6 py-3">Tanggal Usul</th>
+                  <th scope="col" class="px-6 py-3">Tipe??</th>
+                  <th scope="col" class="px-6 py-3 text-center" *ngIf="role_code === 'A' || role_code === 'M'">Status</th>
+                  <th scope="col" class="px-6 py-3 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <ng-container *ngIf="role_code === 'SA'">
+                  <tr *ngFor="let itemFormHA of dataListFormHA let x = index"
+                    class="bg-white border-b hover:bg-gray-50">
+                    <ng-container>
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                      <td class="px-6 py-4">{{ itemFormHA.form_number }}</td>
+                      <td class="px-6 py-4">{{ itemFormHA.nama_tim }}</td>
+                      <td class="px-6 py-4">{{ itemFormHA.product_manager }}</td>
+                      <td class="px-6 py-4">{{ itemFormHA.nama_pengusul }}</td>
+                      <td class="px-6 py-4">{{ itemFormHA.tanggal_usul }}</td>
+                      <td class="px-6 py-4">{{ itemFormHA.form_type }}</td>
+                      <td class="px-6 py-4 ">
+                        <button type="button" 
+                          class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                          <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                            <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+                            <path d="m9 15 2 2 4-4"></path>
+                          </svg>
+                        </button>
+                      </td>
+                    </ng-container>
+                  </tr>
+                </ng-container>
+
+                <ng-container *ngIf="role_code === 'A'">
+                  <tr *ngFor="let itemFormHA of dataListFormAdminHA let x = index"
+                    class="bg-white border-b hover:bg-gray-50">
+                    <!-- <ng-container *ngIf="matchesSearch(itemFormHA)"> -->
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x + 1 }}</th>
+                    <td class="px-6 py-4">{{ itemFormHA.form_number }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.nama_tim }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.product_manager }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.nama_pengusul }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.tanggal_usul }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.form_type }}</td>
+                    <!-- ngif status draft atau publish -->
+                    <td class="px-6 py-4 font-medium">
+                      <p *ngIf="itemFormHA.form_status === 'Draft'" class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
+                        </svg>
+                        Draft
+                      </p>
+                      <p *ngIf="itemFormHA.form_status === 'Published'" class="flex items-center justify-center text-center px-2 py-1 text-green-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
+                        </svg>
+                        Published
+                      </p>
+                    </td>
+                    <!-- Button Popover -->
+                    <td class="px-6 py-4 ">
+                      <div class="relative">
+                        <button (click)="togglePopover($event, x)"
+                          class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                          <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                            <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                            <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                          </svg>
+                        </button>
+                        <div *ngIf="popoverIndex === x"
+                          class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                          <div class="py-2">
+                            <button *ngIf="itemFormHA.approval_status != 'Disetujui'" (click)="openEditModal(itemFormHA.form_uuid)"
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                                <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                                <path d="m16 5 3 3"></path>
+                              </svg>
+                              Edit
+                            </button>
+                            <button *ngIf="itemFormHA.form_status === 'Draft'"
+                            (click)="publish(itemFormHA.form_uuid)"
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
+                                </path>
+                                <path d="M21.563 2.438 10.64 13.358"></path>
+                              </svg>
+                              Publish
+                            </button>
+                            <button
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round"
+                                stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5">
+                                </path>
+                                <path
+                                  d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z">
+                                </path>
+                              </svg>
+                              Generate Link
+                            </button> -
+                            <button (click)="openPreviewPage(itemFormHA.form_uuid)"
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                </path>
+                                <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                              </svg>
+                              Preview
+                            </button>
+                            <button (click)="onDeleteFormHA(itemFormHA.form_uuid)"
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
+                                </path>
+                                <path d="M3.75 5.25h16.5"></path>
+                                <path
+                                  d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
+                                </path>
+                                <path d="M12 8.25v10.5"></path>
+                                <path d="M8.625 8.25 9 18.75"></path>
+                                <path d="M15.375 8.25 15 18.75"></path>
+                              </svg>
+                              Delete
+                            </button> 
+                          </div>
+                          <div
+                            class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <!-- </ng-container> -->
+                  </tr>
+                </ng-container>
+                
+                <ng-container *ngIf="role_code === 'M'">
+                  <tr *ngFor="let itemFormHA of dataListFormUserHA let x = index"
+                    class="bg-white border-b hover:bg-gray-50">
+                    <!-- <ng-container *ngIf="matchesSearch(itemFormHA)"> -->
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x + 1 }}</th>
+                    <td class="px-6 py-4">{{ itemFormHA.form_number }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.nama_tim }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.product_manager }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.nama_pengusul }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.tanggal_usul }}</td>
+                    <td class="px-6 py-4">{{ itemFormHA.form_type }}</td>
+                    <!-- ngif status draft atau publish -->
+                    <td class="px-6 py-4 font-medium">
+                      <p *ngIf="itemFormHA.form_status === 'Draft'" class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
+                        </svg>
+                        Draft
+                      </p>
+                      <p *ngIf="itemFormHA.form_status === 'Published'" class="flex items-center justify-center text-center px-2 py-1 text-green-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
+                        </svg>
+                        Published
+                      </p>
+                    </td>
+                    <!-- Button Popover -->
+                    <td class="px-6 py-4 ">
+                      <div class="relative">
+                        <button (click)="togglePopover($event, x)"
+                          class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                          <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                            <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                            <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                          </svg>
+                        </button>
+                        <div *ngIf="popoverIndex === x"
+                          class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                          <div class="py-2">
+                            <button *ngIf="itemFormHA.approval_status != 'Disetujui'" (click)="openEditModal(itemFormHA.form_uuid)"
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                                <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                                <path d="m16 5 3 3"></path>
+                              </svg>
+                              Edit
+                            </button>
+                            <button *ngIf="itemFormHA.form_status === 'Draft'"
+                            (click)="publish(itemFormHA.form_uuid)"
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
+                                </path>
+                                <path d="M21.563 2.438 10.64 13.358"></path>
+                              </svg>
+                              Publish
+                            </button>
+                            <!-- <button
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round"
+                                stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5">
+                                </path>
+                                <path
+                                  d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z">
+                                </path>
+                              </svg>
+                              Generate Link
+                            </button>  -->
+                            <button (click)="openPreviewPage(itemFormHA.form_uuid)"
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                </path>
+                                <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                              </svg>
+                              Preview
+                            </button>
+                            <button  (click)="onDeleteFormHA(itemFormHA.form_uuid)"
+                              class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                  d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
+                                </path>
+                                <path d="M3.75 5.25h16.5"></path>
+                                <path
+                                  d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
+                                </path>
+                                <path d="M12 8.25v10.5"></path>
+                                <path d="M8.625 8.25 9 18.75"></path>
+                                <path d="M15.375 8.25 15 18.75"></path>
+                              </svg>
+                              Delete
+                            </button>
+                          </div>
+                          <div
+                            class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <!-- </ng-container> -->
+                  </tr>
+                </ng-container>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div [ngClass]="{'hidden': openTab !== 2, 'block': openTab === 2}">
+
+        </div>
+        <div [ngClass]="{'hidden': openTab !== 3, 'block': openTab === 3}">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-container *ngIf="isPreview; else tableView">
+  <div class="p-4">
+    <button (click)="closePreviewPage()"
+      class="flex items-center mb-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
+      <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 11.996h12"></path>
+        <path d="m12 18-6-6 6-6"></path>
+      </svg>
+      <p>Back</p>
+    </button>
+    
+    <h1 class="text-2xl font-semibold">Preview dan Approval Formulir Hak Akses (HA)</h1>
+    <p class="text-sm text-gray-500 font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      Necessitatibus, accusantium. Animi, facere. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum, ut.
+    </p>
+    <br>
+    <div class="px-5">
+      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm]">
+        <table class="border-2 border-black border-collapse w-full">
+          <tr>
+            <td class="border-2 border-black p-2 w-1/4">
+              <img class="w-40 mx-auto my-auto"
+                src="https://fintech.id/storage/files/shares/logo/logofi2/LOGO%20AINO%20INDONESIA%202021%20-%20Syafri%20Yuzal.png"
+                alt="">
+            </td>
+            <td class="border-2 border-black px-1 w-1/4">
+              <p class="text-center uppercase font-bold text-sm px-4">FORMULIR {{ form_type }} HAK AKSES
+              </p>
+            </td>
+            <td class="border-2 border-black w-1/2 h-fit p-0">
+              <table class="border-collapse w-full h-full text-sm font-semibold">
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">Tanggal Terbit</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Revisi</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <div class="mt-10 w-full">
+
+          <div class="w-full text-center text-sm font-bold">
+            <h1 class="uppercase">{{ form_type }} HAK AKSES</h1>
+          </div>
+          <hr class="bg-black h-[1.5px] w-[90%] my-5 mx-auto">
+        </div>
+          
+        <table class="text-sm">
+          <tr>
+            <td class="pr-12">No. Formulir</td>
+            <td class="px-3">:</td>
+            <td>{{ form_number }}</td>
+          </tr>
+          <tr>
+            <td class="pr-12">Nama Tim</td>
+            <td class="px-3">:</td>
+            <td>{{nama_tim}}</td>
+          </tr>
+          <tr>
+            <td class="pr-12">Product Manager</td>
+            <td class="px-3">:</td>
+            <td>{{product_manager}}</td>
+          </tr>
+          <br>
+          <tr>
+            <td class="pr-12">Nama Pengusul</td>
+            <td class="px-3">:</td>
+            <td>{{ nama_pengusul }}</td>
+          </tr>
+          <tr>
+            <td class="pr-12">Tanggal Usul</td>
+            <td class="px-3">:</td>
+            <td>{{ tanggal_usul | date:'dd MMMM yyyy' }}</td>
+          </tr>
+        </table>
+
+        <table class="mt-8 border-collapse w-full h-auto">
+         <thead>
+          <tr class="uppercase text-base">
+            <td class="border border-black px-2 py-0 text-center font-bold">No</td>
+            <td class="border border-black px-2 py-0 text-center font-bold">Pengguna</td>
+            <td class="border border-black px-2 py-0 text-center font-bold">Ruang Lingkup</td>
+            <td class="border border-black px-2 py-0 text-center font-bold" *ngIf="form_type === 'Permintaan'">Jangka Waktu</td>
+          </tr>
+         </thead>
+         <tbody class="text-left">
+          <tr *ngFor="let itemHA of dataInfoHA; let x = index">
+            <td class="border border-black p-2 text-sm">{{ x + 1 }}</td>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ itemHA.nama_pengguna }}</td>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ itemHA.ruang_lingkup }}</td>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap" *ngIf="form_type === 'Permintaan'">{{ itemHA.jangka_waktu }}</td>
+          </tr>
+         </tbody>
+        </table>
+
+        <table class="mt-8 w-full border-collapse">
+          <tr class="">
+            <td class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              Status pengajuan : <br> ( Berikan alasan apabila not approve )
+            </td>
+            <td class="w-1/2 h-36 text-center outline outline-black outline-1 p-0">
+              <table class="w-full h-full border-collapse">
+                <tr>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Approve</td>
+                  <td class="outline outline-black outline-1 px-2 py-0 w-1/2 font-bold">Not Approve</td>
+                </tr>
+                <tr>
+                  <td class=" outline outline-black outline-1 p-2 w-1/2">
+                    <ng-container class="" *ngIf="approval_status === 'Disetujui'">
+                      <svg class="mx-auto my-auto h-9 w-9" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z">
+                        </path>
+                        <path d="m8 12 3 3 6-6"></path>
+                      </svg>
+                    </ng-container>
+                  </td>
+                  <td class=" outline outline-black outline-1 p-2 w-1/2">
+                    <ng-container class="" *ngIf="approval_status === 'Tidak Disetujui'">
+                      <svg class="mx-auto my-auto h-9 w-9" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12 22a9.97 9.97 0 0 0 7.071-2.929A9.97 9.97 0 0 0 22 12a9.969 9.969 0 0 0-2.929-7.071A9.969 9.969 0 0 0 12 2a9.969 9.969 0 0 0-7.071 2.929A9.969 9.969 0 0 0 2 12a9.969 9.969 0 0 0 2.929 7.071A9.969 9.969 0 0 0 12 22Z">
+                        </path>
+                        <path d="m8 12 3 3 6-6"></path>
+                      </svg>
+                    </ng-container>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <p *ngIf="approval_status === 'Menunggu Disetujui' && form_status === 'Published'" class="text-red-500 text-xs">*Hanya bisa diisi oleh Atasan
+          Penerima!&nbsp;&nbsp;<span class="text-black">Anda adalah Atasan Penerima?</span>&nbsp;&nbsp;<button (click)="openApproveModal(form_uuid)" class="text-blue-500 underline">Approve Formulir ini</button></p>
+        
+        <table class="mt-8 w-full border-collapse">
+          <thead>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Pengaju</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Pengaju</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Penerima</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Atasan Penerima</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 h-64 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Pengaju']">
+                  <ng-container *ngIf="signatoryPositions['Pengaju'].is_sign; else noImagePengaju">
+                    <img class="mx-auto w-40 aspect-square"
+                       src="{{signatoryPositions['Pengaju'].sign_img}}" alt="{{signatoryPositions['Pengaju'].sign_img}}">
+                  </ng-container>
+                  <ng-template #noImagePengaju>
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/03/63/4d/03634de058d23a4efb67ec362ebee93e.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Pengaju'].name">{{ signatoryPositions['Pengaju'].name }}</p>
+                    <p *ngIf="signatoryPositions['Pengaju'].position">({{ signatoryPositions['Pengaju'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Pengaju']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Pengaju'].is_sign; else noImageAtasanPengaju">
+                    <img class="mx-auto w-40 aspect-square"
+                       src="{{signatoryPositions['Atasan Pengaju'].sign_img}}" alt="{{signatoryPositions['Atasan Pengaju'].sign_img}}">
+                  </ng-container>
+                  <ng-template #noImageAtasanPengaju>
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/03/63/4d/03634de058d23a4efb67ec362ebee93e.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Atasan Pengaju'].name">{{ signatoryPositions['Atasan Pengaju'].name }}</p>
+                    <p *ngIf="signatoryPositions['Atasan Pengaju'].position">({{ signatoryPositions['Atasan Pengaju'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Penerima'].is_sign; else noImagePenerima">
+                    <img class="mx-auto w-40 aspect-square"
+                       src="{{signatoryPositions['Penerima'].sign_img}}" alt="{{signatoryPositions['Penerima'].sign_img}}">
+                  </ng-container>
+                  <ng-template #noImagePenerima>
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/03/63/4d/03634de058d23a4efb67ec362ebee93e.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Penerima'].name">{{ signatoryPositions['Penerima'].name }}</p>
+                    <p *ngIf="signatoryPositions['Penerima'].position">({{ signatoryPositions['Penerima'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+              
+              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Atasan Penerima']">
+                  <ng-container *ngIf="signatoryPositions['Atasan Penerima'].is_sign; else noImageAtasanPenerima">
+                    <img class="mx-auto w-40 aspect-square"
+                       src="{{signatoryPositions['Atasan Penerima'].sign_img}}" alt="{{signatoryPositions['Atasan Penerima'].sign_img}}">
+                  </ng-container>
+                  <ng-template #noImageAtasanPenerima>
+                    <img class="mx-auto w-40 aspect-square"
+                      src="https://i.pinimg.com/474x/03/63/4d/03634de058d23a4efb67ec362ebee93e.jpg" alt="">
+                  </ng-template>
+                  <div class="text-sm font-medium mt-auto mb-0">
+                    <p class="underline" *ngIf="signatoryPositions['Atasan Penerima'].name">{{ signatoryPositions['Atasan Penerima'].name }}</p>
+                    <p *ngIf="signatoryPositions['Atasan Penerima'].position">({{ signatoryPositions['Atasan Penerima'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button *ngIf="!isSigned" (click)="openModal(form_uuid)" class="text-blue-500 text-sm underline">Sign Formulir ini</button>
+
+
+
+        <!-- <div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+
+    <button (click)="closePreviewPage()"
+      class="flex items-center mb-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
+      <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 11.996h12"></path>
+        <path d="m12 18-6-6 6-6"></path>
+      </svg>
+      <p>Back</p>
+    </button>
+  </div>
+</ng-container>
+
+
+<!-- ADD MODAL -->
+<div *ngIf="isModalAddOpen" tabindex="-1"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Tambah
+      </h3>
+      <button (click)="closeAddModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form class="p-6" #addDAForm="ngForm" (ngSubmit)="addFormDA()">
+      <h3 class="text-2xl text-gray-900 font-semibold">Formulir HA</h3>
+      <p class="mb-4 text-gray-600">Masukkan informasi form HA yg ingin anda tambahkan</p>
+
+      <!-- <div class="mt-4">
+        <label for="ticketNo" class="text-sm md:text-base mb-1 font-medium">No. Tiket</label>
+        <input type="text" name="form_ticket" placeholder="Masukkan Nomer Tiket" [(ngModel)]="form_ticket"
+          placeholder="Masukkan Nomor Tiket" class="border text-sm rounded-xl p-2 px-3 w-full invalid:border-pink-500 invalid:text-pink-600
+          focus:invalid:border-pink-500 focus:invalid:ring-pink-500">
+      </div> -->
+      <label class="text-sm md:text-base font-medium">Pilih Tipe Form:</label>
+      <div>
+        <div>
+          <input type="radio" id="permintaan" name="formType" [(ngModel)]="form_type" value="Permintaan">
+          <label for="permintaan" class="text-sm">Permintaan</label>
+        </div>
+        <div>
+          <input type="radio" id="penghapusan" name="formType" [(ngModel)]="form_type" value="Penghapusan">
+          <label for="penghapusan" class="text-sm">Penghapusan</label>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Nama Tim</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="nama_tim" name="nama_tim"
+          placeholder="Masukkan Tim">
+        <!-- <p class="text-xs text-red-500">*Ini adalah Lorem ipsum dolor sit amet consectetur.</p> -->
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Product Manager</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="product_manager"
+          name="product_manager" placeholder="Masukkan Product Manager">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Nama Pengusul</label>
+        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="nama_pengusul"
+          name="nama_pengusul" placeholder="Masukkan Nama Pengusul">
+      </div>
+
+      <div class="mt-4">
+        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Tanggal Usul</label>
+        <input type="date" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="tanggal_usul"
+          name="tanggal_usul" placeholder="Masukkan Tanggal Usul">
+      </div>
+
+
+      <div class="mt-6">
+        <form [formGroup]="infoHAForm" *ngIf="form_type === 'Permintaan'">
+          <div formArrayName="data_info_ha">
+            <h1 class="text-xl font-semibold">Hak Akses Pengguna</h1>
+            <div *ngFor="let field of infoHAListArray().controls; let i = index">
+              <div [formGroupName]="i" class="mt-2 p-2 border rounded-lg shadow">
+                <div>
+                  <label for="name" class="text-sm md:text-base mb-1 font-medium">Pengguna</label>
+                  <input formControlName="nama_pengguna" type="text" placeholder="Masukkan Nama Pengguna"
+                    class="border text-sm rounded-xl p-2 px-3 w-full" required>
+                </div>
+
+                <div class="mt-1">
+                  <label for="instansi" class="text-sm md:text-base mb-1 font-medium">Ruang Lingkup</label>
+                  <input formControlName="ruang_lingkup" type="text" placeholder="Masukkan Ruang Lingkup"
+                    class="border text-sm rounded-xl p-2 px-3 w-full" required>
+                </div>
+
+                <div class="mt-1">
+                  <label for="jangka_waktu" class="text-sm md:text-base mb-1 font-medium">Jangka Waktu</label>
+                  <input formControlName="jangka_waktu" type="text" placeholder="Masukkan Jangka Waktu"
+                    class="border text-sm rounded-xl p-2 px-3 w-full" required>
+                </div>
+
+
+                <button type="button" *ngIf="infoHAListArray().length > 1" (click)="removeInfoHAField(i)"
+                  class="mt-4 px-2 py-1 text-gray-100 bg-red-400 hover:bg-red-500 hover:text-white rounded-lg shadow hover:shadow-md">Delete
+                  Subject</button>
+              </div>
+            </div>
+            <!-- Move the Add button outside the loop -->
+            <button type="button" (click)="addInfoHAField()" [disabled]="infoHAForm.invalid"
+              class="mt-4 px-2 py-1 text-gray-100 bg-blue-400 hover:bg-blue-500 hover:text-white rounded-lg shadow hover:shadow-md disabled:bg-gray-300 disabled:cursor-not-allowed">Add
+              subject</button>
+          </div>
+        </form>
+
+        <form [formGroup]="infoHAForm" *ngIf="form_type === 'Penghapusan'">
+          <div formArrayName="data_info_ha">
+            <h1 class="text-xl font-semibold">Hak Akses Pengguna</h1>
+            <div *ngFor="let field of infoHAListArray().controls; let i = index">
+              <div [formGroupName]="i" class="mt-2 p-2 border rounded-lg shadow">
+                <div>
+                  <label for="name" class="text-sm md:text-base mb-1 font-medium">Pengguna</label>
+                  <input formControlName="pengguna" type="text" placeholder="Masukkan Nama Pengguna"
+                    class="border text-sm rounded-xl p-2 px-3 w-full" required>
+                </div>
+
+                <div class="mt-1">
+                  <label for="instansi" class="text-sm md:text-base mb-1 font-medium">Ruang Lingkup</label>
+                  <input formControlName="ruang_lingkup" type="text" placeholder="Masukkan Ruang Lingkup"
+                    class="border text-sm rounded-xl p-2 px-3 w-full" required>
+                </div>
+
+
+                <button type="button" *ngIf="infoHAListArray().length > 1" (click)="removeInfoHAField(i)"
+                  class="mt-4 px-2 py-1 text-gray-100 bg-red-400 hover:bg-red-500 hover:text-white rounded-lg shadow hover:shadow-md">Delete
+                  Subject</button>
+              </div>
+            </div>
+            <!-- Move the Add button outside the loop -->
+            <button type="button" (click)="addInfoHAField()" [disabled]="infoHAForm.invalid"
+              class="mt-4 px-2 py-1 text-gray-100 bg-blue-400 hover:bg-blue-500 hover:text-white rounded-lg shadow hover:shadow-md disabled:bg-gray-300 disabled:cursor-not-allowed">Add
+              subject</button>
+          </div>
+        </form>
+      </div>
+
+
+
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima!</h3>
+      <p class="text-gray-600">Masukkan informasi Penerima yg ingin anda tuju</p>
+
+      <div class="mt-4">
+        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pengaju</label>
+        <select id="recipientSelect1" [(ngModel)]="name1" name="name1"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position1" name="position1"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pengaju</label>
+        <select id="recipientSelect2" [(ngModel)]="name2" name="name2"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="Masukkan Jabatan"
+          [(ngModel)]="position2" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
+        <select id="recipientSelect3" [(ngModel)]="name3" name="name3"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder="Masukkan Jabatan"
+          [(ngModel)]="position3" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
+        <select id="recipientSelect4" [(ngModel)]="name4" name="name4"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder="Masukkan Jabatan"
+          [(ngModel)]="position4" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="flex items-start gap-1 mt-5 text-orange-400">
+        <svg class="w-12 aspect-square" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="m22.19 17.624-8.24-14.25a2.25 2.25 0 0 0-3.9 0l-8.24 14.25a2.24 2.24 0 0 0 1.94 3.375h16.5a2.24 2.24 0 0 0 1.94-3.375ZM11.25 9.749a.75.75 0 1 1 1.5 0v3.75a.75.75 0 1 1-1.5 0v-3.75Zm.75 8.25a1.125 1.125 0 1 1 0-2.25 1.125 1.125 0 0 1 0 2.25Z">
+          </path>
+        </svg>
+        <p class="text-xs">Harap pastikan semua informasi yang Anda masukkan sudah benar. Periksa kembali setiap detail
+          dengan seksama sebelum mengirimkan formulir ini. Jika Anda yakin bahwa semua informasi sudah benar dan
+          lengkap, klik tombol submit di bawah ini untuk melanjutkan.</p>
+      </div>
+
+    </form>
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button (click)="addFormDA()" type="button"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Draft</button>
+      <button (click)="closeAddModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit MODAL -->
+<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true"
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
+    <!-- Modal header -->
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Edit
+      </h3>
+      <button (click)="closeEditModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+    <!-- Modal body -->
+    <form #updateForm="ngForm" class="p-6">
+      <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM</h3>
+      <p class="mb-4 text-gray-600">Masukkan informasi form ITCM yg ingin anda tambahkan</p>
+
+      <label class="text-sm md:text-base font-medium">Pilih Tipe Form:</label>
+      <div>
+        <div>
+          <input type="radio" id="permintaan" name="formType" [(ngModel)]="form_type" value="Permintaan">
+          <label for="permintaan" class="text-sm">Permintaan</label>
+        </div>
+        <div>
+          <input type="radio" id="penghapusan" name="formType" [(ngModel)]="form_type" value="Penghapusan">
+          <label for="penghapusan" class="text-sm">Penghapusan</label>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <label for="nama_tim" class="text-sm md:text-base mb-1">Nama Tim</label>
+        <input type="text" name="nama_tim" id="nama_tim" placeholder="Masukkan Form Name" [(ngModel)]="nama_tim"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="product_manager" class="text-sm md:text-base mb-1">Product Manager</label>
+        <input type="text" name="product_manager" id="product_manager" placeholder="Masukkan Form Name" [(ngModel)]="product_manager"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="nama_pengusul" class="text-sm md:text-base mb-1">Nama Pengusul</label>
+        <input type="text" name="nama_pengusul" id="nama_pengusul" placeholder="Masukkan Form Name" [(ngModel)]="nama_pengusul"
+          class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <p class="pt-3 text-xs">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur eaque obcaecati nihil ipsa, doloremque facilis consequatur laborum nisi? Tenetur reprehenderit, placeat veritatis atque odio illum animi? Aliquid harum perferendis quod!</p>
+      <!-- Template -->
+      <form [formGroup]="infoHAForm">
+        <div formArrayName="data_info_ha">
+          <div *ngFor="let field of infoHAListArray().controls; let i = index" [formGroupName]="i"
+            class="mt-2 p-2 border rounded-lg shadow">
+            <div class="mb-1">
+              <label [for]="'nama_pengguna' + i" class="text-sm md:text-base mb-1">Nama Pengguna</label>
+              <input type="text" [id]="'nama_pengguna' + i" formControlName="nama_pengguna" placeholder="Masukkan Nama Info"
+                class="border text-sm rounded-xl p-2 px-3 w-full">
+            </div>
+      
+            <div class="mb-1">
+              <label [for]="'ruang_lingkup' + i" class="text-sm md:text-base mb-1">Ruang Lingkup</label>
+              <input type="text" [id]="'ruang_lingkup' + i" formControlName="ruang_lingkup" placeholder="Masukkan Instansi"
+                class="border text-sm rounded-xl p-2 px-3 w-full">
+            </div>
+      
+            <div class="mb-1" *ngIf="form_type === 'Permintaan'">
+              <label [for]="'jangka_waktu' + i" class="text-sm md:text-base mb-1">Jangka Waktu</label>
+              <input type="text" [id]="'jangka_waktu' + i" formControlName="jangka_waktu" placeholder="Masukkan Position"
+                class="border text-sm rounded-xl p-2 px-3 w-full">
+            </div>
+      
+            <button type="button" *ngIf="infoHAListArray().length > 1" (click)="removeInfoHAField(i)"
+              class="mt-4 px-2 py-1 text-gray-100 bg-red-400 hover:bg-red-500 hover:text-white rounded-lg shadow hover:shadow-md">Hapus
+              Subject</button>
+          </div>
+        </div>
+      
+        <button type="button" (click)="addInfoHAField()"
+          class="mt-4 px-2 py-1 text-gray-100 bg-blue-400 hover:bg-blue-500 hover:text-white rounded-lg shadow hover:shadow-md">Tambah
+          Subject</button>
+      </form>
+
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima</h3>
+      <p class="text-gray-600">Edit informasi dari formulir ini</p>
+
+      <div class="mt-4">
+        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pengaju</label>
+        <select id="recipientSelect1" [(ngModel)]="signatoryPositions['Pengaju'].name" name="name1"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Pengaju'].position"
+          name="position1" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pengaju</label>
+        <select id="recipientSelect2" [(ngModel)]="signatoryPositions['Atasan Pengaju'].name" name="name2"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Atasan Pengaju'].position"
+          name="position2" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
+        <select id="recipientSelect3" [(ngModel)]="signatoryPositions['Penerima'].name" name="name3"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Penerima'].position"
+          name="position3" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+      <div class="mt-4">
+        <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
+        <select id="recipientSelect4" [(ngModel)]="signatoryPositions['Atasan Penerima'].name" name="name4"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option value="" disabled selected>Choose a recipient</option>
+          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
+        </select>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Atasan Penerima'].position"
+          name="position4" class="border text-sm rounded-xl p-2 px-3 w-full">
+      </div>
+
+    </form>
+
+    <!-- Modal footer -->
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button (click)="updateFormHA()" type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Draft</button>
+      <button (click)="closeEditModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sign MODAL -->
+<div #modal tabindex="-1" aria-hidden="true" (keypress)="handleKeyDown($event)"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 scale-0 ">
+  <div class="relative flex items-center justify-center mx-4 md:mx-6 z-0">
+    <div class="md:w-1/2 h-fit px-2 py-2 rounded-md shadow-lg border bg-white">
+      <div class="flex items-center mb-6 text-gray-600">
+        <h1 class="text-xl">Signature</h1>
+        <button class="ml-auto" (click)="closeModal()">
+          <svg class=" w-10 h-10" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.25 17.25 6.75 6.75"></path>
+            <path d="m17.25 6.75-10.5 10.5"></path>
+          </svg>
+        </button>
+      </div>
+      <hr class="py-3">
+      <div class="my-2 canvas-container w-full h-full border dashed-custom border-spacing-6">
+        <canvas #sigPad class=""></canvas>
+      </div>
+      <div class="my-2">
+        <p class="text-[0.8rem] font-medium text-gray-500">
+          By signing this document with an electronic signature, I agree that such signature will be as valid as
+          handwritten signatures to the extent allowed by local law
+          <!-- {{form_uuid}} -->
+        </p>
+      </div>
+
+      <div class="flex mt-6 text-sm font-medium">
+        <button (click)="clear()" class="bg-gray-200 px-4 py-2 rounded-md uppercase">Clear</button>
+        <!-- <button (click)="save()">save</button> -->
+        <button (click)="signature(form_uuid)" class="ml-auto bg-green-500 px-4 py-2 text-white rounded-md uppercase">Accept and Sign</button>
+        <!-- (click)="signature(form_uuid)" -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Approve MODAL -->
+<div *ngIf="isModalApproveOpen" tabindex="-1" aria-hidden="true"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div
+    class="relative w-full max-w-4xl bg-white rounded-lg shadow-lg dark:bg-gray-800 max-h-[90vh] overflow-auto mx-4 md:mx-6">
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        Approve
+      </h3>
+      <button (click)="closeApproveModal()"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+
+    <div class="mt-4 p-4 py-0">
+      <p>Pastikan Anda membaca seluruh informasi di bawah ini sebelum memberikan persetujuan.</p>
+    </div>
+
+    <div class="mt-1 p-4 bg-white ">
+      <label class="text-sm md:text-base font-medium mb-2 block text-gray-700">
+        Apakah Anda meng-approve formulir ini?
+      </label>
+
+      <div class="flex items-center mb-4">
+        <input type="radio" id="approveYes" name="approval" [(ngModel)]="is_approve" [value]="true"
+          class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" />
+        <label for="approveYes" class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+          Ya
+        </label>
+      </div>
+
+      <div class="flex items-center mb-4">
+        <input type="radio" id="approveNo" name="approval" [(ngModel)]="is_approve" [value]="false"
+          class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" />
+        <label for="approveNo" class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+          Tidak
+        </label>
+      </div>
+
+      <div class="mt-4">
+        <label for="reason" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          Alasan <span class="text-red-500">*</span>
+        </label>
+        <textarea id="reason" [(ngModel)]="reason" [attr.disabled]="is_approve ? true : null" [required]="!is_approve"
+          rows="4"
+          class="block w-full p-3 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500-gray-400 "
+          placeholder="Masukkan alasan Anda"></textarea>
+      </div>
+      <p class="text-xs text-red-500">Anda wajib mengisi alasan apabila tidak meng-Approve Formulir ini!</p>
+    </div>
+    
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+      <button  type="button" (click)="approveForm(form_uuid)"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Approve Sekarang</button>
+      <button (click)="closeApproveModal()" type="button"
+        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+
+  </div>
+</div>

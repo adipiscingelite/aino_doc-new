@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { formsHA } from '../../form/hak-akses/hak-akses.component';
+import { formsHA } from '../../form/hak-akses-review/hak-akses.component';
 
 @Injectable({
   providedIn: 'root'

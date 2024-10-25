@@ -1,15 +1,25 @@
 import { Component, Inject } from '@angular/core';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { environment } from '../../../environments/environment';
+
+interface Notification {
+  is_sign: string;
+}
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, CommonModule, SidebarComponent],
+  imports: [RouterLink, CommonModule, SidebarComponent, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
@@ -17,6 +27,10 @@ export class HeaderComponent {
   user_uuid = '';
   user_name = '';
   role_code = '';
+  division_code = '';
+
+  notifications: Notification[] = [];
+  allSigned: boolean = true;
 
   today: Date = new Date();
   day: string;
@@ -41,14 +55,21 @@ export class HeaderComponent {
     const today = new Date();
 
     // Format untuk hari dalam minggu
-    this.day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(today);
+    this.day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
+      today
+    );
 
     // Format untuk tanggal
-    this.date = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
+    this.date = new Intl.DateTimeFormat('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(today);
   }
 
   ngOnInit() {
     this.fetchProfileData();
+    this.fetchNotification();
   }
 
   fetchProfileData() {
@@ -64,10 +85,43 @@ export class HeaderComponent {
         this.user_uuid = response.data.user_uuid;
         this.user_name = response.data.user_name;
         this.role_code = response.data.role_code;
+        this.division_code = response.data.division_code;
       })
       .catch((error) => {
         if (error.response.status === 500) {
           console.log(error.response.data.message);
+        }
+      });
+  }
+
+  fetchNotification() {
+    const token = this.cookieService.get('userToken');
+    axios
+      .get(`${environment.apiUrl2}/api/my/notif`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const notifications = response.data as Notification[];
+        this.notifications = notifications;
+        const allSigned = this.notifications.every(
+          (notification) => notification.is_sign === 'true'
+        );
+
+        this.allSigned = allSigned;
+      })
+      .catch((error) => {
+        if (error.response) {
+          // Jika error response ada, cek statusnya
+          if (error.response.status === 500) {
+            console.log(error.response.data);
+          } else {
+            console.log(error.response.data);
+          }
+        } else {
+          // Jika error response tidak ada, log error keseluruhan
+          console.log('Error: ', error.message || error);
         }
       });
   }

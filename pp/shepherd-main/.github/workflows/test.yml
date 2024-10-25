@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'app/**'
+  pull_request:
+    paths-ignore:
+      - 'app/**'
+
+jobs:
+  lint:
+    name: Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: wyvox/action-setup-pnpm@v3
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run linting
+        run: pnpm lint
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: wyvox/action-setup-pnpm@v3
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check types
+        run: pnpm types:check
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: wyvox/action-setup-pnpm@v3
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Install Cypress Binary
+        run: pnpm cypress:install
+
+      - name: Run Jest/Vitest and Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          command: pnpm test:ci
+          install: false
