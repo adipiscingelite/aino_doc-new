@@ -146,9 +146,9 @@
             <div [ngClass]="{'hidden': openTab !== 1, 'block': openTab === 1}">
               <p class="pb-3 text-sm text-gray-600 font-medium">
                 <span *ngIf="role_code === 'M'">Berisi dokumen yang dibuat oleh Anda. Hanya Anda dan Admin yang dapat
-                  mengakses dokumen ini!</span>
+                  mengakses dokumen ini</span>
                 <span *ngIf="role_code === 'A'">Berisi dokumen yang dibuat oleh Anda dan orang yang satu divisi dengan
-                  Anda. Hanya Anda yang dapat mengakses dokumen ini!</span>
+                  Anda. Hanya Anda yang dapat mengakses dokumen ini</span>
               </p>
               <div class="flex flex-col overflow-y-scroll h-[68vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -1703,17 +1703,17 @@
     </div>
     <!-- Modal body -->
     <form #addITCMForm="ngForm" (ngSubmit)="addFormITCM()" class="p-6">
-      <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM!</h3>
+      <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM</h3>
       <p class="mb-4 text-gray-600">Masukkan informasi form ITCM yg ingin anda tambahkan</p>
 
       <div class="mt-4">
-        <label for="ticketNo" class="text-sm md:text-base mb-1">No. Tiket</label>
-        <input type="text" name="form_ticket" placeholder="Masukkan Nomer Tiket" [(ngModel)]="form_ticket"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket<span class="text-red-500"> * </span></label>
+        <input type="text" name="form_ticket" placeholder="e.g. 0001" [(ngModel)]="form_ticket"
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-base mb-1">Pilih Projek</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Pilih Projek</label>
         <select id="projectSelect" name="project_uuid" id="" class="form-select" [(ngModel)]="project_uuid"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Pilih Projek</option>
@@ -1723,97 +1723,97 @@
       </div>
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-base mb-1">No. DA</label>
-        <input type="text" name="daNo" id="daNo"
-          class="border text-sm rounded-xl p-2 px-3 w-full " disabled>
-        <p class="text-xs text-red-500">*Nomor DA akan terisi otomatis apabila Formulir DA telah di-Approve</p>
+        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">No. DA</label>
+        <input type="text" name="daNo" id="daNo" placeholder="placeholder"
+          class="border text-sm rounded-lg p-2 px-3 w-full bg-gray-100" disabled>
+        <p class="text-xs text-red-500">Nomor DA akan terisi otomatis apabila Formulir DA telah di-Approve</p>
       </div>
 
       <div class="mt-4">
-        <label for="applicantName" class="text-sm md:text-base mb-1">Nama Pemohon</label>
-        <input type="text" name="nama_pemohon" placeholder="Masukkan Nama Pemohon" [(ngModel)]="nama_pemohon"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <label for="applicantName" class="text-sm md:text-[0.875rem] mb-1">Nama Pemohon</label>
+        <input type="text" name="nama_pemohon" placeholder="e.g. John Doe, Jane Doe" [(ngModel)]="nama_pemohon"
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="agency" class="text-sm md:text-base mb-1">Divisi</label>
-        <input type="text" name="instansi" placeholder="Masukkan Nama Divisi" [(ngModel)]="instansi"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <label for="agency" class="text-sm md:text-[0.875rem] mb-1">Divisi</label>
+        <input type="text" name="instansi" placeholder="e.g. Product, Legal" [(ngModel)]="instansi"
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="date" class="text-sm md:text-base mb-1">Tanggal</label>
-        <input type="date" name="tanggal" [(ngModel)]="tanggal" class="border text-sm rounded-xl p-2 px-3 w-full">
+        <label for="date" class="text-sm md:text-[0.875rem] mb-1">Tanggal</label>
+        <input type="date" name="tanggal" [(ngModel)]="tanggal" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="assetChange" class="text-sm md:text-base mb-1">Perubahan Aset</label>
+        <label for="assetChange" class="text-sm md:text-[0.875rem] mb-1">Perubahan Aset</label>
         <input type="text" name="perubahan_aset" placeholder="Masukkan Perubahan Aset" [(ngModel)]="perubahan_aset"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="description" class="text-sm md:text-base mb-1">Deskripsi</label>
-        <textarea name="deskripsi" placeholder="Masukkan deskripsi" [(ngModel)]="deskripsi" cols="30" rows="3"
-          class="border text-sm rounded-xl p-2 px-3 w-full"></textarea>
+        <label for="description" class="text-sm md:text-[0.875rem] mb-1">Deskripsi</label>
+        <textarea name="deskripsi" placeholder="Masukkan Deskripsi" [(ngModel)]="deskripsi" cols="30" rows="4"
+          class="border text-sm rounded-lg p-2 px-3 w-full"></textarea>
       </div>
 
-      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima!</h3>
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima</h3>
       <p class="text-gray-600">Masukkan informasi Penerima yg ingin anda tuju</p>
 
       <div class="mt-4">
-        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pemohon</label>
+        <label for="recipientSelect1" class="text-sm md:text-[0.875rem] mb-1">Pemohon</label>
         <select id="recipientSelect1" [(ngModel)]="name1" name="name1"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position1" name="position1"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" placeholder="e.g. Legal" [(ngModel)]="position1" name="position1"
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pemohon</label>
+        <label for="recipientSelect2" class="text-sm md:text-[0.875rem] mb-1">Atasan Pemohon</label>
         <select id="recipientSelect2" [(ngModel)]="name2" name="name2"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="Masukkan Jabatan"
-          [(ngModel)]="position2" class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="e.g. Legal"
+          [(ngModel)]="position2" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
+        <label for="recipientSelect3" class="text-sm md:text-[0.875rem] mb-1">Penerima</label>
         <select id="recipientSelect3" [(ngModel)]="name3" name="name3"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder="Masukkan Jabatan"
-          [(ngModel)]="position3" class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder="e.g. Legal"
+          [(ngModel)]="position3" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
+        <label for="recipientSelect4" class="text-sm md:text-[0.875rem] mb-1">Atasan Penerima</label>
         <select id="recipientSelect4" [(ngModel)]="name4" name="name4"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder="Masukkan Jabatan"
-          [(ngModel)]="position4" class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder="e.g. Legal"
+          [(ngModel)]="position4" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <!-- <div class="mt-4">
-        <label for="recipientSelect5" class="text-sm md:text-base mb-1">Person 5</label>
+        <label for="recipientSelect5" class="text-sm md:text-[0.875rem] mb-1">Person 5</label>
         <select id="recipientSelect5" [(ngModel)]="name5" name="name5"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" name="recipientInfo5" id="recipientInfo5" placeholder="Masukkan Jabatan"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div> -->
     </form>
 
@@ -1848,17 +1848,17 @@
     </div>
     <!-- Modal body -->
     <form #updateForm="ngForm" class="p-6">
-      <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM!</h3>
+      <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM</h3>
       <p class="mb-4 text-gray-600">Masukkan informasi form ITCM yg ingin anda tambahkan</p>
 
       <div class="mt-4">
-        <label for="ticketNo" class="text-sm md:text-base mb-1">No. Tiket</label>
+        <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket</label>
         <input type="text" name="form_ticket" placeholder="Masukkan Nomer Tiket" [(ngModel)]="form_ticket"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-base mb-1">Pilih Projek</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Pilih Projek</label>
         <select name="project_uuid" [(ngModel)]="project_uuid"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Pilih Projek</option>
@@ -1868,86 +1868,86 @@
       </div>
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-base mb-1">No. DA</label>
+        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">No. DA</label>
         <input type="text" name="no_da" placeholder="Masukkan Nomor DA" [(ngModel)]="no_da"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="applicantName" class="text-sm md:text-base mb-1">Nama Pemohon</label>
+        <label for="applicantName" class="text-sm md:text-[0.875rem] mb-1">Nama Pemohon</label>
         <input type="text" name="nama_pemohon" placeholder="Masukkan Nama Pemohon" [(ngModel)]="nama_pemohon"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="agency" class="text-sm md:text-base mb-1">Divisi</label>
+        <label for="agency" class="text-sm md:text-[0.875rem] mb-1">Divisi</label>
         <input type="text" name="instansi" placeholder="Masukkan Divisi" [(ngModel)]="instansi"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="date" class="text-sm md:text-base mb-1">Tanggal</label>
+        <label for="date" class="text-sm md:text-[0.875rem] mb-1">Tanggal</label>
         <input type="date" name="tanggal" id="date" [(ngModel)]="tanggal" placeholder="Masukkan Tanggal"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="assetChange" class="text-sm md:text-base mb-1">Perubahan Aset</label>
+        <label for="assetChange" class="text-sm md:text-[0.875rem] mb-1">Perubahan Aset</label>
         <input type="text" name="aset" placeholder="Masukkan Perubahan Aset" [(ngModel)]="perubahan_aset"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="description" class="text-sm md:text-base mb-1">Deskripsi</label>
+        <label for="description" class="text-sm md:text-[0.875rem] mb-1">Deskripsi</label>
         <textarea name="deskripsi" placeholder="Masukkan deskripsi" [(ngModel)]="deskripsi" cols="30" rows="3"
-          class="border text-sm rounded-xl p-2 px-3 w-full"></textarea>
+          class="border text-sm rounded-lg p-2 px-3 w-full"></textarea>
       </div>
 
-      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima!</h3>
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima</h3>
       <p class="text-gray-600">Edit informasi dari formulir ini</p>
 
       <div class="mt-4">
-        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pemohon</label>
+        <label for="recipientSelect1" class="text-sm md:text-[0.875rem] mb-1">Pemohon</label>
         <select id="recipientSelect1" [(ngModel)]="signatoryPositions['Pemohon'].name" name="name1"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Pemohon'].position"
-          name="position1" class="border text-sm rounded-xl p-2 px-3 w-full">
+          name="position1" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pemohon</label>
+        <label for="recipientSelect2" class="text-sm md:text-[0.875rem] mb-1">Atasan Pemohon</label>
         <select id="recipientSelect2" [(ngModel)]="signatoryPositions['Atasan Pemohon'].name" name="name2"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Atasan Pemohon'].position"
-          name="position2" class="border text-sm rounded-xl p-2 px-3 w-full">
+          name="position2" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
+        <label for="recipientSelect3" class="text-sm md:text-[0.875rem] mb-1">Penerima</label>
         <select id="recipientSelect3" [(ngModel)]="signatoryPositions['Penerima'].name" name="name3"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Penerima'].position"
-          name="position3" class="border text-sm rounded-xl p-2 px-3 w-full">
+          name="position3" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
+        <label for="recipientSelect4" class="text-sm md:text-[0.875rem] mb-1">Atasan Penerima</label>
         <select id="recipientSelect4" [(ngModel)]="signatoryPositions['Atasan Penerima'].name" name="name4"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
         <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Atasan Penerima'].position"
-          name="position4" class="border text-sm rounded-xl p-2 px-3 w-full">
+          name="position4" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
     </form>
@@ -2052,7 +2052,7 @@
           class="block w-full p-3 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500-gray-400 "
           placeholder="Masukkan alasan Anda"></textarea>
       </div>
-      <p class="text-xs text-red-500">Anda wajib mengisi alasan apabila tidak meng-Approve Formulir ini!</p>
+      <p class="text-xs text-red-500">Anda wajib mengisi alasan apabila tidak meng-Approve Formulir ini</p>
     </div>
     
     <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
