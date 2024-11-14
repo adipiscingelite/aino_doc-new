@@ -1,5 +1,5 @@
 <ng-template #tableView>
-  <h1 class="py-3 text-center text-3xl font-semibold text-gray-800">Form ITCM</h1>
+  <h1 class="pb-10 text-center text-3xl font-semibold text-gray-800">Form ITCM</h1>
   <div class="flex w-full pb-4 px-2 bg-white">
     <label for="table-search" class="sr-only">Search</label>
     <div class="relative">
@@ -16,7 +16,7 @@
         placeholder="Search for items">
     </div>
     <button type="button" (click)="openAddModal()"
-      class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center">
+      class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center hover:shadow-[0_5px_15px_rgba(189,175,255,0.8)] transition duration-300 ease-in-out">
       <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden md:block"
         stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +27,72 @@
     </button>
   </div>
   <!-- <div class="relative py-2 overflow-x-auto shadow-md sm:rounded-lg"> -->
+    <!-- <div class="text-xs">
+      <button class="py-2 px-4 bg-white text-gray-600 font-medium rounded hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center">
+        10 items
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </button>
+  
+      <p class="text-gray-500 mt-4 lg:mt-0">Showing 11 to 20 of 95 entires</p>
+    </div> -->
 
+    <!-- <div class="relative w-fit text-xs">
+      <input type="checkbox" id="toggle-dropdown" class="hidden peer" />
+    
+      <label
+        for="toggle-dropdown"
+        class="flex items-center gap-1 px-3 py-2 bg-white rounded-full border border-neutral-100 cursor-pointer"
+      >
+        <p>1 - 20 of 1299</p>
+        <div>
+          <svg
+            width="5"
+            height="5"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="m5.25 8.625 6.75 6.75 6.75-6.75"></path>
+          </svg>
+        </div>
+      </label>
+    
+      <div
+        class="absolute top-full right-0 w-1/2 mt-2 p-3 bg-red-100 rounded-lg shadow-lg transition-all duration-300 transform opacity-0 translate-y-2 peer-checked:opacity-100 peer-checked:translate-y-0"
+      >
+        <div class="flex">
+          <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.266 3H1.734C.777 3 0 3.815 0 4.817v14.364C0 20.184.777 21 1.734 21h20.532C23.22 21 24 20.184 24 19.18V4.818C24 3.815 23.223 3 22.266 3ZM13.5 17.25h-3V12l-2.25 3L6 12v5.25H3V6.75h3l2.25 3.75 2.25-3.75h3v10.5Zm4.5 0L14.25 12h2.252L16.5 6.75h3V12h2.25L18 17.25Z"></path>
+          </svg>
+          woilah
+        </div>
+        <div class="flex">
+          <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.266 3H1.734C.777 3 0 3.815 0 4.817v14.364C0 20.184.777 21 1.734 21h20.532C23.22 21 24 20.184 24 19.18V4.818C24 3.815 23.223 3 22.266 3ZM13.5 17.25h-3V12l-2.25 3L6 12v5.25H3V6.75h3l2.25 3.75 2.25-3.75h3v10.5Zm4.5 0L14.25 12h2.252L16.5 6.75h3V12h2.25L18 17.25Z"></path>
+          </svg>
+          woilah
+        </div>
+        <div class="flex">
+          <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.266 3H1.734C.777 3 0 3.815 0 4.817v14.364C0 20.184.777 21 1.734 21h20.532C23.22 21 24 20.184 24 19.18V4.818C24 3.815 23.223 3 22.266 3ZM13.5 17.25h-3V12l-2.25 3L6 12v5.25H3V6.75h3l2.25 3.75 2.25-3.75h3v10.5Zm4.5 0L14.25 12h2.252L16.5 6.75h3V12h2.25L18 17.25Z"></path>
+          </svg>
+          woilah
+        </div>
+        <div class="flex">
+          <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.266 3H1.734C.777 3 0 3.815 0 4.817v14.364C0 20.184.777 21 1.734 21h20.532C23.22 21 24 20.184 24 19.18V4.818C24 3.815 23.223 3 22.266 3ZM13.5 17.25h-3V12l-2.25 3L6 12v5.25H3V6.75h3l2.25 3.75 2.25-3.75h3v10.5Zm4.5 0L14.25 12h2.252L16.5 6.75h3V12h2.25L18 17.25Z"></path>
+          </svg>
+          woilah
+        </div>
+      </div>
+    </div>
+     -->
 
   <div class="flex flex-wrap">
     <div class="w-full">
@@ -48,7 +113,7 @@
             </svg>
             <div>
               <p class="text-sm  font-bold uppercase">My Documents</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class=" text-xs lowercase text-neutral-900">{{totalMyDocument}} documents</p>
             </div>
           </a>
         </li>
@@ -64,7 +129,7 @@
             </svg>
             <div>
               <p class="text-sm  font-bold uppercase">Draft</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class=" text-xs lowercase text-neutral-900">{{totalDraft}} documents</p>
             </div>
           </a>
         </li>
@@ -91,7 +156,7 @@
             </svg>
             <div>
               <p class="text-sm  font-bold uppercase">My Signature</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class=" text-xs lowercase text-neutral-900">{{totalMySignature}} documents</p>
             </div>
           </a>
         </li>
@@ -111,7 +176,7 @@
             </svg>
             <div>
               <p class="text-sm  font-bold uppercase">Approved</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class=" text-xs lowercase text-neutral-900">{{totalApproved}} documents</p>
             </div>
           </a>
         </li>
@@ -131,7 +196,7 @@
             </svg>
             <div>
               <p class="text-sm  font-bold uppercase">Rejected</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class=" text-xs lowercase text-neutral-900">{{totalRejected}} documents</p>
             </div>
           </a>
         </li>
@@ -149,8 +214,8 @@
                   mengakses dokumen ini</span>
                 <span *ngIf="role_code === 'A'">Berisi dokumen yang dibuat oleh Anda dan orang yang satu divisi dengan
                   Anda. Hanya Anda yang dapat mengakses dokumen ini</span>
-              </p>
-              <div class="flex flex-col overflow-y-scroll h-[68vh]">
+              </p>             
+              <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                   <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 z-10">
                     <tr>
@@ -161,288 +226,116 @@
                       <th scope="col" class="px-6 py-3">No. DA</th>
                       <th scope="col" class="px-6 py-3">Projek</th>
                       <th scope="col" class="px-6 py-3">Manajer</th>
-                      <th scope="col" class="px-6 py-3">Approval Status</th>
+                      <th scope="col" class="px-6 py-3">Approval Status</th>                      
                       <th scope="col" class="px-6 py-3 text-center">Status</th>
                       <th scope="col" class="px-6 py-3">Action</th>
                     </tr>
                   </thead>
+                  
                   <tbody>
-
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormITCM of dataListFormITCM let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_status }}</td>
-                          <td class="px-6 py-4 ">
-                            <button type="button" (click)="openApproveModal(itemFormITCM.form_uuid)"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                    <tr *ngFor="let itemFormITCM of dataMyDocument; let x = index" class="border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormITCM)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x + 1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormITCM.form_number }}
+                          <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
+                        <td class="px-6 py-4 font-medium">
+                          <app-status-info [status]="itemFormITCM.form_status"></app-status-info>
+                        </td>                        
+                        <td class="px-6 py-4">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)"
+                              class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormITCM of dataListFormAdminITCM let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormITCM.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormITCM.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2]">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormITCM.approval_status != 'Disetujui'"
-                                    (click)="openEditModal(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormITCM.form_status === 'Draft'"
-                                    (click)="publish(itemFormITCM.form_uuid, itemFormITCM.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button *ngIf="itemFormITCM.form_status === 'Published'" (click)="generateURL(itemFormITCM.form_uuid)"
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                              <div class="py-2">
+                                <button  *ngIf="itemFormITCM.approval_status != 'Disetujui'"
+                                  (click)="openEditModal(itemFormITCM.form_uuid)"
                                   class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5"></path>
-                                    <path d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z"></path>
+                                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                                    <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                                    <path d="m16 5 3 3"></path>
                                   </svg>
-                                  Generate Link
+                                  Edit
                                 </button>
-                                  <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
+                                <button *ngIf="itemFormITCM.form_status === 'Draft'"
+                                  (click)="publish(itemFormITCM.form_uuid, itemFormITCM.form_ticket)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
+                                    </path>
+                                    <path d="M21.563 2.438 10.64 13.358"></path>
+                                  </svg>
+                                  Publish
+                                </button>
+                                <button *ngIf="itemFormITCM.form_status === 'Published'" (click)="generateURL(itemFormITCM.form_uuid)"
+                                class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5"></path>
+                                  <path d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z"></path>
+                                </svg>
+                                Generate Link
+                              </button>
+                                <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview
+                                </button>
+                                <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
+                                    </path>
+                                    <path d="M3.75 5.25h16.5"></path>
+                                    <path
+                                      d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
+                                    </path>
+                                    <path d="M12 8.25v10.5"></path>
+                                    <path d="M8.625 8.25 9 18.75"></path>
+                                    <path d="M15.375 8.25 15 18.75"></path>
+                                  </svg>
+                                  Delete
+                                </button>
+                              </div>
+                              <div
+                                class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormITCM of dataListFormUserITCM let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormITCM.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormITCM.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button  *ngIf="itemFormITCM.approval_status != 'Disetujui'"
-                                    (click)="openEditModal(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormITCM.form_status === 'Draft'"
-                                    (click)="publish(itemFormITCM.form_uuid, itemFormITCM.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button *ngIf="itemFormITCM.form_status === 'Published'" (click)="generateURL(itemFormITCM.form_uuid)"
-                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5"></path>
-                                    <path d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z"></path>
-                                  </svg>
-                                  Generate Link
-                                </button>
-                                  <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                          </div>
+                        </td>
+                      </ng-container>
+                    </tr>
+                    <!-- <tr *ngIf="dataMyDocument.length === 0" [ngTemplateOutlet]="noDataAvailable"></tr> -->
                   </tbody>
                 </table>
               </div>
@@ -459,7 +352,7 @@
                   setelah dipublikasikan, dokumen hanya dapat diakses dan tidak dapat diubah atau dibatalkan
                   lagi.</span>
               </p>
-              <div class="flex flex-col overflow-y-scroll h-[68vh]">
+              <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                   <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 z-10">
                     <tr>
@@ -476,266 +369,98 @@
                     </tr>
                   </thead>
                   <tbody>
-
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormITCM of dataListFormITCM let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_status }}</td>
-                          <td class="px-6 py-4 ">
-                            <button type="button" (click)="openApproveModal(itemFormITCM.form_uuid)"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                    <tr *ngFor="let itemFormITCM of dataFormITCMDraft; let x = index"
+                      class="bg-white border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormITCM)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormITCM.form_number }}
+                          <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
+                        <td class="px-6 py-4 font-medium">
+                          <app-status-info [status]="itemFormITCM.form_status"></app-status-info>
+                        </td>
+                        <!-- Button Popover -->
+                        <td class="px-6 py-4 ">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)"
+                              class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormITCM of dataListAdminFormITCMDraft let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormITCM.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormITCM.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2]">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormITCM.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormITCM.form_status === 'Draft'"
-                                    (click)="publish(itemFormITCM.form_uuid, itemFormITCM.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2]">
+                              <div class="py-2">
+                                <button *ngIf="itemFormITCM.form_status === 'Draft'" (click)="openEditModal(itemFormITCM.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                                    <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                                    <path d="m16 5 3 3"></path>
+                                  </svg>
+                                  Edit
+                                </button>
+                                <button *ngIf="itemFormITCM.form_status === 'Draft'"
+                                  (click)="publish(itemFormITCM.form_uuid, itemFormITCM.form_ticket)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
+                                    </path>
+                                    <path d="M21.563 2.438 10.64 13.358"></path>
+                                  </svg>
+                                  Publish
+                                </button>
+                                <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview
+                                </button>
+                                <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
+                                    </path>
+                                    <path d="M3.75 5.25h16.5"></path>
+                                    <path d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
+                                    </path>
+                                    <path d="M12 8.25v10.5"></path>
+                                    <path d="M8.625 8.25 9 18.75"></path>
+                                    <path d="M15.375 8.25 15 18.75"></path>
+                                  </svg>
+                                  Delete
+                                </button>
+                              </div>
+                              <div
+                                class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormITCM of dataListUserFormITCMDraft let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormITCM.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormITCM.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2]">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormITCM.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormITCM.form_status === 'Draft'"
-                                    (click)="publish(itemFormITCM.form_uuid, itemFormITCM.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                          </div>
+                        </td>
+                      </ng-container>
+                    </tr>
+                    <tr *ngIf="dataFormITCMDraft.length === 0" [ngTemplateOutlet]="noDataAvailable"></tr>
                   </tbody>
                 </table>
               </div>
@@ -751,7 +476,7 @@
                   Dokumen akan muncul di halaman Anda dan Anda dapat menandatanganinya. Namun, persetujuan akhir hanya
                   dapat dilakukan oleh atasan penerima.</span>
               </p>
-              <div class="flex flex-col overflow-y-scroll h-[68vh]">
+              <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                   <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 z-10">
                     <tr>
@@ -767,195 +492,59 @@
                       <th scope="col" class="px-6 py-3">Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormITCM of dataListFormITCM let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_status }}</td>
-                          <td class="px-6 py-4 ">
-                            <button type="button" (click)="openApproveModal(itemFormITCM.form_uuid)"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                  <tbody>            
+                    <tr *ngFor="let itemFormITCM of dataListFormITCMSignature let x = index"
+                      class="bg-white border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormITCM)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormITCM.form_number }}
+                          <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
+                        <td class="px-6 py-4 font-medium">
+                          <app-status-info [status]="itemFormITCM.form_status"></app-status-info>
+                        </td>
+                        <!-- Button Popover -->
+                        <td class="px-6 py-4 ">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)"
+                              class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormITCM of dataListFormITCMSignature let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormITCM.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormITCM.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="signature(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M3 17c3.333-3.333 5-6 5-8 0-3-1-3-2-3S3.968 7.085 4 9c.034 2.048 1.658 4.877 2.5 6C8 17 9 17.5 10 16l2-3c.333 2.667 1.333 4 3 4 .53 0 2.639-2 3-2 .517 0 1.517.667 3 2"></path>
-                                    </svg>
-                                    Sign
-                                  </button> -->
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                              <div class="py-2">
+                                <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview and Sign
+                                </button>
+                              </div>
+                              <div
+                                class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormITCM of dataListFormITCMSignature let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormITCM.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormITCM.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="signature(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M3 17c3.333-3.333 5-6 5-8 0-3-1-3-2-3S3.968 7.085 4 9c.034 2.048 1.658 4.877 2.5 6C8 17 9 17.5 10 16l2-3c.333 2.667 1.333 4 3 4 .53 0 2.639-2 3-2 .517 0 1.517.667 3 2"></path>
-                                    </svg>
-                                    Sign
-                                  </button> -->
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                          </div>
+                        </td>
+                      </ng-container>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -965,8 +554,8 @@
               <p class="pb-3 text-sm text-gray-600 font-medium">
                 <span *ngIf="role_code === 'M'">approved.</span>
                 <span *ngIf="role_code === 'A'">approved.</span>
-              </p>            
-              <div class="flex flex-col overflow-y-scroll h-[70vh]">
+              </p>
+              <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                   <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 z-10">
                     <tr>
@@ -983,187 +572,56 @@
                     </tr>
                   </thead>
                   <tbody>
-
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormITCM of dataListFormITCM let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_number }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4 ">
-                            <button type="button" (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                    <tr *ngFor="let itemFormITCM of dataFormITCMApproved; let x = index"
+                      class="bg-white border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormITCM)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormITCM.form_number }}
+                          <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
+                        <!-- Button Popover -->
+                        <td class="px-6 py-4 ">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)"
+                              class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormITCM of dataListAdminFormITCMDraft let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <!-- <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button> -->
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                              <div class="py-2">
+                                <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview
+                                </button>
+                              </div>
+                              <div
+                                class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormITCM of dataListUserFormITCMApproved let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p>by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                 <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button> -->
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                          </div>
+                        </td>
+                      </ng-container>
+                    </tr>
+                    <tr *ngIf="dataFormITCMApproved.length === 0" [ngTemplateOutlet]="noDataAvailable"></tr>
                   </tbody>
                 </table>
               </div>
@@ -1174,7 +632,7 @@
                 <span *ngIf="role_code === 'M'">rejected.</span>
                 <span *ngIf="role_code === 'A'">rejected.</span>
               </p>            
-              <div class="flex flex-col overflow-y-scroll h-[70vh]">
+              <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                   <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 z-10">
                     <tr>
@@ -1182,6 +640,7 @@
                       <th scope="col" class="px-6 py-3">No. Formulir</th>
                       <th scope="col" class="px-6 py-3">No. Ticket</th>
                       <th scope="col" class="px-6 py-3">Dokumen</th>
+                      <th scope="col" class="px-6 py-3">No. DA</th>
                       <th scope="col" class="px-6 py-3">Projek</th>
                       <th scope="col" class="px-6 py-3">Manajer</th>
                       <th scope="col" class="px-6 py-3">Approval Status</th>
@@ -1190,203 +649,55 @@
                     </tr>
                   </thead>
                   <tbody>
-
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormITCM of dataListFormITCM let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_number }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <td class="px-6 py-4 ">
-                            <button type="button" (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                
+                    <tr *ngFor="let itemFormITCM of dataFormITCMRejected; let x = index"
+                      class="bg-white border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormITCM)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormITCM.form_number }}
+                          <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.no_da || 'Belum Tersedia' }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
+                        <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
+                        <!-- Button Popover -->
+                        <td class="px-6 py-4 ">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)" class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormITCM of dataListAdminFormITCMRejected let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p class="text-xs">by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <!-- <button  *ngIf="itemFormITCM.form_status" (click)="openEditModal(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button  *ngIf="itemFormITCM.form_status === 'Draft'" (click)="publish(itemFormITCM.form_uuid, itemFormITCM.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z"></path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button> -->
-                                  <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <!-- <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button> -->
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                              <div class="py-2">
+                                <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview
+                                </button>
+                              </div>
+                              <div
+                                class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormITCM of dataListUserFormITCMRejected let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormITCM)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormITCM.form_number }}
-                            <p>by {{ itemFormITCM.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormITCM.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
-                          <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                 <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="onDeleteFormITCM(itemFormITCM.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button> -->
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                          </div>
+                        </td>
+                      </ng-container>
+                    </tr>
+                    <tr *ngIf="dataFormITCMRejected.length === 0" [ngTemplateOutlet]="noDataAvailable"></tr>
                   </tbody>
                 </table>
               </div>
@@ -1396,11 +707,37 @@
       </div>
     </div>
   </div>
+
+  <!-- <nav aria-label="Pagination" class="flex justify-center items-center text-gray-600 mt-8 lg:mt-0">
+    <a href="#" class="p-2 mr-4 rounded hover:bg-gray-100">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </a>
+    <a href="#" class="px-4 py-2 rounded hover:bg-gray-100"> 1 </a>
+    <a href="#" class="px-4 py-2 rounded bg-gray-200 text-gray-900 font-medium hover:bg-gray-100"> 2 </a>
+    <a href="#" class="px-4 py-2 rounded hover:bg-gray-100"> 3 </a>
+    <a href="#" class="px-4 py-2 rounded hover:bg-gray-100"> ... </a>
+    <a href="#" class="px-4 py-2 rounded hover:bg-gray-100"> 9 </a>
+    <a href="#" class="p-2 ml-4 rounded hover:bg-gray-100">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </a>
+  </nav> -->
+</ng-template>
+
+<ng-template #noDataAvailable>
+  <tr>
+    <td colspan="10" class="h-[60vh] text-center py-4 text-gray-500">
+      No Data Available
+    </td>
+  </tr>
 </ng-template>
 
 
 <ng-container *ngIf="isPreview; else tableView">
-  <div class="p-4">
+  <div class="p-1 md:p-4">
     <button onclick="window.history.back();"
       class="flex items-center mb-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
       <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -1416,8 +753,8 @@
       Necessitatibus, accusantium. Animi, facere. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum, ut.
     </p>
     <br>
-    <div class="px-5 ">
-      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm]">
+    <div class="w-fit h-fit md:px-5">
+      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm] max-w-[297mm] scale-75 md:scale-100 origin-top-left">
         <table class="border-2 border-black border-collapse w-full">
           <tr>
             <td class="border-2 border-black p-2 w-1/4">
@@ -1512,7 +849,7 @@
             <td class="border border-black px-2 py-0 text-center font-bold">Deskripsi Perubahan yang diusulkan</td>
           </tr>
           <tr>
-            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ deskripsi }}</td>
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap" [innerHTML]="sanitizedDescription"></td>
           </tr>
         </table>
 
@@ -1683,12 +1020,12 @@
 
 
 <!-- ADD MODAL -->
-<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true"
+<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true" (click)="closeAddModal()" (keydown)="handleKeyDown($event)"
   class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  <div (click)="$event.stopPropagation()"
     class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
-    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600 z-50">
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
         Tambah
       </h3>
@@ -1704,7 +1041,7 @@
     <!-- Modal body -->
     <form #addITCMForm="ngForm" (ngSubmit)="addFormITCM()" class="p-6">
       <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM</h3>
-      <p class="mb-4 text-gray-600">Masukkan informasi form ITCM yg ingin anda tambahkan</p>
+      <p class="mb-4 text-gray-600">Masukkan informasi Formulir ITCM yg ingin anda tambahkan</p>
 
       <div class="mt-4">
         <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket<span class="text-red-500"> * </span></label>
@@ -1724,7 +1061,7 @@
 
       <div class="mt-4">
         <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">No. DA</label>
-        <input type="text" name="daNo" id="daNo" placeholder="placeholder"
+        <input type="text" name="daNo" id="daNo" placeholder="Otomatis Terisi"
           class="border text-sm rounded-lg p-2 px-3 w-full bg-gray-100" disabled>
         <p class="text-xs text-red-500">Nomor DA akan terisi otomatis apabila Formulir DA telah di-Approve</p>
       </div>
@@ -1752,11 +1089,13 @@
           class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
-      <div class="mt-4">
+      <div class="mt-4 z-40">
         <label for="description" class="text-sm md:text-[0.875rem] mb-1">Deskripsi</label>
-        <textarea name="deskripsi" placeholder="Masukkan Deskripsi" [(ngModel)]="deskripsi" cols="30" rows="4"
-          class="border text-sm rounded-lg p-2 px-3 w-full"></textarea>
+        <angular-editor name="deskripsi"  [(ngModel)]="deskripsi" [placeholder]="'Masukkan Deskripsi'" [config]="editorConfig">
+        </angular-editor>
       </div>
+
+      <hr>
 
       <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima</h3>
       <p class="text-gray-600">Masukkan informasi Penerima yg ingin anda tuju</p>
@@ -1768,7 +1107,7 @@
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="e.g. Legal" [(ngModel)]="position1" name="position1"
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position1" name="position1"
           class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
@@ -1779,7 +1118,7 @@
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="e.g. Legal"
+        <input type="text" name="recipientInfo2" id="recipientInfo2" placeholder="Masukkan Jabatan"
           [(ngModel)]="position2" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
@@ -1790,7 +1129,7 @@
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder="e.g. Legal"
+        <input type="text" name="recipientInfo3" id="recipientInfo3" placeholder="Masukkan Jabatan"
           [(ngModel)]="position3" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
@@ -1801,7 +1140,7 @@
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder="e.g. Legal"
+        <input type="text" name="recipientInfo4" id="recipientInfo4" placeholder="Masukkan Jabatan"
           [(ngModel)]="position4" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
@@ -1828,12 +1167,12 @@
 </div>
 
 <!-- Edit MODAL -->
-<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true"
+<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true" (click)="closeEditModal()" (keydown)="handleKeyDown($event)"
   class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  <div (click)="$event.stopPropagation()"
     class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
-    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600 z-50">
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
         Edit
       </h3>
@@ -1849,7 +1188,7 @@
     <!-- Modal body -->
     <form #updateForm="ngForm" class="p-6">
       <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM</h3>
-      <p class="mb-4 text-gray-600">Masukkan informasi form ITCM yg ingin anda tambahkan</p>
+      <p class="mb-4 text-gray-600">Masukkan informasi Formulir ITCM yg ingin anda tambahkan</p>
 
       <div class="mt-4">
         <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket</label>
@@ -1869,8 +1208,8 @@
 
       <div class="mt-4">
         <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">No. DA</label>
-        <input type="text" name="no_da" placeholder="Masukkan Nomor DA" [(ngModel)]="no_da"
-          class="border text-sm rounded-lg p-2 px-3 w-full">
+        <input type="text" name="no_da" placeholder="Belum Ada Nomor DA" [(ngModel)]="no_da"
+          class="border text-sm rounded-lg p-2 px-3 w-full cursor-not-allowed bg-gray-100" disabled>
       </div>
 
       <div class="mt-4">
@@ -1897,11 +1236,18 @@
           class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
-      <div class="mt-4">
+      <!-- <div class="mt-4">
         <label for="description" class="text-sm md:text-[0.875rem] mb-1">Deskripsi</label>
-        <textarea name="deskripsi" placeholder="Masukkan deskripsi" [(ngModel)]="deskripsi" cols="30" rows="3"
+        <textarea name="deskripsi" placeholder="Masukkan deskripsi" [(ngModel)]="sanitizedDescription" cols="30" rows="3"
           class="border text-sm rounded-lg p-2 px-3 w-full"></textarea>
+      </div> -->
+
+      <div class="mt-4 z-40">
+        <label for="description" class="text-sm md:text-[0.875rem] mb-1">Deskripsi</label>
+        <angular-editor name="deskripsi"  [(ngModel)]="deskripsi" [placeholder]="'Masukkan Deskripsi'" [config]="editorConfig">
+        </angular-editor>
       </div>
+
 
       <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima</h3>
       <p class="text-gray-600">Edit informasi dari formulir ini</p>
@@ -1964,7 +1310,7 @@
 
 
 <!-- Sign MODAL -->
-<div #modal tabindex="-1" aria-hidden="true" (keypress)="handleKeyDown($event)"
+<div #modal tabindex="-1" aria-hidden="true" (keydown)="handleKeyDown($event)"
   class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 scale-0 ">
   <div class="relative flex items-center justify-center mx-4 md:mx-6 z-0">
     <div class="md:w-1/2 h-fit px-2 py-2 rounded-md shadow-lg border bg-white">
@@ -2002,7 +1348,7 @@
 <!-- Approve MODAL -->
 <div *ngIf="isModalApproveOpen" tabindex="-1" aria-hidden="true"
   class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  <div (click)="$event.stopPropagation()"
     class="relative w-full max-w-4xl bg-white rounded-lg shadow-lg dark:bg-gray-800 max-h-[90vh] overflow-auto mx-4 md:mx-6">
     <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
