@@ -45,7 +45,10 @@ interface ApproveNotification {
 export class NotificationComponent implements OnInit {
   notifications: SignNotification[] = [];
   approveNotifications: ApproveNotification[] = [];
-  openTab = 1; 
+  openTab = 1;
+
+  isSortPanelOpen: boolean = false;
+  currentSortLabel = 'Date';
 
   constructor(private cookieService: CookieService) {}
 
@@ -111,7 +114,7 @@ export class NotificationComponent implements OnInit {
       })
       .then((response) => {
         const notifications = response.data as ApproveNotification[];
-        this.approveNotifications = notifications 
+        this.approveNotifications = notifications
           .map((notification) => {
             const createdAtLocal = new Date(
               new Date(notification.created_at).getTime() +
@@ -124,8 +127,7 @@ export class NotificationComponent implements OnInit {
               new Date(b.created_at).getTime() -
               new Date(a.created_at).getTime()
           );
-          console.log('jawak',this.approveNotifications);
-          
+        console.log('jawak', this.approveNotifications);
       })
       .catch((error) => {
         if (error.response?.status === 500) {
@@ -136,5 +138,39 @@ export class NotificationComponent implements OnInit {
 
   toggleTabs(tabNumber: number) {
     this.openTab = tabNumber;
+  }
+
+  openSortPanel() {
+    this.isSortPanelOpen = !this.isSortPanelOpen;
+  }
+
+  closeSortPanel() {
+    this.isSortPanelOpen = false;
+  }
+
+  sortNotifications(sortType: string) {
+    switch (sortType) {
+      case 'date':
+        this.notifications.sort(
+          (a, b) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+        this.currentSortLabel = 'Date';
+        break;
+      case 'status':
+        this.notifications.sort((a, b) =>
+          a.is_sign === b.is_sign ? 0 : a.is_sign ? 1 : -1
+        );
+        this.currentSortLabel = 'Sign Status';
+        break;
+      case 'formType':
+        this.notifications.sort((a, b) =>
+          a.document_code.localeCompare(b.document_code)
+        );
+        this.currentSortLabel = 'Form Type';
+        break;
+      default:
+        break;
+    }
   }
 }
