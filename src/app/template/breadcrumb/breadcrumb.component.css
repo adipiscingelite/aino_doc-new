@@ -1,0 +1,8 @@
+li {
+  height: 24px; /* Set a height that matches the line height */
+}
+
+span {
+  display: flex; /* Makes sure the icon is a flex container */
+  align-items: center; /* Centers the icon vertically */
+}
