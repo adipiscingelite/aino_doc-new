@@ -1,3 +1,40 @@
+// const imgX = 10;
+// const imgY = 10;
+// const imgWidth = 40;
+// const imgHeight = 13;
+// const textStartY = imgY + imgHeight + 5;
+
+// doc.addImage(imgPath, 'PNG', imgX, imgY, imgWidth, imgHeight);
+
+// doc.setFontSize(12);
+// doc.setFontSize(12);
+// doc.text(
+//   'FORMULIR PENGELOLAAN',
+//   imgX + imgWidth + 10,
+//   imgY + imgHeight / 2,
+//   { align: 'left' }
+// );
+// doc.text('PERUBAHAN TI', imgX + imgWidth + 10, imgY + imgHeight / 2 + 5, {
+//   align: 'left',
+// });
+
+// doc.setFontSize(10);
+// const tableX = 130;
+// doc.text('No. Dokumen:', tableX, imgY + imgHeight / 2 - 5);
+// doc.text(': DOC-001', tableX + 40, imgY + imgHeight / 2 - 5);
+
+// doc.text('Tanggal Terbit:', tableX, imgY + imgHeight / 2);
+// doc.text(': 01/02/2025', tableX + 40, imgY + imgHeight / 2);
+
+// doc.text('No. Revisi:', tableX, imgY + imgHeight / 2 + 5);
+// doc.text(': 01', tableX + 40, imgY + imgHeight / 2 + 5);
+
+// const lineY = textStartY + 5;
+// doc.setLineWidth(0.5);
+// doc.line(10, lineY, 200, lineY);
+
+
+
 // import { Component, OnInit, Inject, HostListener, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 // import {
 //   FormBuilder,

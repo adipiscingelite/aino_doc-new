@@ -202,7 +202,6 @@
         </li>
       </ul>
 
-
       <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
         <div class="flex-auto">
           <div class="tab-content tab-space">
@@ -545,6 +544,7 @@
                         </td>
                       </ng-container>
                     </tr>
+                    <tr *ngIf="dataListFormITCMSignature.length === 0" [ngTemplateOutlet]="noDataAvailable"></tr>
                   </tbody>
                 </table>
               </div>
@@ -754,19 +754,17 @@
     </p>
     <br>
     <div class="w-fit h-fit md:px-5">
-      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm] max-w-[297mm] scale-75 md:scale-100 origin-top-left">
-        <table class="border-2 border-black border-collapse w-full">
+      <div id="contentToConvert" class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm] max-w-[297mm] scale-75 md:scale-100 origin-top-left">
+        <table id="headerElement" class="border-2 border-black border-collapse w-full">
           <tr>
-            <td class="border-2 border-black p-2 w-1/4">
-              <img class="w-40 mx-auto my-auto"
-                src="https://fintech.id/storage/files/shares/logo/logofi2/LOGO%20AINO%20INDONESIA%202021%20-%20Syafri%20Yuzal.png"
-                alt="">
+            <td class="border-2 border-black p-2 w-1/3 md:w-1/4">
+              <img class="w-40 mx-auto my-auto" src="assets/images/aino.png" alt="AINO" loading="lazy">
             </td>
-            <td class="border-2 border-black px-1 w-1/4">
+            <td class="border-2 border-black px-1 w-1/3 md:w-1/4">
               <p class="text-center uppercase font-bold text-sm px-4">FORMULIR PENGELOLAAN PERUBAHAN TI
               </p>
             </td>
-            <td class="border-2 border-black w-1/2 h-fit p-0">
+            <td class="border-2 border-black w-1/3 md:w-1/2 h-fit p-0">
               <table class="border-collapse w-full h-full text-sm font-semibold">
                 <tr>
                   <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
@@ -855,7 +853,7 @@
 
         <table class="mt-8 w-full border-collapse">
           <tr class="">
-            <td class="w-1/2 text-center font-semibold outline outline-black outline-1">
+            <td class="w-1/2 text-center text-sm md:text-base font-semibold outline outline-black outline-1">
               Status pengajuan : <br> ( Berikan alasan apabila not approve )
             </td>
             <td class="w-1/2 h-36 text-center outline outline-black outline-1 p-0">
@@ -925,34 +923,32 @@
           </thead>
           <tbody>
             <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
-              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 h-64 font-bold align-top">
+              <td class="relative outline outline-black outline-1 px-2 py-2 w-1/4 h-40 md:h-52 font-bold align-top">
                 <ng-container *ngIf="signatoryPositions['Pemohon']">
                   <ng-container *ngIf="signatoryPositions['Pemohon'].is_sign; else noImagePemohon">
-                    <img class="mx-auto w-40 aspect-square"
+                    <img class="mx-auto my-4 w-full aspect-auto"
                        src="{{signatoryPositions['Pemohon'].sign_img}}" alt="{{signatoryPositions['Pemohon'].sign_img}}">
                   </ng-container>
                   <ng-template #noImagePemohon>
-                    <img class="mx-auto w-40 aspect-square"
-                      src="https://i.pinimg.com/474x/03/63/4d/03634de058d23a4efb67ec362ebee93e.jpg" alt="">
+                    <div class="mx-auto my-4 w-full aspect-auto"></div>
                   </ng-template>
-                  <div class="text-sm font-medium mt-auto mb-0">
+                  <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
                     <p class="underline" *ngIf="signatoryPositions['Pemohon'].name">{{ signatoryPositions['Pemohon'].name }}</p>
                     <p *ngIf="signatoryPositions['Pemohon'].position">({{ signatoryPositions['Pemohon'].position }})</p>
                     <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
                   </div>
                 </ng-container>
               </td>              
-              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+              <td class="relative outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
                 <ng-container *ngIf="signatoryPositions['Atasan Pemohon']">
                   <ng-container *ngIf="signatoryPositions['Atasan Pemohon'].is_sign; else noImageAtasanPemohon">
-                    <img class="mx-auto w-40 aspect-square"
+                    <img class="mx-auto my-4 w-full aspect-auto"
                        src="{{signatoryPositions['Atasan Pemohon'].sign_img}}" alt="{{signatoryPositions['Atasan Pemohon'].sign_img}}">
                   </ng-container>
                   <ng-template #noImageAtasanPemohon>
-                    <img class="mx-auto w-40 aspect-square"
-                      src="https://i.pinimg.com/474x/03/63/4d/03634de058d23a4efb67ec362ebee93e.jpg" alt="">
+                    <div class="mx-auto my-4 w-full aspect-auto"></div>
                   </ng-template>
-                  <div class="text-sm font-medium mt-auto mb-0">
+                  <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
                     <p class="underline" *ngIf="signatoryPositions['Atasan Pemohon'].name">{{ signatoryPositions['Atasan Pemohon'].name }}</p>
                     <p *ngIf="signatoryPositions['Atasan Pemohon'].position">({{ signatoryPositions['Atasan Pemohon'].position }})</p>
                     <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
@@ -960,17 +956,16 @@
                 </ng-container>
               </td>
               
-              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+              <td class="relative outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
                 <ng-container *ngIf="signatoryPositions['Penerima']">
                   <ng-container *ngIf="signatoryPositions['Penerima'].is_sign; else noImagePenerima">
-                    <img class="mx-auto w-40 aspect-square"
+                    <img class="mx-auto my-4 w-full aspect-auto"
                        src="{{signatoryPositions['Penerima'].sign_img}}" alt="{{signatoryPositions['Penerima'].sign_img}}">
                   </ng-container>
                   <ng-template #noImagePenerima>
-                    <img class="mx-auto w-40 aspect-square"
-                      src="https://i.pinimg.com/474x/03/63/4d/03634de058d23a4efb67ec362ebee93e.jpg" alt="">
+                    <div class="mx-auto my-4 w-full aspect-auto"></div>
                   </ng-template>
-                  <div class="text-sm font-medium mt-auto mb-0">
+                  <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
                     <p class="underline" *ngIf="signatoryPositions['Penerima'].name">{{ signatoryPositions['Penerima'].name }}</p>
                     <p *ngIf="signatoryPositions['Penerima'].position">({{ signatoryPositions['Penerima'].position }})</p>
                     <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
@@ -978,17 +973,16 @@
                 </ng-container>
               </td>
               
-              <td class="outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+              <td class="relative outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
                 <ng-container *ngIf="signatoryPositions['Atasan Penerima']">
                   <ng-container *ngIf="signatoryPositions['Atasan Penerima'].is_sign; else noImageAtasanPenerima">
-                    <img class="mx-auto w-40 aspect-square"
+                    <img class="mx-auto my-4 w-full aspect-auto"
                        src="{{signatoryPositions['Atasan Penerima'].sign_img}}" alt="{{signatoryPositions['Atasan Penerima'].sign_img}}">
                   </ng-container>
                   <ng-template #noImageAtasanPenerima>
-                    <img class="mx-auto w-40 aspect-square"
-                      src="https://i.pinimg.com/474x/03/63/4d/03634de058d23a4efb67ec362ebee93e.jpg" alt="">
+                    <div class="mx-auto my-4 w-full aspect-auto"></div>
                   </ng-template>
-                  <div class="text-sm font-medium mt-auto mb-0">
+                  <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
                     <p class="underline" *ngIf="signatoryPositions['Atasan Penerima'].name">{{ signatoryPositions['Atasan Penerima'].name }}</p>
                     <p *ngIf="signatoryPositions['Atasan Penerima'].position">({{ signatoryPositions['Atasan Penerima'].position }})</p>
                     <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
@@ -999,22 +993,34 @@
           </tbody>
         </table>
 
-        <button *ngIf="!isSigned" (click)="openModal(form_uuid)" class="text-blue-500 text-sm underline">Sign Formulir ini</button>
-
+        
         <!-- <div> -->
-        <!-- </div> -->
-      </div>
+          <!-- </div> -->
+        </div>
+        <button *ngIf="mySignatory && !isSigned" (click)="openModal(form_uuid)" class="text-blue-500 text-sm underline">Sign Formulir ini</button>
     </div>
-
-    <button onclick="window.history.back();"
-      class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
-      <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 11.996h12"></path>
-        <path d="m12 18-6-6 6-6"></path>
-      </svg>
-      <p>Back</p>
-    </button>
+    <div class="flex items-center justify-between md:px-5">
+      <button onclick="window.history.back();"
+        class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
+        <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 11.996h12"></path>
+          <path d="m12 18-6-6 6-6"></path>
+        </svg>
+        <p>Back</p>
+      </button>
+      <button (click)="fetchDataAndGeneratePDF(form_uuid)"
+        class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-red-300 hover:text-red-400 hover:shadow-red-300">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+          <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+          <path d="M12 11v6"></path>
+          <path d="m9 14 3 3 3-3"></path>
+        </svg>
+        Export as PDF
+      </button>
+    </div>
   </div>
 </ng-container>
 
@@ -1041,7 +1047,7 @@
     <!-- Modal body -->
     <form #addITCMForm="ngForm" (ngSubmit)="addFormITCM()" class="p-6">
       <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM</h3>
-      <p class="mb-4 text-gray-600">Masukkan informasi Formulir ITCM yg ingin anda tambahkan</p>
+      <p class="mb-4 text-gray-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
 
       <div class="mt-4">
         <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket<span class="text-red-500"> * </span></label>
@@ -1050,7 +1056,7 @@
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Pilih Projek</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Nama Projek <span class="text-red-500">*</span></label>
         <select id="projectSelect" name="project_uuid" id="" class="form-select" [(ngModel)]="project_uuid"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Pilih Projek</option>
@@ -1097,8 +1103,8 @@
 
       <hr>
 
-      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima</h3>
-      <p class="text-gray-600">Masukkan informasi Penerima yg ingin anda tuju</p>
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Signatories</h3>
+      <p class="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum.</p>
 
       <div class="mt-4">
         <label for="recipientSelect1" class="text-sm md:text-[0.875rem] mb-1">Pemohon</label>
@@ -1188,16 +1194,16 @@
     <!-- Modal body -->
     <form #updateForm="ngForm" class="p-6">
       <h3 class="text-2xl text-gray-900 font-semibold">Formulir ITCM</h3>
-      <p class="mb-4 text-gray-600">Masukkan informasi Formulir ITCM yg ingin anda tambahkan</p>
+      <p class="mb-4 text-gray-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
 
       <div class="mt-4">
-        <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket</label>
-        <input type="text" name="form_ticket" placeholder="Masukkan Nomer Tiket" [(ngModel)]="form_ticket"
+        <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket <span class="text-red-500">*</span></label>
+        <input type="text" name="form_ticket" placeholder="e.g. 0001" [(ngModel)]="form_ticket"
           class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Pilih Projek</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Nama Projek <span class="text-red-500">*</span></label>
         <select name="project_uuid" [(ngModel)]="project_uuid"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Pilih Projek</option>
@@ -1214,13 +1220,13 @@
 
       <div class="mt-4">
         <label for="applicantName" class="text-sm md:text-[0.875rem] mb-1">Nama Pemohon</label>
-        <input type="text" name="nama_pemohon" placeholder="Masukkan Nama Pemohon" [(ngModel)]="nama_pemohon"
+        <input type="text" name="nama_pemohon" placeholder="e.g. John Doe" [(ngModel)]="nama_pemohon"
           class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
         <label for="agency" class="text-sm md:text-[0.875rem] mb-1">Divisi</label>
-        <input type="text" name="instansi" placeholder="Masukkan Divisi" [(ngModel)]="instansi"
+        <input type="text" name="instansi" placeholder="e.g. Legal" [(ngModel)]="instansi"
           class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
@@ -1249,8 +1255,8 @@
       </div>
 
 
-      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima</h3>
-      <p class="text-gray-600">Edit informasi dari formulir ini</p>
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Signatories</h3>
+      <p class="text-gray-600">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi?</p>
 
       <div class="mt-4">
         <label for="recipientSelect1" class="text-sm md:text-[0.875rem] mb-1">Pemohon</label>

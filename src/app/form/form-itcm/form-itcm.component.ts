@@ -21,7 +21,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { FormItcmService } from '../../services/form-itcm/form-itcm.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import SignaturePad from 'signature_pad';
 import {
@@ -31,6 +31,9 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormStatusInfoComponent } from '../../template/form-status-info/form-status-info.component';
+
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 interface Signatory {
   sign_uuid: string;
@@ -44,6 +47,7 @@ interface Signatory {
 interface formsITCM {
   form_uuid: string;
   form_number: string;
+  formatted_form_number: string; // Tambahkan ini
   form_ticket: string;
   form_status: string;
   document_name: string;
@@ -52,6 +56,7 @@ interface formsITCM {
   approval_status: string;
   reason: string;
   created_by: string;
+  created_at: string;
   updated_by: string;
   updated_at: string;
   deleted_by: string;
@@ -237,6 +242,8 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   popoverIndex: number | null = null;
 
   isSigned: boolean = false;
+  mySignatory: Signatory | undefined;
+
   signatoryPositions: {
     [key: string]: {
       name: string;
@@ -256,8 +263,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   totalMySignature: number = 0;
   totalApproved: number = 0;
   totalRejected: number = 0;
-
-  totaljawa: number = 0;
 
   constructor(
     private cookieService: CookieService,
@@ -297,7 +302,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   dataListUserFormITCMRejected: formsITCM[] = [];
 
   async ngOnInit(): Promise<void> {
-    // ? mendapatkan role code 
+    // ? mendapatkan role code
     await this.profileData();
     if (this.role_code === 'SA') {
       this.superAdminOnly();
@@ -355,7 +360,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     this.fetchDataUserFormITCMRejected();
   }
 
-
   // * untuk tabel
   get dataMyDocument(): formsITCM[] {
     if (this.role_code === 'SA') {
@@ -378,7 +382,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       return this.dataListUserFormITCMDraft;
     }
 
-    return []
+    return [];
   }
 
   // get dataFormITCMSignature(): formsITCM[] {
@@ -392,7 +396,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       return this.dataListUserFormITCMApproved;
     }
 
-    return []
+    return [];
   }
 
   get dataFormITCMRejected(): formsITCM[] {
@@ -402,10 +406,8 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       return this.dataListUserFormITCMRejected;
     }
 
-    return []
+    return [];
   }
-
-  
 
   matchesSearch(item: formsITCM): boolean {
     const searchText = this.searchText.toLowerCase();
@@ -415,12 +417,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       item.document_name.toLowerCase().includes(searchText) ||
       item.project_name.toLowerCase().includes(searchText) ||
       item.project_manager.toLowerCase().includes(searchText) ||
-      item.no_da.toLowerCase().includes(searchText) ||
-      item.nama_pemohon.toLowerCase().includes(searchText) ||
-      item.instansi.toLowerCase().includes(searchText) ||
-      item.tanggal.toLowerCase().includes(searchText) ||
-      item.perubahan_aset.toLowerCase().includes(searchText) ||
-      item.deskripsi.toLowerCase().includes(searchText)
+      item.no_da.toLowerCase().includes(searchText)
+      // item.nama_pemohon.toLowerCase().includes(searchText) ||
+      // item.instansi.toLowerCase().includes(searchText) ||
+      // item.tanggal.toLowerCase().includes(searchText) ||
+      // item.perubahan_aset.toLowerCase().includes(searchText) ||
+      // item.deskripsi.toLowerCase().includes(searchText)
     );
   }
 
@@ -811,22 +813,13 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleAction(action: string, item: any): void {
-    // console.log(Handling ${action} for:, item);
     this.closePopover();
   }
-  // handleKeyboardEvent(event: KeyboardEvent): void {
-  //   if (event.key === 'Q') {
-  //     this.closeAddModal();
-  //     this.closeEditModal();
-  //   }
-  // }
   handleKeyDown(event: KeyboardEvent) {
-    console.log(`Key pressed: ${event.key}`); // Debug output
     if (event.key === 'Escape') {
       this.closeAddModal();
       this.closeEditModal();
       this.closeApproveModal();
-      // this.closeSignModal();
       console.log('Modals closed');
     }
   }
@@ -1230,7 +1223,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       .then((response) => {
         const BASE_URL = environment.apiUrl2;
         // $('#detailModalDA').modal('show');
-        console.log('ada sign img', response);
+        console.log('ada sign img', response);        
         const formData = response.data.form;
         this.form_uuid = formData.form_uuid;
         this.created_at = formData.created_at;
@@ -1277,15 +1270,16 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         if (signatories && signatories.length > 0) {
-          const mySignatory = signatories.find(
+          this.mySignatory = signatories.find(
             (signatory: Signatory) =>
-              signatory?.signatory_name === this.personal_name
+              signatory?.signatory_name?.trim().toLowerCase() === this.personal_name?.trim().toLowerCase()
           );
-          console.log('plis', mySignatory);
-
-          if (mySignatory) {
-            console.log('Sign UUID:', mySignatory.sign_uuid);
-            this.isSigned = mySignatory.is_sign;
+        
+          console.log('plis', this.mySignatory);
+        
+          if (this.mySignatory) {
+            console.log('Sign UUID:', this.mySignatory.sign_uuid);
+            this.isSigned = this.mySignatory.is_sign;
           } else {
             console.log(
               'Signatory not found for personal_name:',
@@ -1295,6 +1289,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           console.log('Signatories array is empty or undefined');
         }
+        
       })
       .catch((error) => {
         if (error.response) {
@@ -1653,6 +1648,522 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Hapus elemen textarea setelah menyalin
     document.body.removeChild(textArea);
+  }
+
+  fetchDataAndGeneratePDF(form_uuid: string) {
+    axios
+      .get(`${environment.apiUrl2}/itcm/${form_uuid}`)
+      .then((response) => {
+        const BASE_URL = environment.apiUrl2;
+        const formData = response.data.form;
+        const signatories = response.data.signatories || [];
+  
+        // Menyimpan data form
+        this.form_uuid = formData.form_uuid;
+        this.created_at = formData.created_at;
+        this.form_ticket = formData.form_ticket;
+        this.form_status = formData.form_status;
+        this.nama_pemohon = formData.nama_pemohon;
+        this.instansi = formData.instansi;
+        this.formatted_form_number = formData.formatted_form_number;
+        this.no_da = formData.no_da;
+        this.document_name = formData.document_name;
+        this.project_name = formData.project_name;
+        this.project_manager = formData.project_manager;
+        this.perubahan_aset = formData.perubahan_aset;
+        this.setDeskripsi(formData.deskripsi);
+        this.approval_status = formData.approval_status;
+        this.isPreview = true;
+        this.router.navigate([`/form/itcm/${form_uuid}`]);
+  
+        // Menyimpan data signatories
+        Object.keys(this.signatoryPositions).forEach((role) => {
+          this.signatoryPositions[role] = {
+            name: '',
+            position: '',
+            is_sign: false,
+            sign_img: '',
+          };
+        });
+  
+        signatories.forEach((signatory: Signatory) => {
+          const role = signatory.role_sign;
+          if (this.signatoryPositions[role]) {
+            this.signatoryPositions[role] = {
+              name: signatory.signatory_name || '',
+              position: signatory.signatory_position || '',
+              is_sign: signatory.is_sign || false,
+              sign_img: BASE_URL + signatory.sign_img,
+            };
+          }
+        });
+  
+        // Cek apakah user memiliki tanda tangan di signatories
+        const mySignatory = signatories.find(
+          (signatory:Signatory) => signatory.signatory_name === this.personal_name
+        );
+        this.isSigned = mySignatory ? mySignatory.is_sign : false;
+  
+        // Generate PDF dengan data dari API
+        this.generatePDF2(formData, signatories);
+      })
+      .catch((error) => {
+        console.error('Gagal mengambil data:', error);
+      });
+  }
+  
+
+
+  generatePDF2(formData: any, signatories: any) {
+    const doc = new jsPDF({
+      orientation: 'p',
+      unit: 'mm',
+      format: 'a4',
+    });
+
+    const BASE_URL = environment.apiUrl2;
+    const pageHeight = doc.internal.pageSize.height;
+    let y = 50;
+    let currentY = 45;
+    console.log('ppaa', formData)
+
+    const imgPath = 'assets/images/aino.png';
+
+    const addHeader = (doc: jsPDF, pageNumber: number) => {
+      doc.setFont('helvetica', 'bold');
+
+      const tableWidth = doc.internal.pageSize.width * 0.9;
+      const tableX = (doc.internal.pageSize.width - tableWidth) / 2;
+      const tableY = 10;
+      const boxHeight2 = 20;
+
+      doc.setDrawColor(0);
+      doc.setLineWidth(0.3);
+      doc.rect(tableX, tableY, tableWidth, boxHeight2);
+
+      const boxWidth2 = tableWidth / 3;
+
+      const imgWidth = 40;
+      const imgHeight = 13;
+      const imgX1 = tableX + (boxWidth2 - imgWidth) / 2;
+      const imgY1 = tableY + (boxHeight2 - imgHeight) / 2;
+
+      try {
+        doc.addImage(imgPath, 'PNG', imgX1, imgY1, imgWidth, imgHeight);
+      } catch (error) {
+        console.error('Gagal menambahkan gambar:', error);
+      }
+
+      doc.rect(tableX + boxWidth2, tableY, boxWidth2, boxHeight2);
+      doc.setFontSize(12);
+      const textX2 = tableX + boxWidth2 + boxWidth2 / 2;
+      const textY2 = tableY + boxHeight2 / 2;
+      doc.text('FORMULIR PENGELOLAAN', textX2, textY2 - 5, { align: 'center' });
+      doc.text('PERUBAHAN TI', textX2, textY2 + 5, { align: 'center' });
+
+      doc.rect(tableX + 2 * boxWidth2, tableY, boxWidth2, boxHeight2);
+      doc.setFontSize(9);
+      const labelX3 = tableX + 2 * boxWidth2 + 2;
+      const valueX3 = tableX + 2 * boxWidth2 + 28;
+      let textY3 = tableY + boxHeight2 / 2 - 6;
+
+      doc.text('No. Dokumen', labelX3, textY3);
+      doc.text(`': 0007/GA/PP/XI/2024'`, valueX3, textY3);
+      textY3 += 6;
+      doc.text('Tanggal Terbit', labelX3, textY3);
+      doc.text(': 01/02/2025', valueX3, textY3);
+      textY3 += 6;
+      doc.text('No. Revisi', labelX3, textY3);
+      doc.text(': 01', valueX3, textY3);
+    };
+
+    let pageNumber = 1;
+    addHeader(doc, pageNumber);
+
+    doc.setFontSize(10);
+    doc.setFont('helvetica', '', 700);
+    const titleText =
+      'FORMULIR PENGELOLAAN PERUBAHAN TI (IT CHANGE MANAGEMENT)';
+    const titleWidth = doc.getTextWidth(titleText);
+    const titleX = (doc.internal.pageSize.width - titleWidth) / 2;
+    doc.text(titleText, titleX, currentY);
+    currentY += 5;
+
+    doc.setFontSize(9);
+    doc.setFont('helvetica', '', 700);
+    const nomorText = `Nomor : ${formData.formatted_form_number}`;
+    const nomorWidth = doc.getTextWidth(nomorText);
+    const nomorX = (doc.internal.pageSize.width - nomorWidth) / 2;
+    doc.text(nomorText, nomorX, currentY);
+    currentY += 5;
+
+    doc.setFont('helvetica', 'normal');
+
+    const lineWidth = (210 * 80) / 100;
+    doc.setLineWidth(0.3);
+    const lineX = (doc.internal.pageSize.width - lineWidth) / 2;
+    doc.line(lineX, currentY, lineX + lineWidth, currentY);
+    currentY += 10;
+
+    doc.text('No. Form Dampak Analisa', 10, currentY);
+    doc.text(`: ${formData.no_da}`, 60, currentY);
+    currentY += 5;
+    doc.text('Nama Product/Project', 10, currentY);
+    doc.text(`: ${formData.project_name}`, 60, currentY);
+    currentY += 5;
+    doc.text('Product/Project Manager', 10, currentY);
+    doc.text(`: ${formData.project_manager}`, 60, currentY);
+    currentY += 10;
+
+    doc.text('Nama Pemohon', 10, currentY);
+    doc.text(`: ${formData.nama_pemohon}`, 60, currentY);
+    currentY += 5;
+    doc.text('Divisi', 10, currentY);
+    doc.text(`: ${formData.instansi}`, 60, currentY);
+    currentY += 5;
+    const datePipe = new DatePipe('en-US');
+    const formattedDate = datePipe.transform(formData.created_at, 'dd MMMM yyyy');
+    
+    doc.text('Tanggal', 10, currentY);
+    doc.text(`: ${formattedDate}`, 60, currentY);
+    
+    currentY += 10;
+
+    const checkSpaceAndAddPage = (doc: jsPDF, requiredSpace: number) => {
+      if (currentY + requiredSpace > pageHeight - 10) {
+        doc.addPage();
+        pageNumber++;
+        addHeader(doc, pageNumber);
+        doc.setFont('helvetica', 'normal');
+        currentY = 50;
+      }
+    };
+
+    const addTextWithBox = (
+      doc: jsPDF,
+      title: string,
+      text: string,
+      spaceAfter = 10
+    ) => {
+      const boxWidth = doc.internal.pageSize.width * 0.9;
+      const boxX = (doc.internal.pageSize.width - boxWidth) / 2;
+      const boxPadding = 5;
+      const titleBoxHeight = 7;
+      const minContentHeight = 10; // Tambahkan tinggi minimum agar teks tidak bertabrakan
+
+      checkSpaceAndAddPage(doc, titleBoxHeight);
+      doc.setDrawColor(0);
+      doc.setLineWidth(0.3);
+      doc.rect(boxX, currentY, boxWidth, titleBoxHeight);
+      doc.setFontSize(10);
+      doc.text(
+        title,
+        doc.internal.pageSize.width / 2,
+        currentY + titleBoxHeight / 2 + 1,
+        { align: 'center' }
+      );
+      currentY += titleBoxHeight;
+
+      let spaceLeft = pageHeight - currentY - boxPadding;
+      const textLines = doc.splitTextToSize(text, boxWidth - boxPadding * 2);
+      let remainingText = textLines;
+
+      while (remainingText.length > 0) {
+        let maxLines = Math.floor(spaceLeft / 5);
+        let pageText = remainingText.slice(0, maxLines);
+        remainingText = remainingText.slice(maxLines);
+
+        // Pastikan ada minimal tinggi agar teks tidak menempel ke border bawah
+        let contentBoxHeight = Math.max(pageText.length * 5, minContentHeight);
+
+        doc.rect(boxX, currentY, boxWidth, contentBoxHeight);
+        doc.text(pageText, boxX + boxPadding, currentY + boxPadding);
+        currentY += contentBoxHeight;
+        spaceLeft = pageHeight - currentY - boxPadding;
+
+        if (remainingText.length > 0) {
+          checkSpaceAndAddPage(doc, titleBoxHeight);
+          doc.setFontSize(10);
+          spaceLeft = pageHeight - currentY - boxPadding;
+        }
+      }
+
+      currentY += spaceAfter;
+    };
+
+    addTextWithBox(
+      doc,
+      'Perubahan Aset yang diusulkan:',
+      formData.perubahan_aset
+    );
+    addTextWithBox(
+      doc,
+      'Deskripsi Perubahan yang diusulkan:',
+      formData.deskripsi
+    );
+
+    const addStatusBox = (doc: jsPDF, approval_status: string) => {
+      const boxWidth = doc.internal.pageSize.width * 0.9;
+      const boxX = (doc.internal.pageSize.width - boxWidth) / 2;
+      const boxHeight = 40;
+    
+      checkSpaceAndAddPage(doc, boxHeight + 10);
+    
+      doc.setDrawColor(0);
+      doc.setLineWidth(0.3);
+      doc.rect(boxX, currentY, boxWidth, boxHeight);
+    
+      const leftBoxWidth = boxWidth / 2;
+      const leftBoxHeight = boxHeight;
+      doc.rect(boxX, currentY, leftBoxWidth, leftBoxHeight);
+    
+      doc.setFontSize(10);
+      doc.text(
+        'Status Pengajuan: (Berikan alasan apabila not approve)',
+        boxX + 5,
+        currentY + boxHeight / 2
+      );
+    
+      const rightBoxWidth = boxWidth / 2;
+      const rightBoxHeight = boxHeight;
+      doc.rect(boxX + leftBoxWidth, currentY, rightBoxWidth, rightBoxHeight);
+      const innerBoxHeight = rightBoxHeight / 2;
+    
+      doc.setFont('helvetica', 'bold');
+      doc.rect(
+        boxX + leftBoxWidth,
+        currentY,
+        rightBoxWidth / 2,
+        innerBoxHeight
+      );
+      doc.text(
+        'Approve',
+        boxX + leftBoxWidth + rightBoxWidth / 4,
+        currentY + innerBoxHeight / 2,
+        { align: 'center' }
+      );
+    
+      doc.rect(
+        boxX + leftBoxWidth + rightBoxWidth / 2,
+        currentY,
+        rightBoxWidth / 2,
+        innerBoxHeight
+      );
+      doc.text(
+        'Not Approve',
+        boxX + leftBoxWidth + (rightBoxWidth / 4) * 3,
+        currentY + innerBoxHeight / 2,
+        { align: 'center' }
+      );
+    
+      // Cek status approval
+      const isApproved = approval_status === "Disetujui";
+      const isNotApproved = approval_status === "Tidak Disetujui";
+    
+      doc.setFont('helvetica', 'normal');
+      doc.rect(
+        boxX + leftBoxWidth,
+        currentY + innerBoxHeight,
+        rightBoxWidth / 2,
+        innerBoxHeight
+      );
+      doc.text(
+        isApproved ? '✅' : '',
+        boxX + leftBoxWidth + rightBoxWidth / 4,
+        currentY + innerBoxHeight + innerBoxHeight / 2,
+        { align: 'center' }
+      );
+    
+      doc.rect(
+        boxX + leftBoxWidth + rightBoxWidth / 2,
+        currentY + innerBoxHeight,
+        rightBoxWidth / 2,
+        innerBoxHeight
+      );
+      doc.text(
+        isNotApproved ? '✅' : '',
+        boxX + leftBoxWidth + (rightBoxWidth / 4) * 3,
+        currentY + innerBoxHeight + innerBoxHeight / 2,
+        { align: 'center' }
+      );
+    
+      currentY += boxHeight + 10;
+    };
+    
+    // Contoh pemanggilan fungsi
+    addStatusBox(doc, formData.approval_status);  // Ganti dengan status yang diinginkan
+    
+    if (formData.approval_status === 'Tidak Disetujui' && formData.reason.Valid) {
+      addTextWithBox(doc, 'Alasan tidak approve:', formData.reason.String);
+    }
+    
+    
+
+    const addSignatureTable = (doc: jsPDF): void => {
+      const tableWidth: number = doc.internal.pageSize.width * 0.9;
+      const tableX: number = (doc.internal.pageSize.width - tableWidth) / 2;
+      const rowHeight: number = 50;
+      const colWidth: number = tableWidth / 4;
+      
+      
+      checkSpaceAndAddPage(doc, rowHeight + 10);
+
+      // Ukuran gambar dengan rasio 2:1
+      const imageWidth: number = 40;  // Lebar gambar
+      const imageHeight: number = 20; // Tinggi gambar
+    
+      // Mapping posisi tanda tangan berdasarkan role_sign
+      const signatoryMap: { [key: string]: number } = {
+        'Pemohon': 0,
+        'Atasan Pemohon': 1,
+        'Penerima': 2,
+        'Atasan Penerima': 3
+      };
+    
+      // Inisialisasi array dengan posisi tetap
+      const formattedSignatories: Signatory[] = new Array(4).fill(null).map(() => ({
+        sign_uuid: '',
+        signatory_name: '',
+        signatory_position: '',
+        role_sign: '',
+        is_sign: false,
+        sign_img: ''
+      }));
+    
+      // Masukkan signatories ke dalam urutan yang benar
+      signatories.forEach((signatory: Signatory) => {
+        const index = signatoryMap[signatory.role_sign]; // Cari index berdasarkan role_sign
+        if (index !== undefined) {
+          formattedSignatories[index] = signatory;
+        }
+      });
+    
+      // Header Kolom
+      const headers: string[] = ['Pemohon', 'Atasan Pemohon', 'Penerima', 'Atasan Penerima'];
+      doc.setFont('helvetica', 'bold');
+      headers.forEach((header: string, i: number) => {
+        const x: number = tableX + i * colWidth;
+        doc.rect(x, currentY, colWidth, 10);
+        doc.text(header, x + colWidth / 2, currentY + 7, { align: 'center' });
+      });
+    
+      // Box tanda tangan
+      currentY += 10;
+      headers.forEach((_header: string, i: number) => {
+        const x: number = tableX + i * colWidth;
+        doc.rect(x, currentY, colWidth, rowHeight);
+      });
+    
+      // Tambahkan tanda tangan, nama, dan jabatan
+      currentY += 5;
+      formattedSignatories.forEach((signatory, i) => {
+        const x: number = tableX + i * colWidth;
+        const imageY = currentY + 1;
+    
+        // Ambil nilai sign_img yang benar
+        const signImg = typeof signatory.sign_img === 'string' 
+          ? signatory.sign_img 
+          : signatory.sign_img?.String || '';
+    
+        // Pastikan tidak ada string kosong
+        const fullSignImg = signImg ? BASE_URL + signImg : '';
+    
+        console.log(`Signatory Image ${i}:`, fullSignImg); // Debugging
+    
+        if (signatory.is_sign && fullSignImg) {
+          try {
+            if (fullSignImg.startsWith(BASE_URL)) {
+              doc.addImage(
+                fullSignImg,
+                'PNG',
+                x + colWidth / 2 - imageWidth / 2,
+                imageY,
+                imageWidth,
+                imageHeight
+              );
+            } else {
+              console.warn(`Gambar tanda tangan tidak valid: ${fullSignImg}`);
+            }
+          } catch (error) {
+            console.error('Gagal menambahkan gambar tanda tangan:', error);
+          }
+        } else {
+          console.warn(`Tidak ada gambar tanda tangan untuk signatory ${i}`);
+        }
+    
+        // Nama & Jabatan
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        const textY = imageY + imageHeight + 10;
+        doc.text(signatory.signatory_name || '', x + colWidth / 2, textY, { align: 'center' });
+        doc.text(signatory.signatory_position || '', x + colWidth / 2, textY + 5, { align: 'center' });
+      });
+    
+      currentY += rowHeight + 10;
+    };
+    
+    // Panggil fungsi tabel dengan data dari API
+    addSignatureTable(doc);
+  
+    const pdfBlob = doc.output('blob');
+
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    window.open(pdfUrl, '_blank');
+  }
+
+  
+  // const fileName = `Form_ITCM_${formData.formatted_form_number}.pdf`;
+
+  // // Simpan PDF dengan nama file yang sudah ditentukan
+  // doc.save(fileName);
+
+  // // Segarkan halaman setelah download
+  // window.location.reload();
+
+  generatePDF99() {
+    const doc = new jsPDF('p', 'mm', 'a4'); // Ukuran halaman A4 (210mm x 297mm)
+
+    const element = document.getElementById('headerElement');
+
+    if (element) {
+      const margin = 10;
+      let currentY = margin; // Posisi Y untuk menempatkan konten pertama kali
+
+      // Fungsi callback untuk mengatur konten HTML dalam PDF
+      doc.html(element, {
+        callback: (doc) => {
+          // Jika konten melebihi satu halaman, kita tambahkan halaman baru
+          const totalHeight = doc.internal.pageSize.height;
+          const contentHeight = currentY + element.offsetHeight;
+
+          if (contentHeight > totalHeight) {
+            // Jika konten melebihi tinggi halaman, tambahkan halaman baru
+            doc.addPage(); // Menambahkan halaman baru
+            currentY = margin; // Reset posisi Y di halaman baru
+          }
+
+          // Render konten di halaman pertama atau yang baru
+          doc.text('Table Content', margin, currentY); // Menambah teks tambahan jika diperlukan
+
+          // Render element HTML
+          doc.html(element, {
+            x: margin,
+            y: currentY + 10, // Jarak vertikal untuk konten berikutnya
+            callback: (doc) => {
+              // Jika konten lebih banyak, ulangi langkah ini untuk halaman kedua, dst.
+              window.open(doc.output('bloburl'), '_blank'); // Menampilkan PDF setelah selesai
+            },
+            autoPaging: 'text', // Menambahkan auto-paging saat teks terlalu panjang
+            width: doc.internal.pageSize.width - 2 * margin, // Menyesuaikan lebar
+          });
+        },
+        x: margin,
+        y: currentY,
+        width: doc.internal.pageSize.width - 2 * margin,
+        autoPaging: 'text', // Mengaktifkan auto-paging
+      });
+    }
   }
 }
 
