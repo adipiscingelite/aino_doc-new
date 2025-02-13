@@ -1343,14 +1343,14 @@
       <div>
         <ul class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5">
           <li class="w-auto flex items-center -mb-px last:mr-0 flex-auto">
-            <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer"
+            <a class="flex items-center gap-2 px-5 py-3 leading-normal cursor-pointer"
               (click)="toggleTabs2(1)"
               [ngClass]="{'text-neutral-600 bg-zinc-50': openTab2 !== 1, 'underline': openTab2 === 1}">
               <div>draw</div>
             </a>
           </li>
           <li class="w-auto flex items-center -mb-px last:mr-0 flex-auto">
-            <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer"
+            <a class="flex items-center gap-2 px-5 py-3 leading-normal cursor-pointer"
               (click)="toggleTabs2(2)"
               [ngClass]="{'text-neutral-600 bg-zinc-50': openTab2 !== 2, 'underline': openTab2 === 2}">
               <div>upload</div>
@@ -1369,11 +1369,9 @@
         class="my-2 w-full h-full border dashed-custom border-spacing-6">
         <input *ngIf="!uploadedImage" type="file" (change)="onFileSelected($event)" accept="image/*"
           class="block w-full text-sm px-5 text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300" />
-          <div class="relative w-full max-w-[444px] aspect-[296/100] overflow-hidden border rounded-md" (mousedown)="startDrag($event)" (touchstart)="startDrag($event)">
-            <img [src]="uploadedImage" class="object-cover cursor-move"
-                 [ngStyle]="{'transform': 'translate(' + offsetX + 'px, ' + offsetY + 'px)'}" style="pointer-events: none; max-width: 100%; height: auto;" />
-          </div>        
-      
+        <div *ngIf="uploadedImage" class="flex justify-center w-full">
+          <img [src]="uploadedImage" class="w-[444px] aspect-[296/100] object-cover border rounded-md" />
+        </div>
       </div>
       <div class="my-2">
         <p class="text-[0.8rem] font-medium text-gray-500">
