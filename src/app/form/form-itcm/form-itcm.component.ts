@@ -101,6 +101,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private signaturePad!: SignaturePad;
   img: string | null = null;
+  uploadedImage: string | ArrayBuffer | null = null;
   penColor: string = '#262626'; // Default pen color
 
   ngAfterViewInit() {
@@ -133,6 +134,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   clear() {
     this.signaturePad.clear();
     this.img = null; // Clear the img property when the canvas is cleared
+    this.uploadedImage = null;
   }
 
   save() {
@@ -408,6 +410,95 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
 
     return [];
   }
+
+  resizedImage: string | null = null;
+
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      const file = target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.uploadedImage = reader.result as string;
+        this.resizeImage(this.uploadedImage);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
+  resizeImage(base64Str: string) {
+    const img = new Image();
+    img.src = base64Str;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      if (ctx) {
+        const targetWidth = 444;
+        const targetHeight = 150;
+  
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+  
+        // Mengatur crop agar aspect ratio tetap 7:2.8
+        const scale = Math.max(targetWidth / img.width, targetHeight / img.height);
+        const x = (targetWidth / scale - img.width) / 2;
+        const y = (targetHeight / scale - img.height) / 2;
+  
+        ctx.scale(scale, scale);
+        ctx.drawImage(img, x, y);
+  
+        this.resizedImage = canvas.toDataURL('image/jpeg', 0.9); // 90% kualitas gambar
+        console.log('Resized Image:', this.resizedImage); // Cek hasil resize di console
+      }
+    };
+  }
+  
+  offsetX = 0;  // Posisi horizontal
+  offsetY = 0;  // Posisi vertikal
+  isDragging = false; // Status apakah gambar sedang digeser
+
+  startDrag(event: MouseEvent | TouchEvent) {
+    // Mencegah default browser behavior (seperti drag and drop)
+    event.preventDefault();
+
+    // Menangani mouse dan sentuhan
+    let startX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
+    let startY = event instanceof MouseEvent ? event.clientY : event.touches[0].clientY;
+
+    // Menandai drag dimulai
+    this.isDragging = true;
+
+    const moveHandler = (moveEvent: MouseEvent | TouchEvent) => {
+      if (!this.isDragging) return;
+
+      const moveX = moveEvent instanceof MouseEvent ? moveEvent.clientX : moveEvent.touches[0].clientX;
+      const moveY = moveEvent instanceof MouseEvent ? moveEvent.clientY : moveEvent.touches[0].clientY;
+
+      this.offsetX += moveX - startX;
+      this.offsetY += moveY - startY;
+
+      // Update posisi gambar
+      startX = moveX;
+      startY = moveY;
+    };
+
+    const stopDrag = () => {
+      this.isDragging = false;
+      // Hapus event listener setelah drag selesai
+      document.removeEventListener('mousemove', moveHandler);
+      document.removeEventListener('touchmove', moveHandler);
+      document.removeEventListener('mouseup', stopDrag);
+      document.removeEventListener('touchend', stopDrag);
+    };
+
+    // Menambahkan event listener untuk move dan stop
+    document.addEventListener('mousemove', moveHandler);
+    document.addEventListener('touchmove', moveHandler);
+    document.addEventListener('mouseup', stopDrag);
+    document.addEventListener('touchend', stopDrag);
+  }
+
 
   matchesSearch(item: formsITCM): boolean {
     const searchText = this.searchText.toLowerCase();
@@ -786,6 +877,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   openTab = 1;
   toggleTabs($tabNumber: number) {
     this.openTab = $tabNumber;
+  }
+
+  openTab2 = 1;
+  toggleTabs2($tabNumber: number) {
+    this.openTab2 = $tabNumber;
+    this.clear()
   }
 
   togglePopover(event: Event, index: number): void {
@@ -1223,7 +1320,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       .then((response) => {
         const BASE_URL = environment.apiUrl2;
         // $('#detailModalDA').modal('show');
-        console.log('ada sign img', response);        
+        console.log('ada sign img', response);
         const formData = response.data.form;
         this.form_uuid = formData.form_uuid;
         this.created_at = formData.created_at;
@@ -1272,11 +1369,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         if (signatories && signatories.length > 0) {
           this.mySignatory = signatories.find(
             (signatory: Signatory) =>
-              signatory?.signatory_name?.trim().toLowerCase() === this.personal_name?.trim().toLowerCase()
+              signatory?.signatory_name?.trim().toLowerCase() ===
+              this.personal_name?.trim().toLowerCase()
           );
-        
+
           console.log('plis', this.mySignatory);
-        
+
           if (this.mySignatory) {
             console.log('Sign UUID:', this.mySignatory.sign_uuid);
             this.isSigned = this.mySignatory.is_sign;
@@ -1289,7 +1387,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           console.log('Signatories array is empty or undefined');
         }
-        
       })
       .catch((error) => {
         if (error.response) {
@@ -1483,8 +1580,21 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   signature(form_uuid: string) {
-    const dataURL = this.sigPad.nativeElement.toDataURL('image/png'); // Get the signature image
-
+    // Periksa apakah sedang menggunakan draw atau upload
+    if (this.openTab2 === 1) {
+      // Menggunakan canvas untuk signature
+      this.img = this.sigPad.nativeElement.toDataURL('image/png');
+    } else if (this.openTab2 === 2) {
+      // Menggunakan image yang di-upload dan sudah di-resize
+      this.img = this.resizedImage;
+    }
+  
+    // Pastikan img tidak kosong
+    if (!this.img) {
+      console.error('No signature image found');
+      return;
+    }
+    
     axios.get(`${environment.apiUrl2}/itcm/${form_uuid}`).then((response) => {
       const signatories: Signatory[] = response.data.signatories || [];
 
@@ -1526,7 +1636,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
           name: mySignatory.signatory_name,
           position: mySignatory.signatory_position,
           is_sign: true,
-          sign_img: dataURL, // Include the Base64 signature image
+          sign_img: this.img, // Include the Base64 signature image
         };
 
         // Send the update to the backend
@@ -1654,56 +1764,10 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     axios
       .get(`${environment.apiUrl2}/itcm/${form_uuid}`)
       .then((response) => {
-        const BASE_URL = environment.apiUrl2;
+        // const BASE_URL = environment.apiUrl2;
         const formData = response.data.form;
         const signatories = response.data.signatories || [];
-  
-        // Menyimpan data form
-        this.form_uuid = formData.form_uuid;
-        this.created_at = formData.created_at;
-        this.form_ticket = formData.form_ticket;
-        this.form_status = formData.form_status;
-        this.nama_pemohon = formData.nama_pemohon;
-        this.instansi = formData.instansi;
-        this.formatted_form_number = formData.formatted_form_number;
-        this.no_da = formData.no_da;
-        this.document_name = formData.document_name;
-        this.project_name = formData.project_name;
-        this.project_manager = formData.project_manager;
-        this.perubahan_aset = formData.perubahan_aset;
-        this.setDeskripsi(formData.deskripsi);
-        this.approval_status = formData.approval_status;
-        this.isPreview = true;
-        this.router.navigate([`/form/itcm/${form_uuid}`]);
-  
-        // Menyimpan data signatories
-        Object.keys(this.signatoryPositions).forEach((role) => {
-          this.signatoryPositions[role] = {
-            name: '',
-            position: '',
-            is_sign: false,
-            sign_img: '',
-          };
-        });
-  
-        signatories.forEach((signatory: Signatory) => {
-          const role = signatory.role_sign;
-          if (this.signatoryPositions[role]) {
-            this.signatoryPositions[role] = {
-              name: signatory.signatory_name || '',
-              position: signatory.signatory_position || '',
-              is_sign: signatory.is_sign || false,
-              sign_img: BASE_URL + signatory.sign_img,
-            };
-          }
-        });
-  
-        // Cek apakah user memiliki tanda tangan di signatories
-        const mySignatory = signatories.find(
-          (signatory:Signatory) => signatory.signatory_name === this.personal_name
-        );
-        this.isSigned = mySignatory ? mySignatory.is_sign : false;
-  
+
         // Generate PDF dengan data dari API
         this.generatePDF2(formData, signatories);
       })
@@ -1711,8 +1775,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         console.error('Gagal mengambil data:', error);
       });
   }
-  
-
 
   generatePDF2(formData: any, signatories: any) {
     const doc = new jsPDF({
@@ -1725,7 +1787,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     const pageHeight = doc.internal.pageSize.height;
     let y = 50;
     let currentY = 45;
-    console.log('ppaa', formData)
+    console.log('ppaa', formData);
 
     const imgPath = 'assets/images/aino.png';
 
@@ -1822,11 +1884,14 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     doc.text(`: ${formData.instansi}`, 60, currentY);
     currentY += 5;
     const datePipe = new DatePipe('en-US');
-    const formattedDate = datePipe.transform(formData.created_at, 'dd MMMM yyyy');
-    
+    const formattedDate = datePipe.transform(
+      formData.created_at,
+      'dd MMMM yyyy'
+    );
+
     doc.text('Tanggal', 10, currentY);
     doc.text(`: ${formattedDate}`, 60, currentY);
-    
+
     currentY += 10;
 
     const checkSpaceAndAddPage = (doc: jsPDF, requiredSpace: number) => {
@@ -1906,29 +1971,29 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       const boxWidth = doc.internal.pageSize.width * 0.9;
       const boxX = (doc.internal.pageSize.width - boxWidth) / 2;
       const boxHeight = 40;
-    
+
       checkSpaceAndAddPage(doc, boxHeight + 10);
-    
+
       doc.setDrawColor(0);
       doc.setLineWidth(0.3);
       doc.rect(boxX, currentY, boxWidth, boxHeight);
-    
+
       const leftBoxWidth = boxWidth / 2;
       const leftBoxHeight = boxHeight;
       doc.rect(boxX, currentY, leftBoxWidth, leftBoxHeight);
-    
+
       doc.setFontSize(10);
       doc.text(
         'Status Pengajuan: (Berikan alasan apabila not approve)',
         boxX + 5,
         currentY + boxHeight / 2
       );
-    
+
       const rightBoxWidth = boxWidth / 2;
       const rightBoxHeight = boxHeight;
       doc.rect(boxX + leftBoxWidth, currentY, rightBoxWidth, rightBoxHeight);
       const innerBoxHeight = rightBoxHeight / 2;
-    
+
       doc.setFont('helvetica', 'bold');
       doc.rect(
         boxX + leftBoxWidth,
@@ -1942,7 +2007,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         currentY + innerBoxHeight / 2,
         { align: 'center' }
       );
-    
+
       doc.rect(
         boxX + leftBoxWidth + rightBoxWidth / 2,
         currentY,
@@ -1955,11 +2020,11 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         currentY + innerBoxHeight / 2,
         { align: 'center' }
       );
-    
+
       // Cek status approval
-      const isApproved = approval_status === "Disetujui";
-      const isNotApproved = approval_status === "Tidak Disetujui";
-    
+      const isApproved = approval_status === 'Disetujui';
+      const isNotApproved = approval_status === 'Tidak Disetujui';
+
       doc.setFont('helvetica', 'normal');
       doc.rect(
         boxX + leftBoxWidth,
@@ -1968,12 +2033,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         innerBoxHeight
       );
       doc.text(
-        isApproved ? '✅' : '',
+        isApproved ? '✓check' : '',
         boxX + leftBoxWidth + rightBoxWidth / 4,
         currentY + innerBoxHeight + innerBoxHeight / 2,
         { align: 'center' }
       );
-    
+
       doc.rect(
         boxX + leftBoxWidth + rightBoxWidth / 2,
         currentY + innerBoxHeight,
@@ -1981,55 +2046,57 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         innerBoxHeight
       );
       doc.text(
-        isNotApproved ? '✅' : '',
+        isNotApproved ? '✓check' : '',
         boxX + leftBoxWidth + (rightBoxWidth / 4) * 3,
         currentY + innerBoxHeight + innerBoxHeight / 2,
         { align: 'center' }
       );
-    
+
       currentY += boxHeight + 10;
     };
-    
+
     // Contoh pemanggilan fungsi
-    addStatusBox(doc, formData.approval_status);  // Ganti dengan status yang diinginkan
-    
-    if (formData.approval_status === 'Tidak Disetujui' && formData.reason.Valid) {
+    addStatusBox(doc, formData.approval_status); // Ganti dengan status yang diinginkan
+
+    if (
+      formData.approval_status === 'Tidak Disetujui' &&
+      formData.reason.Valid
+    ) {
       addTextWithBox(doc, 'Alasan tidak approve:', formData.reason.String);
     }
-    
-    
 
     const addSignatureTable = (doc: jsPDF): void => {
       const tableWidth: number = doc.internal.pageSize.width * 0.9;
       const tableX: number = (doc.internal.pageSize.width - tableWidth) / 2;
       const rowHeight: number = 50;
       const colWidth: number = tableWidth / 4;
-      
-      
+
       checkSpaceAndAddPage(doc, rowHeight + 10);
 
       // Ukuran gambar dengan rasio 2:1
-      const imageWidth: number = 40;  // Lebar gambar
+      const imageWidth: number = 40; // Lebar gambar
       const imageHeight: number = 20; // Tinggi gambar
-    
+
       // Mapping posisi tanda tangan berdasarkan role_sign
       const signatoryMap: { [key: string]: number } = {
-        'Pemohon': 0,
+        Pemohon: 0,
         'Atasan Pemohon': 1,
-        'Penerima': 2,
-        'Atasan Penerima': 3
+        Penerima: 2,
+        'Atasan Penerima': 3,
       };
-    
+
       // Inisialisasi array dengan posisi tetap
-      const formattedSignatories: Signatory[] = new Array(4).fill(null).map(() => ({
-        sign_uuid: '',
-        signatory_name: '',
-        signatory_position: '',
-        role_sign: '',
-        is_sign: false,
-        sign_img: ''
-      }));
-    
+      const formattedSignatories: Signatory[] = new Array(4)
+        .fill(null)
+        .map(() => ({
+          sign_uuid: '',
+          signatory_name: '',
+          signatory_position: '',
+          role_sign: '',
+          is_sign: false,
+          sign_img: '',
+        }));
+
       // Masukkan signatories ke dalam urutan yang benar
       signatories.forEach((signatory: Signatory) => {
         const index = signatoryMap[signatory.role_sign]; // Cari index berdasarkan role_sign
@@ -2037,39 +2104,45 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
           formattedSignatories[index] = signatory;
         }
       });
-    
+
       // Header Kolom
-      const headers: string[] = ['Pemohon', 'Atasan Pemohon', 'Penerima', 'Atasan Penerima'];
+      const headers: string[] = [
+        'Pemohon',
+        'Atasan Pemohon',
+        'Penerima',
+        'Atasan Penerima',
+      ];
       doc.setFont('helvetica', 'bold');
       headers.forEach((header: string, i: number) => {
         const x: number = tableX + i * colWidth;
         doc.rect(x, currentY, colWidth, 10);
         doc.text(header, x + colWidth / 2, currentY + 7, { align: 'center' });
       });
-    
+
       // Box tanda tangan
       currentY += 10;
       headers.forEach((_header: string, i: number) => {
         const x: number = tableX + i * colWidth;
         doc.rect(x, currentY, colWidth, rowHeight);
       });
-    
+
       // Tambahkan tanda tangan, nama, dan jabatan
       currentY += 5;
       formattedSignatories.forEach((signatory, i) => {
         const x: number = tableX + i * colWidth;
         const imageY = currentY + 1;
-    
+
         // Ambil nilai sign_img yang benar
-        const signImg = typeof signatory.sign_img === 'string' 
-          ? signatory.sign_img 
-          : signatory.sign_img?.String || '';
-    
+        const signImg =
+          typeof signatory.sign_img === 'string'
+            ? signatory.sign_img
+            : signatory.sign_img?.String || '';
+
         // Pastikan tidak ada string kosong
         const fullSignImg = signImg ? BASE_URL + signImg : '';
-    
+
         console.log(`Signatory Image ${i}:`, fullSignImg); // Debugging
-    
+
         if (signatory.is_sign && fullSignImg) {
           try {
             if (fullSignImg.startsWith(BASE_URL)) {
@@ -2090,21 +2163,28 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
           console.warn(`Tidak ada gambar tanda tangan untuk signatory ${i}`);
         }
-    
+
         // Nama & Jabatan
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(9);
         const textY = imageY + imageHeight + 10;
-        doc.text(signatory.signatory_name || '', x + colWidth / 2, textY, { align: 'center' });
-        doc.text(signatory.signatory_position || '', x + colWidth / 2, textY + 5, { align: 'center' });
+        doc.text(signatory.signatory_name || '', x + colWidth / 2, textY, {
+          align: 'center',
+        });
+        doc.text(
+          signatory.signatory_position || '',
+          x + colWidth / 2,
+          textY + 5,
+          { align: 'center' }
+        );
       });
-    
+
       currentY += rowHeight + 10;
     };
-    
+
     // Panggil fungsi tabel dengan data dari API
     addSignatureTable(doc);
-  
+
     const pdfBlob = doc.output('blob');
 
     const pdfUrl = URL.createObjectURL(pdfBlob);
@@ -2112,7 +2192,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     window.open(pdfUrl, '_blank');
   }
 
-  
   // const fileName = `Form_ITCM_${formData.formatted_form_number}.pdf`;
 
   // // Simpan PDF dengan nama file yang sudah ditentukan
@@ -2120,51 +2199,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // // Segarkan halaman setelah download
   // window.location.reload();
-
-  generatePDF99() {
-    const doc = new jsPDF('p', 'mm', 'a4'); // Ukuran halaman A4 (210mm x 297mm)
-
-    const element = document.getElementById('headerElement');
-
-    if (element) {
-      const margin = 10;
-      let currentY = margin; // Posisi Y untuk menempatkan konten pertama kali
-
-      // Fungsi callback untuk mengatur konten HTML dalam PDF
-      doc.html(element, {
-        callback: (doc) => {
-          // Jika konten melebihi satu halaman, kita tambahkan halaman baru
-          const totalHeight = doc.internal.pageSize.height;
-          const contentHeight = currentY + element.offsetHeight;
-
-          if (contentHeight > totalHeight) {
-            // Jika konten melebihi tinggi halaman, tambahkan halaman baru
-            doc.addPage(); // Menambahkan halaman baru
-            currentY = margin; // Reset posisi Y di halaman baru
-          }
-
-          // Render konten di halaman pertama atau yang baru
-          doc.text('Table Content', margin, currentY); // Menambah teks tambahan jika diperlukan
-
-          // Render element HTML
-          doc.html(element, {
-            x: margin,
-            y: currentY + 10, // Jarak vertikal untuk konten berikutnya
-            callback: (doc) => {
-              // Jika konten lebih banyak, ulangi langkah ini untuk halaman kedua, dst.
-              window.open(doc.output('bloburl'), '_blank'); // Menampilkan PDF setelah selesai
-            },
-            autoPaging: 'text', // Menambahkan auto-paging saat teks terlalu panjang
-            width: doc.internal.pageSize.width - 2 * margin, // Menyesuaikan lebar
-          });
-        },
-        x: margin,
-        y: currentY,
-        width: doc.internal.pageSize.width - 2 * margin,
-        autoPaging: 'text', // Mengaktifkan auto-paging
-      });
-    }
-  }
 }
 
 export { formsITCM };
