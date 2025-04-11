@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "ngh": "ng serve --host 192.168.110.68"
   },
   "private": true,
   "dependencies": {
@@ -19,14 +20,21 @@
     "@angular/platform-browser": "^18.1.0",
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
+    "@kolkov/angular-editor": "^3.0.0-beta.0",
     "angular-shepherd": "^18.0.2",
     "axios": "^1.7.2",
+    "dompurify": "^3.2.4",
+    "echarts": "^5.6.0",
     "flowbite": "^2.5.1",
+    "font-awesome": "^4.7.0",
     "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
-    "jspdf": "^2.5.1",
+    "jspdf": "^2.5.2",
     "jwt-decode": "^4.0.0",
+    "ngx-avatars": "^1.8.0",
     "ngx-cookie-service": "^18.0.0",
+    "ngx-echarts": "^19.0.0",
+    "ngx-quill": "^26.0.8",
     "ngx-ui-tour-md-menu": "^13.0.0",
     "rxjs": "~7.8.0",
     "shepherd.js": "^13.0.3",
@@ -35,6 +43,7 @@
     "sweetalert2": "^11.0.1",
     "tslib": "^2.3.0",
     "uuid": "^10.0.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {

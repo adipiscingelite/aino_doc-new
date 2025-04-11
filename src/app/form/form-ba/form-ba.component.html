@@ -1,5 +1,6 @@
 <ng-template #tableView>
-  <h1 class="py-3 text-center text-3xl font-semibold text-gray-800">Form BA ITCM</h1>
+  <h1 class="pb-10 text-center text-3xl font-semibold text-gray-800">Form BA ITCM</h1>
+  
   <div class="flex w-full pb-4 px-2 bg-white">
     <label for="table-search" class="sr-only">Search</label>
     <div class="relative">
@@ -15,7 +16,7 @@
         class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
         placeholder="Search for items">
     </div>
-    <button type="button" (click)="openAddModal()"
+    <button type="button" (click)="openAddModal()" *ngIf="role_code === 'A' || role_code === 'M'"
       class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center">
       <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden md:block"
         stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
@@ -28,7 +29,7 @@
   </div>
   <div class="flex flex-wrap">
     <div class="w-full">
-      <ul class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5 ">
+      <ul class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5 " *ngIf="role_code === 'A' || role_code === 'M'">
         <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
           <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer hover:text-blue-400"
             (click)="toggleTabs(1)"
@@ -45,7 +46,7 @@
             </svg>
             <div>
               <p class="text-sm  font-bold uppercase">My Documents</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class=" text-xs lowercase text-neutral-900">{{totalMyDocument}} documents</p>
             </div>
           </a>
         </li>
@@ -61,7 +62,7 @@
             </svg>
             <div>
               <p class="text-sm  font-bold uppercase">Draft</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class=" text-xs lowercase text-neutral-900">{{totalDraft }} documents</p>
             </div>
           </a>
         </li>
@@ -88,7 +89,7 @@
             </svg>
             <div>
               <p class="text-sm  font-bold uppercase">My Signature</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class=" text-xs lowercase text-neutral-900">{{totalMySignature}} documents</p>
             </div>
           </a>
         </li>
@@ -107,12 +108,12 @@
               </path>
             </svg>
             <div>
-              <p class="text-sm  font-bold uppercase">Approved</p>
-              <p class=" text-xs lowercase text-neutral-900">80 documents</p>
+              <p class="text-sm  font-bold uppercase">Map</p>
+              <!-- <p class=" text-xs lowercase text-neutral-900">80 documents</p> -->
             </div>
           </a>
         </li>
-        <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
+        <!-- <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
           <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer hover:text-red-500"
             (click)="toggleTabs(5)"
             [ngClass]="{'text-neutral-600 bg-zinc-50': openTab !== 5, 'text-red-500 bg-white': openTab === 5}">
@@ -131,7 +132,7 @@
               <p class=" text-xs lowercase text-neutral-900">80 documents</p>
             </div>
           </a>
-        </li>
+        </li> -->
       </ul>
 
       <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -143,12 +144,12 @@
             <div [ngClass]="{'hidden': openTab !== 1, 'block': openTab === 1}">
               <p class="pb-3 text-sm text-gray-600 font-medium">
                 <span *ngIf="role_code === 'M'">Berisi dokumen yang dibuat oleh Anda. Hanya Anda dan Admin yang dapat
-                  mengakses dokumen ini!</span>
+                  mengakses dokumen ini</span>
                 <span *ngIf="role_code === 'A'">Berisi dokumen yang dibuat oleh Anda dan orang yang satu divisi dengan
-                  Anda. Hanya Anda yang dapat mengakses dokumen ini!</span>
+                  Anda. Hanya Anda yang dapat mengakses dokumen ini</span>
               </p>
               <hr>
-              <div class="flex flex-col overflow-y-scroll h-[68vh]">
+              <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                   <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
@@ -168,311 +169,122 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormBA of dataListAllBA let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_status }}</td>
-                          <td class="px-6 py-4 ">
-                            <button type="button"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                    <tr *ngFor="let itemFormBA of dataMyDocument let x = index"
+                      class="bg-white border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormBA)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormBA.form_number }}
+                          <p class="text-xs">by {{ itemFormBA.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.no_da }} - <a [routerLink]="['/form/da', itemFormBA.da_uuid ]">Formulir</a></td>
+                        <td class="px-6 py-4">{{ itemFormBA.no_itcm }} - <a [routerLink]="['/form/itcm', itemFormBA.itcm_uuid]">Formulir</a>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
+                        <td class="px-6 py-4 font-medium">                          
+                          <app-status-info [status]="itemFormBA.form_status"></app-status-info>
+                        </td>
+                        <!-- Button Popover -->
+                        <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)"
+                              class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormBA of dataListAdminBA let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormBA.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormBA.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="publish(itemFormBA.form_uuid, itemFormBA.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button *ngIf="itemFormBA.form_status === 'Published'" (click)="generateURL(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5"></path>
-                                      <path d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z"></path>
-                                    </svg>
-                                    Generate Link
-                                  </button>
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                              <div class="py-2">
+                                <button
+                                  (click)="openEditModal(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                                    <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                                    <path d="m16 5 3 3"></path>
+                                  </svg>
+                                  Edit
+                                </button>
+                                <button *ngIf="itemFormBA.form_status === 'Draft'"
+                                  (click)="publish(itemFormBA.form_uuid, itemFormBA.form_ticket)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
+                                    </path>
+                                    <path d="M21.563 2.438 10.64 13.358"></path>
+                                  </svg>
+                                  Publish
+                                </button>
+                                <button *ngIf="itemFormBA.form_status === 'Published'"
+                                  (click)="generateURL(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round"
+                                    stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5">
+                                    </path>
+                                    <path
+                                      d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z">
+                                    </path>
+                                  </svg>
+                                  Generate Link
+                                </button>
+                                <button (click)="openPreviewPage(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview
+                                </button>
+                                <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
+                                    </path>
+                                    <path d="M3.75 5.25h16.5"></path>
+                                    <path
+                                      d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
+                                    </path>
+                                    <path d="M12 8.25v10.5"></path>
+                                    <path d="M8.625 8.25 9 18.75"></path>
+                                    <path d="M15.375 8.25 15 18.75"></path>
+                                  </svg>
+                                  Delete
+                                </button>
+                              </div>
+                              <div
+                                class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormBA of dataListUserBA let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormBA.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormBA.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="publish(itemFormBA.form_uuid, itemFormBA.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button *ngIf="itemFormBA.form_status === 'Published'" (click)="generateURL(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5"></path>
-                                      <path d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z"></path>
-                                    </svg>
-                                    Generate Link
-                                  </button>
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                          </div>
+                        </td>
+                      </ng-container>
+                    </tr>
+                    <!-- <tr *ngIf="dataMyDocument.length === 0" [ngTemplateOutlet]="noDataAvailable"></tr> -->
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -488,7 +300,7 @@
                   setelah dipublikasikan, dokumen hanya dapat diakses dan tidak dapat diubah atau dibatalkan
                   lagi.</span>
               </p>
-              <div class="flex flex-col overflow-y-scroll h-[68vh]">
+              <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                   <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
@@ -508,300 +320,112 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormBA of dataListAllBA let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_status }}</td>
-                          <td class="px-6 py-4 ">
-                            <button type="button"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                    <tr *ngFor="let itemFormBA of dataFormBADraft let x = index"
+                      class="bg-white border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormBA)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormBA.form_number }}
+                          <p class="text-xs">by {{ itemFormBA.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
+                        <td class="px-6 py-4 font-medium">
+                          <app-status-info [status]="itemFormBA.form_status"></app-status-info>
+                        </td>
+                        <!-- Button Popover -->
+                        <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)"
+                              class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormBA of dataListAdminFormBADraft let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormBA.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormBA.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="publish(itemFormBA.form_uuid, itemFormBA.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                              <div class="py-2">
+                                <button
+                                  (click)="openEditModal(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
+                                    <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
+                                    <path d="m16 5 3 3"></path>
+                                  </svg>
+                                  Edit
+                                </button>
+                                <button *ngIf="itemFormBA.form_status === 'Draft'"
+                                  (click)="publish(itemFormBA.form_uuid, itemFormBA.form_ticket)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
+                                    </path>
+                                    <path d="M21.563 2.438 10.64 13.358"></path>
+                                  </svg>
+                                  Publish
+                                </button>
+                                <button (click)="openPreviewPage(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview
+                                </button>
+                                <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
+                                    </path>
+                                    <path d="M3.75 5.25h16.5"></path>
+                                    <path
+                                      d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
+                                    </path>
+                                    <path d="M12 8.25v10.5"></path>
+                                    <path d="M8.625 8.25 9 18.75"></path>
+                                    <path d="M15.375 8.25 15 18.75"></path>
+                                  </svg>
+                                  Delete
+                                </button>
+                              </div>
+                              <div
+                                class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormBA of dataListUserFormBADraft let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormBA.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormBA.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="publish(itemFormBA.form_uuid, itemFormBA.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                          </div>
+                        </td>
+                      </ng-container>
+                    </tr>
+                    <tr *ngIf="dataFormBADraft.length === 0" [ngTemplateOutlet]="noDataAvailable"></tr>
+                  </tbody>
                 </table>
               </div>
             </div>
 
-            <!-- my draft -->
+            <!-- my sign -->
             <div [ngClass]="{'hidden': openTab !== 3, 'block': openTab === 3}">
               <p class="pb-3 text-sm text-gray-600 font-medium">
                 <span *ngIf="role_code === 'M'">Dokumen ini perlu ditandatangani oleh Anda sebagai yang bersangkutan.
@@ -811,7 +435,7 @@
                   Dokumen akan muncul di halaman Anda dan Anda dapat menandatanganinya. Namun, persetujuan akhir hanya
                   dapat dilakukan oleh atasan penerima.</span>
               </p>
-              <div class="flex flex-col overflow-y-scroll h-[68vh]">
+              <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                   <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
@@ -831,548 +455,121 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormBA of dataListAllBA let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_status }}</td>
-                          <td class="px-6 py-4 ">
-                            <button type="button"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                    <tr *ngFor="let itemFormBA of dataListFormBASignature let x = index"
+                      class="bg-white border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormBA)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormBA.form_number }}
+                          <p class="text-xs">by {{ itemFormBA.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
+                        <td class="px-6 py-4 font-medium">
+                          <app-status-info [status]="itemFormBA.form_status"></app-status-info>
+                        </td>
+                        <!-- Button Popover -->
+                        <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)"
+                              class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormBA of dataListFormBASignature let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormBA.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormBA.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <!-- <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="publish(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button> -->
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                              <div class="py-2">
+                                <button (click)="openPreviewPage(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview and Sign
+                                </button>
+                              </div>
+                              <div
+                                class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormBA of dataListFormBASignature let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <td class="px-6 py-4 font-medium">
-                            <p *ngIf="itemFormBA.form_status === 'Draft'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Draft
-                            </p>
-                            <p *ngIf="itemFormBA.form_status === 'Published'"
-                              class="flex items-center justify-center text-center px-2 py-1 text-green-400">
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fill="currentColor" d="M12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"></path>
-                              </svg>
-                              Published
-                            </p>
-                          </td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <!-- <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="publish(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button> -->
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-                </table>
-              </div>
-            </div>
-
-            <div [ngClass]="{'hidden': openTab !== 4, 'block': openTab === 4}">
-              <p>di ba gaada approval_status</p>
-              <p class="pb-3 text-sm text-gray-600 font-medium">
-                <span *ngIf="role_code === 'M'">approved.</span>
-                <span *ngIf="role_code === 'A'">approved.</span>
-              </p>
-              <div class="flex flex-col overflow-y-scroll h-[70vh]">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                  <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 z-10">
-                    <tr>
-
-                      <th scope="col" class="px-6 py-3">No.</th>
-                      <th scope="col" class="px-6 py-3">No. Formulir</th>
-                      <th scope="col" class="px-6 py-3">No. Ticket</th>
-                      <th scope="col" class="px-6 py-3">No. DA</th>
-                      <th scope="col" class="px-6 py-3">No. ITCM</th>
-                      <th scope="col" class="px-6 py-3">Nama BA</th>
-                      <th scope="col" class="px-6 py-3">Aplikasi</th>
-                      <th scope="col" class="px-6 py-3">Dokumen</th>
-                      <th scope="col" class="px-6 py-3">Projek</th>
-                      <th scope="col" class="px-6 py-3">Dilakukan Oleh</th>
-                      <th scope="col" class="px-6 py-3">Didampingi Oleh</th>
-                      <!-- <th scope="col" class="px-6 py-3">Status</th> -->
-                      <th scope="col" class="px-6 py-3 text-center">Action</th>
+                          </div>
+                        </td>
+                      </ng-container>
                     </tr>
-                  </thead>
-                  <tbody>
-
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormBA of dataListAllBA let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">{{ itemFormBA.form_number }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <!-- <td class="px-6 py-4">{{ itemFormBA.approval_status }}</td> -->
-                          <td class="px-6 py-4 ">
-                            <button type="button" (click)="openPreviewPage(itemFormBA.form_uuid)"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
-                              </svg>
-                            </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormBA of dataListAdminFormBADraft let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p class="text-xs">by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="publish(itemFormBA.form_uuid, itemFormBA.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormBA of dataListUserFormBAApproved let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                    <tr *ngIf="dataListFormBASignature.length === 0" [ngTemplateOutlet]="noDataAvailable"></tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <div [ngClass]="{'hidden': openTab !== 5, 'block': openTab === 5}">
+            <div [ngClass]="{'hidden': openTab !== 4, 'block': openTab === 4}">
+              <div class="relative h-[80vh] bg-gray-50 overflow-hidden">
+                <div class="absolute inset-0 z-0 pointer-events-none animate-gradient border rounded">
+                  <canvas id="canvas" class="w-full h-full opacity-30"></canvas>
+                </div>
+            
+                <div class="relative z-10 h-full overflow-auto">
+                  <div class="p-4">
+                    <div *ngFor="let document of dataMyDocument; let i = index" class="flex flex-col gap-2">
+                      <div class="flex items-center gap-2">
+                        <button (click)="toggleNode(i)"
+                          class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded focus:outline-none">
+                          <svg *ngIf="!isExpanded[i]" class="w-4 h-4 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                          </svg>
+                          <svg *ngIf="isExpanded[i]" class="w-4 h-4 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+                          </svg>
+                        </button>
+                        <span class="text-gray-800 font-medium">{{ document.form_number }}</span>
+                      </div>
+            
+                      <div *ngIf="isExpanded[i]" class="pl-8 border-l border-gray-300 child-branch">
+            
+                        <div class="flex items-center gap-2 mt-2">
+                          <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+                          </svg>
+                          <a [routerLink]="['/form/itcm', document.itcm_uuid]" class="text-blue-600 hover:underline">
+                            ITCM: {{ document.no_itcm }}
+                          </a>
+                        </div>
+            
+                        <div class="flex items-center gap-2 mt-2">
+                          <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+                          </svg>
+                          <a [routerLink]="['/form/da', document.da_uuid]" class="text-blue-600 hover:underline">
+                            DA: {{ document.no_da }}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+           <!--  <div [ngClass]="{'hidden': openTab !== 5, 'block': openTab === 5}">
               <p>di ba gaada approval_status</p>
               <p class="pb-3 text-sm text-gray-600 font-medium">
                 <span *ngIf="role_code === 'M'">rejected.</span>
@@ -1394,231 +591,70 @@
                       <th scope="col" class="px-6 py-3">Projek</th>
                       <th scope="col" class="px-6 py-3">Dilakukan Oleh</th>
                       <th scope="col" class="px-6 py-3">Didampingi Oleh</th>
-                      <!-- <th scope="col" class="px-6 py-3">Status</th> -->
+                      
+                      
                       <th scope="col" class="px-6 py-3 text-center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-
-                    <ng-container *ngIf="role_code === 'SA'">
-                      <tr *ngFor="let itemFormBA of dataListAllBA let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">{{ itemFormBA.form_number }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <!-- <td class="px-6 py-4">{{ itemFormBA.approval_status }}</td> -->
-                          <td class="px-6 py-4 ">
-                            <button type="button" (click)="openPreviewPage(itemFormBA.form_uuid)"
-                              class="w-full focus:outline-none text-white bg-teal-500 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                              <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-5 h-5 mx-auto" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                <path d="m9 15 2 2 4-4"></path>
+                    <tr *ngFor="let itemFormBA of dataFormBARejected let x = index"
+                      class="bg-white border-b hover:bg-gray-50">
+                      <ng-container *ngIf="matchesSearch(itemFormBA)">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
+                        <td class="px-6 py-4">
+                          {{ itemFormBA.form_number }}
+                          <p class="text-xs">by {{ itemFormBA.created_by }}</p>
+                        </td>
+                        <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
+                        <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
+                        
+                        
+                        <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
+                          <div class="relative">
+                            <button (click)="togglePopover($event, x)"
+                              class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
+                              <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
                               </svg>
                             </button>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'A'">
-                      <tr *ngFor="let itemFormBA of dataListAdminFormBARejected let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p class="text-xs">by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="openEditModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path>
-                                      <path d="M9 14.996h3l8.5-8.5a2.121 2.121 0 0 0-3-3l-8.5 8.5v3Z"></path>
-                                      <path d="m16 5 3 3"></path>
-                                    </svg>
-                                    Edit
-                                  </button>
-                                  <button *ngIf="itemFormBA.form_status === 'Draft'"
-                                    (click)="publish(itemFormBA.form_uuid, itemFormBA.form_ticket)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m2.49 9.371 18.75-7.096a.375.375 0 0 1 .485.484l-7.097 18.75a.375.375 0 0 1-.703-.016l-3.159-7.785a.75.75 0 0 0-.474-.474l-7.785-3.157a.375.375 0 0 1-.016-.706v0Z">
-                                      </path>
-                                      <path d="M21.563 2.438 10.64 13.358"></path>
-                                    </svg>
-                                    Publish
-                                  </button>
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <!-- <button (click)="openApproveModal(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
-                                      <path d="m9 15 2 2 4-4"></path>
-                                    </svg>
-                                    Approve
-                                  </button> -->
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
+                            <div *ngIf="popoverIndex === x"
+                              class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
+                              <div class="py-2">
+                                <button (click)="openPreviewPage(itemFormBA.form_uuid)"
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
+                                    </path>
+                                    <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
+                                  </svg>
+                                  Preview
+                                </button>
                                 <div
                                   class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
                                 </div>
                               </div>
                             </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
-
-                    <ng-container *ngIf="role_code === 'M'">
-                      <tr *ngFor="let itemFormBA of dataListUserFormBARejected let x = index"
-                        class="bg-white border-b hover:bg-gray-50">
-                        <ng-container *ngIf="matchesSearch(itemFormBA)">
-                          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ x+1 }}</th>
-                          <td class="px-6 py-4">
-                            {{ itemFormBA.form_number }}
-                            <p>by {{ itemFormBA.created_by }}</p>
-                          </td>
-                          <td class="px-6 py-4">{{ itemFormBA.form_ticket }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_da }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.no_itcm }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.judul }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.nama_aplikasi }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.document_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.project_name }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.dilakukan_oleh }}</td>
-                          <td class="px-6 py-4">{{ itemFormBA.didampingi_oleh }}</td>
-                          <!-- Button Popover -->
-                          <td class="px-6 py-4 ">
-                            <div class="relative">
-                              <button (click)="togglePopover($event, x)"
-                                class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
-                                <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M6 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                  <path d="M18 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                </svg>
-                              </button>
-                              <div *ngIf="popoverIndex === x"
-                                class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
-                                <div class="py-2">
-                                  <button (click)="openPreviewPage(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                      xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="M11.984 5.25c-3.653 0-7.401 2.115-10.351 6.344a.75.75 0 0 0-.013.833c2.267 3.548 5.964 6.323 10.364 6.323 4.352 0 8.125-2.783 10.397-6.34a.757.757 0 0 0 0-.819C20.104 8.076 16.303 5.25 11.984 5.25Z">
-                                      </path>
-                                      <path d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"></path>
-                                    </svg>
-                                    Preview
-                                  </button>
-                                  <button (click)="onDeleteFormBA(itemFormBA.form_uuid)"
-                                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 text-red-500 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                      class="w-5 h-5 mr-2" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                      <path
-                                        d="m5.25 5.25.938 15c.044.867.675 1.5 1.5 1.5h8.625c.828 0 1.447-.633 1.5-1.5l.937-15">
-                                      </path>
-                                      <path d="M3.75 5.25h16.5"></path>
-                                      <path
-                                        d="M9 5.25V3.375a1.122 1.122 0 0 1 1.125-1.125h3.75A1.121 1.121 0 0 1 15 3.375V5.25">
-                                      </path>
-                                      <path d="M12 8.25v10.5"></path>
-                                      <path d="M8.625 8.25 9 18.75"></path>
-                                      <path d="M15.375 8.25 15 18.75"></path>
-                                    </svg>
-                                    Delete
-                                  </button>
-                                </div>
-                                <div
-                                  class="absolute -right-2 top-3 w-0 h-0 border-t-8 border-b-8 border-l-8 border-transparent border-l-[#cdcdd1]">
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </ng-container>
-                      </tr>
-                    </ng-container>
+                          </div>
+                        </td>
+                      </ng-container>
+                    </tr>
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -1626,9 +662,17 @@
   </div>
 </ng-template>
 
+<ng-template #noDataAvailable>
+  <tr>
+    <td colspan="13" class="h-[60vh] text-center py-4 text-gray-500">
+      No Data Available
+    </td>
+  </tr>
+</ng-template>
+
 <ng-container *ngIf="isPreview; else tableView">
   <div class="p-4">
-    <button (click)="closePreviewPage()"
+    <button onclick="window.history.back();"
       class="flex items-center mb-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
       <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
         stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1638,27 +682,200 @@
       <p>Back</p>
     </button>
 
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque reiciendis fugit optio velit neque eligendi quis exercitationem dolorem vitae iste harum, nihil quo qui ex quisquam dicta vero autem magnam? Quo repudiandae blanditiis consectetur eum. Qui, accusantium quam. Beatae eos qui nulla. Necessitatibus ab placeat ipsam assumenda modi mollitia aperiam inventore repudiandae dicta minus quasi, ducimus veritatis magni. Sequi unde dolorum magni sunt? Nesciunt, autem ex blanditiis dolorum deleniti unde atque ad voluptatibus totam quam fuga fugiat sequi exercitationem doloremque asperiores, enim dignissimos. Earum expedita quia sapiente blanditiis vitae recusandae, optio voluptate. Recusandae, fuga. Optio veniam id alias a, rerum assumenda placeat perferendis neque fugit consequuntur sunt eaque quisquam hic, vero doloribus unde. Quod totam quasi aperiam rem officia tempora beatae voluptatum minima, modi quos, ratione quibusdam sapiente accusamus rerum? Iure praesentium cum optio et, quaerat facilis expedita quis enim cupiditate voluptates dignissimos dolores harum in eveniet porro, at, autem amet eius modi! Esse recusandae perferendis consequatur quae eligendi nobis atque alias. Magnam illo, incidunt omnis itaque magni sit eius similique qui quibusdam odit, excepturi sequi libero error ipsa iste animi laboriosam necessitatibus ut. Dolore eius, voluptatibus ut labore incidunt magnam soluta corrupti eaque facere? In, rem tenetur maiores reiciendis molestias dolore nam eos non unde aspernatur ipsam repudiandae inventore ipsa quia at voluptatem tempore modi delectus rerum optio similique. Perspiciatis est quae accusamus, vel eligendi ea, sit dolor aliquid quis accusantium aspernatur assumenda molestiae provident! Ea perferendis, consectetur fugit ipsum quam consequuntur unde beatae quidem ut odit similique illum distinctio aspernatur expedita quisquam, labore dolores veniam! Inventore recusandae dolorum odio! Facere, placeat sunt. Doloribus modi, nam obcaecati iusto eaque dolorum amet expedita esse ad minima enim, voluptatum eius quae exercitationem minus non quas ducimus similique vero commodi. Asperiores odit aut et, commodi excepturi voluptatibus repellendus dicta rerum eligendi voluptatum beatae saepe, totam sunt laborum porro facilis, dolore ipsa nisi aperiam quia recusandae fuga corporis. Quidem, voluptatem? Facere dignissimos veniam, aut reiciendis fugit aliquam similique ducimus totam quasi rem, cupiditate vitae! Nihil odit aliquid perspiciatis necessitatibus numquam commodi natus tempora consequatur, iure ipsum tempore repellendus assumenda ipsa reprehenderit eos labore exercitationem fuga sequi quod? Laudantium nobis magnam dolores eius ratione, earum praesentium provident exercitationem libero, quod ipsum perspiciatis dicta adipisci corporis inventore est omnis voluptas iste nisi. Suscipit tenetur amet expedita accusantium, impedit sint quo corporis adipisci ad aliquid, illum cum totam recusandae dolorum! Nihil pariatur repellat odio laboriosam adipisci, dignissimos necessitatibus molestiae facere recusandae ipsum, quos et architecto. Corporis doloribus vel, officia iste magnam at illo recusandae id, aliquid facere esse autem dicta eligendi quia repellat perferendis accusantium ullam, ex impedit dolor soluta quam nobis error quaerat. Error delectus dolor commodi, qui, eos soluta animi quae quos reprehenderit incidunt officiis ad, eius sunt voluptatem sit corrupti quas doloribus dolores! Sunt quidem quasi ut eos voluptas repellendus minus corrupti eum distinctio maiores! Sint dolor laboriosam praesentium nostrum exercitationem? Repellat, a odio impedit et ad, fugit labore animi ex facere iste dolor iusto sequi quam officiis ducimus atque tempora numquam fugiat.</p>
+    <h1 class="text-2xl font-semibold">Preview dan Approval Formulir Berita Acara (BA)</h1>
+    <p class="text-sm text-gray-500 font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      Necessitatibus, accusantium. Animi, facere. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum, ut.
+    </p>
+    <br>
+    <div class="w-fit h-fit md:px-5">
+      <div class="px-9 py-12 bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm] max-w-[297mm] scale-75 md:scale-100 origin-top-left">
+        <table class="border-2 border-black border-collapse w-full">
+          <tr>
+            <td class="border-2 border-black p-2 w-1/3 md:w-1/4">
+              <img class="w-40 mx-auto my-auto" src="assets/images/aino.webp" alt="AINO" loading="lazy">
+            </td>
+            <td class="border-2 border-black px-1 w-1/3 md:w-1/4 text-xs md:text-sm">
+              <p class="text-center uppercase font-bold text-sm px-4">BERITA ACARA 
+                PENGELOLAAN PERUBAHAN TI
+              </p>
+            </td>
+            <td class="border-2 border-black w-1/3 md:w-1/2 h-fit p-0">
+              <table class="border-collapse w-full h-full text-xs md:text-sm font-semibold">
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">AINO/PED/F/04/03</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">Tanggal Terbit</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">9 September 2019</td>
+                </tr>
+                <tr>
+                  <td class="outline outline-black outline-1 p-2">No. Revisi</td>
+                  <td class="outline outline-black outline-1 p-2 text-center">:</td>
+                  <td class="outline outline-black outline-1 p-2">1.0</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
 
-    <button (click)="closePreviewPage()"
-      class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
-      <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 11.996h12"></path>
-        <path d="m12 18-6-6 6-6"></path>
-      </svg>
-      <p>Back</p>
-    </button>
+        <div class="mt-10 w-full">
+
+          <div class="w-full text-center text-sm font-bold uppercase">
+            <h1>BERITA ACARA PENGELOLAAN PERUBAHAN TI
+              {{judul}}</h1>
+            <p>
+              <span>Nomor : </span>
+              <span>{{ form_number }}</span>
+            </p>
+          </div>
+          <hr class="bg-black h-[1.5px] w-[90%] my-5 mx-auto">
+
+          <p class="text-sm indent-[2em]">
+            Berdasarkan Nomor ITCM <b>{{no_itcm}}</b>. Pada <b>{{tanggal}}</b>
+            telah dilakukan kegiatan Pengelolaan Perubahan TI <b>{{judul}}</b> pada project <b>{{project_name}}</b>. Dengan
+            rincian sebagai berikut:
+          </p>
+
+          <br>
+
+          <div class="text-sm px-5">
+            <div [innerHTML]="keterangan"></div>
+          </div>
+
+          <br>
+
+          <table class="px-10 text-sm">
+            <tr>
+              <td class="pr-12"> - Kegiatan</td>
+              <td class="px-3">:</td>
+              <td>{{judul}}</td>
+            </tr>
+            <tr>
+              <td class="pr-12"> - Waktu</td>
+              <td class="px-3">:</td>
+              <td>{{tanggal}}</td>
+            </tr>
+            <tr>
+              <td class="pr-12"> - Pelaksana</td>
+              <td class="px-3">:</td>
+              <td *ngIf="signatoryPositions['Pelaksana'].name">{{ signatoryPositions['Pelaksana'].name }}</td>
+            </tr>
+          </table>
+
+          <br>
+          
+          <p class="px-[20%] text-sm text-center">
+            Kegiatan tersebut dilakukan oleh {{dilakukan_oleh}}.
+            Demikian berita acara ini dibuat sebagai bukti pelaksanaaan pekerjaan.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 px-16 mt-8">
+          <div></div>
+         
+          <div class="relative px-2 py-2 h-40 md:h-52 font-bold align-top aspect-auto text-center">
+            <p class="text-sm">Pelaksana,</p>
+            <ng-container *ngIf="signatoryPositions['Pelaksana']">
+              <ng-container *ngIf="signatoryPositions['Pelaksana'].is_sign; else noImagePelaksana">
+                <img class="mx-auto my-4 w-full aspect-auto"
+                src="{{signatoryPositions['Pelaksana'].sign_img}}" alt="{{signatoryPositions['Pelaksana'].sign_img}}">
+              </ng-container>
+              <ng-template #noImagePelaksana>
+                <div class="mx-auto my-4 w-full h-32 aspect-auto">
+                </div>
+              </ng-template>
+              <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
+                <p class="text-base underline" *ngIf="signatoryPositions['Pelaksana'].name">{{ signatoryPositions['Pelaksana'].name }}</p>
+                <p *ngIf="signatoryPositions['Pelaksana'].position">({{ signatoryPositions['Pelaksana'].position }})</p>
+                <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <table class="mt-8 w-full border-collapse">
+          <thead>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Mengetahui</td>
+              <td class="outline outline-black outline-1 px-2 py-0 w-1/4 font-bold">Mengetahui</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="w-1/2 text-center font-semibold outline outline-black outline-1">
+              <td class="relative outline outline-black outline-1 px-2 py-2 w-1/4 h-40 md:h-52 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Mengetahui1']">
+                  <ng-container *ngIf="signatoryPositions['Mengetahui1'].is_sign; else noImageMengetahui1">
+                    <img class="mx-auto my-4 w-full aspect-auto"
+                    src="{{signatoryPositions['Mengetahui1'].sign_img}}" alt="{{signatoryPositions['Mengetahui1'].sign_img}}">
+                  </ng-container>
+                  <ng-template #noImageMengetahui1>
+                    <div class="mx-auto my-4 w-full aspect-auto"></div>
+                  </ng-template>
+                  <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
+                    <p class="underline" *ngIf="signatoryPositions['Mengetahui1'].name">{{ signatoryPositions['Mengetahui1'].name }}</p>
+                    <p *ngIf="signatoryPositions['Mengetahui1'].position">({{ signatoryPositions['Mengetahui1'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>              
+              <td class="relative outline outline-black outline-1 px-2 py-2 w-1/4 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Mengetahui2']">
+                  <ng-container *ngIf="signatoryPositions['Mengetahui2'].is_sign; else noImageAtasanPemohon">
+                    <img class="mx-auto my-4 w-full aspect-auto"
+                    src="{{signatoryPositions['Mengetahui2'].sign_img}}" alt="{{signatoryPositions['Mengetahui2'].sign_img}}">
+                  </ng-container>
+                  <ng-template #noImageAtasanPemohon>
+                    <div class="mx-auto my-4 w-full aspect-auto"></div>
+                  </ng-template>
+                  <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
+                    <p class="underline" *ngIf="signatoryPositions['Mengetahui2'].name">{{ signatoryPositions['Mengetahui2'].name }}</p>
+                    <p *ngIf="signatoryPositions['Mengetahui2'].position">({{ signatoryPositions['Mengetahui2'].position }})</p>
+                    <p *ngIf="updated_at">Tanggal : {{ updated_at }}</p>
+                  </div>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button *ngIf="!isSigned" (click)="openModal(form_uuid)" class="text-blue-500 text-sm underline">Sign Formulir ini</button>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between md:px-5">
+      <button onclick="window.history.back();"
+        class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
+        <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 11.996h12"></path>
+          <path d="m12 18-6-6 6-6"></path>
+        </svg>
+        <p>Back</p>
+      </button>
+      <button (click)="fetchDataAndGeneratePDF(form_uuid)"
+        class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-red-300 hover:text-red-400 hover:shadow-red-300">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+          <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+          <path d="M12 11v6"></path>
+          <path d="m9 14 3 3 3-3"></path>
+        </svg>
+        Export as PDF
+      </button>
+    </div>
   </div>
 </ng-container>
 
 <!-- ADD MODAL -->
 <div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true"
-  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50" (click)="closeAddModal()">
+  <div (click)="$event.stopPropagation()"
     class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
-    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600 z-10">
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
         Tambah
       </h3>
@@ -1673,17 +890,17 @@
     </div>
     <!-- Modal body -->
     <form class="p-6" #editForm="ngForm" (ngSubmit)="addFormBA()">
-      <h3 class="text-2xl text-gray-900 font-semibold">Formulir BA!</h3>
-      <p class="mb-4 text-gray-600">Masukkan informasi form BA yg ingin anda tambahkan</p>
+      <h3 class="text-2xl text-gray-900 font-semibold">Formulir BA ITCM</h3>
+      <p class="mb-4 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 
       <div class="mt-4">
-        <label for="ticketNo" class="text-sm md:text-base mb-1">No. Tiket</label>
-        <input type="text" name="form_ticket" placeholder="Masukkan Nomor Tiket" [(ngModel)]="form_ticket"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket</label>
+        <input type="text" name="form_ticket" placeholder="e.g. 0001" [(ngModel)]="form_ticket"
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-base mb-1">Pilih Projek</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Nama Projek</label>
         <select name="project_uuid" id="" [(ngModel)]="project_uuid"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
           <option value="" disabled selected>Pilih Project</option>
@@ -1693,35 +910,35 @@
       </div>
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-base mb-1">Judul</label>
-        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" name="judul" placeholder="Masukkan Judul"
+        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">Judul</label>
+        <input type="text" class="border text-sm rounded-lg p-2 px-3 w-full" name="judul" placeholder="e.g. Judul"
           [(ngModel)]="judul">
       </div>
 
       <div class="mt-4">
-        <label for="applicantName" class="text-sm md:text-base mb-1">Tanggal</label>
-        <input type="date" placeholder="Masukkan Nama Pemohon" class="border text-sm rounded-xl p-2 px-3 w-full"
+        <label for="applicantName" class="text-sm md:text-[0.875rem] mb-1">Tanggal</label>
+        <input type="date" placeholder="Masukkan Nama Pemohon" class="border text-sm rounded-lg p-2 px-3 w-full"
           name="tanggal" [(ngModel)]="tanggal">
       </div>
 
       <div class="mt-4">
-        <label for="agency" class="text-sm md:text-base mb-1">Nama Aplikasi</label>
-        <input type="text" name="nama_aplikasi" class="border text-sm rounded-xl p-2 px-3 w-full" id="nama_aplikasi"
-          placeholder="Masukkan Nama Aplikasi" [(ngModel)]="nama_aplikasi">
+        <label for="agency" class="text-sm md:text-[0.875rem] mb-1">Nama Aplikasi</label>
+        <input type="text" name="nama_aplikasi" class="border text-sm rounded-lg p-2 px-3 w-full" id="nama_aplikasi"
+          placeholder="e.g. Aplikasi" [(ngModel)]="nama_aplikasi">
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-base mb-1 font-medium">Pilih Nomor DA</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Nomor DA</label>
         <select id="projectSelect" [(ngModel)]="no_da" name="no_da"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="" disabled selected>Pilih Nomor ITCM</option>
+          <option value="" disabled selected>Pilih Nomor DA</option>
           <option *ngFor="let formDANumber of dataListDANumber" [value]="formDANumber.da_form_number">{{ formDANumber.da_form_number }}
           </option>
         </select>
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-base mb-1 font-medium">Pilih Nomor ITCM</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Nomor ITCM</label>
         <select id="projectSelect" [(ngModel)]="no_itcm" name="no_itcm"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Pilih Nomor ITCM</option>
@@ -1731,75 +948,83 @@
       </div>
 
       <!-- <div class="mt-4">
-        <label for="date" class="text-sm md:text-base mb-1">No. DA</label>
-        <input type="text" name="no_da" class="border text-sm rounded-xl p-2 px-3 w-full" id="no_da"
+        <label for="date" class="text-sm md:text-[0.875rem] mb-1">No. DA</label>
+        <input type="text" name="no_da" class="border text-sm rounded-lg p-2 px-3 w-full" id="no_da"
           placeholder="Masukkan Nomor Form DA" [(ngModel)]="no_da">
       </div>
 
       <div class="mt-4">
-        <label for="assetChange" class="text-sm md:text-base mb-1">No. ITCM</label>
+        <label for="assetChange" class="text-sm md:text-[0.875rem] mb-1">No. ITCM</label>
         <input id="no_itcm" name="no_itcm" placeholder="Masukkan Nomor Form ITCM" [(ngModel)]="no_itcm"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div> -->
 
       <div class="mt-4">
-        <label for="description" class="text-sm md:text-base mb-1">Dilakukan Oleh</label>
-        <input type="text" name="dilakukan_oleh" id="dilakukan_oleh" placeholder="Masukkan Nama Orang yang melakukan"
-          class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="dilakukan_oleh">
+        <label for="description" class="text-sm md:text-[0.875rem] mb-1">Dilakukan Oleh</label>
+        <input type="text" name="dilakukan_oleh" id="dilakukan_oleh" placeholder="e.g. John Doe"
+          class="border text-sm rounded-lg p-2 px-3 w-full" [(ngModel)]="dilakukan_oleh">
       </div>
 
       <div class="mt-4">
-        <label for="description" class="text-sm md:text-base mb-1">Didampingi Oleh</label>
-        <input type="text" name="didampingi_oleh" id="didampingi_oleh" placeholder="Masukkan Nama Orang Pendamping"
-          class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="didampingi_oleh">
+        <label for="description" class="text-sm md:text-[0.875rem] mb-1">Didampingi Oleh</label>
+        <input type="text" name="didampingi_oleh" id="didampingi_oleh" placeholder="e.g. Jane Doe"
+          class="border text-sm rounded-lg p-2 px-3 w-full" [(ngModel)]="didampingi_oleh">
       </div>
 
-
-      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Signature!</h3>
-      <p class="text-gray-600">Masukkan informasi Signature yg ingin anda tuju</p>
-
       <div class="mt-4">
-        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pemohon</label>
-        <select id="recipientSelect1" name="name1" class="form-select" [(ngModel)]="name1"
+        <label for="keterangan" class="text-sm md:text-[0.875rem] mb-1 z-0">Keterangan</label>
+        <angular-editor name="keterangan" [(ngModel)]="keterangan" [placeholder]="'Masukkan keterangan'"
+          [config]="editorConfig">
+        </angular-editor>
+      </div>
+
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Signatories</h3>
+      <p class="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero.</p>
+
+      <!-- <div class="mt-4">
+        <label for="pelaksana" class="text-sm md:text-[0.875rem] mb-1">Pelaksana</label>
+        <select id="pelaksana" name="pelaksana" class="form-select" [(ngModel)]="pelaksana"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position1" name="name1-position"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
-      </div>
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="pelaksana" name="pelaksana-position"
+          class="border text-sm rounded-lg p-2 px-3 w-full">
+      </div> -->
 
+
+      <hr>
       <div class="mt-4">
-        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pemohon</label>
-        <select id="recipientSelect2" name="name2" class="form-select" [(ngModel)]="name2"
+        <label for="recipientSelect1" class="text-sm md:text-[0.875rem] mb-1">Pelaksana</label>
+        <select id="recipientSelect1" [(ngModel)]="name1" name="name1"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position2" name="name2-position"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position1"
+          name="position1" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
-        <select id="recipientSelect3" name="name3" class="form-select" [(ngModel)]="name3"
+        <label for="recipientSelect2" class="text-sm md:text-[0.875rem] mb-1">Diketahui Oleh</label>
+        <select id="recipientSelect2" [(ngModel)]="name2" name="name2"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position3" name="name3-position"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position2"
+          name="position2" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
-        <select id="recipientSelect4" name="name4" class="form-select" [(ngModel)]="name4"
+        <label for="recipientSelect3" class="text-sm md:text-[0.875rem] mb-1">Diketahui Oleh</label>
+        <select id="recipientSelect3" [(ngModel)]="name3" name="name3"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position4" name="name4-position"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="position3"
+          name="position3" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
     </form>
 
@@ -1817,11 +1042,11 @@
 
 <!-- EDIT MODAL -->
 <div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true"
-  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50" (click)="closeEditModal()">
+  <div (click)="$event.stopPropagation()"
     class="relative p w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
-    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600">
+    <div class="sticky top-0 flex items-center justify-between p-4 border-b rounded-t bg-white dark:border-gray-600 z-10">
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
         Edit
       </h3>
@@ -1836,17 +1061,17 @@
     </div>
     <!-- Modal body -->
     <form class="p-6" #editForm="ngForm" (ngSubmit)="addFormBA()">
-      <h3 class="text-2xl text-gray-900 font-semibold">Formulir DA!</h3>
-      <p class="mb-4 text-gray-600">Masukkan informasi form DA yg ingin anda edit</p>
+      <h3 class="text-2xl text-gray-900 font-semibold">Formulir BA ITCM</h3>
+      <p class="mb-4 text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
 
       <div class="mt-4">
-        <label for="ticketNo" class="text-sm md:text-base mb-1">No. Tiket</label>
-        <input type="text" name="form_ticket" placeholder="Masukkan Nomor Tiket" [(ngModel)]="form_ticket"
-          class="border text-sm rounded-xl p-2 px-3 w-full">
+        <label for="ticketNo" class="text-sm md:text-[0.875rem] mb-1">No. Tiket</label>
+        <input type="text" name="form_ticket" placeholder="e.g. 0001" [(ngModel)]="form_ticket"
+          class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-base mb-1">Pilih Projek</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Pilih Projek</label>
         <select name="project_uuid" id="" [(ngModel)]="project_uuid"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
           <option value="" disabled selected>Pilih Project</option>
@@ -1856,91 +1081,87 @@
       </div>
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-base mb-1">Nama Analis</label>
-        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" name="judul" placeholder="Masukkan Judul"
+        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">Judul</label>
+        <input type="text" class="border text-sm rounded-lg p-2 px-3 w-full" name="judul" placeholder="e.g. Judul"
           [(ngModel)]="judul">
       </div>
 
       <div class="mt-4">
-        <label for="applicantName" class="text-sm md:text-base mb-1">Tanggal</label>
-        <input type="date" placeholder="Masukkan Nama Pemohon" class="border text-sm rounded-xl p-2 px-3 w-full"
+        <label for="applicantName" class="text-sm md:text-[0.875rem] mb-1">Tanggal</label>
+        <input type="date" placeholder="Masukkan Nama Pemohon" class="border text-sm rounded-lg p-2 px-3 w-full"
           name="tanggal" [(ngModel)]="tanggal">
       </div>
 
       <div class="mt-4">
-        <label for="agency" class="text-sm md:text-base mb-1">Nama Aplikasi</label>
-        <input type="text" name="nama_aplikasi" class="border text-sm rounded-xl p-2 px-3 w-full" id="nama_aplikasi"
-          placeholder="Masukkan Nama Aplikasi" [(ngModel)]="nama_aplikasi">
+        <label for="agency" class="text-sm md:text-[0.875rem] mb-1">Nama Aplikasi</label>
+        <input type="text" name="nama_aplikasi" class="border text-sm rounded-lg p-2 px-3 w-full" id="nama_aplikasi"
+          placeholder="e.g. Aplikasi" [(ngModel)]="nama_aplikasi">
       </div>
 
       <div class="mt-4">
-        <label for="no_da" class="text-sm md:text-base mb-1">No. DA</label>
-        <input type="text" name="no_da" class="border text-sm rounded-xl p-2 px-3 w-full" id="no_da"
+        <label for="no_da" class="text-sm md:text-[0.875rem] mb-1">No. DA</label>
+        <input type="text" name="no_da" class="border text-sm rounded-lg p-2 px-3 w-full" id="no_da"
           placeholder="Masukkan Nomor Form DA" [(ngModel)]="no_da">
       </div>
       <div class="mt-4">
-        <label for="no_itcm" class="text-sm md:text-base mb-1">No. ITCM</label>
-        <input type="text" name="no_itcm" class="border text-sm rounded-xl p-2 px-3 w-full" id="no_itcm"
+        <label for="no_itcm" class="text-sm md:text-[0.875rem] mb-1">No. ITCM</label>
+        <input type="text" name="no_itcm" class="border text-sm rounded-lg p-2 px-3 w-full" id="no_itcm"
           placeholder="Masukkan Nomor Form ITCM" [(ngModel)]="no_itcm">
       </div>
 
       <div class="mt-4">
-        <label for="description" class="text-sm md:text-base mb-1">Dilakukan Oleh</label>
-        <input type="text" name="dilakukan_oleh" id="dilakukan_oleh" placeholder="Masukkan Nama Orang yang melakukan"
-          class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="dilakukan_oleh">
+        <label for="description" class="text-sm md:text-[0.875rem] mb-1">Dilakukan Oleh</label>
+        <input type="text" name="dilakukan_oleh" id="dilakukan_oleh" placeholder="e.g. John Doe"
+          class="border text-sm rounded-lg p-2 px-3 w-full" [(ngModel)]="dilakukan_oleh">
       </div>
 
       <div class="mt-4">
-        <label for="description" class="text-sm md:text-base mb-1">Didampingi Oleh</label>
-        <input type="text" name="didampingi_oleh" id="didampingi_oleh" placeholder="Masukkan Nama Orang Pendamping"
-          class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="didampingi_oleh">
+        <label for="description" class="text-sm md:text-[0.875rem] mb-1">Didampingi Oleh</label>
+        <input type="text" name="didampingi_oleh" id="didampingi_oleh" placeholder="e.g. Jane Doe"
+          class="border text-sm rounded-lg p-2 px-3 w-full" [(ngModel)]="didampingi_oleh">
       </div>
 
-      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Penerima!</h3>
-      <p class="text-gray-600">Edit informasi dari formulir ini</p>
+      <div class="mt-4">
+        <label for="keterangan" class="text-sm md:text-[0.875rem] mb-1 z-0">Keterangan</label>
+        <angular-editor name="keterangan" [(ngModel)]="keterangan" [placeholder]="'Masukkan keterangan'"
+          [config]="editorConfig">
+        </angular-editor>
+      </div>
+
+      <h3 class="text-2xl text-gray-900 font-semibold mt-6">Signatories</h3>
+      <p class="text-gray-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum.</p>
 
       <div class="mt-4">
-        <label for="recipientSelect1" class="text-sm md:text-base mb-1">Pemohon</label>
-        <select id="recipientSelect1" [(ngModel)]="signatoryPositions['Pemohon'].name" name="name1"
+        <label for="recipientSelect1" class="text-sm md:text-[0.875rem] mb-1">Pelaksana</label>
+        <select id="recipientSelect1" [(ngModel)]="signatoryPositions['Pelaksana'].name" name="name1"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Pemohon'].position"
-          name="position1" class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Pelaksana'].position"
+          name="position1" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect2" class="text-sm md:text-base mb-1">Atasan Pemohon</label>
-        <select id="recipientSelect2" [(ngModel)]="signatoryPositions['Atasan Pemohon'].name" name="name2"
+        <label for="recipientSelect2" class="text-sm md:text-[0.875rem] mb-1">Mengetahui</label>
+        <select id="recipientSelect2" [(ngModel)]="signatoryPositions['Mengetahui1'].name" name="name2"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Atasan Pemohon'].position"
-          name="position2" class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Mengetahui1'].position"
+          name="position2" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
       <div class="mt-4">
-        <label for="recipientSelect3" class="text-sm md:text-base mb-1">Penerima</label>
-        <select id="recipientSelect3" [(ngModel)]="signatoryPositions['Penerima'].name" name="name3"
+        <label for="recipientSelect3" class="text-sm md:text-[0.875rem] mb-1">Mengetahui</label>
+        <select id="recipientSelect3" [(ngModel)]="signatoryPositions['Mengetahui2'].name" name="name3"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled selected>Choose a recipient</option>
           <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
         </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Penerima'].position"
-          name="position3" class="border text-sm rounded-xl p-2 px-3 w-full">
-      </div>
-
-      <div class="mt-4">
-        <label for="recipientSelect4" class="text-sm md:text-base mb-1">Atasan Penerima</label>
-        <select id="recipientSelect4" [(ngModel)]="signatoryPositions['Atasan Penerima'].name" name="name4"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full mb-2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option value="" disabled selected>Choose a recipient</option>
-          <option *ngFor="let user of dataListAllUser" [value]="user.personal_name">{{ user.personal_name }}</option>
-        </select>
-        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Atasan Penerima'].position"
-          name="position4" class="border text-sm rounded-xl p-2 px-3 w-full">
+        <input type="text" placeholder="Masukkan Jabatan" [(ngModel)]="signatoryPositions['Mengetahui2'].position"
+          name="position3" class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
     </form>
 
@@ -1950,6 +1171,76 @@
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Draft</button>
       <button (click)="closeAddModal()" type="button"
         class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sign MODAL -->
+<div #modal tabindex="-1" aria-hidden="true"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 scale-0 ">
+  <div class="relative flex items-center justify-center mx-4 md:mx-6 z-0">
+    <div class="md:w-1/2 h-fit px-2 py-2 rounded-md shadow-lg border bg-white">
+      <div class="flex items-center mb-6 text-gray-600">
+        <h1 class="text-xl">Signature</h1>
+        <button class="ml-auto" (click)="closeModal()">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.25 17.25 6.75 6.75"></path>
+            <path d="m17.25 6.75-10.5 10.5"></path>
+          </svg>
+        </button>
+      </div>
+      <div>
+        <ul class="flex flex-row overflow-x-auto space-x-2 pt-3 pb-2 mb-5 scrollbar-hide">
+          <li class="flex items-center -mb-px last:mr-0 flex-auto">
+            <a class="flex items-center gap-2 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer rounded-lg hover:bg-zinc-100 hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400"
+              (click)="toggleTabs2(1)"
+              [ngClass]="{
+                'text-neutral-600 bg-zinc-50': openTab2 !== 1,
+                'underline font-semibold text-neutral-800 bg-zinc-300 shadow-lg': openTab2 === 1
+              }">
+              <div>Draw</div>
+            </a>
+          </li>
+          <li class="flex items-center -mb-px last:mr-0 flex-auto">
+            <a class="flex items-center gap-2 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer rounded-lg hover:bg-zinc-100 hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400"
+              (click)="toggleTabs2(2)"
+              [ngClass]="{
+                'text-neutral-600 bg-zinc-50': openTab2 !== 2,
+                'underline font-semibold text-neutral-800 bg-zinc-300 shadow-lg': openTab2 === 2
+              }">
+              <div>Upload</div>
+            </a>
+          </li>
+        </ul>        
+      </div>
+      <hr class="py-3">
+      <!-- Draw Signature -->
+      <div [ngClass]="{'hidden': openTab2 !== 1, 'block': openTab2 === 1}"
+        class="my-2 canvas-container w-full h-full border dashed-custom border-spacing-6">
+        <canvas #sigPad class=""></canvas>
+      </div>
+      <!-- Upload Image -->
+      <div [ngClass]="{'hidden': openTab2 !== 2, 'block': openTab2 === 2}"
+        class="flex-col text-center justify-center my-2 w-full h-auto aspect-[296/100] border dashed-custom border-spacing-6">
+        <input *ngIf="!uploadedImage" type="file" (change)="onFileSelected($event)" accept="image/*"
+          class="block w-full text-sm px-5 text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300" />
+        <div *ngIf="uploadedImage" class="flex justify-center w-full">
+          <img [src]="uploadedImage" class="w-[444px] aspect-[296/100] object-cover border rounded-md" />
+        </div>
+      </div>
+      <div class="my-2">
+        <p class="text-[0.8rem] font-medium text-gray-500">
+          By signing this document with an electronic signature, I agree that such signature will be as valid as
+          handwritten signatures to the extent allowed by local law
+        </p>
+      </div>
+
+      <div class="flex mt-6 text-sm font-medium">
+        <button (click)="clear()" class="bg-gray-200 px-4 py-2 rounded-md uppercase">Clear</button>
+        <button (click)="signature(form_uuid)"
+          class="ml-auto bg-green-500 px-4 py-2 text-white rounded-md uppercase">Accept and Sign</button>
+      </div>
     </div>
   </div>
 </div>

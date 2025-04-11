@@ -28,9 +28,8 @@ interface Division {
   styleUrl: './division.component.css',
 })
 export class DivisionComponent implements OnInit {
-
   popoverIndex: number | null = null;
-  
+
   searchText: string = '';
 
   division_uuid: string = '';
@@ -77,7 +76,6 @@ export class DivisionComponent implements OnInit {
         },
       })
       .then((response) => {
-        console.log(response);
         this.user_uuid = response.data.user_uuid;
         this.user_name = response.data.user_name;
         this.role_code = response.data.role_code;
@@ -126,7 +124,6 @@ export class DivisionComponent implements OnInit {
   }
 
   handleAction(action: string, item: any): void {
-    // console.log(Handling ${action} for:, item);
     this.closePopover();
   }
 
@@ -157,7 +154,6 @@ export class DivisionComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataDivision();
         Swal.fire({
           title: 'Success',
@@ -168,9 +164,9 @@ export class DivisionComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
-        // $('#addDivisionModal').modal('hide');
         this.division_code = '';
         this.division_title = '';
+        this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (
@@ -199,7 +195,6 @@ export class DivisionComponent implements OnInit {
           });
         }
       });
-    this.isModalAddOpen = false;
   }
 
   openEditModal(divisionUuid: string): void {
@@ -207,7 +202,6 @@ export class DivisionComponent implements OnInit {
       .get(`${this.apiUrl}/division/` + divisionUuid)
       .then((response) => {
         const divisionData = response.data;
-        console.log(divisionData);
         this.division_uuid = divisionData.division_uuid;
         this.division_code = divisionData.division_code;
         this.division_title = divisionData.division_title;
@@ -216,7 +210,6 @@ export class DivisionComponent implements OnInit {
       })
       .catch((error) => {
         if (error.response.status === 500 || error.response.status === 404) {
-          console.log(error.response.data.message);
           Swal.fire({
             title: 'Error',
             text: error.response.data.message,
@@ -236,10 +229,8 @@ export class DivisionComponent implements OnInit {
             showCancelButton: false,
             showConfirmButton: false,
           });
-          console.log(error.response);
         }
       });
-    this.isModalEditOpen = false;
   }
 
   closeEditModal() {
@@ -264,7 +255,6 @@ export class DivisionComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataDivision();
         Swal.fire({
           title: 'Success',
@@ -275,6 +265,7 @@ export class DivisionComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
+        this.isModalEditOpen = false;
       })
       .catch((error) => {
         if (
@@ -304,7 +295,6 @@ export class DivisionComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = false;
   }
 
   onDeleteDivision(division_uuid: string): void {
@@ -338,7 +328,6 @@ export class DivisionComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataDivision();
         Swal.fire({
           title: 'Success',

@@ -1,4 +1,4 @@
-<div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-[70vh] bg-white">
+<div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-[75vh] bg-white">
   <div id="messages" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
     <div *ngFor="let message of messages">
       <div class="flex items-end" [ngClass]="{'justify-end': message.from !== 'bot'}">
@@ -7,7 +7,7 @@
             <span class="px-4 py-3 rounded-xl inline-block" [ngClass]="{'rounded-bl-none bg-gray-100 text-gray-600': message.from === 'bot', 'rounded-br-none bg-blue-500 text-white': message.from !== 'bot'}" [innerHTML]="message.text"></span>
           </div>
         </div>
-        <img [src]="message.from === 'bot' ? 'https://cdn.icon-icons.com/icons2/1371/PNG/512/robot02_90810.png' : 'https://i.pravatar.cc/100?img=7'" alt="" class="w-6 h-6 rounded-full" [ngClass]="{'order-1': message.from === 'bot', 'order-2': message.from !== 'bot'}">
+        <img [src]="message.from === 'bot' ? 'https://i.pinimg.com/474x/e2/10/9a/e2109a759e3797b9fc1b2e7d257aee02.jpg' : 'https://i.pinimg.com/474x/3c/d2/75/3cd2750b399ac49f6c664ded274d45b6.jpg'" alt="" class="w-6 h-6 rounded-full" [ngClass]="{'order-1': message.from === 'bot', 'order-2': message.from !== 'bot'}">
       </div>
     </div>
 

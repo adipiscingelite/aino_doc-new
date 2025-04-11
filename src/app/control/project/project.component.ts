@@ -109,7 +109,6 @@ export class ProjectComponent implements OnInit {
         },
       })
       .then((response) => {
-        console.log(response);
         this.user_uuid = response.data.user_uuid;
         this.user_name = response.data.user_name;
         this.role_code = response.data.role_code;
@@ -123,7 +122,6 @@ export class ProjectComponent implements OnInit {
     axios
       .get(`${environment.apiUrl2}/project`)
       .then((response) => {
-        console.log(response);
         this.dataListProject = response.data;
         this.projectService.updateDataListProject(this.dataListProject);
       })
@@ -147,7 +145,6 @@ export class ProjectComponent implements OnInit {
       .get(`${environment.apiUrl2}/product`)
       .then((response) => {
         this.dataListProduct = response.data;
-        console.log(response.data);
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -181,7 +178,6 @@ export class ProjectComponent implements OnInit {
   }
 
   handleAction(action: string, item: any): void {
-    // console.log(Handling ${action} for:, item);
     this.closePopover();
   }
 
@@ -194,7 +190,7 @@ export class ProjectComponent implements OnInit {
   }
 
   closeAddModal() {
-    this.isModalEditOpen = false;
+    this.isModalAddOpen = false;
   }
 
   addProject(): void {
@@ -230,6 +226,7 @@ export class ProjectComponent implements OnInit {
         this.project_name = '';
         this.project_code = '';
         this.project_manager = '';
+        this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (
@@ -248,7 +245,6 @@ export class ProjectComponent implements OnInit {
           });
         }
       });
-    this.isModalAddOpen = false;
   }
 
   openEditModal(project_uuid: string) {
@@ -302,7 +298,6 @@ export class ProjectComponent implements OnInit {
       project_code: this.project_code,
       project_manager: this.project_manager,
     };
-    console.log(projectData);
 
     axios
       .put(
@@ -326,6 +321,7 @@ export class ProjectComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
+        this.isModalEditOpen = false;
       })
       .catch((error) => {
         if (
@@ -345,7 +341,6 @@ export class ProjectComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = false;
   }
 
   onDeleteProject(project_uuid: string): void {
@@ -379,7 +374,6 @@ export class ProjectComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataProject();
         Swal.fire({
           title: 'Success',

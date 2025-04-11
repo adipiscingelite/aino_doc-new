@@ -1,3 +1,19 @@
-.bottom-nav-active {
-  @apply text-blue-500
+.pulse {
+  opacity: 0.5;
+  animation: pulseAnim 1.5s infinite;
+}
+
+@keyframes pulseAnim {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.bottom-nav-active{
+  color: rgb(0, 106, 255);
 }

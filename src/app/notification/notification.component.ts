@@ -127,7 +127,9 @@ export class NotificationComponent implements OnInit {
               new Date(b.created_at).getTime() -
               new Date(a.created_at).getTime()
           );
-        console.log('jawak', this.approveNotifications);
+
+          // console.log(response);
+          
       })
       .catch((error) => {
         if (error.response?.status === 500) {

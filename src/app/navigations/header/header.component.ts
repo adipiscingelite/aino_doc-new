@@ -1,19 +1,20 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import {
+  ActivatedRoute,
   NavigationEnd,
   Router,
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { environment } from '../../../environments/environment';
 
 interface Notification {
-  is_sign: string;
+  is_sign: boolean;
 }
 
 @Component({
@@ -24,6 +25,13 @@ interface Notification {
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
+  isSidebarVisible: boolean = false;
+
+  @Output() sidebarVisibilityChange = new EventEmitter<boolean>();
+
+  isSidebarOpen = false;
+  isMenuOpen: boolean = false;
+
   user_uuid = '';
   user_name = '';
   role_code = '';
@@ -36,7 +44,9 @@ export class HeaderComponent {
   day: string;
   date: string;
 
-  isProfileDropdownOpen: boolean = false;
+  is_guest: boolean = false;
+  isProfileDropdownOpen = false;
+
   public showSearch = false;
 
   private apiUrl: string;
@@ -44,6 +54,7 @@ export class HeaderComponent {
   constructor(
     private cookieService: CookieService,
     private router: Router,
+    private route: ActivatedRoute,
     @Inject('apiUrl') apiUrl: string
   ) {
     this.apiUrl = apiUrl;
@@ -54,12 +65,10 @@ export class HeaderComponent {
     });
     const today = new Date();
 
-    // Format untuk hari dalam minggu
     this.day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
       today
     );
 
-    // Format untuk tanggal
     this.date = new Intl.DateTimeFormat('en-US', {
       day: 'numeric',
       month: 'long',
@@ -69,7 +78,24 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.fetchProfileData();
-    this.fetchNotification();
+    if (this.role_code != 'SA') {
+      this.fetchNotification();
+    }
+    this.checkIfGuest();
+
+    setInterval(() => {
+      this.fetchNotification();
+    }, 30000);
+  }
+
+  openSidebar() {
+    this.isSidebarVisible = true;
+    this.sidebarVisibilityChange.emit(this.isSidebarVisible);
+  }
+
+  checkIfGuest(): void {
+    const url = this.route.snapshot.url.join('/');
+    this.is_guest = url.includes('guest');
   }
 
   fetchProfileData() {
@@ -105,29 +131,38 @@ export class HeaderComponent {
       .then((response) => {
         const notifications = response.data as Notification[];
         this.notifications = notifications;
-        const allSigned = this.notifications.every(
-          (notification) => notification.is_sign === 'true'
+
+        this.allSigned = this.notifications.every(
+          (notification) => notification.is_sign === true
         );
 
-        this.allSigned = allSigned;
+        // if (this.allSigned) {
+        //   console.log('All signed');
+        // } else {
+        //   console.log('Not all signed');
+        // }
       })
       .catch((error) => {
         if (error.response) {
-          // Jika error response ada, cek statusnya
           if (error.response.status === 500) {
             console.log(error.response.data);
           } else {
             console.log(error.response.data);
           }
-        } else {
-          // Jika error response tidak ada, log error keseluruhan
-          console.log('Error: ', error.message || error);
         }
       });
   }
 
   toggleProfileDropdown() {
     this.isProfileDropdownOpen = !this.isProfileDropdownOpen;
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   onLogout() {
@@ -161,7 +196,6 @@ export class HeaderComponent {
       )
       .then((response) => {
         this.cookieService.delete('userToken');
-        console.log(response.data.message);
         Swal.fire({
           title: 'Success',
           text: 'Logout Berhasil',

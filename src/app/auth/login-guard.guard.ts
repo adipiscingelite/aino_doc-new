@@ -35,7 +35,7 @@ export class LoginGuard implements CanActivate {
         }
       } catch (error) {
         // Tangani error jika permintaan gagal
-        console.error('Error fetching profile:', error);
+        console.error('Error fetching profile:');
       }
     }
 

@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,24 +27,19 @@ export class LoginComponent {
   ) {
     this.apiUrl = apiUrl;
   }
+  redirectUrl: any = localStorage.getItem('redirectUrl');
 
   onLogin() {
-    console.log('login data', this.loginData);
-    console.log(this.apiUrl);
-  
     axios
       .post(`${this.apiUrl}/login`, this.loginData)
       .then((response) => {
-        console.log(response.data.message);
         this.cookieService.set('userToken', response.data.token);
-  
-        // Cek apakah ada URL redirect yang tersimpan
-        const redirectUrl = localStorage.getItem('redirectUrl');
-        if (redirectUrl) {
-          this.router.navigateByUrl(redirectUrl); // Arahkan ke halaman sebelum login
-          localStorage.removeItem('redirectUrl'); // Hapus redirect URL setelah digunakan
+
+        if (this.redirectUrl) {
+          this.router.navigateByUrl(this.redirectUrl);
+          localStorage.removeItem('redirectUrl');
         } else {
-          this.router.navigateByUrl('/dashboard'); // Jika tidak ada redirect URL, arahkan ke dashboard
+          this.router.navigateByUrl('/dashboard');
         }
       })
       .catch((error) => {
@@ -53,24 +48,44 @@ export class LoginComponent {
             title: 'Error',
             text: error.response.data.message,
             icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
           });
         } else if (error.response.status === 500) {
           Swal.fire({
             title: 'Error',
             text: error.response.data.message,
             icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
           });
         } else {
           Swal.fire({
             title: 'Error',
             text: error.response.data.message,
             icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
           });
         }
       });
   }
-  
-  forgor(){
-    alert('😅')
+
+  forgor() {
+    Swal.fire({
+      title: 'Info',
+      text: 'Fitur masih dalam pengembangan',
+      icon: 'info',
+      timer: 2000,
+      timerProgressBar: true,
+      showCancelButton: false,
+      showConfirmButton: false,
+    });
   }
 }

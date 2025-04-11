@@ -1,8 +1,13 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   HostListener,
+  Inject,
+  OnDestroy,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import axios from 'axios';
 import { environment } from '../../../environments/environment';
@@ -11,6 +16,16 @@ import Swal from 'sweetalert2';
 import { FormsModule, NgModel } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import SignaturePad from 'signature_pad';
+interface Signatory {
+  sign_uuid: string;
+  signatory_name: string;
+  signatory_position: string;
+  role_sign: string;
+  is_sign: boolean;
+  sign_img: string | { String: string };
+  is_guest: boolean;
+}
 
 interface BeritaAcara {
   form_uuid: string;
@@ -34,14 +49,31 @@ interface BeritaAcara {
 @Component({
   selector: 'app-form-ba-assets',
   standalone: true,
-  imports: [CommonModule, FormsModule, ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './form-ba-assets.component.html',
   styleUrl: './form-ba-assets.component.css',
 })
-export class FormBaAssetsComponent implements OnInit {
+export class FormBaAssetsComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('sigPad', { static: false })
+  sigPad!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('modal', { static: false }) modal!: ElementRef<HTMLDivElement>;
+  @ViewChild('closeButton', { static: false })
+  closeButton!: ElementRef<HTMLButtonElement>;
+
+  private signaturePad!: SignaturePad;
+
+  img: string | null = null;
+  penColor: string = '#262626';
+
+  user_uuid: any;
+  user_name: any;
+  role_code: any;
+  personal_name: string = '';
+
   form_uuid: string = '';
   form_number: string = '';
   form_status: string = '';
+  document_uuid: string = '';
   document_name: string = '';
   created_by: string = '';
   created_at: string = '';
@@ -51,10 +83,21 @@ export class FormBaAssetsComponent implements OnInit {
   jabatan_pic: string = '';
   jenis: string = '';
   asset_uuid: string = '';
-  kode_asset: string = 'LP/201';
-  nama_asset: string = 'laptop dell';
-  spesifikasi_asset: string = 'intel i5';
-  serial_number: string = '130948';
+  asset_type: string = '';
+  kondisi: string = '';
+  aksesoris: string = '';
+  reason: string = '';
+  kode_asset: string = '';
+  nama_asset: string = '';
+  merk: string = '';
+  model: string = '';
+  spesifikasi_asset: string = '';
+  serial_number: string = '';
+
+  images: any;
+
+  sign_uuid: string = '';
+  is_guest: boolean = false;
 
   day: string = '';
   date: number = 0;
@@ -69,32 +112,170 @@ export class FormBaAssetsComponent implements OnInit {
 
   isPreview: boolean = false;
 
+  searchText: string = '';
+
+  isSigned: boolean = false;
+  mySignatory: Signatory | undefined;
+
+  signatoryPositions: {
+    [key: string]: {
+      sign_uuid: string;
+      name: string;
+      position: string;
+      is_sign: boolean;
+      sign_img: string;
+      is_guest: boolean;
+    };
+  } = {
+    'Pihak Pertama': {
+      sign_uuid: '',
+      name: '',
+      position: '',
+      is_sign: false,
+      sign_img: '',
+      is_guest: false,
+    },
+    'Pihak Kedua': {
+      sign_uuid: '',
+      name: '',
+      position: '',
+      is_sign: false,
+      sign_img: '',
+      is_guest: false,
+    },
+  };
+
   constructor(
     private cookieService: CookieService,
     private router: Router,
     private cd: ChangeDetectorRef,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    @Inject('apiUrl') private apiUrl: string
+  ) {
+    this.apiUrl = apiUrl;
+  }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    // ? mendapatkan role code
+    await this.profileData();
     this.fetchDataBeritaAcara();
+    this.fetchDocumentUUID();
 
     this.route.paramMap.subscribe((params) => {
       const form_uuid = params.get('form_uuid');
       if (form_uuid) {
-        this.openPreviewPage(form_uuid); // Panggil fungsi dengan UUID dari URL
+        this.openPreviewPage(form_uuid);
       }
     });
   }
 
+  ngAfterViewInit() {
+    const canvas = this.sigPad.nativeElement;
+
+    this.signaturePad = new SignaturePad(canvas);
+    this.signaturePad.penColor = this.penColor;
+
+    this.resizeCanvas();
+    window.addEventListener('resize', this.resizeCanvas.bind(this));
+
+    if (this.closeButton) {
+      this.closeButton.nativeElement.addEventListener('click', () =>
+        this.closeModal()
+      );
+    }
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeCanvas.bind(this));
+    if (this.closeButton) {
+      this.closeButton.nativeElement.removeEventListener('click', () =>
+        this.closeModal()
+      );
+    }
+  }
+
+  clear() {
+    this.signaturePad.clear();
+    this.img = null;
+  }
+
+  save() {
+    const dataURL = this.sigPad.nativeElement.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'signature.png';
+    link.click();
+  }
+
+  onColorChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.penColor = input.value;
+    this.signaturePad.penColor = this.penColor;
+  }
+
+  private resizeCanvas() {
+    const canvas = this.sigPad.nativeElement;
+    const container = canvas.parentElement as HTMLElement;
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    this.signaturePad.clear();
+  }
+
+  matchesSearch(item: BeritaAcara): boolean {
+    const searchText = this.searchText.toLowerCase();
+    return (
+      item.form_number.toLowerCase().includes(searchText) ||
+      item.jenis.toLowerCase().includes(searchText) ||
+      item.nama_pic.toLowerCase().includes(searchText) ||
+      item.jabatan_pic.toLowerCase().includes(searchText) ||
+      item.kode_asset.toLowerCase().includes(searchText) ||
+      item.created_by.toLowerCase().includes(searchText) ||
+      item.form_status.toLowerCase().includes(searchText)
+    );
+  }
+
+  async profileData(): Promise<void> {
+    const token = this.cookieService.get('userToken');
+
+    try {
+      const response = await axios.get(`${this.apiUrl}/auth/my/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      this.user_uuid = response.data.user_uuid;
+      this.user_name = response.data.user_name;
+      this.role_code = response.data.role_code;
+      this.personal_name = response.data.personal_name;
+    } catch (error) {
+      if (error instanceof axios.AxiosError) {
+        if (error.response?.status === 500 || error.response?.status === 404) {
+          console.log(error.response.data);
+        }
+      } else {
+        console.error('Unexpected error:', error);
+      }
+    }
+  }
+
   beritaAcaras: BeritaAcara[] = [];
+
+  fetchDocumentUUID(): void {
+    axios
+      .get(`${environment.apiUrl2}/form/ba/code`)
+      .then((response) => {
+        this.document_uuid = response.data.document_uuid;
+        console.log(this.document_uuid);
+      })
+      .catch((error) => {
+        console.error('Error fetching document UUID:', error);
+      });
+  }
 
   fetchDataBeritaAcara() {
     axios
       .get(`${environment.apiUrl2}/form/beritaacara`)
       .then((response) => {
-        console.log('ini list asset', response);
-
         this.beritaAcaras = response.data;
       })
       .catch((error) => {
@@ -106,15 +287,14 @@ export class FormBaAssetsComponent implements OnInit {
       });
   }
 
-  // buat popover option di tabel
   popoverIndex: number | null = null;
 
   togglePopover(event: Event, index: number): void {
-    event.stopPropagation(); // Menghentikan event bubbling
+    event.stopPropagation();
     if (this.popoverIndex === index) {
-      this.popoverIndex = null; // Tutup popover jika diklik lagi
+      this.popoverIndex = null;
     } else {
-      this.popoverIndex = index; // Buka popover untuk baris ini
+      this.popoverIndex = index;
     }
   }
 
@@ -134,17 +314,12 @@ export class FormBaAssetsComponent implements OnInit {
   }
 
   handleAction(action: string, item: any): void {
-    // console.log(Handling ${action} for:, item);
     this.closePopover();
   }
 
   handleKeyDown(event: KeyboardEvent) {
-    console.log(`Key pressed: ${event.key}`); // Debug output
+    console.log(`Key pressed: ${event.key}`);
     if (event.key === 'Escape') {
-      // this.closeAddModal();
-      // this.closeEditModal();
-      // this.closeApproveModal();
-      // this.closeSignModal();
       console.log('Modals closed');
     }
   }
@@ -153,8 +328,6 @@ export class FormBaAssetsComponent implements OnInit {
     axios
       .get(`${environment.apiUrl2}/form/beritaacara/${form_uuid}`)
       .then((response) => {
-        console.log('plis coy', response.data);
-
         this.isModalEditOpen = true;
         const formData = response.data.form;
 
@@ -168,7 +341,6 @@ export class FormBaAssetsComponent implements OnInit {
         this.jabatan_pihak_pertama = formData.jabatan_pihak_pertama;
         this.nama_pic = formData.nama_pic;
         this.jabatan_pic = formData.jabatan_pic;
-        // this.jenis = formData.jenis;
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 500) {
@@ -196,7 +368,6 @@ export class FormBaAssetsComponent implements OnInit {
       },
     };
 
-    // console.log('update', data);
     axios
       .put(`${environment.apiUrl2}/api/asset/update/${this.asset_uuid}`, data, {
         headers: {
@@ -253,10 +424,10 @@ export class FormBaAssetsComponent implements OnInit {
             {
               isPublished: true,
               formData: {
-                form_ticket: '1',
+                form_ticket: '',
                 // masih salah dibagian ini, kalo ha gaada form ticket, jadi kubikin statis aja dulu
                 // tp harus string
-                document_uuid: 'f97b1dbe-0366-4ec5-aeff-bdf1f288e347',
+                document_uuid: this.document_uuid,
               },
             },
             {
@@ -294,37 +465,34 @@ export class FormBaAssetsComponent implements OnInit {
     });
   }
 
-  async openPreviewPage(form_uuid: any) {
-    // Menampilkan pesan di console
-    await console.log('hai');
+  get currentUrl(): string {
+    return this.router.url;
+  }
 
+  async openPreviewPage(form_uuid: string) {
+    await this.profileData();
     axios
       .get(`${environment.apiUrl2}/form/beritaacara/${form_uuid}`)
       .then((response) => {
-        console.log('Response:', response);
-
+        console.log(response);
+        
+        const BASE_URL = environment.apiUrl2;
         const formData = response.data.form;
 
-        // Mengisi variabel dengan data dari form
-        this.form_uuid = formData.form_uuid;
-        this.form_number = formData.form_number;
-        this.form_status = formData.form_status;
-        this.document_name = formData.document_name;
-        this.created_by = formData.created_by;
-        this.asset_uuid = formData.asset_uuid;
-        this.kode_asset = formData.kode_asset;
-        this.jenis = formData.jenis;
-        this.pihak_pertama = formData.pihak_pertama;
-        this.jabatan_pihak_pertama = formData.jabatan_pihak_pertama;
-        this.nama_pic = formData.nama_pic;
-        this.jabatan_pic = formData.jabatan_pic;
-        this.kode_asset;
-        this.nama_asset
-        this.spesifikasi_asset
-        this.serial_number
-
-        // Memformat tanggal
+        // Parsing tanggal sekali saja
         const createdAt = new Date(formData.created_at);
+
+        // Format tanggal dengan Intl.DateTimeFormat
+        const formattedDate = new Intl.DateTimeFormat('id-ID', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }).format(createdAt);
+
+        // Format tanggal dengan lokasi
+        this.created_at = `Yogyakarta, ${formattedDate}`;
+
+        // Nama hari & bulan dalam bahasa Indonesia
         const days = [
           'Minggu',
           'Senin',
@@ -355,60 +523,70 @@ export class FormBaAssetsComponent implements OnInit {
         this.month = months[createdAt.getMonth()]; // Nama bulan
         this.year = createdAt.getFullYear(); // Tahun
 
+        // Mengisi variabel dengan data dari form
+        this.form_uuid = formData.form_uuid;
+        this.form_number = formData.form_number;
+        this.form_status = formData.form_status;
+        this.document_name = formData.document_name;
+        this.created_by = formData.created_by;
+        this.asset_uuid = formData.asset_uuid;
+        this.nama_asset = formData.nama_asset;
+        this.merk = formData.merk;
+        this.model = formData.model;
+        this.kode_asset = formData.kode_asset;
+        this.asset_type = formData.asset_type;
+        this.kondisi = formData.kondisi;
+        this.aksesoris = formData.aksesoris;
+        this.jenis = formData.jenis;
+        this.pihak_pertama = formData.pihak_pertama;
+        this.reason = formData.reason;
+        this.jabatan_pihak_pertama = formData.jabatan_pihak_pertama;
+        this.nama_pic = formData.nama_pic;
+        this.jabatan_pic = formData.jabatan_pic;
+        this.spesifikasi_asset = formData.spesifikasi;
+        this.serial_number = formData.serial_number;
+        this.images = formData.image.map((img: string) => BASE_URL + img);
+
         this.isPreview = true;
 
         // Navigasi ke halaman preview
-        this.router.navigate([`/form/berita-acara/${form_uuid}`]);
+        const basePath = this.router.url.startsWith('/guest')
+          ? '/guest/form/berita-acara'
+          : '/form/berita-acara';
+        this.router.navigate([`${basePath}/${form_uuid}`]);
 
-        // const signatories: Signatory[] = response.data.signatories || [];
-        // Object.keys(this.signatoryPositions).forEach((role) => {
-        //   this.signatoryPositions[role] = {
-        //     name: '',
-        //     position: '',
-        //     is_sign: false,
-        //     sign_img: '',
-        //   };
-        // });
-        // signatories.forEach((signatory: Signatory) => {
-        //   const role = signatory.role_sign;
-        //   if (this.signatoryPositions[role]) {
-        //     this.signatoryPositions[role] = {
-        //       name: signatory.signatory_name || '',
-        //       position: signatory.signatory_position || '',
-        //       is_sign: signatory.is_sign || false,
-        //       sign_img:
-        //         typeof signatory.sign_img === 'object' &&
-        //         'String' in signatory.sign_img
-        //           ? BASE_URL + signatory.sign_img.String
-        //           : BASE_URL + signatory.sign_img,
-        //     };
-        //   }
-        // });
-
-        // if (signatories && signatories.length > 0) {
-        //   const mySignatory = signatories.find(
-        //     (signatory: Signatory) =>
-        //       signatory?.signatory_name === this.personal_name
-        //   );
-        //   console.log('plis', mySignatory);
-
-        //   if (mySignatory) {
-        //     console.log('Sign UUID:', mySignatory.sign_uuid);
-        //     this.isSigned = mySignatory.is_sign;
-        //   } else {
-        //     console.log(
-        //       'Signatory not found for personal_name:',
-        //       this.personal_name
-        //     );
-        //   }
-        // } else {
-        //   console.log('Signatories array is empty or undefined');
-        // }
+        const signatories: Signatory[] = response.data.signatories || [];
+        Object.keys(this.signatoryPositions).forEach((role) => {
+          this.signatoryPositions[role] = {
+            sign_uuid: '',
+            name: '',
+            position: '',
+            is_sign: false,
+            sign_img: '',
+            is_guest: false,
+          };
+        });
+        signatories.forEach((signatory: Signatory) => {
+          const role = signatory.role_sign;
+          if (this.signatoryPositions[role]) {
+            this.signatoryPositions[role] = {
+              sign_uuid: signatory.sign_uuid || '',
+              name: signatory.signatory_name || '',
+              position: signatory.signatory_position || '',
+              is_sign: signatory.is_sign || false,
+              sign_img:
+                typeof signatory.sign_img === 'object' &&
+                'String' in signatory.sign_img
+                  ? BASE_URL + signatory.sign_img.String
+                  : BASE_URL + signatory.sign_img,
+              is_guest: signatory.is_guest || false,
+            };
+          }
+        });
       })
       .catch((error) => {
         if (error.response) {
           if (error.response.status === 404) {
-            // Navigasi ke halaman Not Found jika data tidak ditemukan
             this.router.navigate(['/not-found']);
           } else if (error.response.status === 500) {
             Swal.fire({
@@ -489,6 +667,188 @@ export class FormBaAssetsComponent implements OnInit {
             showConfirmButton: false,
           });
         }
+      });
+  }
+
+  openModal(form_uuid: string, sign_uuid: string, is_guest: boolean) {
+    // selectedSignUser
+    this.sign_uuid = sign_uuid;
+    this.is_guest = is_guest;
+    this.form_uuid = form_uuid;
+    if (this.modal) {
+      this.modal.nativeElement.classList.add('scale-100');
+    }
+  }
+
+  closeModal() {
+    if (this.modal) {
+      this.modal.nativeElement.classList.remove('scale-100');
+    }
+    this.sign_uuid = '';
+    this.is_guest = false;
+    this.clear();
+  }
+  signature(form_uuid: string, sign_uuid: string, is_guest: boolean) {
+    const dataURL = this.sigPad.nativeElement.toDataURL('image/png'); // Get the signature image
+
+    axios
+      .get(`${environment.apiUrl2}/form/beritaacara/${form_uuid}`)
+      .then((response) => {
+        const signatories: Signatory[] = response.data.signatories || [];
+        // Find the signatory by sign_uuid
+        const mySignatory = signatories.find(
+          (signatory: Signatory) => signatory.sign_uuid === sign_uuid
+        );
+
+        if (mySignatory) {
+          // Prepare payload to send, including the signature image
+          const payload = {
+            name: mySignatory.signatory_name, // Use the name from the signatory data
+            position: mySignatory.signatory_position, // Use the position from the signatory data
+            is_sign: true,
+            sign_img: dataURL, // Include the Base64 signature image
+          };
+
+          // Send the update to the backend using the correct sign_uuid
+
+          this.onSignature(mySignatory.sign_uuid, payload, is_guest);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching signatories:', error);
+      });
+  }
+
+  onSignature(sign_uuid: string, payload: any, is_guest: boolean) {
+    const url = is_guest
+      ? `${environment.apiUrl2}/guest/signature/update/${sign_uuid}`
+      : `${environment.apiUrl2}/api/signature/update/${sign_uuid}`;
+
+    const config = is_guest
+      ? {} // Tanpa header jika guest
+      : {
+          headers: {
+            Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+          },
+        };
+
+    axios
+      .put(url, payload, config)
+      .then((response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'SUCCESS',
+          text: response.data.message,
+          timer: 2000,
+          timerProgressBar: true,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+
+        this.closeModal();
+
+        // tambah ini biar setelah add ga perlu refresh agar bisa muncul
+        // this.fetchDataFormITCM();
+        // this.fetchDataAdminFormITCM();
+        // this.fetchDataUserFormITCM();
+        // this.fetchDataAdminFormITCMDraft();
+        // this.fetchDataUserFormITCMDraft();
+        // // this.fetchDataAdminFormPublish();
+        // // this.fetchDataUserFormPublish();
+        // this.fetchUserSignature();
+        this.openPreviewPage(this.form_uuid);
+      })
+      .catch((error) => {
+        if (
+          error.response.status === 404 ||
+          error.response.status === 500 ||
+          error.response.status === 422 ||
+          error.response.status === 401 ||
+          error.response.status === 400
+        ) {
+          console.log(error.response);
+          Swal.fire({
+            title: 'Error',
+            text: error.response.data.message,
+            icon: 'error',
+            timer: 2000,
+            timerProgressBar: true,
+            showCancelButton: false,
+            showConfirmButton: false,
+          });
+        }
+      });
+  }
+
+  // copy
+  generateURL(form_uuid: string, is_guest: boolean) {
+    // Cek apakah form status 'Published' untuk memilih URL Guest atau biasa
+    const baseURL = window.location.origin;
+    const isGuest = is_guest; // Atur kondisi sesuai dengan status
+    const url = isGuest
+      ? `${baseURL}/guest/form/berita-acara/${form_uuid}`
+      : `${baseURL}/form/berita-acara/${form_uuid}`;
+
+    // Menyalin URL ke clipboard menggunakan navigator.clipboard
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          alert('URL copied to clipboard: ' + url);
+        })
+        .catch((err) => {
+          console.error('Failed to copy URL: ', err);
+        });
+    } else {
+      // Fallback jika navigator.clipboard tidak tersedia
+      this.fallbackCopyTextToClipboard(url);
+    }
+  }
+
+  fallbackCopyTextToClipboard(text: string) {
+    // Buat elemen textarea untuk menyalin teks
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    // Sembunyikan textarea di luar layar
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+
+    // Pilih teks dan salin
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      // Tampilkan notifikasi sukses
+      Swal.fire({
+        icon: 'success',
+        title: 'SUCCESS',
+        text: 'Berhasil Generate link',
+        timer: 2000,
+        timerProgressBar: true,
+        showCancelButton: false,
+        showConfirmButton: false,
+      });
+    } catch (err) {
+      console.error('Fallback: Could not copy text', err);
+    }
+
+    // Hapus elemen textarea setelah menyalin
+    document.body.removeChild(textArea);
+  }
+
+  fetchDataAndGeneratePDF(form_uuid: string) {
+    axios
+      .get(`${environment.apiUrl2}/form/beritaacara/${form_uuid}`)
+      .then((response) => {
+        // const BASE_URL = environment.apiUrl2;
+        const formData = response.data.form;
+        const signatories = response.data.signatories || [];
+
+        // Generate PDF dengan data dari API
+        // this.generatePDF2(formData, signatories);
+      })
+      .catch((error) => {
+        console.error('Gagal mengambil data:', error);
       });
   }
 }

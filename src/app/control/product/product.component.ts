@@ -28,9 +28,8 @@ interface Product {
   styleUrl: './product.component.css',
 })
 export class ProductComponent implements OnInit {
-  
   popoverIndex: number | null = null;
-  
+
   searchText: string = '';
 
   product_uuid: string = '';
@@ -84,7 +83,6 @@ export class ProductComponent implements OnInit {
         },
       })
       .then((response) => {
-        console.log(response);
         this.user_uuid = response.data.user_uuid;
         this.user_name = response.data.user_name;
         this.role_code = response.data.role_code;
@@ -172,7 +170,6 @@ export class ProductComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data);
         this.fetchDataProduct();
         Swal.fire({
           icon: 'success',
@@ -185,6 +182,7 @@ export class ProductComponent implements OnInit {
         });
         this.product_name = '';
         this.product_owner = '';
+        this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (
@@ -213,7 +211,6 @@ export class ProductComponent implements OnInit {
           });
         }
       });
-    this.isModalAddOpen = false;
   }
 
   openEditModal(product_uuid: string) {
@@ -226,7 +223,6 @@ export class ProductComponent implements OnInit {
         this.product_owner = response.data.product_owner;
       })
       .catch((error) => {
-        console.log(error);
         if (error.response.status === 404) {
           Swal.fire({
             title: 'Error',
@@ -239,7 +235,6 @@ export class ProductComponent implements OnInit {
           });
         }
       });
-    this.isModalAddOpen = false;
   }
 
   closeEditModal() {
@@ -262,7 +257,6 @@ export class ProductComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data);
         this.fetchDataProduct();
         Swal.fire({
           icon: 'success',
@@ -273,9 +267,9 @@ export class ProductComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
+        this.isModalEditOpen = false;
       })
       .catch((error) => {
-        console.log(error);
         if (
           error.response.status === 500 ||
           error.response.status === 404 ||
@@ -293,7 +287,6 @@ export class ProductComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = false;
   }
 
   onDeleteProduct(product_uuid: string): void {
@@ -327,7 +320,6 @@ export class ProductComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataProduct();
         Swal.fire({
           title: 'Success',
@@ -352,7 +344,7 @@ export class ProductComponent implements OnInit {
           });
         }
       });
-  }  
+  }
 }
 
 export { Product };

@@ -1,4 +1,4 @@
-<h1 class="py-3 text-center text-3xl font-semibold text-gray-800">Project</h1>
+<h1 class="pb-10 text-center text-3xl font-semibold text-gray-800">Project</h1>
 <div class="flex w-full pb-4 px-2 bg-white">
   <label for="table-search" class="sr-only">Search</label>
   <div class="relative">
@@ -29,7 +29,7 @@
           <th scope="col" class="px-6 py-3">Nama Projek</th>
           <th scope="col" class="px-6 py-3">Project PIC</th>
           <th scope="col" class="px-6 py-3">Nama Produk</th>
-          <th scope="col" class="px-6 py-3" *ngIf="role_code === 'SA'">Action</th>
+          <th scope="col" class="px-6 py-3 text-center" *ngIf="role_code === 'SA'">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +42,7 @@
             <td class="px-6 py-4">{{ itemProject.project_manager }}</td>
             <td class="px-6 py-4">{{ itemProject.product_name }}</td>
             <!-- Button Popover -->
-            <td class="px-6 py-4 " *ngIf="role_code === 'SA'">
+            <td class="px-6 py-4 text-center" *ngIf="role_code === 'SA'">
               <div class="relative">
                 <button (click)="togglePopover($event, x)"
                   class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
@@ -100,9 +100,9 @@
 
 
 <!-- ADD MODAL -->
-<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true"
+<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true" (click)="closeAddModal()"
   class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  <div (click)="$event.stopPropagation()"
     class="relative w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
     <div class="sticky top-0 flex bg-white items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -120,26 +120,26 @@
     </div>
     <!-- Modal body -->
     <form #addProjectForm="ngForm" class="p-6">
-      <h3 class="text-2xl text-gray-900 font-semibold">Project!</h3>
+      <h3 class="text-2xl text-gray-900 font-semibold">Project</h3>
       <p class="text-gray-600">Masukkan informasi projek yang ingin anda tambahkan</p>
 
       <div class="mt-4">
-        <label for="projecttName" class="text-sm md:text-base">Nama Project</label>
-        <input type="text" id="projectName" placeholder="Masukkan Nama Project" [(ngModel)]="project_name" name="project_name" required class="border rounded-xl p-2 w-full  ">
+        <label for="projecttName" class="text-sm md:text-[0.875rem]">Nama Project</label>
+        <input type="text" id="projectName" placeholder="e.g. Acasia" [(ngModel)]="project_name" name="project_name" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
 
       <div class="mt-4">
-        <label for="projectCode" class="text-sm md:text-base">Kode Project</label>
-        <input type="text" id="projectCode" placeholder="Masukkan kode Project" [(ngModel)]="project_code" name="project_code" required class="border rounded-xl p-2 w-full  ">
+        <label for="projectCode" class="text-sm md:text-[0.875rem]">Kode Project</label>
+        <input type="text" id="projectCode" placeholder="e.g. ACS" [(ngModel)]="project_code" name="project_code" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
 
       <div class="mt-4">
-        <label for="projectManager" class="text-sm md:text-base">Manager Project</label>
-        <input type="text" id="projectManager" placeholder="Masukkan nama Manager" [(ngModel)]="project_manager" name="project_manager" required class="border rounded-xl p-2 w-full  ">
+        <label for="projectManager" class="text-sm md:text-[0.875rem]">PIC Project</label>
+        <input type="text" id="projectManager" placeholder="e.g. John Doe" [(ngModel)]="project_manager" name="project_manager" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
 
       <div class="mt-4">
-        <label for="projectSelect" class="text-sm md:text-base mb-1">Pilih Produk</label>
+        <label for="projectSelect" class="text-sm md:text-[0.875rem] mb-1">Pilih Produk</label>
         <select id="productName" [(ngModel)]="product_uuid" name="product_uuid" required
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled>Pilih Produk</option>
@@ -160,16 +160,16 @@
 
 
 <!-- EDIT MODAL -->
-<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true"
+<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true" (click)="closeEditModal()"
   class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  <div (click)="$event.stopPropagation()"
     class="relative w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
     <div class="sticky top-0 flex bg-white items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
       <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
         Edit
       </h3>
-      <button (click)="closeAddModal()"
+      <button (click)="closeEditModal()"
         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -180,24 +180,24 @@
     </div>
     <!-- Modal body -->
     <form #editProjectForm="ngForm" class="p-6">
-      <h3 class="text-2xl text-gray-900 font-semibold">Project!</h3>
+      <h3 class="text-2xl text-gray-900 font-semibold">Project</h3>
       <p class="text-gray-600">Masukkan informasi Project yang ingin anda edit</p>
       <div class="mt-4">
-        <label for="projecttName" class="text-sm md:text-base">Nama Project</label>
-        <input type="text" id="projectName" placeholder="Masukkan nama Project" [(ngModel)]="project_name" name="project_name" required class="border rounded-xl p-2 w-full  ">
+        <label for="projecttName" class="text-sm md:text-[0.875rem]">Nama Project</label>
+        <input type="text" id="projectName" placeholder="e.g. Acasia" [(ngModel)]="project_name" name="project_name" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
 
       <div class="mt-4">
-        <label for="projectCode" class="text-sm md:text-base">Kode Project</label>
-        <input type="text" id="projectCode" placeholder="Masukkan kode Project" [(ngModel)]="project_code" name="project_code" required class="border rounded-xl p-2 w-full  ">
+        <label for="projectCode" class="text-sm md:text-[0.875rem]">Kode Project</label>
+        <input type="text" id="projectCode" placeholder="e.g. ACS" [(ngModel)]="project_code" name="project_code" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
 
       <div class="mt-4">
-        <label for="projectManager" class="text-sm md:text-base">Manager Project</label>
-        <input type="text" id="projectManager" placeholder="Masukkan nama Manager" [(ngModel)]="project_manager" name="project_manager" required class="border rounded-xl p-2 w-full  ">
+        <label for="projectManager" class="text-sm md:text-[0.875rem]">PIC Project</label>
+        <input type="text" id="projectManager" placeholder="e.g. John Doe" [(ngModel)]="project_manager" name="project_manager" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
       <div class="mt-4">
-        <label for="productSelect" class="text-sm md:text-base mb-1">Pilih Produk</label>
+        <label for="productSelect" class="text-sm md:text-[0.875rem] mb-1">Pilih Produk</label>
         <select id="productName" [(ngModel)]="product_uuid" name="product_uuid" required
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option value="" disabled>Pilih Produk</option>

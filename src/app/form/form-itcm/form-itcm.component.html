@@ -1,5 +1,7 @@
 <ng-template #tableView>
   <h1 class="pb-10 text-center text-3xl font-semibold text-gray-800">Form ITCM</h1>
+
+  <!-- <button (click)="zimbra()">zimbra</button> -->
   <div class="flex w-full pb-4 px-2 bg-white">
     <label for="table-search" class="sr-only">Search</label>
     <div class="relative">
@@ -15,7 +17,7 @@
         class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
         placeholder="Search for items">
     </div>
-    <button type="button" (click)="openAddModal()"
+    <button type="button" (click)="openAddModal()" *ngIf="role_code === 'A' || role_code === 'M'"
       class="ml-auto text-white bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-2 py-1 md:px-5 md:py-2.5 text-center inline-flex items-center hover:shadow-[0_5px_15px_rgba(189,175,255,0.8)] transition duration-300 ease-in-out">
       <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden md:block"
         stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24"
@@ -25,6 +27,7 @@
       </svg>
       <span>Add Form</span>
     </button>
+
   </div>
   <!-- <div class="relative py-2 overflow-x-auto shadow-md sm:rounded-lg"> -->
     <!-- <div class="text-xs">
@@ -96,7 +99,7 @@
 
   <div class="flex flex-wrap">
     <div class="w-full">
-      <ul class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5 ">
+      <ul class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5 " *ngIf="role_code === 'A' || role_code === 'M'">
         <li class="w-64 flex-shrink-0 -mb-px last:mr-0 flex-auto">
           <a class="flex items-center gap-2 px-5 py-3 border border-1 leading-normal cursor-pointer hover:text-blue-400"
             (click)="toggleTabs(1)"
@@ -248,7 +251,7 @@
                         <td class="px-6 py-4 font-medium">
                           <app-status-info [status]="itemFormITCM.form_status"></app-status-info>
                         </td>                        
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4" *ngIf="role_code === 'A' || role_code === 'M'">
                           <div class="relative">
                             <button (click)="togglePopover($event, x)"
                               class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
@@ -288,13 +291,13 @@
                                   Publish
                                 </button>
                                 <button *ngIf="itemFormITCM.form_status === 'Published'" (click)="generateURL(itemFormITCM.form_uuid)"
-                                class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5"></path>
-                                  <path d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z"></path>
-                                </svg>
-                                Generate Link
-                              </button>
+                                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5"></path>
+                                    <path d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z"></path>
+                                  </svg>
+                                  Generate Link
+                                </button>
                                 <button (click)="openPreviewPage(itemFormITCM.form_uuid)"
                                   class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                                   <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -385,8 +388,8 @@
                         <td class="px-6 py-4 font-medium">
                           <app-status-info [status]="itemFormITCM.form_status"></app-status-info>
                         </td>
-                        <!-- Button Popover -->
-                        <td class="px-6 py-4 ">
+                        <!-- Button Popover -- *ngIf="role_code === 'A' || role_code === 'M'"> -->
+                        <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
                           <div class="relative">
                             <button (click)="togglePopover($event, x)"
                               class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
@@ -509,8 +512,8 @@
                         <td class="px-6 py-4 font-medium">
                           <app-status-info [status]="itemFormITCM.form_status"></app-status-info>
                         </td>
-                        <!-- Button Popover -->
-                        <td class="px-6 py-4 ">
+                        <!-- Button Popover -- *ngIf="role_code === 'A' || role_code === 'M'">-->
+                        <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
                           <div class="relative">
                             <button (click)="togglePopover($event, x)"
                               class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
@@ -552,8 +555,8 @@
 
             <div [ngClass]="{'hidden': openTab !== 4, 'block': openTab === 4}">
               <p class="pb-3 text-sm text-gray-600 font-medium">
-                <span *ngIf="role_code === 'M'">approved.</span>
-                <span *ngIf="role_code === 'A'">approved.</span>
+                <span *ngIf="role_code === 'M'">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, veritatis! Labore, soluta, ipsa exercitationem incidunt repellendus provident quae ullam modi quas nihil hic culpa qui in necessitatibus nesciunt voluptas beatae?</span>
+                <span *ngIf="role_code === 'A'">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, veritatis! Labore, soluta, ipsa exercitationem incidunt repellendus provident quae ullam modi quas nihil hic culpa qui in necessitatibus nesciunt voluptas beatae?</span>
               </p>
               <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -587,7 +590,7 @@
                         <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                         <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
                         <!-- Button Popover -->
-                        <td class="px-6 py-4 ">
+                        <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
                           <div class="relative">
                             <button (click)="togglePopover($event, x)"
                               class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
@@ -640,8 +643,8 @@
             
             <div [ngClass]="{'hidden': openTab !== 5, 'block': openTab === 5}">
               <p class="pb-3 text-sm text-gray-600 font-medium">
-                <span *ngIf="role_code === 'M'">rejected.</span>
-                <span *ngIf="role_code === 'A'">rejected.</span>
+                <span *ngIf="role_code === 'M'">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error laudantium voluptate illum mollitia impedit, consequatur fugit, alias expedita dolore aliquam incidunt provident at possimus quaerat. Officiis reprehenderit architecto dolorem itaque.</span>
+                <span *ngIf="role_code === 'A'">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error laudantium voluptate illum mollitia impedit, consequatur fugit, alias expedita dolore aliquam incidunt provident at possimus quaerat. Officiis reprehenderit architecto dolorem itaque.</span>
               </p>            
               <div class="flex flex-col overflow-y-scroll h-[80vh]">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -676,7 +679,7 @@
                         <td class="px-6 py-4">{{ itemFormITCM.project_manager }}</td>
                         <td class="px-6 py-4">{{ itemFormITCM.approval_status }}</td>
                         <!-- Button Popover -->
-                        <td class="px-6 py-4 ">
+                        <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
                           <div class="relative">
                             <button (click)="togglePopover($event, x)" class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
                               <svg width="46" height="46" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -780,17 +783,17 @@
                 <tr>
                   <td class="outline outline-black outline-1 p-2">No. Dokumen</td>
                   <td class="outline outline-black outline-1 p-2 text-center">:</td>
-                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
+                  <td class="outline outline-black outline-1 p-2">AINO/PED/F/04/02</td>
                 </tr>
                 <tr>
                   <td class="outline outline-black outline-1 p-2">Tanggal Terbit</td>
                   <td class="outline outline-black outline-1 p-2 text-center">:</td>
-                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
+                  <td class="outline outline-black outline-1 p-2">20 Februari 2024</td>
                 </tr>
                 <tr>
                   <td class="outline outline-black outline-1 p-2">No. Revisi</td>
                   <td class="outline outline-black outline-1 p-2 text-center">:</td>
-                  <td class="outline outline-black outline-1 p-2">blm bisa</td>
+                  <td class="outline outline-black outline-1 p-2">2.0</td>
                 </tr>
               </table>
             </td>
@@ -858,7 +861,8 @@
             <td class="border border-black px-2 py-0 text-center font-bold">Deskripsi Perubahan yang diusulkan</td>
           </tr>
           <tr>
-            <td class="border border-black p-2 text-sm whitespace-pre-wrap" [innerHTML]="sanitizedDescription"></td>
+            <!-- <td class="border border-black p-2 text-sm whitespace-pre-wrap" [innerHTML]="sanitizedDescription"></td> -->
+            <td class="border border-black p-2 text-sm whitespace-pre-wrap">{{ deskripsi }}</td>
           </tr>
         </table>
 
@@ -904,7 +908,7 @@
           </tr>
         </table>
 
-        <p *ngIf="approval_status === 'Menunggu Disetujui' && form_status === 'Published'" class="text-red-500 text-xs">*Hanya bisa diisi oleh Atasan
+        <p *ngIf="approval_status === 'Menunggu Disetujui' && form_status === 'Published'" class="text-red-500 text-base">*Hanya bisa diisi oleh Atasan
           Penerima!&nbsp;&nbsp;<span class="text-black">Anda adalah Atasan Penerima?</span>&nbsp;&nbsp;<button (click)="openApproveModal(form_uuid)" class="text-blue-500 underline">Approve Formulir ini</button></p>
         <!-- Pastikan Anda menggunakan kondisi ini di dalam template komponen Angular Anda -->
 
@@ -918,7 +922,7 @@
               <td class="border border-black px-2 py-0 text-center font-bold">Alasan Tidak Approve</td>
             </tr>
             <tr>
-              <td class="border border-black p-2 text-sm">blm bisa</td>
+              <td class="border border-black p-2 text-sm">{{reason}}</td>
             </tr>
           </table>
         </ng-container>
@@ -1010,7 +1014,7 @@
         </div>
         <button *ngIf="mySignatory && !isSigned" (click)="openModal(form_uuid)" class="text-blue-500 text-sm underline">Sign Formulir ini</button>
     </div>
-    <div class="flex items-center justify-between md:px-5">
+    <div id="download" class="flex items-center justify-between md:px-5">
       <button onclick="window.history.back();"
         class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
         <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -1078,9 +1082,9 @@
 
       <div class="mt-4">
         <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">No. DA</label>
-        <input type="text" name="daNo" id="daNo" placeholder="Otomatis Terisi"
+        <input type="text" name="daNo" id="daNo" placeholder="0000/XX/DA/XX/20XX"
           class="border text-sm rounded-lg p-2 px-3 w-full bg-gray-100" disabled>
-        <p class="text-xs text-red-500">Nomor DA akan terisi otomatis apabila Formulir DA telah di-Approve</p>
+        <p class="text-xs text-gray-500">Nomor DA akan terisi otomatis apabila Formulir DA telah di-Approve</p>
       </div>
 
       <div class="mt-4">
@@ -1108,8 +1112,10 @@
 
       <div class="mt-4 z-40">
         <label for="description" class="text-sm md:text-[0.875rem] mb-1">Deskripsi</label>
-        <angular-editor name="deskripsi"  [(ngModel)]="deskripsi" [placeholder]="'Masukkan Deskripsi'" [config]="editorConfig">
-        </angular-editor>
+        <!-- <angular-editor name="deskripsi"  [(ngModel)]="deskripsi" [placeholder]="'Masukkan Deskripsi'" [config]="editorConfig">
+                    </angular-editor> -->
+        <textarea name="deskripsi" placeholder="Masukkan deskripsi" [(ngModel)]="deskripsi" cols="30" rows="3"
+          class="border text-sm rounded-lg p-2 px-3 w-full"></textarea>
       </div>
 
       <hr>
@@ -1224,9 +1230,9 @@
       </div>
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">No. DA</label>
-        <input type="text" name="no_da" placeholder="Belum Ada Nomor DA" [(ngModel)]="no_da"
-          class="border text-sm rounded-lg p-2 px-3 w-full cursor-not-allowed bg-gray-100" disabled>
+        <input type="text" name="daNo" id="daNo" placeholder="0000/XX/DA/XX/20XX"
+          class="border text-sm rounded-lg p-2 px-3 w-full bg-gray-100" disabled>
+        <p class="text-xs text-gray-500">Nomor DA akan terisi otomatis apabila Formulir DA telah di-Approve</p>
       </div>
 
       <div class="mt-4">
@@ -1253,17 +1259,17 @@
           class="border text-sm rounded-lg p-2 px-3 w-full">
       </div>
 
-      <!-- <div class="mt-4">
+      <div class="mt-4">
         <label for="description" class="text-sm md:text-[0.875rem] mb-1">Deskripsi</label>
-        <textarea name="deskripsi" placeholder="Masukkan deskripsi" [(ngModel)]="sanitizedDescription" cols="30" rows="3"
+        <textarea name="deskripsi" placeholder="Masukkan deskripsi" [(ngModel)]="deskripsi" cols="30" rows="3"
           class="border text-sm rounded-lg p-2 px-3 w-full"></textarea>
-      </div> -->
+      </div>
 
-      <div class="mt-4 z-40">
+      <!-- <div class="mt-4 z-40">
         <label for="description" class="text-sm md:text-[0.875rem] mb-1">Deskripsi</label>
         <angular-editor name="deskripsi"  [(ngModel)]="deskripsi" [placeholder]="'Masukkan Deskripsi'" [config]="editorConfig">
         </angular-editor>
-      </div>
+      </div> -->
 
 
       <h3 class="text-2xl text-gray-900 font-semibold mt-6">Signatories</h3>
@@ -1341,22 +1347,28 @@
         </button>
       </div>
       <div>
-        <ul class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5">
-          <li class="w-auto flex items-center -mb-px last:mr-0 flex-auto">
-            <a class="flex items-center gap-2 px-5 py-3 leading-normal cursor-pointer"
+        <ul class="flex flex-row overflow-x-auto space-x-2 pt-3 pb-2 mb-5 scrollbar-hide">
+          <li class="flex items-center -mb-px last:mr-0 flex-auto">
+            <a class="flex items-center gap-2 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer rounded-lg hover:bg-zinc-100 hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400"
               (click)="toggleTabs2(1)"
-              [ngClass]="{'text-neutral-600 bg-zinc-50': openTab2 !== 1, 'underline': openTab2 === 1}">
-              <div>draw</div>
+              [ngClass]="{
+                'text-neutral-600 bg-zinc-50': openTab2 !== 1,
+                'underline font-semibold text-neutral-800 bg-zinc-300 shadow-lg': openTab2 === 1
+              }">
+              <div>Draw</div>
             </a>
           </li>
-          <li class="w-auto flex items-center -mb-px last:mr-0 flex-auto">
-            <a class="flex items-center gap-2 px-5 py-3 leading-normal cursor-pointer"
+          <li class="flex items-center -mb-px last:mr-0 flex-auto">
+            <a class="flex items-center gap-2 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer rounded-lg hover:bg-zinc-100 hover:text-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-400"
               (click)="toggleTabs2(2)"
-              [ngClass]="{'text-neutral-600 bg-zinc-50': openTab2 !== 2, 'underline': openTab2 === 2}">
-              <div>upload</div>
+              [ngClass]="{
+                'text-neutral-600 bg-zinc-50': openTab2 !== 2,
+                'underline font-semibold text-neutral-800 bg-zinc-300 shadow-lg': openTab2 === 2
+              }">
+              <div>Upload</div>
             </a>
           </li>
-        </ul>
+        </ul>        
       </div>
       <hr class="py-3">
       <!-- Draw Signature -->
@@ -1366,7 +1378,7 @@
       </div>
       <!-- Upload Image -->
       <div [ngClass]="{'hidden': openTab2 !== 2, 'block': openTab2 === 2}"
-        class="my-2 w-full h-full border dashed-custom border-spacing-6">
+        class="flex-col text-center justify-center my-2 w-full h-auto aspect-[296/100] border dashed-custom border-spacing-6">
         <input *ngIf="!uploadedImage" type="file" (change)="onFileSelected($event)" accept="image/*"
           class="block w-full text-sm px-5 text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300" />
         <div *ngIf="uploadedImage" class="flex justify-center w-full">

@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  CanActivate,
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import axios, { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
@@ -15,25 +20,26 @@ export class AuthGuard implements CanActivate {
     this.apiUrl = environment.apiUrl;
   }
 
-  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+  async canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<boolean> {
+    if (state.url.startsWith('/guest')) {
+      return true;
+    }
+
     const token = this.cookieService.get('userToken');
-    console.log('Token mentah:', token);
 
     if (token) {
       try {
-        // Verifikasi token dengan melakukan request ke endpoint validasi
         const response = await axios.get(`${this.apiUrl}/auth/my/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        // Jika request berhasil, berarti token valid
-        console.log('Token valid:', response.data);
         return true;
       } catch (error) {
         if (error instanceof AxiosError && error.response?.status === 401) {
-          // Token tidak valid, hapus semua cookies dan arahkan ke halaman login
           this.cookieService.deleteAll();
           Swal.fire({
             title: 'Session Expired',
@@ -44,11 +50,10 @@ export class AuthGuard implements CanActivate {
             showCancelButton: false,
             showConfirmButton: false,
           }).then(() => {
-            localStorage.setItem('redirectUrl', state.url); // Simpan URL yang diminta sebelum login
+            localStorage.setItem('redirectUrl', state.url);
             this.router.navigate(['/login']);
           });
         } else {
-          // Tangani error lainnya
           console.error('Error during token validation:', error);
           Swal.fire({
             title: 'Error',
@@ -63,8 +68,7 @@ export class AuthGuard implements CanActivate {
         return false;
       }
     } else {
-      // Tidak ada token, simpan URL dan arahkan ke halaman login
-      localStorage.setItem('redirectUrl', state.url); // Simpan URL yang diminta sebelum login
+      localStorage.setItem('redirectUrl', state.url);
       this.router.navigate(['/login']);
       return false;
     }

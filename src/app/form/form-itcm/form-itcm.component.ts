@@ -100,68 +100,14 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   closeButton!: ElementRef<HTMLButtonElement>;
 
   private signaturePad!: SignaturePad;
+
   img: string | null = null;
   uploadedImage: string | ArrayBuffer | null = null;
-  penColor: string = '#262626'; // Default pen color
-
-  ngAfterViewInit() {
-    const canvas = this.sigPad.nativeElement;
-
-    // Initialize SignaturePad
-    this.signaturePad = new SignaturePad(canvas);
-    this.signaturePad.penColor = this.penColor;
-
-    // Resize canvas to fit the container
-    this.resizeCanvas();
-    window.addEventListener('resize', this.resizeCanvas.bind(this));
-
-    if (this.closeButton) {
-      this.closeButton.nativeElement.addEventListener('click', () =>
-        this.closeModal()
-      );
-    }
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('resize', this.resizeCanvas.bind(this));
-    if (this.closeButton) {
-      this.closeButton.nativeElement.removeEventListener('click', () =>
-        this.closeModal()
-      );
-    }
-  }
-
-  clear() {
-    this.signaturePad.clear();
-    this.img = null; // Clear the img property when the canvas is cleared
-    this.uploadedImage = null;
-  }
-
-  save() {
-    const dataURL = this.sigPad.nativeElement.toDataURL('image/png');
-    const link = document.createElement('a');
-    link.href = dataURL;
-    link.download = 'signature.png';
-    link.click();
-  }
-
-  onColorChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.penColor = input.value;
-    this.signaturePad.penColor = this.penColor;
-  }
-
-  private resizeCanvas() {
-    const canvas = this.sigPad.nativeElement;
-    const container = canvas.parentElement as HTMLElement;
-    canvas.width = container.clientWidth;
-    canvas.height = container.clientHeight;
-    this.signaturePad.clear(); // Clear the canvas to fit new size
-  }
+  penColor: string = '#262626';
 
   searchText: string = '';
 
-  isPreview: boolean = false; // State untuk menampilkan preview atau tabel
+  isPreview: boolean = false;
   form!: FormGroup;
 
   user_uuid: any;
@@ -169,11 +115,13 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   role_code: any;
   personal_name: string = '';
 
+  userEmails: string[] = [];
+
   dataListAllDoc: Documents[] = [];
   dataListAllProject: Projects[] = [];
 
   document_uuid: string = '';
-  //768e9241-c9ca-411f-8b91-4fb3ca7728bf
+
   document_name: string = '';
   form_ticket: string = '';
   form_ticket_update: string = '';
@@ -285,15 +233,10 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   dataListFormAdminITCM: formsITCM[] = [];
   dataListFormUserITCM: formsITCM[] = [];
 
-  // draft
   dataListAdminFormITCMDraft: formsITCM[] = [];
   dataListUserFormITCMDraft: formsITCM[] = [];
 
   dataListFormITCMSignature: formsITCM[] = [];
-
-  // publish
-  // dataListAdminFormDAPublish: formsITCM[] = [];
-  // dataListUserFormDAPublish: formsITCM[] = [];
 
   // approved
   dataListAdminFormITCMApproved: formsITCM[] = [];
@@ -308,13 +251,10 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     await this.profileData();
     if (this.role_code === 'SA') {
       this.superAdminOnly();
-      // console.log('superadmin woi');
     } else if (this.role_code === 'A') {
       this.adminOnly();
-      // console.log('admin woi');
     } else if (this.role_code === 'M') {
       this.userOnly();
-      // console.log('member woi');
     }
 
     // ? fetch untuk ADD dan EDIT
@@ -333,10 +273,66 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         this.openPreviewPage(form_uuid);
       }
     });
+
+    this.route.queryParams.subscribe((params) => {
+      this.openTab = params['tab'] ? Number(params['tab']) : 1;
+    });
+  }
+
+  ngAfterViewInit() {
+    const canvas = this.sigPad.nativeElement;
+
+    this.signaturePad = new SignaturePad(canvas);
+    this.signaturePad.penColor = this.penColor;
+
+    this.resizeCanvas();
+    window.addEventListener('resize', this.resizeCanvas.bind(this));
+
+    if (this.closeButton) {
+      this.closeButton.nativeElement.addEventListener('click', () =>
+        this.closeModal()
+      );
+    }
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeCanvas.bind(this));
+    if (this.closeButton) {
+      this.closeButton.nativeElement.removeEventListener('click', () =>
+        this.closeModal()
+      );
+    }
+  }
+
+  clear() {
+    this.signaturePad.clear();
+    this.img = null;
+    this.uploadedImage = null;
+  }
+
+  save() {
+    const dataURL = this.sigPad.nativeElement.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'signature.png';
+    link.click();
+  }
+
+  onColorChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.penColor = input.value;
+    this.signaturePad.penColor = this.penColor;
+  }
+
+  private resizeCanvas() {
+    const canvas = this.sigPad.nativeElement;
+    const container = canvas.parentElement as HTMLElement;
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    this.signaturePad.clear();
   }
 
   superAdminOnly() {
-    // document
     this.fetchDataFormITCM();
   }
 
@@ -387,10 +383,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     return [];
   }
 
-  // get dataFormITCMSignature(): formsITCM[] {
-  //   return ''
-  // }
-
   get dataFormITCMApproved(): formsITCM[] {
     if (this.role_code === 'A') {
       return this.dataListAdminFormITCMApproved;
@@ -425,80 +417,83 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       reader.readAsDataURL(file);
     }
   }
-  
+
   resizeImage(base64Str: string) {
     const img = new Image();
     img.src = base64Str;
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
+
       if (ctx) {
         const targetWidth = 444;
         const targetHeight = 150;
-  
+
         canvas.width = targetWidth;
         canvas.height = targetHeight;
-  
-        // Mengatur crop agar aspect ratio tetap 7:2.8
-        const scale = Math.max(targetWidth / img.width, targetHeight / img.height);
+
+        const scale = Math.max(
+          targetWidth / img.width,
+          targetHeight / img.height
+        );
         const x = (targetWidth / scale - img.width) / 2;
         const y = (targetHeight / scale - img.height) / 2;
-  
+
         ctx.scale(scale, scale);
         ctx.drawImage(img, x, y);
-  
-        this.resizedImage = canvas.toDataURL('image/jpeg', 0.9); // 90% kualitas gambar
-        console.log('Resized Image:', this.resizedImage); // Cek hasil resize di console
+
+        this.resizedImage = canvas.toDataURL('image/jpeg', 0.9);
       }
     };
   }
-  
-  offsetX = 0;  // Posisi horizontal
-  offsetY = 0;  // Posisi vertikal
-  isDragging = false; // Status apakah gambar sedang digeser
+
+  offsetX = 0;
+  offsetY = 0;
+  isDragging = false;
 
   startDrag(event: MouseEvent | TouchEvent) {
-    // Mencegah default browser behavior (seperti drag and drop)
     event.preventDefault();
 
-    // Menangani mouse dan sentuhan
-    let startX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
-    let startY = event instanceof MouseEvent ? event.clientY : event.touches[0].clientY;
+    let startX =
+      event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
+    let startY =
+      event instanceof MouseEvent ? event.clientY : event.touches[0].clientY;
 
-    // Menandai drag dimulai
     this.isDragging = true;
 
     const moveHandler = (moveEvent: MouseEvent | TouchEvent) => {
       if (!this.isDragging) return;
 
-      const moveX = moveEvent instanceof MouseEvent ? moveEvent.clientX : moveEvent.touches[0].clientX;
-      const moveY = moveEvent instanceof MouseEvent ? moveEvent.clientY : moveEvent.touches[0].clientY;
+      const moveX =
+        moveEvent instanceof MouseEvent
+          ? moveEvent.clientX
+          : moveEvent.touches[0].clientX;
+      const moveY =
+        moveEvent instanceof MouseEvent
+          ? moveEvent.clientY
+          : moveEvent.touches[0].clientY;
 
       this.offsetX += moveX - startX;
       this.offsetY += moveY - startY;
 
-      // Update posisi gambar
       startX = moveX;
       startY = moveY;
     };
 
     const stopDrag = () => {
       this.isDragging = false;
-      // Hapus event listener setelah drag selesai
+
       document.removeEventListener('mousemove', moveHandler);
       document.removeEventListener('touchmove', moveHandler);
       document.removeEventListener('mouseup', stopDrag);
       document.removeEventListener('touchend', stopDrag);
     };
 
-    // Menambahkan event listener untuk move dan stop
     document.addEventListener('mousemove', moveHandler);
     document.addEventListener('touchmove', moveHandler);
     document.addEventListener('mouseup', stopDrag);
     document.addEventListener('touchend', stopDrag);
   }
-
 
   matchesSearch(item: formsITCM): boolean {
     const searchText = this.searchText.toLowerCase();
@@ -509,11 +504,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       item.project_name.toLowerCase().includes(searchText) ||
       item.project_manager.toLowerCase().includes(searchText) ||
       item.no_da.toLowerCase().includes(searchText)
-      // item.nama_pemohon.toLowerCase().includes(searchText) ||
-      // item.instansi.toLowerCase().includes(searchText) ||
-      // item.tanggal.toLowerCase().includes(searchText) ||
-      // item.perubahan_aset.toLowerCase().includes(searchText) ||
-      // item.deskripsi.toLowerCase().includes(searchText)
     );
   }
 
@@ -530,7 +520,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       this.user_name = response.data.user_name;
       this.role_code = response.data.role_code;
       this.personal_name = response.data.personal_name;
-      console.log('personal name: ', this.personal_name);
     } catch (error) {
       if (error instanceof axios.AxiosError) {
         if (error.response?.status === 500 || error.response?.status === 404) {
@@ -542,12 +531,27 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  fetchData() {
+    switch (this.role_code) {
+      case 'SA':
+        this.superAdminOnly();
+        break;
+      case 'A':
+        this.adminOnly();
+        break;
+      case 'M':
+        this.userOnly();
+        break;
+      default:
+        break;
+    }
+  }
+
   fetchDocumentUUID(): void {
     axios
       .get(`${environment.apiUrl2}/form/itcm/code`)
       .then((response) => {
         this.document_uuid = response.data.document_uuid;
-        console.log('Document UUID:', this.document_uuid);
       })
       .catch((error) => {
         console.error('Error fetching document UUID:', error);
@@ -559,6 +563,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       .get(`${this.apiUrl}/personal/name/all`)
       .then((response) => {
         this.dataListAllUser = response.data;
+        console.log(this.dataListAllUser);
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -591,9 +596,10 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     axios
       .get(`${environment.apiUrl2}/form/itcm`)
       .then((response) => {
-        this.dataListFormITCM = response.data;
-        console.log(response.data);
-        this.formItcmService.updateDataListFormITCM(this.dataListFormITCM);
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListFormITCM = response.data;
+          this.formItcmService.updateDataListFormITCM(this.dataListFormITCM);
+        }
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -612,15 +618,16 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListFormAdminITCM = response.data;
-        this.totalMyDocument =
-          response.data && Array.isArray(response.data)
-            ? response.data.length
-            : 0;
-        console.log('ini laa', response.data);
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListFormAdminITCM = response.data;
+          this.totalMyDocument =
+            response.data && Array.isArray(response.data)
+              ? response.data.length
+              : 0;
+        }
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error.message);
       });
   }
 
@@ -632,13 +639,13 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListFormUserITCM = response.data;
-        this.totalMyDocument =
-          response.data && Array.isArray(response.data)
-            ? response.data.length
-            : 0;
-        // console.log(response.data);
-        console.table('ini woi', response.data);
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListFormUserITCM = response.data;
+          this.totalMyDocument =
+            response.data && Array.isArray(response.data)
+              ? response.data.length
+              : 0;
+        }
       })
       .catch((error) => {
         console.log(error.response);
@@ -654,13 +661,13 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListFormITCMSignature = response.data.filter(
-          (item: any) => item.form_status === 'Published'
-        );
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListFormITCMSignature = response.data.filter(
+            (item: any) => item.form_status === 'Published'
+          );
 
-        this.totalMySignature = this.dataListFormITCMSignature.length;
-        // cuma menampilkan yg udh published aja
-        // console.log('wirrrrrrrrrr', response);
+          this.totalMySignature = this.dataListFormITCMSignature.length;
+        }
       })
       .catch((error) => {
         if (error.response) {
@@ -672,7 +679,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         } else {
           // Jika error response tidak ada, log error keseluruhan
-          // console.log('Error: ', error.message || error);
+          console.log('Error: ', error.message || error);
         }
       });
   }
@@ -687,11 +694,13 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListAdminFormITCMDraft = response.data.filter(
-          (item: any) => item.form_status === 'Draft'
-        );
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListAdminFormITCMDraft = response.data.filter(
+            (item: any) => item.form_status === 'Draft'
+          );
 
-        this.totalDraft = this.dataListAdminFormITCMDraft.length;
+          this.totalDraft = this.dataListAdminFormITCMDraft.length;
+        }
       })
       .catch((error) => {
         if (error.response) {
@@ -717,11 +726,13 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListUserFormITCMDraft = response.data.filter(
-          (item: any) => item.form_status === 'Draft'
-        );
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListUserFormITCMDraft = response.data.filter(
+            (item: any) => item.form_status === 'Draft'
+          );
 
-        this.totalDraft = this.dataListUserFormITCMDraft.length;
+          this.totalDraft = this.dataListUserFormITCMDraft.length;
+        }
       })
       .catch((error) => {
         if (error.response) {
@@ -747,14 +758,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListAdminFormITCMApproved = response.data.filter(
-          (item: any) => item.approval_status === 'Disetujui'
-        );
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListAdminFormITCMApproved = response.data.filter(
+            (item: any) => item.approval_status === 'Disetujui'
+          );
 
-        this.totalApproved = this.dataListAdminFormITCMApproved.length;
-
-        if (this.dataListAdminFormITCMApproved.length === 0) {
-          console.log('No approved documents found for admin.');
+          this.totalApproved = this.dataListAdminFormITCMApproved.length;
         }
       })
       .catch((error) => {
@@ -781,14 +790,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListUserFormITCMApproved = response.data.filter(
-          (item: any) => item.approval_status === 'Disetujui'
-        );
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListUserFormITCMApproved = response.data.filter(
+            (item: any) => item.approval_status === 'Disetujui'
+          );
 
-        this.totalApproved = this.dataListUserFormITCMApproved.length;
-
-        if (this.dataListUserFormITCMApproved.length === 0) {
-          console.log('No approved documents found for user.');
+          this.totalApproved = this.dataListUserFormITCMApproved.length;
         }
       })
       .catch((error) => {
@@ -815,14 +822,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListAdminFormITCMRejected = response.data.filter(
-          (item: any) => item.approval_status === 'Tidak Disetujui'
-        );
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListAdminFormITCMRejected = response.data.filter(
+            (item: any) => item.approval_status === 'Tidak Disetujui'
+          );
 
-        this.totalRejected = this.dataListAdminFormITCMRejected.length;
-
-        if (this.dataListAdminFormITCMRejected.length === 0) {
-          console.log('No Rejected documents found for admin.');
+          this.totalRejected = this.dataListAdminFormITCMRejected.length;
         }
       })
       .catch((error) => {
@@ -849,14 +854,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       })
       .then((response) => {
-        this.dataListUserFormITCMRejected = response.data.filter(
-          (item: any) => item.approval_status === 'Tidak Disetujui'
-        );
+        if (response.data && Array.isArray(response.data)) {
+          this.dataListUserFormITCMRejected = response.data.filter(
+            (item: any) => item.approval_status === 'Tidak Disetujui'
+          );
 
-        this.totalRejected = this.dataListUserFormITCMRejected.length;
-
-        if (this.dataListUserFormITCMRejected.length === 0) {
-          console.log('No Rejected documents found for user.');
+          this.totalRejected = this.dataListUserFormITCMRejected.length;
         }
       })
       .catch((error) => {
@@ -882,7 +885,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
   openTab2 = 1;
   toggleTabs2($tabNumber: number) {
     this.openTab2 = $tabNumber;
-    this.clear()
+    this.clear();
   }
 
   togglePopover(event: Event, index: number): void {
@@ -991,11 +994,25 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     this.form_ticket = '';
     this.no_da = '';
     this.project_name = '';
+    this.project_uuid = '';
     this.nama_pemohon = '';
     this.instansi = '';
     this.tanggal = '';
     this.perubahan_aset = '';
     this.deskripsi = '';
+
+    this.name1 = '';
+    this.position1 = '';
+    this.roleSign1 = this.roleSign1;
+    this.name2 = '';
+    this.position2 = '';
+    this.roleSign2 = this.roleSign2;
+    this.name3 = '';
+    this.position3 = '';
+    this.roleSign3 = this.roleSign3;
+    this.name4 = '';
+    this.position4 = '';
+    this.roleSign4 = this.roleSign4;
 
     this.isModalAddOpen = true;
   }
@@ -1048,17 +1065,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
       .then((response) => {
-        console.log(FormData);
-        // console.log(data_itcm);
-
-        // fetch setelah add biar gausah refresh
-        this.fetchUserSignature();
-        if (this.role_code === 'A') {
-          this.adminOnly();
-        } else if (this.role_code === 'M') {
-          this.userOnly();
-        }
-
         Swal.fire({
           icon: 'success',
           title: 'Berhasil',
@@ -1068,6 +1074,8 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
           showCancelButton: false,
           showConfirmButton: false,
         });
+        this.fetchData();
+        this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (
@@ -1087,7 +1095,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
           });
         }
       });
-    this.isModalAddOpen = false;
   }
 
   closeAddModal() {
@@ -1096,15 +1103,32 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openEditModal(form_uuid: string) {
     // this.fetchDocumentUUID()
-    // console.log('Document UUID 2:', this.document_uuid);
+
     axios
       .get(`${environment.apiUrl2}/itcm/${form_uuid}`)
       .then((response) => {
-        console.log(response.data);
-        // console.log('plis laah', response.data.form.document_uuid);
-
-        this.isModalEditOpen = true;
+        console.log(response);
         const formData = response.data.form;
+        if (formData.form_status === 'Published') {
+          Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Anda yakin ingin mengedit Formulir ini? Setelah diedit, formulir akan kembali menjadi Draft dan semua signatories akan dihapus',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.isModalEditOpen = true;
+            }
+          });
+        } else if (formData.form_status === 'Draft') {
+          this.isModalEditOpen = true;
+        }
+
+        // this.isModalEditOpen = true;
         this.form_uuid = formData.form_uuid;
         this.document_uuid = this.document_uuid;
         this.form_ticket = formData.form_ticket;
@@ -1114,8 +1138,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         this.instansi = formData.instansi;
         this.tanggal = formData.tanggal;
         this.perubahan_aset = formData.perubahan_aset;
-        // this.deskripsi = formData.deskripsi;
-        // this.setDeskripsi(formData.deskripsi); // Memanggil metode setDeskripsi
         this.deskripsi = formData.deskripsi;
 
         // ini untuk edit penerima, tp masih bingung
@@ -1128,8 +1150,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
             this.signatoryPositions[role].is_sign = sign.is_sign;
           }
         });
-
-        console.log('signdata', signData);
 
         const existingProject = this.dataListProject.find(
           (project) => project.project_name === formData.project_name
@@ -1193,7 +1213,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       ],
     };
-    console.log('ini sama sign', data);
     axios
       .put(
         `${environment.apiUrl2}/api/form/itcm/update/${this.form_uuid}`,
@@ -1205,7 +1224,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         Swal.fire({
           title: 'Success',
           text: response.data.message,
@@ -1217,12 +1235,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         // fetch setelah add biar gausah refresh
-        this.fetchUserSignature();
-        if (this.role_code === 'A') {
-          this.adminOnly();
-        } else if (this.role_code === 'M') {
-          this.userOnly();
-        }
+        this.fetchData();
       })
       .catch((error) => {
         if (
@@ -1245,82 +1258,167 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isModalEditOpen = false;
   }
 
-  publish(form_uuid: string, form_ticket: string) {
-    Swal.fire({
+  async fetchUserEmail(form_uuid: string): Promise<void> {
+    try {
+      const response = await axios.get(
+        `${environment.apiUrl2}/itcm/${form_uuid}`
+      );
+      // console.log(response);
+      this.userEmails = response.data.user_emails;
+    } catch (error) {
+      console.error('Gagal ambil user email', error);
+      throw error;
+    }
+  }
+
+  async emailToZimbra(form_uuid: string) {
+    try {
+      await this.fetchUserEmail(form_uuid);
+      this.generateURL(form_uuid);
+
+      const link = `${window.location.origin}/form/itcm/${form_uuid}`;
+
+      await axios.post(
+        `${environment.apiUrl2}/send-email`,
+        {
+          to: this.userEmails,
+          subject: 'Formulir Baru dari Woila untuk Ditandatangani - ITCM',
+          body: `
+          <div
+            style="max-width: 600px; margin: 40px auto; background-color: #ffffff; padding: 30px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+            <div style="text-align: center;">
+              <h2 style="color: #2c3e50; margin-bottom: 8px;">📄 Formulir Baru Siap Ditinjau</h2>
+              <p style="font-size: 16px; margin-bottom: 24px;">Anda memiliki formulir baru dari <strong>Woila</strong> yang perlu
+                ditinjau dan ditandatangani.</p>
+              <a href="${link}"
+                style="background-color: #007bff; color: #ffffff; padding: 12px 24px; border-radius: 6px; font-size: 16px; text-decoration: none; display: inline-block;">
+                ✍️ Tinjau & Tandatangani Sekarang
+              </a>
+            </div>
+
+            <div style="margin-top: 32px; font-size: 14px; color: #777; text-align: center;">
+              <p>Jika tombol tidak berfungsi, salin dan tempel tautan berikut ke browser Anda:</p>
+              <a href="${link}" style="color: #007bff;">${link}</a>
+            </div>
+
+            <hr style="margin: 40px 0; border: none; border-top: 1px solid #e0e0e0;">
+
+            <div style="font-size: 12px; color: #999; text-align: center;">
+              Email ini dikirim secara otomatis oleh sistem <strong>Woila</strong>. Harap tidak membalas email ini.
+            </div>
+
+            <div style="font-size: 10px; color: #aaa; margin-top: 30px; text-align: justify; line-height: 1.5;">
+              <p><strong>Peringatan:</strong> E-mail ini dan termasuk seluruh lampirannya jika ada, hanya ditujukan kepada
+                penerima yang tercantum di atas. Jika Anda bukan penerima yang dituju, maka Anda tidak diperkenankan untuk
+                memanfaatkan, menyebarkan, mendistribusikan atau menggandakan e-mail ini beserta seluruh lampirannya. Mohon
+                kerjasamanya untuk segera memberitahukan PT Aino Indonesia di alamat email yang tercantum di atas serta menghapus
+                e-mail ini beserta seluruh lampirannya. Semua pesan yang ada dalam e-mail ini merupakan pesan pribadi dari
+                pengirim yang bersangkutan dan tidak serta merta mencerminkan pandangan PT Aino Indonesia, kecuali telah terdapat
+                kesepakatan antara pengirim dan penerima bahwa e-mail ini termasuk salah satu bentuk komunikasi kedinasan yang
+                dapat diterima oleh kedua pihak.</p>
+              <div
+                style="text-align: center; font-family: monospace; font-size: 18px; color: #cccccc; white-space: nowrap; overflow: hidden; text-overflow: clip; margin: 20px 0;">
+                <span
+                  style="user-select: none;">========================================================</span>
+              </div>
+
+              <p style="  font-style: italic;"><strong>Caution:</strong> The information enclosed in this email (and any
+                attachments) may be legally privileged and/or confidential and is intended only for the use of the addressee(s).
+                No addressee should forward, print, copy or otherwise reproduce this message in any manner that would allow it to
+                be viewed by any individual not originally listed as a recipient. If the reader of this message is not the
+                intended recipient, you are hereby notified that any unauthorized disclosure, dissemination, distribution, copying
+                or the taking of any action in reliance on the information herein is strictly prohibited. If you have received
+                this communication in error,
+
+                please immediately notify the sender and delete this message.Unless it is made by the authorized person, any views
+                expressed in this message are those of the individual sender and may not necessarily reflect the views of PT Aino
+                Indonesia.
+              </p>
+            </div>
+          </div>`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error('Gagal kirim email:', error);
+    }
+  }
+
+  async publish(form_uuid: string, form_ticket: string) {
+    const result = await Swal.fire({
       title: 'Are you sure?',
       text: 'Apakah anda yakin untuk mempublish dokumen ini? Setelah dokumen dipublish, dokumen tidak dapat dikembalikan.',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, publish it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Panggil API untuk mempublish dokumen
-        axios
-          .put(
-            `${environment.apiUrl2}/api/form/update/${form_uuid}`,
-            {
-              isPublished: true,
-              formData: {
-                form_ticket: form_ticket,
-                document_uuid: this.document_uuid,
-              },
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${this.cookieService.get('userToken')}`,
-              },
-            }
-          )
-          .then((response) => {
-            Swal.fire({
-              icon: 'success',
-              title: 'SUCCESS',
-              text: 'Berhasil dipublish!',
-              timer: 2000,
-              timerProgressBar: true,
-              showCancelButton: false,
-              showConfirmButton: false,
-            });
-
-            // fetch setelah add biar gausah refresh
-            this.fetchUserSignature();
-            if (this.role_code === 'A') {
-              this.adminOnly();
-            } else if (this.role_code === 'M') {
-              this.userOnly();
-            }
-          })
-          .catch((error) => {
-            Swal.fire({
-              title: 'Error',
-              text: error.response.data.message,
-              icon: 'error',
-              timer: 2000,
-              timerProgressBar: true,
-              showCancelButton: false,
-              showConfirmButton: false,
-            });
-          });
-      }
+      confirmButtonText: 'Yes, publish it',
     });
+
+    if (result.isConfirmed) {
+      try {
+        await axios.put(
+          `${environment.apiUrl2}/api/form/update/${form_uuid}`,
+          {
+            isPublished: true,
+            formData: {
+              form_ticket: form_ticket,
+              document_uuid: this.document_uuid,
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.cookieService.get('userToken')}`,
+            },
+          }
+        );
+
+        await Swal.fire({
+          icon: 'success',
+          title: 'SUCCESS',
+          text: 'Berhasil dipublish',
+          timer: 2000,
+          timerProgressBar: true,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+
+        this.fetchData();
+        await this.emailToZimbra(form_uuid);
+      } catch (error: any) {
+        Swal.fire({
+          title: 'Error',
+          text: error?.response?.data?.message ?? 'Terjadi kesalahan.',
+          icon: 'error',
+          timer: 2000,
+          timerProgressBar: true,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      }
+    }
   }
 
-  setDeskripsi(description: string) {
-    // Sanitasi konten HTML menggunakan DomSanitizer
-    this.sanitizedDescription =
-      this.sanitizer.bypassSecurityTrustHtml(description);
-  }
+  // setDeskripsi(description: string) {
+  //   // Sanitasi konten HTML menggunakan DomSanitizer
+  //   this.sanitizedDescription =
+  //     this.sanitizer.bypassSecurityTrustHtml(description);
+  // }
 
   async openPreviewPage(form_uuid: string) {
     await this.profileData();
     axios
       .get(`${environment.apiUrl2}/itcm/${form_uuid}`)
       .then((response) => {
+        console.log(response);
+
         const BASE_URL = environment.apiUrl2;
         // $('#detailModalDA').modal('show');
-        console.log('ada sign img', response);
         const formData = response.data.form;
         this.form_uuid = formData.form_uuid;
         this.created_at = formData.created_at;
@@ -1334,12 +1432,12 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         this.project_name = formData.project_name;
         this.project_manager = formData.project_manager;
         this.perubahan_aset = formData.perubahan_aset;
-        this.setDeskripsi(formData.deskripsi); // Memanggil metode setDeskripsi
+        this.reason = formData.reason;
+        // this.setDeskripsi(formData.deskripsi);
+        this.deskripsi = formData.deskripsi;
         this.approval_status = formData.approval_status;
         this.isPreview = true;
         this.router.navigate([`/form/itcm/${form_uuid}`]);
-
-        console.log('dokumen uuid dari preview ini', this.form_uuid);
 
         const signatories: Signatory[] = response.data.signatories || [];
         Object.keys(this.signatoryPositions).forEach((role) => {
@@ -1373,16 +1471,8 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
               this.personal_name?.trim().toLowerCase()
           );
 
-          console.log('plis', this.mySignatory);
-
           if (this.mySignatory) {
-            console.log('Sign UUID:', this.mySignatory.sign_uuid);
             this.isSigned = this.mySignatory.is_sign;
-          } else {
-            console.log(
-              'Signatory not found for personal_name:',
-              this.personal_name
-            );
           }
         } else {
           console.log('Signatories array is empty or undefined');
@@ -1423,7 +1513,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     axios
       .get(`${environment.apiUrl2}/itcm/${form_uuid}`)
       .then((response) => {
-        console.log(response);
         const formData = response.data.form;
         this.created_at = formData.created_at;
         this.form_ticket = formData.form_ticket;
@@ -1471,7 +1560,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         Swal.fire({
           title: 'Success',
           text: response.data.message,
@@ -1481,9 +1569,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
           showCancelButton: false,
           showConfirmButton: false,
         });
-        this.fetchDataFormITCM();
-        this.fetchDataAdminFormITCM();
-        this.fetchDataUserFormITCM();
+        this.fetchData();
         this.isModalApproveOpen = false;
         this.openPreviewPage(form_uuid);
       })
@@ -1531,7 +1617,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         Swal.fire({
           title: 'Success',
           text: response.data.message,
@@ -1543,12 +1628,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         // fetch setelah add biar gausah refresh
-        this.fetchUserSignature();
-        if (this.role_code === 'A') {
-          this.adminOnly();
-        } else if (this.role_code === 'M') {
-          this.userOnly();
-        }
+        this.fetchData();
       })
       .catch((error) => {
         if (error.response.status === 404 || error.response.status === 500) {
@@ -1588,13 +1668,13 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       // Menggunakan image yang di-upload dan sudah di-resize
       this.img = this.resizedImage;
     }
-  
+
     // Pastikan img tidak kosong
     if (!this.img) {
       console.error('No signature image found');
       return;
     }
-    
+
     axios.get(`${environment.apiUrl2}/itcm/${form_uuid}`).then((response) => {
       const signatories: Signatory[] = response.data.signatories || [];
 
@@ -1628,9 +1708,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       );
 
       if (mySignatory) {
-        console.log('Signatory details:', mySignatory);
-        console.log('Sign UUID:', mySignatory.sign_uuid);
-
         // Prepare payload to send, including the signature image
         const payload = {
           name: mySignatory.signatory_name,
@@ -1641,18 +1718,11 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
 
         // Send the update to the backend
         this.onSignature(mySignatory.sign_uuid, payload);
-      } else {
-        console.log(
-          'Signatory not found for personal_name:',
-          this.personal_name
-        );
       }
     });
   }
 
   onSignature(sign_uuid: string, payload: any) {
-    console.log('pailod', payload);
-
     axios
       .put(
         `${environment.apiUrl2}/api/signature/update/${sign_uuid}`,
@@ -1677,14 +1747,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         this.closeModal();
 
         // tambah ini biar setelah add ga perlu refresh agar bisa muncul
-        this.fetchDataFormITCM();
-        this.fetchDataAdminFormITCM();
-        this.fetchDataUserFormITCM();
-        this.fetchDataAdminFormITCMDraft();
-        this.fetchDataUserFormITCMDraft();
-        // this.fetchDataAdminFormPublish();
-        // this.fetchDataUserFormPublish();
-        this.fetchUserSignature();
+        this.fetchData();
         this.openPreviewPage(this.form_uuid);
       })
       .catch((error) => {
@@ -1694,7 +1757,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
           error.response.status === 422 ||
           error.response.status === 400
         ) {
-          console.log(error.response);
           Swal.fire({
             title: 'Error',
             text: error.response.data.message,
@@ -1718,7 +1780,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       navigator.clipboard
         .writeText(url)
         .then(() => {
-          alert('URL copied to clipboard: ' + url);
+          // alert('URL copied to clipboard: ' + url);
         })
         .catch((err) => {
           console.error('Failed to copy URL: ', err);
@@ -1787,7 +1849,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     const pageHeight = doc.internal.pageSize.height;
     let y = 50;
     let currentY = 45;
-    console.log('ppaa', formData);
 
     const imgPath = 'assets/images/aino.png';
 
@@ -1797,7 +1858,7 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       const tableWidth = doc.internal.pageSize.width * 0.9;
       const tableX = (doc.internal.pageSize.width - tableWidth) / 2;
       const tableY = 10;
-      const boxHeight2 = 20;
+      const boxHeight2 = 28;
 
       doc.setDrawColor(0);
       doc.setLineWidth(0.3);
@@ -1830,13 +1891,16 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
       let textY3 = tableY + boxHeight2 / 2 - 6;
 
       doc.text('No. Dokumen', labelX3, textY3);
-      doc.text(`': 0007/GA/PP/XI/2024'`, valueX3, textY3);
+      doc.text(`: AINO/PED/F/04/02`, valueX3, textY3);
       textY3 += 6;
       doc.text('Tanggal Terbit', labelX3, textY3);
-      doc.text(': 01/02/2025', valueX3, textY3);
+      doc.text(': 20 Februari 2024', valueX3, textY3);
       textY3 += 6;
       doc.text('No. Revisi', labelX3, textY3);
-      doc.text(': 01', valueX3, textY3);
+      doc.text(': 2.0', valueX3, textY3);
+      textY3 += 6;
+      doc.text('Halaman', labelX3, textY3);
+      doc.text(`: ${pageNumber}`, valueX3, textY3);
     };
 
     let pageNumber = 1;
@@ -2032,25 +2096,38 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
         rightBoxWidth / 2,
         innerBoxHeight
       );
-      doc.text(
-        isApproved ? '✓check' : '',
-        boxX + leftBoxWidth + rightBoxWidth / 4,
-        currentY + innerBoxHeight + innerBoxHeight / 2,
-        { align: 'center' }
-      );
 
+      // Gambar checkmark (hanya jika approved)
+      if (isApproved) {
+        doc.addImage(
+          'assets/images/check.png',
+          'PNG',
+          boxX + leftBoxWidth + rightBoxWidth / 4 - 5,
+          currentY + innerBoxHeight + innerBoxHeight / 2 - 5,
+          10,
+          10
+        ); // Sesuaikan posisi gambar
+      }
+
+      // Kotak kedua
       doc.rect(
         boxX + leftBoxWidth + rightBoxWidth / 2,
         currentY + innerBoxHeight,
         rightBoxWidth / 2,
         innerBoxHeight
       );
-      doc.text(
-        isNotApproved ? '✓check' : '',
-        boxX + leftBoxWidth + (rightBoxWidth / 4) * 3,
-        currentY + innerBoxHeight + innerBoxHeight / 2,
-        { align: 'center' }
-      );
+
+      // Gambar checkmark untuk kotak kedua (hanya jika not approved)
+      if (isNotApproved) {
+        doc.addImage(
+          'assets/images/check.png',
+          'PNG',
+          boxX + leftBoxWidth + (rightBoxWidth / 4) * 3 - 5,
+          currentY + innerBoxHeight + innerBoxHeight / 2 - 5,
+          10,
+          10
+        ); // Sesuaikan posisi gambar
+      }
 
       currentY += boxHeight + 10;
     };
@@ -2058,11 +2135,8 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
     // Contoh pemanggilan fungsi
     addStatusBox(doc, formData.approval_status); // Ganti dengan status yang diinginkan
 
-    if (
-      formData.approval_status === 'Tidak Disetujui' &&
-      formData.reason.Valid
-    ) {
-      addTextWithBox(doc, 'Alasan tidak approve:', formData.reason.String);
+    if (formData.approval_status === 'Tidak Disetujui' && formData.reason) {
+      addTextWithBox(doc, 'Alasan tidak approve:', formData.reason);
     }
 
     const addSignatureTable = (doc: jsPDF): void => {
@@ -2140,8 +2214,6 @@ export class FormItcmComponent implements OnInit, AfterViewInit, OnDestroy {
 
         // Pastikan tidak ada string kosong
         const fullSignImg = signImg ? BASE_URL + signImg : '';
-
-        console.log(`Signatory Image ${i}:`, fullSignImg); // Debugging
 
         if (signatory.is_sign && fullSignImg) {
           try {

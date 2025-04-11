@@ -1,6 +1,6 @@
 <div class="w-full flex justify-center flex-wrap">
-  <p>This document has been approved, and all required signatures have been completed. Would you like to download it as
-    a PDF?</p>
+  <!-- <p>This document has been approved, and all required signatures have been completed. Would you like to download it as
+    a PDF?</p> -->
   <div class="w-full md:w-1/2">
     <ul id="hehehe" class="flex flex-row overflow-x-scroll list-none pt-3 pb-2 mb-5 ">
       <li class="w-40 md:w-auto flex-shrink-0 -mb-px last:mr-0 flex-auto ">
@@ -235,38 +235,64 @@
 </div>
 
 <div [ngClass]="{'hidden': openTab !== 2, 'block': openTab === 2}" class="flex-shrink-0">
-  <div>
-    <div class="space-y-5">
-      <div class="relative mx-auto max-w-[400px] rounded-md border border-slate-50 bg-white p-4 text-sm shadow-lg">
+  <div *ngIf="approveNotifications.length > 0">
+    <div *ngFor="let approveNotif of approveNotifications">
+      <div class="my-4 space-y-5">
+        <div class="relative mx-auto max-w-[40rem] rounded-md bg-white p-4 text-sm shadow-lg  border border-gray-300"
+          [ngClass]="{'bg-green-50': approveNotif.is_sign, 'bg-red-50': !approveNotif.is_sign}">
+          <div class="flex space-x-4">
+            <div class="relative h-10 w-10">
+              <img class="h-full w-full rounded-full object-cover object-center" src="/assets/images/approve.png"
+                alt="" />
+              <!-- <span class="absolute right-0 bottom-0 h-2.5 w-2.5 rounded-full  ring ring-white"
+                [ngClass]="{'bg-green-500': approveNotif.is_sign, 'bg-red-500': !approveNotif.is_sign}"></span> -->
+            </div>
+            <div class="flex-1">
+              <div class="flex">
+                <h4 class="pr-6 font-medium text-slate-900" *ngIf="approveNotif.is_sign">
+                  Signature Completed
+                </h4>
+                <h4 class="pr-6 font-medium text-slate-900" *ngIf="!approveNotif.is_sign">
+                  Signature Needed
+                </h4>
 
-        <div class="flex space-x-4">
-          <div class="relative h-10 w-10">
-            <img class="h-full w-full rounded-full object-cover object-center"
-              src="https://i.pinimg.com/474x/ac/ef/3e/acef3e01c913a80a0faf5e6fc59c66b8.jpg" alt="" />
-            <span class="absolute right-0 bottom-0 h-2.5 w-2.5 rounded-full bg-green-400 ring ring-white"></span>
-          </div>
-          <div class="flex-1">
-            <div class="flex">
-              <h4 class="pr-6 font-medium text-slate-900">
-                Form Approved
-              </h4>
-              <span class="ml-auto font-normal text-slate-500">🕔 5 minutes ago</span>
-            </div>
-            <div class="mt-1 text-slate-500">
-              Your form has been approved.
-            </div>
-            <div class="mt-2 flex space-x-4">
-              <button class="inline-block font-medium leading-loose text-blue-600 hover:text-blue-700">
-                View more
-              </button>
-              <button class="inline-block font-medium leading-loose text-slate-500 hover:text-slate-900">
-                Download
-              </button>
+                <span class="ml-auto font-normal text-slate-500">🕕 {{ approveNotif.timeAgo }}</span>
+              </div>
+              <div class="mt-1 text-slate-700">
+                <!-- Form Type: {{ approveNotif.document_code }} -->
+                Form Type: {{ approveNotif.document_name }}
+              </div>
+              <div class="mt-1 text-slate-500">
+                This document has been approved. Would you like to download it as a PDF?
+              </div>
+              <!-- <div class="mt-1 text-slate-500" *ngIf="!approveNotif.is_sign">
+                This document has been approved, but all required signatures have not been completed. Would you like to download it as a PDF?
+              </div> -->
+              <div class="mt-2 flex space-x-4">
+                <!-- <button class="inline-block font-medium leading-loose text-slate-500 hover:text-slate-900">
+              Dismiss
+            </button> -->
+                <button class="inline-block font-medium leading-loose text-blue-600 hover:text-blue-700">
+                  <a routerLink="/form/{{ approveNotif.document_code | lowercase }}/{{ approveNotif.form_uuid }}">View
+                    Form</a>
+                  <!-- <a routerLink="/form/hak-ha/{{ notif.form_uuid }}">View Permintaan Form</a> -->
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="approveNotifications.length === 0">
+    <div class="h-[80vh] w-full flex justify-center items-center text-center">
+      <div class="flex flex-col items-center">
+        <img class="w-1/2 md:w-1/4 aspect-square rounded-full"
+          src="https://i.pinimg.com/474x/d9/fe/4a/d9fe4a7c15e643c8bcd1a31bd99347ff.jpg" alt="">
+        <p class="text-capitalize font-semibold md:font-medium mt-4">Belum ada notifikasi🍃🍃</p>
+      </div>
+    </div>
+
   </div>
 </div>
 <!-- </div> -->

@@ -40,7 +40,6 @@ interface Role {
   styleUrl: './authority.component.css',
 })
 export class AuthorityComponent implements OnInit {
-
   popoverIndex: number | null = null;
 
   searchText: string = '';
@@ -103,16 +102,11 @@ export class AuthorityComponent implements OnInit {
         this.appRoleService.updateDataListAppRole(this.dataListAppRole);
       })
       .catch((error) => {
-        if (error.response.status === 500) {
-          console.log(error.response.data.message);
-          Swal.fire({
-            icon: 'error',
-            title: 'Terjadi Kesalahan',
-            text: error.response.data.message,
-          });
-        } else {
-          console.log(error.response.data.message);
-        }
+        Swal.fire({
+          icon: 'error',
+          title: 'Terjadi Kesalahan',
+          text: error.response.data.message,
+        });
       });
   }
 
@@ -126,7 +120,6 @@ export class AuthorityComponent implements OnInit {
         },
       })
       .then((response) => {
-        console.log(response);
         this.role_code = response.data.role_code;
       })
       .catch((error) => {
@@ -139,7 +132,6 @@ export class AuthorityComponent implements OnInit {
       .get(`${this.apiUrl}/application/all`)
       .then((response) => {
         this.dataListApplication = response.data;
-        console.log(this.dataListApplication);
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -153,7 +145,6 @@ export class AuthorityComponent implements OnInit {
       .get(`${this.apiUrl}/role/all`)
       .then((response) => {
         this.dataListRole = response.data;
-        console.log(this.dataListRole);
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -161,7 +152,7 @@ export class AuthorityComponent implements OnInit {
         }
       });
   }
-  
+
   togglePopover(event: Event, index: number): void {
     event.stopPropagation(); // Menghentikan event bubbling
     if (this.popoverIndex === index) {
@@ -187,7 +178,6 @@ export class AuthorityComponent implements OnInit {
   }
 
   handleAction(action: string, item: any): void {
-    // console.log(Handling ${action} for:, item);
     this.closePopover();
   }
 
@@ -220,7 +210,6 @@ export class AuthorityComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         Swal.fire({
           title: 'Success',
           text: response.data.message,
@@ -235,6 +224,7 @@ export class AuthorityComponent implements OnInit {
         this.application_title = '';
         this.role_title = '';
         this.application_title = '';
+        this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (
@@ -263,8 +253,6 @@ export class AuthorityComponent implements OnInit {
           });
         }
       });
-
-    this.isModalAddOpen = false;
   }
 
   openEditModal(application_role_uuid: string) {
@@ -272,7 +260,6 @@ export class AuthorityComponent implements OnInit {
       .get(`${this.apiUrl}/application/role/${application_role_uuid}`)
       .then((response) => {
         const appRoleData = response.data;
-        console.log(appRoleData);
         this.application_role_uuid = application_role_uuid;
 
         const existingApp = this.dataListApplication.find(
@@ -319,7 +306,7 @@ export class AuthorityComponent implements OnInit {
       });
   }
 
-   closeEditModal() {
+  closeEditModal() {
     this.isModalEditOpen = false;
   }
 
@@ -343,7 +330,6 @@ export class AuthorityComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataAppRole();
         Swal.fire({
           title: 'Success',
@@ -354,7 +340,7 @@ export class AuthorityComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
-        // $('#editAppRoleModal').modal('hide');
+        this.isModalEditOpen = false;
       })
       .catch((error) => {
         if (
@@ -383,7 +369,6 @@ export class AuthorityComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = false;
   }
 
   onDeleteAuthority(application_role_uuid: string): void {
@@ -417,7 +402,6 @@ export class AuthorityComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataAppRole();
         Swal.fire({
           title: 'Success',

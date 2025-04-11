@@ -29,9 +29,8 @@ interface Application {
   styleUrl: './application.component.css',
 })
 export class ApplicationComponent implements OnInit {
-
   popoverIndex: number | null = null;
-  
+
   searchText: string = '';
 
   application_uuid: string = '';
@@ -126,7 +125,6 @@ export class ApplicationComponent implements OnInit {
   }
 
   handleAction(action: string, item: any): void {
-    // console.log(Handling ${action} for:, item);
     this.closePopover();
   }
 
@@ -135,7 +133,6 @@ export class ApplicationComponent implements OnInit {
     this.application_code = '';
     this.application_title = '';
     this.application_description = '';
-    // console.log('hai');
   }
 
   closeAddModal() {
@@ -160,7 +157,6 @@ export class ApplicationComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         Swal.fire({
           title: 'Success',
           text: response.data.message,
@@ -175,6 +171,7 @@ export class ApplicationComponent implements OnInit {
         this.application_title = '';
         this.application_description = '';
         this.fetchDataApplication();
+        this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (
@@ -199,7 +196,6 @@ export class ApplicationComponent implements OnInit {
           });
         }
       });
-    this.isModalAddOpen = false;
   }
 
   openEditModal(applicationUuid: string): void {
@@ -207,7 +203,6 @@ export class ApplicationComponent implements OnInit {
       .get(`${this.apiUrl}/application/${applicationUuid}`)
       .then((response) => {
         const applicationData = response.data;
-        console.log(applicationData);
         this.application_uuid = applicationData.application_uuid;
         this.application_code = applicationData.application_code;
         this.application_title = applicationData.application_title;
@@ -217,7 +212,6 @@ export class ApplicationComponent implements OnInit {
       })
       .catch((error) => {
         if (error.response.status === 500 || error.response.status === 404) {
-          console.log(error.response.data.message);
           Swal.fire({
             title: 'Error',
             text: error.response.data.message,
@@ -239,7 +233,6 @@ export class ApplicationComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = false;
   }
 
   closeEditModal() {
@@ -265,7 +258,6 @@ export class ApplicationComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataApplication();
         Swal.fire({
           title: 'Success',
@@ -276,7 +268,7 @@ export class ApplicationComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
-        // $('#editApplicationModal').modal('hide');
+        this.isModalEditOpen = false;
       })
       .catch((error) => {
         if (
@@ -305,7 +297,6 @@ export class ApplicationComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = false;
   }
 
   onDeleteApplication(application_uuid: string): void {
@@ -339,7 +330,6 @@ export class ApplicationComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataApplication();
         Swal.fire({
           title: 'Success',

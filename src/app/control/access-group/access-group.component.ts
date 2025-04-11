@@ -27,9 +27,8 @@ interface Role {
   styleUrl: './access-group.component.css',
 })
 export class AccessGroupComponent implements OnInit {
-
   popoverIndex: number | null = null;
-  
+
   searchText: string = '';
 
   profileRoleCode: string = '';
@@ -74,9 +73,6 @@ export class AccessGroupComponent implements OnInit {
         },
       })
       .then((response) => {
-        console.log(response);
-        // this.user_uuid = response.data.user_uuid;
-        // this.user_name = response.data.user_name;
         this.profileRoleCode = response.data.role_code;
       })
       .catch((error) => {
@@ -123,7 +119,6 @@ export class AccessGroupComponent implements OnInit {
   }
 
   handleAction(action: string, item: any): void {
-    // console.log(Handling ${action} for:, item);
     this.closePopover();
   }
 
@@ -151,7 +146,6 @@ export class AccessGroupComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         Swal.fire({
           title: 'Success',
           text: response.data.message,
@@ -161,10 +155,10 @@ export class AccessGroupComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
-        // $('#addRoleModal').modal('hide');
         this.role_code = '';
         this.role_title = '';
         this.fetchDataRoleGroup();
+        this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (
@@ -193,15 +187,12 @@ export class AccessGroupComponent implements OnInit {
           });
         }
       });
-    this.isModalAddOpen = false;
   }
 
   openEditModal(roleUuid: string): void {
     axios
       .get(`${this.apiUrl}/role/${roleUuid}`)
       .then((response) => {
-        console.log(response);
-        
         const roleData = response.data;
         this.role_uuid = roleData.role_uuid;
         this.role_code = roleData.role_code;
@@ -235,7 +226,6 @@ export class AccessGroupComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataRoleGroup();
         Swal.fire({
           title: 'Success',
@@ -246,6 +236,7 @@ export class AccessGroupComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
+        this.isModalEditOpen = true;
       })
       .catch((error) => {
         if (
@@ -274,7 +265,6 @@ export class AccessGroupComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = true;
   }
 
   onDeleteRoleGroup(role_uuid: string): void {
@@ -308,7 +298,6 @@ export class AccessGroupComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataRoleGroup();
         Swal.fire({
           title: 'Success',

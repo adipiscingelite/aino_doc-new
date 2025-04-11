@@ -127,13 +127,6 @@ export class UserControlComponent implements OnInit {
     let auxDate = this.substractYearsToDate(new Date(), 0);
     this.maxBirthdayDate = this.getDateFormateForSearch(auxDate);
 
-    // const today = new Date();
-    // const year = today.getFullYear();
-    // const month = ('0' + (today.getMonth() + 1)).slice(-2);
-    // const day = ('0' + today.getDate()).slice(-2);
-
-    // this.maxDate = `${day}-${month}-${year}`;
-
     this.appData();
     this.roleData();
     this.divisionData();
@@ -200,7 +193,7 @@ export class UserControlComponent implements OnInit {
         this.role_code = response.data.role_code
         
         if (this.role_code !== 'SA') {
-          this.router.navigate(['/woilah']);
+          this.router.navigate(['/']);
         }
       })
       .catch((error) => {
@@ -218,7 +211,6 @@ export class UserControlComponent implements OnInit {
   }
 
   openAddModal() {
-    this.isModalAddOpen = true;
     this.user_name = '';
     this.user_email = '';
     this.user_password = '';
@@ -231,15 +223,13 @@ export class UserControlComponent implements OnInit {
     this.role_uuid = '';
     this.application_uuid = '';
     this.onApplicationChange();
+    
+    this.isModalAddOpen = true;
   }
 
   closeAddModal() {
     this.isModalAddOpen = false;
   }
-
-  // togglePasswordVisibility() {
-  //   this.showPassword = !this.showPassword;
-  // }
 
   appData(): void {
     axios
@@ -259,6 +249,8 @@ export class UserControlComponent implements OnInit {
       .get(`${this.apiUrl}/role/all`)
       .then((response) => {
         this.dataListRole = response.data;
+        // console.log('role', this.dataListRole);
+        
       })
       .catch((error) => {
         if (error.response.status === 500) {
@@ -449,7 +441,7 @@ export class UserControlComponent implements OnInit {
         this.personal_gender = userData.personal_gender;
         this.personal_phone = userData.personal_phone;
         this.personal_address = userData.personal_address;
-        console.log('pp');
+        // console.log('pp');
 
         console.log(existingApplication);
         console.log(existingDivision);

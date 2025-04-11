@@ -1,4 +1,4 @@
-<h1 class="py-3 text-center text-3xl font-semibold text-gray-800">Access Grup</h1>
+<h1 class="pb-10 text-center text-3xl font-semibold text-gray-800">Access Grup</h1>
 <div class="flex w-full pb-4 px-2 bg-white">
   <label for="table-search" class="sr-only">Search</label>
   <div class="relative">
@@ -27,7 +27,7 @@
           <th scope="col" class="px-6 py-3">No.</th>
           <th scope="col" class="px-6 py-3">Kode</th>
           <th scope="col" class="px-6 py-3">Nama</th>
-          <th scope="col" class="px-6 py-3" *ngIf="profileRoleCode === 'SA'">Action</th>
+          <th scope="col" class="px-6 py-3 text-center" *ngIf="profileRoleCode === 'SA'">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -38,7 +38,7 @@
             <td class="px-6 py-4">{{ itemRole.role_code }}</td>
             <td class="px-6 py-4">{{ itemRole.role_title }}</td>
             <!-- Button Popover -->
-            <td class="px-6 py-4 " *ngIf="profileRoleCode === 'SA'">
+            <td class="px-6 py-4 text-center" *ngIf="profileRoleCode === 'SA'">
               <div class="relative">
                 <button (click)="togglePopover($event, x)"
                   class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
@@ -95,9 +95,9 @@
 
 
 <!-- ADD MODAL -->
-<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true"
+<div *ngIf="isModalAddOpen" tabindex="-1" aria-hidden="true" (click)="closeAddModal()"
   class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  <div (click)="$event.stopPropagation()"
     class="relative w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
     <div class="sticky top-0 flex bg-white items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -115,17 +115,17 @@
     </div>
     <!-- Modal body -->
     <form #addAccessGroupForm="ngForm" class="p-6">
-      <h3 class="text-2xl text-gray-900 font-semibold">Access Group!</h3>
+      <h3 class="text-2xl text-gray-900 font-semibold">Access Group</h3>
       <p class="text-gray-600">Masukkan informasi akses gruup yang ingin anda tambahkan</p>
 
       <div class="mt-4">
-        <label for="projecttName" class="text-sm md:text-base">Kode Role</label>
-        <input type="text" placeholder="Masukkan Kode Akses" [(ngModel)]="role_code" name="role_code" required class="border rounded-xl p-2 w-full  ">
+        <label for="projecttName" class="text-sm md:text-[0.875rem]">Kode Role</label>
+        <input type="text" placeholder="e.g. SA" [(ngModel)]="role_code" name="role_code" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
 
       <div class="mt-4">
-        <label for="projectCode" class="text-sm md:text-base">Nama Role</label>
-        <input type="text" placeholder="Masukkan Nama Akses" [(ngModel)]="role_title" name="role_title" required class="border rounded-xl p-2 w-full  ">
+        <label for="projectCode" class="text-sm md:text-[0.875rem]">Nama Role</label>
+        <input type="text" placeholder="e.g. Super Admin" [(ngModel)]="role_title" name="role_title" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
     </form>
 
@@ -141,9 +141,9 @@
 
 
 <!-- EDIT MODAL -->
-<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true"
+<div *ngIf="isModalEditOpen" tabindex="-1" aria-hidden="true" (click)="closeEditModal()"
   class="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div
+  <div (click)="$event.stopPropagation()"
     class="relative w-full max-w-xl md:max-w-2xl bg-white rounded-lg shadow dark:bg-gray-700 max-h-[90vh] overflow-y-auto mx-4 md:mx-0">
     <!-- Modal header -->
     <div class="sticky top-0 flex bg-white items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -161,17 +161,17 @@
     </div>
     <!-- Modal body -->
     <form #editAccessGroupForm="ngForm" class="p-6">
-      <h3 class="text-2xl text-gray-900 font-semibold">Access Group!</h3>
+      <h3 class="text-2xl text-gray-900 font-semibold">Access Group</h3>
       <p class="text-gray-600">Masukkan informasi akses grup yang ingin anda edit</p>
       
       <div class="mt-4">
-        <label for="projecttName" class="text-sm md:text-base">Kode Role</label>
-        <input type="text" placeholder="Masukkan Kode Akses" [(ngModel)]="role_code" name="role_code" required class="border rounded-xl p-2 w-full  ">
+        <label for="projecttName" class="text-sm md:text-[0.875rem]">Kode Role</label>
+        <input type="text" placeholder="e.g. SA" [(ngModel)]="role_code" name="role_code" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
 
       <div class="mt-4">
-        <label for="projectCode" class="text-sm md:text-base">Nama Role</label>
-        <input type="text" placeholder="Masukkan Nama Akses" [(ngModel)]="role_title" name="role_title" required class="border rounded-xl p-2 w-full  ">
+        <label for="projectCode" class="text-sm md:text-[0.875rem]">Nama Role</label>
+        <input type="text" placeholder="e.g. Super Admin" [(ngModel)]="role_title" name="role_title" required class="text-sm border rounded-lg p-2 w-full  ">
       </div>
     </form>
 

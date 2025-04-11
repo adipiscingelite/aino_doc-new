@@ -1,27 +1,46 @@
-# Routing
+# PROJECT DOKUMENTASI ISO
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.1.
+A brief description of what this project does and who it's for.
 
-## Development server
+## Features
+- **4 Main Documents**: 'DA', 'ITCM', 'BA', and 'HA'.
+- Simple signature drawing functionality.
+- Asset management feature.
+- PDF and Excel export capability.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Installation
 
-## Code scaffolding
+Follow these steps to set up the project in your local environment.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Node
 
-## Build
+Install [Node.js](http://nodejs.org/) and [NPM](https://npmjs.org/).  
+After installation, you can verify the versions using the commands below:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+$ node --version
+v20.13.1
 
-## Running unit tests
+$ npm --version
+10.8.2
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Angular
+Also, make sure to install Angular.
+Afterward, you can check the version with the following command:
 
-## Running end-to-end tests
+```
+$ ng v
+18.1.1
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Usage
+For Angular, run the following command to start the application:
+```
+$ ng serve
+```
+### Tech Stack
+- **Frontend Framework**: Angular  
+- **Styling**: Tailwind CSS v3.4.17  
+- **Package Manager**: npm  
+- **Programming Language**: TypeScript 

@@ -70,7 +70,6 @@ export class DocumentControlComponent implements OnInit {
         },
       })
       .then((response) => {
-        console.log(response);
         this.user_uuid = response.data.user_uuid;
         this.user_name = response.data.user_name;
         this.role_code = response.data.role_code;
@@ -151,7 +150,6 @@ export class DocumentControlComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataDoc();
         Swal.fire({
           title: 'Success',
@@ -162,6 +160,7 @@ export class DocumentControlComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
+        this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (
@@ -190,7 +189,6 @@ export class DocumentControlComponent implements OnInit {
           });
         }
       });
-    this.isModalAddOpen = false;
   }
 
   openEditModal(documentUuid: string): void {
@@ -198,11 +196,12 @@ export class DocumentControlComponent implements OnInit {
       .get(`${environment.apiUrl2}/document/` + documentUuid)
       .then((response) => {
         // console.log(response.data);
-        this.isModalEditOpen = true;
         const documentData = response.data;
         this.document_uuid = documentData.document_uuid;
         this.document_code = documentData.document_code;
         this.document_name = documentData.document_name;
+        this.isModalEditOpen = true;
+        // this.isModalAddOpen = false;
       })
       .catch((error) => {
         if (error.response.status === 500 || error.response.status === 404) {
@@ -227,7 +226,6 @@ export class DocumentControlComponent implements OnInit {
             showConfirmButton: false,
           });
       });
-    this.isModalAddOpen = false;
   }
 
   closeEditModal() {
@@ -252,7 +250,6 @@ export class DocumentControlComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataDoc();
         Swal.fire({
           title: 'Success',
@@ -263,6 +260,7 @@ export class DocumentControlComponent implements OnInit {
           showCancelButton: false,
           showConfirmButton: false,
         });
+        this.isModalEditOpen = false;
       })
       .catch((error) => {
         if (
@@ -292,7 +290,6 @@ export class DocumentControlComponent implements OnInit {
           });
         }
       });
-    this.isModalEditOpen = false;
   }
 
   onDeleteDocument(document_uuid: string): void {
@@ -326,7 +323,6 @@ export class DocumentControlComponent implements OnInit {
         }
       )
       .then((response) => {
-        console.log(response.data.message);
         this.fetchDataDoc();
         Swal.fire({
           title: 'Success',

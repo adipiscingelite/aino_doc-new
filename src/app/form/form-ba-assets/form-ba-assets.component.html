@@ -1,5 +1,5 @@
 <ng-template #tableView>
-  <h1 class="py-3 text-center text-3xl font-semibold text-gray-800">Form BA Assets</h1>
+  <h1 class="pb-10 text-center text-3xl font-semibold text-gray-800">Form BA Assets</h1>
   <div class="flex w-full pb-4 px-2 bg-white">
     <label for="table-search" class="sr-only">Search</label>
     <div class="relative">
@@ -11,7 +11,7 @@
             clip-rule="evenodd"></path>
         </svg>
       </div>
-      <input type="text" id="table-search"
+      <input type="text" id="table-search" [(ngModel)]="searchText" name="searchText"
         class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg lg:w-80 md:w-64 sm:w-40 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
         placeholder="Search for items">
     </div>
@@ -45,16 +45,18 @@
           <!-- <th scope="col" class="px-6 py-3">Departemen</th> -->
           <th scope="col" class="px-6 py-3 text-center">
             Status</th>
-          <th scope="col" class="px-6 py-3 text-center">Action</th>
+          <th scope="col" class="px-6 py-3 text-center" *ngIf="role_code === 'A' || role_code === 'M'">Action</th>
         </tr>
       </thead>
       <tbody>
 
         <!-- <ng-container *ngIf="role_code === 'A'"> -->
         <tr *ngFor="let beritaAcara of beritaAcaras; let i = index" class="bg-white border-b hover:bg-gray-50">
-          <!-- <ng-container *ngIf="matchesSearch(itemFormDA)"> -->
+          <ng-container *ngIf="matchesSearch(beritaAcara)">
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{i+1}}</th>
-          <td class="px-6 py-4">{{beritaAcara.form_number}}</td>
+          <td class="px-6 py-4">{{beritaAcara.form_number}}
+            <p class="text-xs">by {{beritaAcara.created_by}}</p>
+          </td>
           <td class="px-6 py-4">{{beritaAcara.jenis}}</td>
           <td class="px-6 py-4">{{beritaAcara.nama_pic}}</td>
           <td class="px-6 py-4">{{beritaAcara.jabatan_pic}}</td>
@@ -69,7 +71,7 @@
             </td> -->
           <!-- <td class="px-6 py-4"> itemFormDA.departemen </td> -->
           <!-- ngif status draft atau publish -->
-          <td class="px-6 py-4 font-medium">
+          <td class="px-6 py-4 font-medium" >
             <p *ngIf="beritaAcara.form_status === 'Draft'"
               class="flex items-center justify-center text-center px-2 py-1 text-gray-400">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
@@ -88,7 +90,7 @@
             </p>
           </td>
           <!-- Button Popover -->
-          <td class="px-6 py-4 ">
+          <td class="px-6 py-4 " *ngIf="role_code === 'A' || role_code === 'M'">
             <div class="relative">
               <button (click)="togglePopover($event, i)"
                 class="p-2 bg-blue-400 text-white rounded-xl hover:bg-blue-600">
@@ -101,7 +103,7 @@
               <div *ngIf="popoverIndex === i"
                 class="popover-content absolute right-full top-0 mr-2 w-44 border rounded-lg bg-white shadow-lg z-[2] ">
                 <div class="py-2">
-                  <button (click)="openEditModal(beritaAcara.form_uuid)"
+                  <!-- <button (click)="openEditModal(beritaAcara.form_uuid)"
                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                     <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2"
                       stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
@@ -111,7 +113,7 @@
                       <path d="m16 5 3 3"></path>
                     </svg>
                     Edit
-                  </button>
+                  </button> -->
                   <button *ngIf="beritaAcara.form_status === 'Draft'" (click)="publish(beritaAcara.form_uuid)"
                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -123,19 +125,33 @@
                     </svg>
                     Publish
                   </button>
-                  <button *ngIf="beritaAcara.form_status === 'Published'"
-                    class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"
-                      viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5">
-                      </path>
-                      <path
-                        d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z">
-                      </path>
-                    </svg>
-                    Generate Link
-                  </button>
+                  <button *ngIf="beritaAcara.form_status === 'Published'" (click)="generateURL(beritaAcara.form_uuid, false)"
+                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5">
+                    </path>
+                    <path
+                      d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z">
+                    </path>
+                  </svg>
+                  Generate Link
+                </button>
+                
+                <button *ngIf="beritaAcara.form_status === 'Published'" (click)="generateURL(beritaAcara.form_uuid, true)"
+                  class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M15.75 3h1.5a2.25 2.25 0 0 1 2.25 2.25v15a2.25 2.25 0 0 1-2.25 2.25H6.75a2.25 2.25 0 0 1-2.25-2.25v-15A2.25 2.25 0 0 1 6.75 3h1.5">
+                    </path>
+                    <path
+                      d="M14.525 1.5h-5.05c-.677 0-1.225.548-1.225 1.225v.55c0 .677.548 1.225 1.225 1.225h5.05c.677 0 1.225-.548 1.225-1.225v-.55c0-.677-.548-1.225-1.225-1.225Z">
+                    </path>
+                  </svg>
+                  Generate Link Guest
+                </button>                
                   <button (click)="openPreviewPage(beritaAcara.form_uuid)"
                     class="w-full flex items-center text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white transition duration-150 ease-in-out">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round"
@@ -170,7 +186,7 @@
               </div>
             </div>
           </td>
-          <!-- </ng-container> -->
+          </ng-container>
         </tr>
         <!-- </ng-container> -->
 
@@ -192,14 +208,14 @@
       <p>Back</p>
     </button>
 
-    <h1 class="text-2xl font-semibold">Preview dan Approval Formulir Dampak Analisa (DA)</h1>
+    <h1 class="text-2xl font-semibold">Preview dan Approval Formulir Berita Acara (BA)</h1>
     <p class="text-sm text-gray-500 font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Necessitatibus, accusantium. Animi, facere. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum, ut.
+      Necessitatibus, accusantium. Animi, facere. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum, ut. lore
     </p>
     <br>
     <div class="w-full md:px-5">
       <div
-        class="mx-auto px-9 py-12 text-sm md:text-base bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm]">
+        class="mx-auto px-9 py-12 text-sm md:text-base bg-gray-50 border-2 border-neutral-400 border-dashed shadow min-w-[160mm] md:min-w-[210mm] md:max-w-[300mm]">
 
 
         <div class="mt-10 w-full">
@@ -233,7 +249,7 @@
               </tr>
             </table>
 
-            <p class="text-sm">Selanjutnya dalam Berita Acara Penggunaan Aset ini disebut <b>PIHAK PERTAMA</b></p>
+            <p class="text-sm">Selanjutnya dalam Berita Acara <span *ngIf="jenis === 'Peminjaman'">Peminjaman</span> <span *ngIf="jenis === 'Pengembalian'">Pengembalian</span> Aset ini disebut <b>PIHAK PERTAMA</b></p>
             <P class="text-sm">Dengan</P>
             <table class="text-sm">
               <tr>
@@ -249,110 +265,214 @@
                 <td>{{jabatan_pic}}</td>
               </tr>
             </table>
-            <p>Selanjutnya dalam Berita Acara Penggunaan Aset ini disebut <b>PIHAK KEDUA</b></p>
+            <p>Selanjutnya dalam Berita Acara Peminjaman Aset ini disebut <b>PIHAK KEDUA</b></p>
           </div>
 
-          <ng-container *ngIf="jenis === 'Penggunaan'">
+          <ng-container *ngIf="jenis === 'Peminjaman'">
             <p class="text-sm">
-              Pada Tanggal <b>{{date}}</b> bulan <b>{{month}}</b> tahun <b>{{year}}</b>, telah dilakukan serah terima fasilitas Aset Pihak Pertama berupa 1 (satu) unit Laptop beserta dengan Charger dan Battery dengan spesifikasi sebagai berikut:
+              Pada Tanggal <b>{{date}}</b> bulan <b>{{month}}</b> tahun <b>{{year}}</b>, telah dilakukan serah terima fasilitas Aset <b>PIHAK PERTAMA</b> berupa 1 (satu) unit {{asset_type}} beserta dengan {{aksesoris}} dengan spesifikasi sebagai berikut:
             </p>
           </ng-container>
           
           <ng-container *ngIf="jenis === 'Pengembalian'">
             <p class="text-sm">
-              Pada Tanggal <b>{{date}}</b> bulan <b>{{month}}</b> tahun <b>{{year}}</b>,  <b>PIHAK PERTAMA</b> telah mengembalikan aset perusahaan kepada <b>PIHAK KEDUA</b> berupa 1 unit ... beserta dengan charger dan battery dengan spesifikasi sebagai berikut:
+              Pada Tanggal <b>{{date}}</b> bulan <b>{{month}}</b> tahun <b>{{year}}</b>,  <b>PIHAK KEDUA</b> telah mengembalikan aset perusahaan kepada <b>PIHAK PERTAMA</b> berupa 1 unit {{asset_type}} beserta dengan {{aksesoris}} dengan spesifikasi sebagai berikut:
             </p>
           </ng-container>        
-
-            <p class="text-red-500 text-xs">*untuk spesifikasi masih belum oke</p>
-          <div class="my-3 px-4 text-sm border">
+          
+          <br>
+          
+          <div class="my-3 px-4 text-sm">
             <table>
               <tr>
-                <td>a.</td>
+                <td class="pr-3">a.</td>
                 <td>Nama Aset</td>
-                <td>:</td>
+                <td class="px-5">:</td>
                 <td>{{nama_asset}}</td>
               </tr>
               <tr>
-                <td>b.</td>
+                <td class="pr-3">b.</td>
                 <td>Kode Aset</td>
-                <td>:</td>
+                <td class="px-5">:</td>
                 <td>{{kode_asset}}</td>
               </tr>
               <tr>
-                <td>c.</td>
+                <td class="pr-3">c.</td>
                 <td>Merk</td>
-                <td>:</td>
-                <td>Dell</td>
+                <td class="px-5">:</td>
+                <td>{{merk}}</td>
               </tr>
               <tr>
-                <td>d.</td>
+                <td class="pr-3">d.</td>
                 <td>Model</td>
-                <td>:</td>
-                <td>Inspiron 15</td>
+                <td class="px-5">:</td>
+                <td>{{model}}</td>
               </tr>
               <tr>
-                <td>e.</td>
+                <td class="pr-3">e.</td>
                 <td>Serial Number</td>
-                <td>:</td>
+                <td class="px-5">:</td>
                 <td>{{serial_number}}</td>
               </tr>
               <tr>
-                <td>f.</td>
+                <td class="pr-3">f.</td>
                 <td>Kondisi</td>
-                <td>:</td>
-                <td>Baik</td>
+                <td class="px-5">:</td>
+                <td>{{kondisi}}</td>
               </tr>
               <tr>
-                <td>g.</td>
+                <td class="pr-3">g.</td>
                 <td>Aksesoris</td>
-                <td>:</td>
-                <td>Charger, Battery</td>
+                <td class="px-5">:</td>
+                <td>{{aksesoris}}</td>
               </tr>
             </table>
           </div>
           
-          <p class="my-7 text-red-500 text-xs">*text disini juga blm bener</p>
-          <p class="text-sm border" *ngIf="jenis === 'Penggunaan'">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium eaque, molestiae laudantium
-            temporibus deleniti quidem inventore labore. Praesentium quae molestias accusamus quaerat nulla similique,
-            dolorum voluptas autem repellendus. Dolorum cum reiciendis dolores eius quis id alias harum pariatur aliquam
-            autem quas dolore, fuga, ad delectus, temporibus ex et! Eaque labore adipisci unde maiores numquam ex at
-            dolores corrupti cupiditate illo voluptatem commodi quasi sequi magnam sit nihil ipsa quo est reprehenderit,
-            voluptate accusantium. Modi quia quas amet ad vero omnis autem? Architecto itaque alias ratione sequi? Eos
-            sunt, mollitia tenetur eveniet temporibus obcaecati consequuntur illum harum facere blanditiis, maiores
-            exercitationem?</p>
-        </div>
-
+          <br>
         
-        <div class="grid grid-cols-2 gap-32 w-full h-64">
-          <div class="flex items-center justify-center">
-            <div class="text-center">
-              <img class="w-36 aspect-square" src="https://i.pinimg.com/enabled/564x/35/86/9a/35869a7942016a41fef5c21928c1fb40.jpg" alt="">
-              <p>({{pihak_pertama}})</p>
-            </div>
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="text-center">
-              <img class="w-36 aspect-square" src="https://i.pinimg.com/enabled/564x/35/86/9a/35869a7942016a41fef5c21928c1fb40.jpg" alt="">
-              <p>({{nama_pic}})</p>
+          <!-- <p class="text-red-500 text-xs">*untuk teks masih belum oke</p> -->
+          <ng-container *ngIf="jenis === 'Peminjaman'">
+            <p class="text-sm mb-4">
+              Dengan ditandatangani Berita Acara Penggunaan Aset ini, maka <b>Pihak Kedua</b> memiliki kewajiban menjaga dan
+              merawat aset
+              tersebut selama <b>Pihak Kedua</b> menjadi Karyawan <b>Pihak Pertama</b>. Ketika <b>Pihak Kedua</b> tidak lagi
+              menjadi Karyawan <b>Pihak
+                Pertama</b> maka aset tersebut wajib dikembalikan dengan utuh.
+            </p>
+
+            <br>
+
+            <p class="text-sm mb-4">
+              Jika aset mengalami kerusakan yang disebabkan bukan karena
+              kelalaian <b>Pihak Kedua</b> (bukan terjatuh, terkena benda keras, kehujanan, tersiram, dsb) maka <b>Pihak
+                Pertama</b> akan
+              mengganti 100% (dihitung dari nilai total perbaikan). Jika kerusakan akibat force majeur, perampokan, maka <b>Pihak
+                Pertama</b> mengganti 100%. Namun apabila terjadi kerusakan yang disebabkan karena unsur kesengajaan dan kelalaian
+              dari
+              <b>Pihak Kedua</b>, maka <b>Pihak Kedua</b> harus melakukan penggantian sebesar 50% dan total perbaikan. Upgrade
+              terhadap kapasitas
+              aset akan dilakukan sesuai kebutuhan dan kemampuan Perusahaan. <b>Pihak Kedua</b> dilarang melakukan upgrade
+              terhadap
+              kapasitas aset tanpa sepengetahuan <b>Pihak Pertama</b>. Apabila hal tersebut diatas terjadi, maka <b>Pihak
+                Kedua</b> memiliki
+              kewajiban untuk membuat Berita Acara Kejadian. Demikian Berita Acara ini dibuat dengan sebenar-benarnya.
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="jenis === 'Pengembalian'">
+            Alasan pengembalian aset tersebut adalah {{reason}}. Demikian berita acara
+            pengembalian aset ini dibuat agar dapat digunakan sebagaimana mestinya
+          </ng-container>
+          
+          <br>
+          <br>
+
+          <p class="text-sm mb-4">
+            Bukti gambar:
+          </p>
+
+          <div class="w-full grid grid-cols-3 gap-x-5">
+            <div *ngFor="let img of images" class="w-full">
+              <img [src]="img" class="w-full h-auto aspect-square rounded-lg" alt="Image">
             </div>
           </div>
         </div>
+        
+        <p class="text-sm mt-7">
+          {{created_at}}
+        </p>
+        <table class="mt-8 w-full border-collapse">
+          <thead>
+            <tr class="w-1/2 text-center font-semibold outline-none">
+              <td class="outline-none px-2 py-0 w-1/2 font-bold">Yang Menyerahkan:</td>
+              <td class="outline-none px-2 py-0 w-1/2 font-bold">Penerima:</td>
+            </tr>
+            <tr class="w-1/2 text-center font-semibold outline-none">
+              <td class="outline-none px-2 py-0 w-1/2">Pihak Pertama</td>
+              <td class="outline-none px-2 py-0 w-1/2">Pihak Kedua</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="w-1/2 text-center font-semibold outline-none">
+              <!-- Pihak Pertama -->
+              <td class="relative outline-none px-2 py-2 w-1/2 h-40 md:h-52 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Pihak Pertama']">
+                  <ng-container *ngIf="signatoryPositions['Pihak Pertama'].is_sign; else noImagePihakPertama">
+                    <img class="mx-auto my-4 mb-12 w-3/4 aspect-auto"
+                      [src]="signatoryPositions['Pihak Pertama'].sign_img" 
+                      alt="Tanda Tangan Pihak Pertama">
+                  </ng-container>
+                  <ng-template #noImagePihakPertama>
+                    <div class="mx-auto my-4 w-full aspect-auto"></div>
+                  </ng-template>
+                  <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
+                    <!-- <p class="underline" *ngIf="signatoryPositions['Pihak Pertama'].sign_uuid">{{ signatoryPositions['Pihak Pertama'].sign_uuid }}</p> -->
+                    <p class="underline" *ngIf="signatoryPositions['Pihak Pertama'].name">{{ signatoryPositions['Pihak Pertama'].name }}</p>
+                    <p *ngIf="signatoryPositions['Pihak Pertama'].position">{{ signatoryPositions['Pihak Pertama'].position }}</p>
+
+                    <!-- {{ signatoryPositions['Pihak Pertama'].is_guest }} -->
+                  </div>
+                  <button *ngIf="!signatoryPositions['Pihak Pertama'].is_sign " [ngClass]="{'hidden': currentUrl.startsWith('/guest')}" (click)="openModal(form_uuid,signatoryPositions['Pihak Pertama'].sign_uuid, signatoryPositions['Pihak Pertama'].is_guest )" class="text-green-500 text-sm bg-green-100 px-4 py-2 rounded-md border border-green-500">Sign di sini</button>
+                </ng-container>
+              </td>
+              
+              <!-- Pihak Kedua -->
+              <td class="relative outline-none px-2 py-2 w-1/2 font-bold align-top">
+                <ng-container *ngIf="signatoryPositions['Pihak Kedua']">
+                  <ng-container *ngIf="signatoryPositions['Pihak Kedua'].is_sign; else noImagePihakKedua">
+                    <img class="mx-auto my-4 mb-12 w-3/4 aspect-auto"
+                      [src]="signatoryPositions['Pihak Kedua'].sign_img" 
+                      alt="Tanda Tangan Pihak Kedua">
+                  </ng-container>
+                  <ng-template #noImagePihakKedua>
+                    <div class="mx-auto my-4 w-full aspect-auto"></div>
+                  </ng-template>
+                  <div class="text-sm font-medium absolute bottom-2 left-0 right-0 text-center">
+                    <!-- <p class="underline" *ngIf="signatoryPositions['Pihak Kedua'].sign_uuid">{{ signatoryPositions['Pihak Kedua'].sign_uuid }}</p> -->
+                    <p class="underline" *ngIf="signatoryPositions['Pihak Kedua'].name">{{ signatoryPositions['Pihak Kedua'].name }}</p>
+                    <p *ngIf="signatoryPositions['Pihak Kedua'].position">{{ signatoryPositions['Pihak Kedua'].position }}</p>
+
+                    
+                  </div>
+                  <button  *ngIf="!signatoryPositions['Pihak Kedua'].is_sign" (click)="openModal(form_uuid, signatoryPositions['Pihak Kedua'].sign_uuid, signatoryPositions['Pihak Kedua'].is_guest)" class="text-green-500 text-sm bg-green-100 px-4 py-2 rounded-md border border-green-500">Sign di sini</button>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
 
 
       </div>
+      
     </div>
 
+    <!-- <button (click)="bom()">bom</button> -->
 
-    <button (click)="closePreviewPage()"
-      class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
-      <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-        stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 11.996h12"></path>
-        <path d="m12 18-6-6 6-6"></path>
-      </svg>
-      <p>Back</p>
-    </button>
+
+    <div id="download" class="flex items-center justify-between md:px-5">
+      <button onclick="window.history.back();"
+        class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-blue-300 hover:text-blue-400 hover:shadow-blue-300">
+        <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 11.996h12"></path>
+          <path d="m12 18-6-6 6-6"></path>
+        </svg>
+        <p>Back</p>
+      </button>
+      <button (click)="fetchDataAndGeneratePDF(form_uuid)"
+        class="flex items-center mt-6 px-4 py-2 bg-white border rounded-full shadow space-x-4 sticky-top hover:border-red-300 hover:text-red-400 hover:shadow-red-300">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+          <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z"></path>
+          <path d="M12 11v6"></path>
+          <path d="m9 14 3 3 3-3"></path>
+        </svg>
+        Export as PDF
+      </button>
+    </div>
   </div>
 </ng-container>
 
@@ -379,26 +499,26 @@
     <form class="p-6">
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Pihak Pertama</label>
-        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="pihak_pertama"
+        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">Pihak Pertama</label>
+        <input type="text" class="border text-sm rounded-lg p-2 px-3 w-full" [(ngModel)]="pihak_pertama"
           name="pihak_pertama" placeholder="Masukkan Nama Pihak Pertama">
       </div>
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Jabatan Pihak Pertama</label>
-        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="jabatan_pihak_pertama"
+        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">Jabatan Pihak Pertama</label>
+        <input type="text" class="border text-sm rounded-lg p-2 px-3 w-full" [(ngModel)]="jabatan_pihak_pertama"
           name="jabatan_pihak_pertama" placeholder="Masukkan Jabatan Pihak Pertama">
       </div>
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Nama PIC</label>
-        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="nama_pic" name="nama_pic"
+        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">Nama PIC</label>
+        <input type="text" class="border text-sm rounded-lg p-2 px-3 w-full" [(ngModel)]="nama_pic" name="nama_pic"
           placeholder="Masukkan Nama PIC">
       </div>
 
       <div class="mt-4">
-        <label for="daNo" class="text-sm md:text-base mb-1 font-medium">Jabatan PIC</label>
-        <input type="text" class="border text-sm rounded-xl p-2 px-3 w-full" [(ngModel)]="jabatan_pic"
+        <label for="daNo" class="text-sm md:text-[0.875rem] mb-1">Jabatan PIC</label>
+        <input type="text" class="border text-sm rounded-lg p-2 px-3 w-full" [(ngModel)]="jabatan_pic"
           name="jabatan_pic" placeholder="Masukkan Nama Jabatan PIC">
       </div>
     </form>
@@ -409,6 +529,44 @@
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Draft</button>
       <button type="button"
         class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Sign MODAL -->
+<div #modal tabindex="-1" aria-hidden="true" (keydown)="handleKeyDown($event)"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 scale-0 ">
+  <div class="relative flex items-center justify-center mx-4 md:mx-6 z-0">
+    <div class="md:w-1/2 h-fit px-2 py-2 rounded-md shadow-lg border bg-white">
+      <div class="flex items-center mb-6 text-gray-600">
+        <h1 class="text-xl">Signature</h1>
+        
+        <button class="ml-auto" (click)="closeModal()">
+          <svg class=" w-10 h-10" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.25 17.25 6.75 6.75"></path>
+            <path d="m17.25 6.75-10.5 10.5"></path>
+          </svg>
+        </button>
+      </div>
+      <hr class="py-3">
+      <div class="my-2 canvas-container w-full h-full border dashed-custom border-spacing-6">
+        <canvas #sigPad class=""></canvas>
+      </div>
+      <div class="my-2">
+        <p class="text-[0.8rem] font-medium text-gray-500">
+          By signing this document with an electronic signature, I agree that such signature will be as valid as
+          handwritten signatures to the extent allowed by local law
+          <!-- {{form_uuid}} -->
+        </p>
+      </div>
+
+      <div class="flex mt-6 text-sm font-medium">
+        <button (click)="clear()" class="bg-gray-200 px-4 py-2 rounded-md uppercase">Clear</button>
+        <!-- <button (click)="save()">save</button> -->
+        <button (click)="signature(form_uuid, sign_uuid, is_guest)" class="ml-auto bg-green-500 px-4 py-2 text-white rounded-md uppercase">Accept and Sign</button>
+      </div>
     </div>
   </div>
 </div>
